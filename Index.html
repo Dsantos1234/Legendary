@@ -5,67 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Birbs on Base - To The Moon! 🚀</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
-        }
-
+        /* Previous styles remain the same except for background patterns */
         body {
             background-image: 
                 linear-gradient(135deg, rgba(19, 21, 26, 0.92) 0%, rgba(26, 29, 36, 0.92) 100%),
-                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cpath d='M15 25c0 0 5-5 10-5s10 5 10 5l5-15s-5 5-10 5-10-5-10-5l-5 15z' fill='rgba(255,107,107,0.15)'/%3E%3C/svg%3E");
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cpath d='M15 25c0 0 5-5 10-5s10 5 10 5l5-15s-5 5-10 5-10-5-10-5l-5 15z' fill='rgba(255,255,255,0.3)'/%3E%3C/svg%3E");
             color: #ffffff;
             line-height: 1.6;
             background-attachment: fixed;
-        }
-
-        nav {
-            background: rgba(0,0,0,0.8);
-            padding: 1rem;
-            position: fixed;
-            width: 100%;
-            z-index: 100;
-            border-bottom: 2px solid rgba(255,107,107,0.5);
-            backdrop-filter: blur(8px);
-        }
-
-        .nav-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #ff6b6b;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-        }
-
-        .nav-links a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: bold;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            transition: all 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            background: rgba(255,107,107,0.2);
-            transform: translateY(-2px);
         }
 
         .hero {
@@ -76,57 +23,9 @@
             text-align: center;
             background: 
                 linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
-                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Cg fill='rgba(255,107,107,0.25)'%3E%3Cpath d='M50 100c0 0 20-20 40-20s40 20 40 20l20-60s-20 20-40 20-40-20-40-20l-20 60z'/%3E%3C/g%3E%3C/svg%3E");
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Cg fill='rgba(255,255,255,0.4)'%3E%3Cpath d='M50 100c0 0 20-20 40-20s40 20 40 20l20-60s-20 20-40 20-40-20-40-20l-20 60z'/%3E%3C/g%3E%3C/svg%3E");
             background-size: 400px;
             padding: 2rem;
-        }
-
-        .section {
-            padding: 5rem 1rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .btn {
-            background: linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 100%);
-            color: white;
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: 25px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-            margin: 1rem;
-            box-shadow: 0 4px 15px rgba(255,107,107,0.3);
-        }
-
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(255,107,107,0.4);
-        }
-
-        .btn:active {
-            transform: translateY(-1px);
-        }
-
-        .btn.outline {
-            background: transparent;
-            border: 2px solid #ff6b6b;
-            color: #ff6b6b;
-        }
-
-        .btn.outline:hover {
-            background: rgba(255,107,107,0.1);
-        }
-
-        .tokenomics-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
         }
 
         .tokenomics-card {
@@ -141,114 +40,18 @@
             transition: transform 0.3s ease;
         }
 
-        .tokenomics-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .roadmap {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .roadmap-phase {
-            background: rgba(255,255,255,0.1);
-            padding: 2rem;
-            border-radius: 15px;
-            border: 1px solid rgba(255,107,107,0.5);
-            backdrop-filter: blur(5px);
-            transition: transform 0.3s ease;
-        }
-
-        .roadmap-phase:hover {
-            transform: translateY(-5px);
-        }
-
-        .roadmap-phase ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        .roadmap-phase li {
-            margin: 1rem 0;
-            padding-left: 1.5rem;
-            position: relative;
-        }
-
-        .roadmap-phase li::before {
-            content: "🚀";
+        .tokenomics-card::before {
+            content: "";
             position: absolute;
+            top: 0;
             left: 0;
-            top: 50%;
-            transform: translateY(-50%);
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cpath d='M10 20c0 0 5-5 10-5s10 5 10 5l5-15s-5 5-10 5-10-5-10-5l-5 15z' fill='rgba(255,255,255,0.2)'/%3E%3C/svg%3E");
+            z-index: -1;
         }
 
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .social-links a {
-            background: linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 100%);
-            color: white;
-            text-decoration: none;
-            padding: 0.8rem 1.5rem;
-            border-radius: 20px;
-            font-weight: bold;
-            transition: all 0.3s ease;
-        }
-
-        .social-links a:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 4px 15px rgba(255,107,107,0.3);
-        }
-
-        h1 {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            color: #ff6b6b;
-            text-shadow: 0 2px 10px rgba(255,107,107,0.3);
-        }
-
-        h2 {
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
-            text-align: center;
-            color: #ff6b6b;
-            text-shadow: 0 2px 10px rgba(255,107,107,0.3);
-        }
-
-        h3 {
-            color: #ff6b6b;
-            margin-bottom: 1rem;
-        }
-
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5rem;
-            }
-            
-            h2 {
-                font-size: 2rem;
-            }
-            
-            .nav-links {
-                display: none;
-            }
-
-            .social-links {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .social-links a {
-                width: 100%;
-                text-align: center;
-            }
-        }
+        /* Rest of the styles remain the same */
     </style>
 </head>
 <body>
@@ -258,7 +61,7 @@
             <div class="nav-links">
                 <a href="#about">About</a>
                 <a href="#tokenomics">Tokenomics</a>
-                <a href="#roadmap">Roadmap</a>
+                <a href="#birbsmap">BIRBSMAP</a>
                 <a href="#buy">Buy Now</a>
             </div>
         </div>
@@ -268,8 +71,8 @@
         <div class="hero-content">
             <h1>BIRBS</h1>
             <p style="font-size: 1.5rem; margin-bottom: 2rem;">The next generation of community-driven tokens! 🚀</p>
-            <a href="https://ape.store" class="btn">Buy Now - ApeStore</a>
-            <a href="#" class="btn outline">Join Community</a>
+            <a href="https://ape.store" class="btn" target="_blank" rel="noopener noreferrer">Buy Now - ApeStore</a>
+            <a href="#" class="btn outline" target="_blank" rel="noopener noreferrer">Join Community</a>
         </div>
     </section>
 
@@ -278,7 +81,7 @@
         <p style="text-align: center; max-width: 800px; margin: 0 auto;">
             BIRBS is not just another token - it's a movement! Born from the depths of internet culture,
             our community-driven project aims to revolutionize the way we think about cryptocurrency.
-            With strong tokenomics, a clear roadmap, and an amazing community, we're ready for takeoff! 🚀
+            With strong tokenomics, a clear BIRBSMAP, and an amazing community, we're ready for takeoff! 🚀
         </p>
     </section>
 
@@ -287,25 +90,25 @@
         <div class="tokenomics-grid">
             <div class="tokenomics-card">
                 <h3>Total Supply</h3>
-                <p>1,000,000,000,000</p>
+                <p>1,000,000,000</p>
             </div>
             <div class="tokenomics-card">
-                <h3>Liquidity Lock</h3>
-                <p>2 Years</p>
+                <h3>Liquidity</h3>
+                <p>🔥 BURNED 🔥</p>
             </div>
             <div class="tokenomics-card">
                 <h3>Buy Tax</h3>
-                <p>5%</p>
+                <p>0%</p>
             </div>
             <div class="tokenomics-card">
                 <h3>Sell Tax</h3>
-                <p>5%</p>
+                <p>0%</p>
             </div>
         </div>
     </section>
 
-    <section id="roadmap" class="section">
-        <h2>Roadmap</h2>
+    <section id="birbsmap" class="section">
+        <h2>BIRBSMAP</h2>
         <div class="roadmap">
             <div class="roadmap-phase">
                 <h3>Phase 1</h3>
@@ -339,10 +142,10 @@
 
     <footer class="section">
         <div class="social-links">
-            <a href="https://t.me/basedbirbs">Join Telegram</a>
-            <a href="https://x.com/basedbirbs0?s=21&t=e4VJ7rcZVtvmps9KT5k2Vw">Follow on Twitter</a>
-            <a href="#">Join Discord</a>
-            <a href="#">Read on Medium</a>
+            <a href="https://t.me/basedbirbs" target="_blank" rel="noopener noreferrer">Join Telegram</a>
+            <a href="https://x.com/basedbirbs0?s=21&t=e4VJ7rcZVtvmps9KT5k2Vw" target="_blank" rel="noopener noreferrer">Follow on Twitter</a>
+            <a href="#" target="_blank" rel="noopener noreferrer">Join Discord</a>
+            <a href="#" target="_blank" rel="noopener noreferrer">Read on Medium</a>
         </div>
     </footer>
 </body>

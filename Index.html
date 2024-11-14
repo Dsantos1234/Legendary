@@ -3,8 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Birbs on Base - To The Moon! 🚀</title>
+    <!-- Customizable Variables -->
+    <script>
+        const SITE_CONFIG = {
+            tokenName: "BIRBS",
+            totalSupply: "1,000,000,000",
+            buyTax: "0%",
+            sellTax: "0%",
+            liquidityStatus: "🔥 BURNED 🔥",
+            links: {
+                telegram: "https://t.me/basedbirbs",
+                twitter: "https://x.com/basedbirbs0?s=21&t=e4VJ7rcZVtvmps9KT5k2Vw",
+                buyLink: "https://ape.store"
+            },
+            theme: {
+                primary: "#ff4d4d",
+                primaryLight: "#ff6666",
+                background: "rgba(13, 15, 20, 0.95)",
+                backgroundDark: "rgba(20, 23, 30, 0.95)"
+            }
+        };
+    </script>
+    <title id="pageTitle"></title>
     <style>
+        :root {
+            --primary: #ff4d4d;
+            --primary-light: #ff6666;
+            --background: rgba(13, 15, 20, 0.95);
+            --background-dark: rgba(20, 23, 30, 0.95);
+            --card-bg: rgba(0, 0, 0, 0.3);
+            --white: #ffffff;
+        }
+
+        /* Theme colors are now using CSS variables */
         * {
             margin: 0;
             padding: 0;
@@ -12,27 +43,60 @@
             font-family: 'Arial', sans-serif;
         }
 
-        /* Updated background with white birds on dark gradient */
         body {
             background-image: 
-                linear-gradient(135deg, rgba(13, 15, 20, 0.95) 0%, rgba(20, 23, 30, 0.95) 100%),
+                linear-gradient(135deg, var(--background) 0%, var(--background-dark) 100%),
                 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cpath d='M15 25c0 0 5-5 10-5s10 5 10 5l5-15s-5 5-10 5-10-5-10-5l-5 15z' fill='rgba(255,255,255,0.3)'/%3E%3C/svg%3E");
-            color: #ffffff;
+            color: var(--white);
             line-height: 1.6;
             background-attachment: fixed;
         }
 
+        /* Component Classes */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .flex-center {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            border: 1px solid var(--primary);
+            backdrop-filter: blur(5px);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Navigation */
         nav {
             background: rgba(0,0,0,0.85);
             padding: 1rem;
             position: fixed;
             width: 100%;
             z-index: 100;
-            border-bottom: 2px solid #ff4d4d;
+            border-bottom: 2px solid var(--primary);
             backdrop-filter: blur(8px);
         }
 
-        /* Updated hero background with more visible birds */
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Hero Section */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -46,9 +110,10 @@
             padding: 2rem;
         }
 
+        /* Buttons */
         .btn {
-            background: linear-gradient(135deg, #ff4d4d 0%, #ff6666 100%);
-            color: white;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: var(--white);
             padding: 1rem 2rem;
             border: none;
             border-radius: 25px;
@@ -64,55 +129,43 @@
 
         .btn.outline {
             background: transparent;
-            border: 2px solid #ff4d4d;
-            color: #ff4d4d;
+            border: 2px solid var(--primary);
+            color: var(--primary);
         }
 
-        /* Updated card styles with better contrast */
-        .tokenomics-card {
-            background: rgba(0,0,0,0.3);
-            padding: 2rem;
-            border-radius: 15px;
-            text-align: center;
-            border: 1px solid #ff4d4d;
-            backdrop-filter: blur(5px);
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.3s ease;
+        /* Grid Layouts */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
         }
 
-        .tokenomics-card::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cpath d='M10 20c0 0 5-5 10-5s10 5 10 5l5-15s-5 5-10 5-10-5-10-5l-5 15z' fill='rgba(255,255,255,0.2)'/%3E%3C/svg%3E");
-            z-index: -1;
-        }
-
-        .roadmap-phase {
-            background: rgba(0,0,0,0.3);
-            padding: 2rem;
-            border-radius: 15px;
-            border: 1px solid #ff4d4d;
-            backdrop-filter: blur(5px);
-            transition: transform 0.3s ease;
-        }
-
+        /* Typography */
         h1, h2, h3 {
-            color: #ff4d4d;
+            color: var(--primary);
             text-shadow: 0 2px 10px rgba(255,77,77,0.3);
         }
 
-        /* Keep other existing styles */
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .social-links {
+                flex-direction: column;
+                align-items: center;
+            }
+            .social-links a {
+                width: 100%;
+                text-align: center;
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- Navigation -->
     <nav>
         <div class="nav-content">
-            <a href="#" class="logo">🚀 BIRBS</a>
+            <a href="#" class="logo">🚀 <span id="navBrand"></span></a>
             <div class="nav-links">
                 <a href="#about">About</a>
                 <a href="#tokenomics">Tokenomics</a>
@@ -122,17 +175,19 @@
         </div>
     </nav>
 
+    <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <h1>BIRBS</h1>
+            <h1 id="heroTitle"></h1>
             <p style="font-size: 1.5rem; margin-bottom: 2rem;">The next generation of community-driven tokens! 🚀</p>
-            <a href="https://ape.store" class="btn" target="_blank" rel="noopener noreferrer">Buy Now - ApeStore</a>
+            <a href="" id="buyButton" class="btn" target="_blank" rel="noopener noreferrer">Buy Now - ApeStore</a>
             <a href="#" class="btn outline" target="_blank" rel="noopener noreferrer">Join Community</a>
         </div>
     </section>
 
-    <section id="about" class="section">
-        <h2>About BIRBS</h2>
+    <!-- About Section -->
+    <section id="about" class="section container">
+        <h2>About <span class="tokenName"></span></h2>
         <p style="text-align: center; max-width: 800px; margin: 0 auto;">
             BIRBS is not just another token - it's a movement! Born from the depths of internet culture,
             our community-driven project aims to revolutionize the way we think about cryptocurrency.
@@ -140,32 +195,34 @@
         </p>
     </section>
 
-    <section id="tokenomics" class="section">
+    <!-- Tokenomics Section -->
+    <section id="tokenomics" class="section container">
         <h2>Tokenomics</h2>
-        <div class="tokenomics-grid">
-            <div class="tokenomics-card">
+        <div class="grid">
+            <div class="card tokenomics-card">
                 <h3>Total Supply</h3>
-                <p>1,000,000,000</p>
+                <p id="totalSupply"></p>
             </div>
-            <div class="tokenomics-card">
+            <div class="card tokenomics-card">
                 <h3>Liquidity</h3>
-                <p>🔥 BURNED 🔥</p>
+                <p id="liquidity"></p>
             </div>
-            <div class="tokenomics-card">
+            <div class="card tokenomics-card">
                 <h3>Buy Tax</h3>
-                <p>0%</p>
+                <p id="buyTax"></p>
             </div>
-            <div class="tokenomics-card">
+            <div class="card tokenomics-card">
                 <h3>Sell Tax</h3>
-                <p>0%</p>
+                <p id="sellTax"></p>
             </div>
         </div>
     </section>
 
-    <section id="birbsmap" class="section">
+    <!-- Birbsmap Section -->
+    <section id="birbsmap" class="section container">
         <h2>BIRBSMAP</h2>
-        <div class="roadmap">
-            <div class="roadmap-phase">
+        <div class="grid">
+            <div class="card roadmap-phase">
                 <h3>Phase 1</h3>
                 <ul>
                     <li>Website Launch</li>
@@ -174,7 +231,7 @@
                     <li>Marketing Campaign</li>
                 </ul>
             </div>
-            <div class="roadmap-phase">
+            <div class="card roadmap-phase">
                 <h3>Phase 2</h3>
                 <ul>
                     <li>CEX Listings</li>
@@ -183,7 +240,7 @@
                     <li>Community Events</li>
                 </ul>
             </div>
-            <div class="roadmap-phase">
+            <div class="card roadmap-phase">
                 <h3>Phase 3</h3>
                 <ul>
                     <li>Major CEX Listings</li>
@@ -195,11 +252,38 @@
         </div>
     </section>
 
-    <footer class="section">
-        <div class="social-links">
-            <a href="https://t.me/basedbirbs" target="_blank" rel="noopener noreferrer">Join Telegram</a>
-            <a href="https://x.com/basedbirbs0?s=21&t=e4VJ7rcZVtvmps9KT5k2Vw" target="_blank" rel="noopener noreferrer">Follow on Twitter</a>
+    <!-- Footer -->
+    <footer class="section container">
+        <div class="social-links grid" style="grid-template-columns: repeat(2, 1fr);">
+            <a href="" id="telegramLink" target="_blank" rel="noopener noreferrer">Join Telegram</a>
+            <a href="" id="twitterLink" target="_blank" rel="noopener noreferrer">Follow on Twitter</a>
         </div>
     </footer>
+
+    <!-- Initialize Site -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set theme colors
+            const root = document.documentElement;
+            root.style.setProperty('--primary', SITE_CONFIG.theme.primary);
+            root.style.setProperty('--primary-light', SITE_CONFIG.theme.primaryLight);
+            root.style.setProperty('--background', SITE_CONFIG.theme.background);
+            root.style.setProperty('--background-dark', SITE_CONFIG.theme.backgroundDark);
+
+            // Update content
+            document.getElementById('pageTitle').textContent = `${SITE_CONFIG.tokenName} - To The Moon! 🚀`;
+            document.getElementById('navBrand').textContent = SITE_CONFIG.tokenName;
+            document.getElementById('heroTitle').textContent = SITE_CONFIG.tokenName;
+            document.getElementById('totalSupply').textContent = SITE_CONFIG.totalSupply;
+            document.getElementById('liquidity').textContent = SITE_CONFIG.liquidityStatus;
+            document.getElementById('buyTax').textContent = SITE_CONFIG.buyTax;
+            document.getElementById('sellTax').textContent = SITE_CONFIG.sellTax;
+            
+            // Set links
+            document.getElementById('buyButton').href = SITE_CONFIG.links.buyLink;
+            document.getElementById('telegramLink').href = SITE_CONFIG.links.telegram;
+            document.getElementById('twitterLink').href = SITE_CONFIG.links.twitter;
+        });
+    </script>
 </body>
 </html>

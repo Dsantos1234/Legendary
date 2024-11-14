@@ -12,8 +12,8 @@
 
         body {
             background-image: 
-                linear-gradient(135deg, rgba(19, 21, 26, 0.95) 0%, rgba(26, 29, 36, 0.95) 100%),
-                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cpath d='M15 25c0 0 5-5 10-5s10 5 10 5l5-15s-5 5-10 5-10-5-10-5l-5 15z' fill='rgba(255,255,255,0.05)'/%3E%3C/svg%3E");
+                linear-gradient(135deg, rgba(19, 21, 26, 0.92) 0%, rgba(26, 29, 36, 0.92) 100%),
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cpath d='M15 25c0 0 5-5 10-5s10 5 10 5l5-15s-5 5-10 5-10-5-10-5l-5 15z' fill='rgba(255,107,107,0.15)'/%3E%3C/svg%3E");
             color: #ffffff;
             line-height: 1.6;
             background-attachment: fixed;
@@ -25,7 +25,7 @@
             position: fixed;
             width: 100%;
             z-index: 100;
-            border-bottom: 2px solid rgba(255,107,107,0.3);
+            border-bottom: 2px solid rgba(255,107,107,0.5);
         }
 
         .hero {
@@ -36,8 +36,10 @@
             text-align: center;
             background: 
                 linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
-                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Cg fill='rgba(255,107,107,0.1)'%3E%3Cpath d='M50 100c0 0 20-20 40-20s40 20 40 20l20-60s-20 20-40 20-40-20-40-20l-20 60z'/%3E%3C/g%3E%3C/svg%3E");
-            background-size: 400px;
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Cg fill='rgba(255,107,107,0.25)'%3E%3Cpath d='M50 100c0 0 20-20 40-20s40 20 40 20l20-60s-20 20-40 20-40-20-40-20l-20 60z'/%3E%3C/g%3E%3C/svg%3E"),
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 150 150'%3E%3Cg fill='rgba(255,255,255,0.1)'%3E%3Cpath d='M37.5 75c0 0 15-15 30-15s30 15 30 15l15-45s-15 15-30 15-30-15-30-15l-15 45z'/%3E%3C/g%3E%3C/svg%3E");
+            background-size: 400px, 300px;
+            background-position: center, center;
             position: relative;
         }
 
@@ -46,7 +48,7 @@
             padding: 2rem;
             border-radius: 10px;
             text-align: center;
-            border: 1px solid rgba(255,107,107,0.3);
+            border: 1px solid rgba(255,107,107,0.5);
             backdrop-filter: blur(5px);
             position: relative;
             overflow: hidden;
@@ -59,7 +61,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cpath d='M10 20c0 0 5-5 10-5s10 5 10 5l5-15s-5 5-10 5-10-5-10-5l-5 15z' fill='rgba(255,255,255,0.03)'/%3E%3C/svg%3E");
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cpath d='M10 20c0 0 5-5 10-5s10 5 10 5l5-15s-5 5-10 5-10-5-10-5l-5 15z' fill='rgba(255,107,107,0.1)'/%3E%3C/svg%3E");
             z-index: -1;
         }
 
@@ -67,12 +69,28 @@
             background: rgba(255,255,255,0.1);
             padding: 2rem;
             border-radius: 10px;
-            border: 1px solid rgba(255,107,107,0.3);
+            border: 1px solid rgba(255,107,107,0.5);
             backdrop-filter: blur(5px);
+            position: relative;
+            overflow: hidden;
         }
 
+        .roadmap-phase::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='50' viewBox='0 0 50 50'%3E%3Cpath d='M12.5 25c0 0 6.25-6.25 12.5-6.25S37.5 25 37.5 25l6.25-18.75s-6.25 6.25-12.5 6.25S18.75 6.25 18.75 6.25L12.5 25z' fill='rgba(255,107,107,0.1)'/%3E%3C/svg%3E");
+            z-index: -1;
+            opacity: 0.7;
+        }
+
+        /* Keep all other existing styles */
     </style>
 </head>
+<!-- Keep the rest of the HTML code exactly the same -->
 </body>
 </html>
 

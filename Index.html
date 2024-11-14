@@ -87,12 +87,39 @@
             text-shadow: var(--neon-box-shadow);
         }
 
-       <div class="hero-content">
-    <h1 class="neon-text">BASED BIRBS</h1>
-    <p style="margin-bottom: 3rem;">THE MOST BASED TOKEN ON BASE</p>
-    <a href="https://ape.store" class="btn" target="_blank" rel="noopener noreferrer">Buy Now - ApeStore</a>
-    <a href="https://t.me/basedbirbs" class="btn outline" target="_blank" rel="noopener noreferrer">Join Community</a>
-</div>
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: repeating-linear-gradient(
+                45deg,
+                #000000,
+                #000000 10px,
+                #0a0a0a 10px,
+                #0a0a0a 20px
+            );
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(0,255,0,0.1) 0%, transparent 100%);
+            pointer-events: none;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            margin-bottom: 2rem;
+            letter-spacing: 0.5rem;
         }
 
         .section {

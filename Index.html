@@ -11,69 +11,51 @@
             font-family: 'Arial', sans-serif;
         }
 
+       <!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Keep existing meta tags and scripts -->
+    <title>Birbs on Base - To The Moon! 🚀</title>
+    <style>
+        /* Keep existing styles and add/modify: */
         body {
-            background: linear-gradient(135deg, #13151a 0%, #1a1d24 100%);
-            color: #ffffff;
-            line-height: 1.6;
-        }
-
-        nav {
-            background: rgba(0,0,0,0.8);
-            padding: 1rem;
-            position: fixed;
-            width: 100%;
-            z-index: 100;
-        }
-
-        .nav-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-        }
-
-        .nav-links a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: bold;
+            background: linear-gradient(135deg, #1a4761 0%, #2c3e50 100%);
+            background-image: url("data:image/svg+xml,%3Csvg width='52' height='26' viewBox='0 0 52 26' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M10 10c0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6h2c0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4v2c-3.314 0-6-2.686-6-6 0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6zm25.464-1.95l8.486 8.486-1.414 1.414-8.486-8.486 1.414-1.414z' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
         }
 
         .hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            background: url('/api/placeholder/1920/1080') center/cover;
-            position: relative;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('/api/placeholder/1920/1080') center/cover;
         }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-content">
+            <div class="logo">🐦 Birbs on Base</div>
+            <!-- Keep existing nav-links -->
+        </div>
+    </nav>
 
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.5);
-        }
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Birbs on Base</h1>
+            <!-- Keep existing hero content -->
+        </div>
+    </section>
 
-        .hero-content {
-            position: relative;
-            z-index: 1;
-        }
+    <section id="about" class="section" data-aos="fade-up">
+        <h2>About Birbs on Base</h2>
+        <p style="text-align: center; max-width: 800px; margin: 0 auto;">
+            Birbs on Base is not just another token - it's a movement! Born from the depths of internet culture,
+            our community-driven project aims to revolutionize the way we think about cryptocurrency.
+            With strong tokenomics, a clear roadmap, and an amazing community, we're ready to take flight! 🐦
+        </p>
+    </section>
 
-        .section {
-            padding: 5rem 1rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+    <!-- Keep existing sections -->
+    <!-- Keep existing footer with updated social links -->
+</body>
+</html> body {
 
         .tokenomics-grid {
             display: grid;

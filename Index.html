@@ -252,8 +252,8 @@
         <div class="hero-content">
             <h1 class="neon-text">BASED BIRBS</h1>
             <p style="margin-bottom: 3rem;">THE MOST BASED TOKEN ON BASE</p>
-            <a href="" id="buyButton" class="btn" target="_blank" rel="noopener noreferrer">Buy Now</a>
-            <a href="#" class="btn outline" target="_blank" rel="noopener noreferrer">Join Community</a>
+            <a href="https://ape.store" class="btn" target="_blank" rel="noopener noreferrer">Buy Now - ApeStore</a>
+            <a href="https://t.me/basedbirbs" class="btn outline" target="_blank" rel="noopener noreferrer">Join Community</a>
         </div>
     </section>
 
@@ -323,13 +323,19 @@
 
     <footer class="section container">
         <div class="social-links grid" style="grid-template-columns: repeat(2, 1fr);">
-            <a href="" id="telegramLink" target="_blank" rel="noopener noreferrer">Join Telegram</a>
-            <a href="" id="twitterLink" target="_blank" rel="noopener noreferrer">Follow on Twitter</a>
+            <a href="https://t.me/basedbirbs" target="_blank" rel="noopener noreferrer">Join Telegram</a>
+            <a href="https://x.com/basedbirbs0?s=21&t=e4VJ7rcZVtvmps9KT5k2Vw" target="_blank" rel="noopener noreferrer">Follow on Twitter</a>
         </div>
     </footer>
 
     <script>
-        // Initialize site content (unchanged)
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('pageTitle').textContent = `${SITE_CONFIG.tokenName} - To The Moon! 🚀`;
+            document.getElementById('totalSupply').textContent = SITE_CONFIG.totalSupply;
+            document.getElementById('liquidity').textContent = SITE_CONFIG.liquidityStatus;
+            document.getElementById('buyTax').textContent = SITE_CONFIG.buyTax;
+            document.getElementById('sellTax').textContent = SITE_CONFIG.sellTax;
+        });
     </script>
 </body>
 </html>

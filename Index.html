@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Birbs on Base - To The Moon! 🚀</title>
     <style>
         * {
@@ -26,77 +28,233 @@
             width: 100%;
             z-index: 100;
             border-bottom: 2px solid rgba(255,107,107,0.5);
+            backdrop-filter: blur(8px);
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ff6b6b;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255,107,107,0.2);
+            transform: translateY(-2px);
         }
 
         .hero {
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
             background: 
                 linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
-                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Cg fill='rgba(255,107,107,0.25)'%3E%3Cpath d='M50 100c0 0 20-20 40-20s40 20 40 20l20-60s-20 20-40 20-40-20-40-20l-20 60z'/%3E%3C/g%3E%3C/svg%3E"),
-                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 150 150'%3E%3Cg fill='rgba(255,255,255,0.1)'%3E%3Cpath d='M37.5 75c0 0 15-15 30-15s30 15 30 15l15-45s-15 15-30 15-30-15-30-15l-15 45z'/%3E%3C/g%3E%3C/svg%3E");
-            background-size: 400px, 300px;
-            background-position: center, center;
-            position: relative;
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Cg fill='rgba(255,107,107,0.25)'%3E%3Cpath d='M50 100c0 0 20-20 40-20s40 20 40 20l20-60s-20 20-40 20-40-20-40-20l-20 60z'/%3E%3C/g%3E%3C/svg%3E");
+            background-size: 400px;
+            padding: 2rem;
+        }
+
+        .section {
+            padding: 5rem 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin: 1rem;
+            box-shadow: 0 4px 15px rgba(255,107,107,0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255,107,107,0.4);
+        }
+
+        .btn:active {
+            transform: translateY(-1px);
+        }
+
+        .btn.outline {
+            background: transparent;
+            border: 2px solid #ff6b6b;
+            color: #ff6b6b;
+        }
+
+        .btn.outline:hover {
+            background: rgba(255,107,107,0.1);
+        }
+
+        .tokenomics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
         }
 
         .tokenomics-card {
             background: rgba(255,255,255,0.1);
             padding: 2rem;
-            border-radius: 10px;
+            border-radius: 15px;
             text-align: center;
             border: 1px solid rgba(255,107,107,0.5);
             backdrop-filter: blur(5px);
             position: relative;
             overflow: hidden;
+            transition: transform 0.3s ease;
         }
 
-        .tokenomics-card::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cpath d='M10 20c0 0 5-5 10-5s10 5 10 5l5-15s-5 5-10 5-10-5-10-5l-5 15z' fill='rgba(255,107,107,0.1)'/%3E%3C/svg%3E");
-            z-index: -1;
+        .tokenomics-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .roadmap {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
         }
 
         .roadmap-phase {
             background: rgba(255,255,255,0.1);
             padding: 2rem;
-            border-radius: 10px;
+            border-radius: 15px;
             border: 1px solid rgba(255,107,107,0.5);
             backdrop-filter: blur(5px);
+            transition: transform 0.3s ease;
+        }
+
+        .roadmap-phase:hover {
+            transform: translateY(-5px);
+        }
+
+        .roadmap-phase ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .roadmap-phase li {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
             position: relative;
-            overflow: hidden;
         }
 
-        .roadmap-phase::before {
-            content: "";
+        .roadmap-phase li::before {
+            content: "🚀";
             position: absolute;
-            top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
-            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='50' viewBox='0 0 50 50'%3E%3Cpath d='M12.5 25c0 0 6.25-6.25 12.5-6.25S37.5 25 37.5 25l6.25-18.75s-6.25 6.25-12.5 6.25S18.75 6.25 18.75 6.25L12.5 25z' fill='rgba(255,107,107,0.1)'/%3E%3C/svg%3E");
-            z-index: -1;
-            opacity: 0.7;
+            top: 50%;
+            transform: translateY(-50%);
         }
 
-        /* Keep all other existing styles */
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .social-links a {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 100%);
+            color: white;
+            text-decoration: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 20px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(255,107,107,0.3);
+        }
+
+        h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            color: #ff6b6b;
+            text-shadow: 0 2px 10px rgba(255,107,107,0.3);
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: #ff6b6b;
+            text-shadow: 0 2px 10px rgba(255,107,107,0.3);
+        }
+
+        h3 {
+            color: #ff6b6b;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            h2 {
+                font-size: 2rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+
+            .social-links {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .social-links a {
+                width: 100%;
+                text-align: center;
+            }
+        }
     </style>
 </head>
-<!-- Keep the rest of the HTML code exactly the same -->
-</body>
-</html>
-
+<body>
     <nav>
         <div class="nav-content">
-            <div class="logo">🚀 MEMECOIN</div>
+            <a href="#" class="logo">🚀 BIRBS</a>
             <div class="nav-links">
                 <a href="#about">About</a>
                 <a href="#tokenomics">Tokenomics</a>
@@ -106,25 +264,25 @@
         </div>
     </nav>
 
-  <section class="hero">
-   <div class="hero-content">
-       <h1>MEMECOIN</h1>
-       <p style="font-size: 1.5rem; margin-bottom: 2rem;">The next generation of community-driven tokens! 🚀</p>
-       <a href="https://ape.store" class="btn">Buy Now - ApeStore</a>
-       <a href="#" class="btn">Join Community</a>
-   </div>
-</section>
+    <section class="hero">
+        <div class="hero-content">
+            <h1>BIRBS</h1>
+            <p style="font-size: 1.5rem; margin-bottom: 2rem;">The next generation of community-driven tokens! 🚀</p>
+            <a href="https://ape.store" class="btn">Buy Now - ApeStore</a>
+            <a href="#" class="btn outline">Join Community</a>
+        </div>
+    </section>
 
-    <section id="about" class="section" data-aos="fade-up">
-        <h2>About MEMECOIN</h2>
+    <section id="about" class="section">
+        <h2>About BIRBS</h2>
         <p style="text-align: center; max-width: 800px; margin: 0 auto;">
-            MEMECOIN is not just another token - it's a movement! Born from the depths of internet culture,
+            BIRBS is not just another token - it's a movement! Born from the depths of internet culture,
             our community-driven project aims to revolutionize the way we think about cryptocurrency.
             With strong tokenomics, a clear roadmap, and an amazing community, we're ready for takeoff! 🚀
         </p>
     </section>
 
-    <section id="tokenomics" class="section" data-aos="fade-up">
+    <section id="tokenomics" class="section">
         <h2>Tokenomics</h2>
         <div class="tokenomics-grid">
             <div class="tokenomics-card">
@@ -146,7 +304,7 @@
         </div>
     </section>
 
-    <section id="roadmap" class="section" data-aos="fade-up">
+    <section id="roadmap" class="section">
         <h2>Roadmap</h2>
         <div class="roadmap">
             <div class="roadmap-phase">
@@ -180,19 +338,12 @@
     </section>
 
     <footer class="section">
-    <div class="social-links">
-        <a href="https://t.me/basedbirbs">Telegram</a>
-        <a href="https://x.com/basedbirbs0?s=21&t=e4VJ7rcZVtvmps9KT5k2Vw">Twitter</a>
-        <a href="#">Discord</a>
-        <a href="#">Medium</a>
-    </div>
-</footer>
-
-    <script>
-        AOS.init({
-            duration: 1000,
-            once: true
-        });
-    </script>
+        <div class="social-links">
+            <a href="https://t.me/basedbirbs">Join Telegram</a>
+            <a href="https://x.com/basedbirbs0?s=21&t=e4VJ7rcZVtvmps9KT5k2Vw">Follow on Twitter</a>
+            <a href="#">Join Discord</a>
+            <a href="#">Read on Medium</a>
+        </div>
+    </footer>
 </body>
 </html>

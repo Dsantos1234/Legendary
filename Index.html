@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZOOTOKEN - Farm Like Animals!</title>
+    <title>ZOOTOKEN - Ultimate Animal DeFi</title>
     <style>
         :root {
             --primary: #4CAF50;
@@ -11,7 +11,13 @@
             --accent: #FF9800;
             --background: #1a1a1a;
             --card-bg: #2d2d2d;
+            --card-bg-hover: #3d3d3d;
             --text: #ffffff;
+            --text-secondary: #b3b3b3;
+            --success: #4CAF50;
+            --warning: #FFC107;
+            --danger: #f44336;
+            --border-radius: 12px;
         }
 
         * {
@@ -25,6 +31,7 @@
             background: var(--background);
             color: var(--text);
             line-height: 1.6;
+            min-height: 100vh;
         }
 
         .container {
@@ -33,48 +40,144 @@
             padding: 20px;
         }
 
+        /* Navigation Styles */
         nav {
             background: var(--card-bg);
             padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 2rem;
-            border-radius: 10px;
         }
 
         .logo {
             font-size: 24px;
             font-weight: bold;
             color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
         }
 
         .nav-links a {
             color: var(--text);
             text-decoration: none;
-            margin-left: 20px;
+            padding: 8px 16px;
+            border-radius: var(--border-radius);
+            transition: background 0.3s;
         }
 
-        .hero {
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
-            padding: 2rem;
-            border-radius: 10px;
-            margin-bottom: 2rem;
-            text-align: center;
+        .nav-links a:hover {
+            background: var(--card-bg-hover);
         }
 
-        .stats-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
-            margin-bottom: 2rem;
+        .connect-wallet {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: opacity 0.3s;
         }
 
-        .stat-card {
+        /* Card Styles */
+        .card {
             background: var(--card-bg);
-            padding: 1.5rem;
-            border-radius: 10px;
-            text-align: center;
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        /* Grid Layouts */
+        .grid {
+            display: grid;
+            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+
+        /* Form Elements */
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--text-secondary);
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            background: var(--background);
+            border: 1px solid var(--card-bg-hover);
+            border-radius: var(--border-radius);
+            color: var(--text);
+            font-size: 16px;
+        }
+
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: bold;
+            transition: opacity 0.3s;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            cursor: pointer;
+        }
+
+        .tab.active {
+            background: var(--primary);
+        }
+
+        /* Custom Components */
+        .stat-card {
+            padding: 20px;
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            transition: transform 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
         }
 
         .stat-value {
@@ -83,244 +186,217 @@
             color: var(--accent);
         }
 
-        .pools-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
         .pool-card {
             background: var(--card-bg);
-            padding: 1.5rem;
-            border-radius: 10px;
+            border-radius: var(--border-radius);
+            padding: 20px;
             position: relative;
-            overflow: hidden;
-        }
-
-        .pool-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-
-        .pool-icon {
-            font-size: 2rem;
-            margin-right: 1rem;
-        }
-
-        .pool-stats {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .input-group {
-            margin-bottom: 1rem;
-        }
-
-        input {
-            width: 100%;
-            padding: 0.5rem;
-            background: var(--background);
-            border: 1px solid var(--primary);
-            border-radius: 5px;
-            color: var(--text);
-        }
-
-        button {
-            width: 100%;
-            padding: 0.8rem;
-            background: var(--primary);
-            border: none;
-            border-radius: 5px;
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-            transition: opacity 0.2s;
-        }
-
-        button:hover {
-            opacity: 0.9;
-        }
-
-        .alert {
-            background: var(--accent);
-            color: white;
-            padding: 1rem;
-            border-radius: 5px;
-            margin-bottom: 1rem;
         }
 
         .animal-badge {
             position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 2rem;
+            top: 20px;
+            right: 20px;
+            font-size: 30px;
         }
 
-        .rewards-calculator {
+        .chart-container {
+            width: 100%;
+            height: 300px;
+            margin: 20px 0;
+        }
+
+        /* Pages */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        /* Tooltips */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
             background: var(--card-bg);
-            padding: 1.5rem;
-            border-radius: 10px;
-            margin-bottom: 2rem;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            white-space: nowrap;
         }
     </style>
 </head>
 <body>
     <nav>
-        <div class="logo">🦁 ZOOTOKEN</div>
-        <div class="nav-links">
-            <a href="#" onclick="showSection('dashboard')">Dashboard</a>
-            <a href="#" onclick="showSection('stake')">Stake</a>
-            <a href="#" onclick="showSection('farms')">Farms</a>
+        <div class="nav-content">
+            <div class="logo">🦁 ZOOTOKEN</div>
+            <div class="nav-links">
+                <a href="#" onclick="showPage('dashboard')">Dashboard</a>
+                <a href="#" onclick="showPage('stake')">Staking</a>
+                <a href="#" onclick="showPage('farms')">Farms</a>
+                <a href="#" onclick="showPage('pools')">Pools</a>
+                <a href="#" onclick="showPage('governance')">Governance</a>
+                <a href="#" onclick="showPage('analytics')">Analytics</a>
+            </div>
+            <button class="connect-wallet" onclick="connectWallet()">Connect Wallet</button>
         </div>
     </nav>
 
     <div class="container">
-        <div class="hero">
-            <h1>Welcome to the ZOOTOKEN Jungle! 🌴</h1>
-            <p>Stake, Farm, and Earn like the Animal Kingdom!</p>
+        <!-- Dashboard Page -->
+        <div id="dashboard" class="page active">
+            <h1>Dashboard</h1>
+            <div class="grid">
+                <div class="stat-card">
+                    <h3>ZOOTOKEN Price</h3>
+                    <div class="stat-value">$0.0042</div>
+                    <div class="chart-container" id="price-chart"></div>
+                </div>
+                <div class="stat-card">
+                    <h3>Total Value Locked</h3>
+                    <div class="stat-value">$4,206,900</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Market Cap</h3>
+                    <div class="stat-value">$42,069,000</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Your Portfolio</h2>
+                <div class="portfolio-summary">
+                    <p>Connect wallet to view your holdings</p>
+                </div>
+            </div>
         </div>
 
-        <div class="stats-container">
-            <div class="stat-card">
-                <h3>ZOOTOKEN Price</h3>
-                <div class="stat-value">$0.0042</div>
+        <!-- Staking Page -->
+        <div id="stake" class="page">
+            <h1>Staking</h1>
+            <div class="tabs">
+                <div class="tab active">Single Stake</div>
+                <div class="tab">LP Stake</div>
             </div>
-            <div class="stat-card">
-                <h3>Total Value Locked</h3>
-                <div class="stat-value">$4,206,900</div>
-            </div>
-            <div class="stat-card">
-                <h3>Total ZOO Staked</h3>
-                <div class="stat-value">69,420,000</div>
+
+            <div class="grid">
+                <div class="pool-card">
+                    <div class="animal-badge">🦁</div>
+                    <h3>Lion Pool - Alpha</h3>
+                    <div class="stats">
+                        <div>APY: 420%</div>
+                        <div>TVL: $1.2M</div>
+                        <div>Your Stake: 0 ZOO</div>
+                    </div>
+                    <div class="input-group">
+                        <input type="number" placeholder="Enter amount...">
+                        <button onclick="stake('lion')">Stake ZOO</button>
+                    </div>
+                </div>
+                <!-- Add more pool cards -->
             </div>
         </div>
 
-        <div class="rewards-calculator">
-            <h2>🧮 Rewards Calculator</h2>
-            <div class="input-group">
-                <label>Amount to Stake</label>
-                <input type="number" id="stakeAmount" placeholder="Enter amount..." oninput="calculateRewards()">
+        <!-- Farms Page -->
+        <div id="farms" class="page">
+            <h1>Yield Farms</h1>
+            <div class="grid">
+                <div class="pool-card">
+                    <div class="animal-badge">🐘</div>
+                    <h3>Elephant Farm - ZOO/ETH</h3>
+                    <div class="stats">
+                        <div>APR: 280%</div>
+                        <div>TVL: $2.4M</div>
+                        <div>Your LP: 0</div>
+                    </div>
+                    <div class="input-group">
+                        <input type="number" placeholder="Enter LP amount...">
+                        <button onclick="farm('elephant')">Farm</button>
+                    </div>
+                </div>
+                <!-- Add more farm cards -->
             </div>
-            <div class="input-group">
-                <label>Staking Period (Days)</label>
-                <input type="number" id="stakingPeriod" placeholder="Enter days..." oninput="calculateRewards()">
-            </div>
-            <div id="calculatedRewards"></div>
         </div>
 
-        <div class="pools-grid">
-            <div class="pool-card">
-                <div class="animal-badge">🦁</div>
-                <div class="pool-header">
-                    <div>
-                        <h3>Lion Pool</h3>
-                        <p>King of the Jungle Returns</p>
-                    </div>
-                </div>
-                <div class="pool-stats">
-                    <div>
-                        <h4>APY</h4>
-                        <div class="stat-value">420%</div>
-                    </div>
-                    <div>
-                        <h4>TVL</h4>
-                        <div>$1,234,567</div>
-                    </div>
-                </div>
-                <div class="input-group">
-                    <input type="number" placeholder="Enter amount to stake...">
-                </div>
-                <button onclick="stake('lion')">Stake Now</button>
+        <!-- Pools Page -->
+        <div id="pools" class="page">
+            <h1>Liquidity Pools</h1>
+            <div class="grid">
+                <!-- Add liquidity pool cards -->
             </div>
+        </div>
 
-            <div class="pool-card">
-                <div class="animal-badge">🐘</div>
-                <div class="pool-header">
-                    <div>
-                        <h3>Elephant Pool</h3>
-                        <p>Heavy Weight Returns</p>
-                    </div>
-                </div>
-                <div class="pool-stats">
-                    <div>
-                        <h4>APY</h4>
-                        <div class="stat-value">280%</div>
-                    </div>
-                    <div>
-                        <h4>TVL</h4>
-                        <div>$2,345,678</div>
-                    </div>
-                </div>
-                <div class="input-group">
-                    <input type="number" placeholder="Enter amount to stake...">
-                </div>
-                <button onclick="stake('elephant')">Stake Now</button>
+        <!-- Governance Page -->
+        <div id="governance" class="page">
+            <h1>Governance</h1>
+            <div class="card">
+                <h2>Active Proposals</h2>
+                <!-- Add governance proposals -->
             </div>
+        </div>
 
-            <div class="pool-card">
-                <div class="animal-badge">🦒</div>
-                <div class="pool-header">
-                    <div>
-                        <h3>Giraffe Pool</h3>
-                        <p>High Yield Returns</p>
-                    </div>
-                </div>
-                <div class="pool-stats">
-                    <div>
-                        <h4>APY</h4>
-                        <div class="stat-value">180%</div>
-                    </div>
-                    <div>
-                        <h4>TVL</h4>
-                        <div>$3,456,789</div>
-                    </div>
-                </div>
-                <div class="input-group">
-                    <input type="number" placeholder="Enter amount to stake...">
-                </div>
-                <button onclick="stake('giraffe')">Stake Now</button>
+        <!-- Analytics Page -->
+        <div id="analytics" class="page">
+            <h1>Analytics</h1>
+            <div class="grid">
+                <!-- Add analytics cards -->
             </div>
         </div>
     </div>
 
     <script>
-        function showSection(section) {
-            // Implementation for navigation
-            console.log(`Showing ${section} section`);
+        // Page Navigation
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
         }
 
-        function calculateRewards() {
-            const amount = parseFloat(document.getElementById('stakeAmount').value) || 0;
-            const days = parseInt(document.getElementById('stakingPeriod').value) || 0;
-            
-            if (amount && days) {
-                const apy = 4.2; // 420% APY
-                const rewards = amount * (apy * (days/365));
-                document.getElementById('calculatedRewards').innerHTML = `
-                    <div class="alert">
-                        Estimated Rewards: ${rewards.toFixed(2)} ZOO Tokens
-                        <br>
-                        Worth: $${(rewards * 0.0042).toFixed(2)}
-                    </div>
-                `;
-            }
+        // Wallet Connection
+        function connectWallet() {
+            alert('Wallet connection would be implemented here with Web3 provider');
         }
 
+        // Staking Function
         function stake(pool) {
-            // Simulate staking action
-            alert(`Staking in ${pool} pool! 🎉\n\nNote: This is a template. In a real implementation, this would connect to your wallet and execute a smart contract.`);
+            alert(`Staking in ${pool} pool. This would trigger a smart contract interaction.`);
         }
 
-        // Add some dynamic price movement
+        // Farming Function
+        function farm(pool) {
+            alert(`Farming in ${pool} pool. This would trigger a smart contract interaction.`);
+        }
+
+        // Mock Price Updates
         setInterval(() => {
             const price = 0.0042 * (1 + (Math.random() - 0.5) * 0.1);
-            document.querySelector('.stats-container .stat-value').textContent = 
-                `$${price.toFixed(4)}`;
-        }, 5000);
+            document.querySelector('.stat-value').textContent = `$${price.toFixed(4)}`;
+        }, 3000);
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            // Would initialize charts, load data, etc.
+            console.log('DeFi platform initialized');
+        });
     </script>
 </body>
 </html>

@@ -3,25 +3,397 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZOOTOKEN - Web3 DeFi</title>
-    <!-- Add ethers.js -->
+    <title>ZOOTOKEN - Complete DeFi Platform</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.8.1/ethers.umd.min.js"></script>
-    <!-- Previous CSS styles remain the same -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #7C3AED;
+            --primary-light: #8B5CF6;
+            --secondary: #10B981;
+            --accent: #F59E0B;
+            --background: #F3F4F6;
+            --card-bg: #FFFFFF;
+            --text: #1F2937;
+            --text-light: #6B7280;
+            --success: #34D399;
+            --warning: #FBBF24;
+            --error: #EF4444;
+            --border-radius: 16px;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="dark"] {
+            --background: #111827;
+            --card-bg: #1F2937;
+            --text: #F9FAFB;
+            --text-light: #9CA3AF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.2s ease;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Navigation */
+        .nav-wrapper {
+            background: var(--card-bg);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .nav-link {
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            color: var(--text);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            background: var(--background);
+        }
+
+        .nav-link.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 1.5rem;
+            animation: fadeIn 0.5s ease;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        /* Pools */
+        .pools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .pool-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            position: relative;
+            box-shadow: var(--shadow);
+        }
+
+        .pool-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .pool-icon {
+            font-size: 2rem;
+        }
+
+        .pool-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: var(--background);
+            border-radius: 8px;
+        }
+
+        /* Forms */
+        .input-group {
+            margin-bottom: 1rem;
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid #E5E7EB;
+            border-radius: 8px;
+            font-size: 1rem;
+            background: var(--card-bg);
+            color: var(--text);
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+        }
+
+        .max-button {
+            position: absolute;
+            right: 0.5rem;
+            padding: 0.25rem 0.5rem;
+            background: var(--primary-light);
+            color: white;
+            border-radius: 4px;
+            font-size: 0.875rem;
+            cursor: pointer;
+        }
+
+        /* Buttons */
+        .button {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s;
+        }
+
+        .button-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .button-primary:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        /* Toast Notifications */
+        .toast-container {
+            position: fixed;
+            bottom: 1rem;
+            right: 1rem;
+            z-index: 1000;
+        }
+
+        .toast {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 0.5rem;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            animation: slideIn 0.3s ease;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .pools-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- Previous HTML structure remains the same -->
+    <div class="nav-wrapper">
+        <nav>
+            <div class="logo">
+                <span>🦁</span>
+                <span>ZOOTOKEN</span>
+            </div>
+            <div class="nav-links">
+                <a href="#dashboard" class="nav-link active" onclick="switchTab('dashboard')">
+                    📊 Dashboard
+                </a>
+                <a href="#stake" class="nav-link" onclick="switchTab('stake')">
+                    🥩 Stake
+                </a>
+                <a href="#farms" class="nav-link" onclick="switchTab('farms')">
+                    🌾 Farms
+                </a>
+                <a href="#pools" class="nav-link" onclick="switchTab('pools')">
+                    💧 Pools
+                </a>
+            </div>
+            <button class="button button-primary" id="wallet-button" onclick="connectWallet()">
+                Connect Wallet
+            </button>
+        </nav>
+    </div>
+
+    <div class="container">
+        <!-- Dashboard Section -->
+        <div id="dashboard" class="page active">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>ZOOTOKEN Price</h3>
+                    <div class="stat-value" id="token-price">$0.0042</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Total Value Locked</h3>
+                    <div class="stat-value">$4,206,900</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Your Balance</h3>
+                    <div class="stat-value user-balance">0 ZOO</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Staking Pools -->
+        <div class="pools-grid">
+            <div class="pool-card">
+                <div class="pool-header">
+                    <div class="pool-icon">🦁</div>
+                    <div>
+                        <h3>Lion Pool</h3>
+                        <p>King of the Jungle Returns</p>
+                    </div>
+                </div>
+                <div class="pool-stats">
+                    <div>
+                        <h4>APY</h4>
+                        <div class="stat-value">420%</div>
+                    </div>
+                    <div>
+                        <h4>Your Stake</h4>
+                        <div class="stat-value user-stake">0 ZOO</div>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <div class="input-wrapper">
+                        <input type="number" id="stake-amount-lion" placeholder="Amount to stake...">
+                        <span class="max-button" onclick="setMaxAmount('lion')">MAX</span>
+                    </div>
+                </div>
+                <button class="button button-primary" style="width: 100%" onclick="stake('lion')">
+                    Stake ZOO
+                </button>
+            </div>
+
+            <div class="pool-card">
+                <div class="pool-header">
+                    <div class="pool-icon">🐘</div>
+                    <div>
+                        <h3>Elephant Pool</h3>
+                        <p>Heavy Weight Returns</p>
+                    </div>
+                </div>
+                <div class="pool-stats">
+                    <div>
+                        <h4>APY</h4>
+                        <div class="stat-value">280%</div>
+                    </div>
+                    <div>
+                        <h4>Your Stake</h4>
+                        <div class="stat-value user-stake">0 ZOO</div>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <div class="input-wrapper">
+                        <input type="number" id="stake-amount-elephant" placeholder="Amount to stake...">
+                        <span class="max-button" onclick="setMaxAmount('elephant')">MAX</span>
+                    </div>
+                </div>
+                <button class="button button-primary" style="width: 100%" onclick="stake('elephant')">
+                    Stake ZOO
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast-container"></div>
 
     <script>
         // Web3 Configuration
         const CONFIG = {
-            contractAddress: '0x123...', // Your contract address
+            contractAddress: '0x123...', // Replace with your contract address
             chainId: '0x1', // Ethereum Mainnet
             supportedChains: {
                 '0x1': 'Ethereum Mainnet',
                 '0x89': 'Polygon Mainnet',
                 '0xa86a': 'Avalanche'
             },
-            // ABI for your smart contract
             contractABI: [
                 "function stake(uint256 amount) external",
                 "function withdraw(uint256 amount) external",
@@ -30,7 +402,7 @@
             ]
         };
 
-        // State management
+        // State Variables
         let provider = null;
         let signer = null;
         let contract = null;
@@ -39,17 +411,12 @@
         // Initialize Web3
         async function initializeWeb3() {
             try {
-                // Check if MetaMask is installed
                 if (typeof window.ethereum !== 'undefined') {
-                    // Create Web3 provider
                     provider = new ethers.BrowserProvider(window.ethereum);
                     
-                    // Listen for account changes
                     window.ethereum.on('accountsChanged', handleAccountChange);
-                    // Listen for chain changes
                     window.ethereum.on('chainChanged', handleChainChange);
 
-                    // Update UI
                     updateConnectionButton();
                 } else {
                     showToast('Please install MetaMask!', 'error');
@@ -67,28 +434,24 @@
                     await initializeWeb3();
                 }
 
-                // Request account access
-                const accounts = await window.ethereum.request({ 
-                    method: 'eth_requestAccounts' 
+                const accounts = await window.ethereum.request({
+                    method: 'eth_requestAccounts'
                 });
                 
                 userAddress = accounts[0];
                 signer = await provider.getSigner();
                 
-                // Initialize contract
                 contract = new ethers.Contract(
                     CONFIG.contractAddress,
                     CONFIG.contractABI,
                     signer
                 );
 
-                // Check network
                 const network = await provider.getNetwork();
                 if (!CONFIG.supportedChains[network.chainId]) {
                     await switchNetwork();
                 }
 
-                // Update UI
                 updateUI();
                 showToast('Wallet connected successfully!', 'success');
             } catch (error) {
@@ -97,24 +460,9 @@
             }
         }
 
-        // Switch Network
-        async function switchNetwork() {
-            try {
-                await window.ethereum.request({
-                    method: 'wallet_switchEthereumChain',
-                    params: [{ chainId: CONFIG.chainId }],
-                });
-            } catch (error) {
-                if (error.code === 4902) {
-                    showToast('Please add this network to your wallet', 'warning');
-                }
-            }
-        }
-
         // Handle Account Change
         async function handleAccountChange(accounts) {
             if (accounts.length === 0) {
-                // User disconnected wallet
                 userAddress = null;
                 signer = null;
                 contract = null;
@@ -130,126 +478,7 @@
 
         // Handle Chain Change
         function handleChainChange() {
-            // Reload the page
             window.location.reload();
         }
 
-        // Staking Function
-        async function stake(poolId) {
-            try {
-                if (!contract) {
-                    throw new Error('Please connect your wallet first');
-                }
-
-                const input = document.querySelector(`#stake-amount-${poolId}`);
-                const amount = ethers.parseEther(input.value);
-
-                // Show pending transaction
-                showToast('Transaction pending...', 'info');
-
-                // Send transaction
-                const tx = await contract.stake(amount);
-                
-                // Wait for confirmation
-                await tx.wait();
-
-                // Update UI
-                updateUI();
-                showToast('Staking successful!', 'success');
-            } catch (error) {
-                console.error('Staking error:', error);
-                showToast(error.message, 'error');
-            }
-        }
-
-        // Withdraw Function
-        async function withdraw(poolId) {
-            try {
-                if (!contract) {
-                    throw new Error('Please connect your wallet first');
-                }
-
-                const input = document.querySelector(`#withdraw-amount-${poolId}`);
-                const amount = ethers.parseEther(input.value);
-
-                const tx = await contract.withdraw(amount);
-                await tx.wait();
-
-                updateUI();
-                showToast('Withdrawal successful!', 'success');
-            } catch (error) {
-                console.error('Withdrawal error:', error);
-                showToast(error.message, 'error');
-            }
-        }
-
-        // Get User Balance
-        async function getUserBalance() {
-            try {
-                if (!contract || !userAddress) return '0';
-                
-                const balance = await contract.balanceOf(userAddress);
-                return ethers.formatEther(balance);
-            } catch (error) {
-                console.error('Error getting balance:', error);
-                return '0';
-            }
-        }
-
-        // Get User Rewards
-        async function getUserRewards() {
-            try {
-                if (!contract || !userAddress) return '0';
-                
-                const rewards = await contract.getRewards();
-                return ethers.formatEther(rewards);
-            } catch (error) {
-                console.error('Error getting rewards:', error);
-                return '0';
-            }
-        }
-
-        // Update UI
-        async function updateUI() {
-            const walletButton = document.getElementById('wallet-button');
-            
-            if (userAddress) {
-                const shortAddress = `${userAddress.slice(0,6)}...${userAddress.slice(-4)}`;
-                walletButton.textContent = shortAddress;
-                
-                // Update balances
-                const balance = await getUserBalance();
-                const rewards = await getUserRewards();
-                
-                // Update UI elements
-                document.querySelectorAll('.user-balance').forEach(el => {
-                    el.textContent = `${balance} ZOO`;
-                });
-                document.querySelectorAll('.user-rewards').forEach(el => {
-                    el.textContent = `${rewards} ZOO`;
-                });
-            } else {
-                walletButton.textContent = 'Connect Wallet';
-            }
-        }
-
-        // Toast Notifications
-        function showToast(message, type = 'info') {
-            const toast = document.createElement('div');
-            toast.className = `toast toast-${type} animate__animated animate__fadeIn`;
-            toast.textContent = message;
-            
-            const container = document.querySelector('.toast-container');
-            container.appendChild(toast);
-            
-            setTimeout(() => {
-                toast.classList.replace('animate__fadeIn', 'animate__fadeOut');
-                setTimeout(() => toast.remove(), 300);
-            }, 3000);
-        }
-
-        // Initialize on load
-        window.addEventListener('load', initializeWeb3);
-    </script>
-</body>
-</html>
+        // Switch Network

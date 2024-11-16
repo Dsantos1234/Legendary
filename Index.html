@@ -3,400 +3,471 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZOOTOKEN - Ultimate Animal DeFi</title>
+    <title>ZOOTOKEN - Friendly DeFi</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
     <style>
         :root {
-            --primary: #4CAF50;
-            --secondary: #2196F3;
-            --accent: #FF9800;
-            --background: #1a1a1a;
-            --card-bg: #2d2d2d;
-            --card-bg-hover: #3d3d3d;
-            --text: #ffffff;
-            --text-secondary: #b3b3b3;
-            --success: #4CAF50;
-            --warning: #FFC107;
-            --danger: #f44336;
-            --border-radius: 12px;
+            --primary: #7C3AED;
+            --primary-light: #8B5CF6;
+            --secondary: #10B981;
+            --accent: #F59E0B;
+            --background: #F3F4F6;
+            --card-bg: #FFFFFF;
+            --text: #1F2937;
+            --text-light: #6B7280;
+            --success: #34D399;
+            --warning: #FBBF24;
+            --error: #EF4444;
+            --border-radius: 16px;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="dark"] {
+            --background: #111827;
+            --card-bg: #1F2937;
+            --text: #F9FAFB;
+            --text-light: #9CA3AF;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            transition: all 0.2s ease;
         }
 
         body {
-            font-family: 'Segoe UI', sans-serif;
+            font-family: 'Segoe UI', system-ui, sans-serif;
             background: var(--background);
             color: var(--text);
             line-height: 1.6;
-            min-height: 100vh;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        /* Navigation Styles */
-        nav {
+        /* Enhanced Navigation */
+        .nav-wrapper {
             background: var(--card-bg);
-            padding: 1rem;
+            box-shadow: var(--shadow);
             position: sticky;
             top: 0;
-            z-index: 1000;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            z-index: 100;
         }
 
-        .nav-content {
+        nav {
             max-width: 1200px;
             margin: 0 auto;
+            padding: 1rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: var(--accent);
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
         }
 
         .nav-links {
             display: flex;
-            gap: 20px;
+            gap: 1rem;
         }
 
-        .nav-links a {
+        .nav-link {
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
             color: var(--text);
             text-decoration: none;
-            padding: 8px 16px;
-            border-radius: var(--border-radius);
-            transition: background 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
-        .nav-links a:hover {
-            background: var(--card-bg-hover);
+        .nav-link:hover {
+            background: var(--background);
         }
 
-        .connect-wallet {
+        .nav-link.active {
             background: var(--primary);
             color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: var(--border-radius);
-            cursor: pointer;
-            transition: opacity 0.3s;
         }
 
-        /* Card Styles */
+        /* Enhanced Cards */
         .card {
             background: var(--card-bg);
             border-radius: var(--border-radius);
-            padding: 20px;
-            margin-bottom: 20px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 1.5rem;
         }
 
         .card-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 1rem;
         }
 
-        /* Grid Layouts */
-        .grid {
+        /* Quick Actions Panel */
+        .quick-actions {
             display: grid;
-            gap: 20px;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
         }
 
-        /* Form Elements */
+        .quick-action {
+            background: var(--card-bg);
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            text-align: center;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+        }
+
+        .quick-action:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Improved Forms */
         .input-group {
-            margin-bottom: 15px;
+            margin-bottom: 1rem;
         }
 
         .input-group label {
             display: block;
-            margin-bottom: 5px;
-            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
         }
 
         input, select {
             width: 100%;
-            padding: 12px;
-            background: var(--background);
-            border: 1px solid var(--card-bg-hover);
-            border-radius: var(--border-radius);
+            padding: 0.75rem 1rem;
+            border: 2px solid #E5E7EB;
+            border-radius: 8px;
+            font-size: 1rem;
+            background: var(--card-bg);
             color: var(--text);
-            font-size: 16px;
         }
 
-        button {
-            padding: 12px 24px;
-            border: none;
-            border-radius: var(--border-radius);
-            cursor: pointer;
-            font-weight: bold;
-            transition: opacity 0.3s;
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
         }
 
-        button:hover {
-            opacity: 0.9;
-        }
-
-        /* Tabs */
-        .tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .tab {
-            padding: 10px 20px;
-            background: var(--card-bg);
-            border-radius: var(--border-radius);
+        .max-button {
+            position: absolute;
+            right: 0.5rem;
+            padding: 0.25rem 0.5rem;
+            background: var(--primary-light);
+            color: white;
+            border-radius: 4px;
+            font-size: 0.875rem;
             cursor: pointer;
         }
 
-        .tab.active {
-            background: var(--primary);
-        }
-
-        /* Custom Components */
-        .stat-card {
-            padding: 20px;
-            background: var(--card-bg);
-            border-radius: var(--border-radius);
-            transition: transform 0.3s;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .stat-value {
-            font-size: 24px;
-            font-weight: bold;
-            color: var(--accent);
+        /* Enhanced Pool Cards */
+        .pools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
         }
 
         .pool-card {
             background: var(--card-bg);
             border-radius: var(--border-radius);
-            padding: 20px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
             position: relative;
+            overflow: hidden;
         }
 
-        .animal-badge {
+        .pool-card::before {
+            content: '';
             position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 30px;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--primary);
         }
 
-        .chart-container {
-            width: 100%;
-            height: 300px;
-            margin: 20px 0;
+        .pool-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
         }
 
-        /* Pages */
-        .page {
-            display: none;
+        .pool-icon {
+            font-size: 2rem;
         }
 
-        .page.active {
-            display: block;
+        .pool-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: var(--background);
+            border-radius: 8px;
         }
 
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        .stat-item {
+            text-align: center;
         }
 
-        .fade-in {
-            animation: fadeIn 0.3s ease-in;
+        .stat-label {
+            color: var(--text-light);
+            font-size: 0.875rem;
+        }
+
+        .stat-value {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        /* Toast Notifications */
+        .toast-container {
+            position: fixed;
+            bottom: 1rem;
+            right: 1rem;
+            z-index: 1000;
+        }
+
+        .toast {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 0.5rem;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Loading States */
+        .loading {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .loading::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: loading 1.5s infinite;
+        }
+
+        @keyframes loading {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
         }
 
         /* Tooltips */
-        .tooltip {
+        [data-tooltip] {
             position: relative;
-            display: inline-block;
         }
 
-        .tooltip:hover::after {
+        [data-tooltip]:hover::before {
             content: attr(data-tooltip);
             position: absolute;
             bottom: 100%;
             left: 50%;
             transform: translateX(-50%);
-            background: var(--card-bg);
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 14px;
+            padding: 0.5rem;
+            background: var(--text);
+            color: white;
+            border-radius: 4px;
+            font-size: 0.875rem;
             white-space: nowrap;
+            z-index: 10;
+        }
+
+        /* Buttons */
+        .button {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s;
+        }
+
+        .button-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .button-secondary {
+            background: var(--background);
+            color: var(--text);
+        }
+
+        .button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .pools-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-    <nav>
-        <div class="nav-content">
-            <div class="logo">🦁 ZOOTOKEN</div>
+    <div class="nav-wrapper">
+        <nav>
+            <div class="logo">
+                <span>🦁</span>
+                <span>ZOOTOKEN</span>
+            </div>
             <div class="nav-links">
-                <a href="#" onclick="showPage('dashboard')">Dashboard</a>
-                <a href="#" onclick="showPage('stake')">Staking</a>
-                <a href="#" onclick="showPage('farms')">Farms</a>
-                <a href="#" onclick="showPage('pools')">Pools</a>
-                <a href="#" onclick="showPage('governance')">Governance</a>
-                <a href="#" onclick="showPage('analytics')">Analytics</a>
+                <a href="#" class="nav-link active" onclick="switchTab('dashboard')">
+                    📊 Dashboard
+                </a>
+                <a href="#" class="nav-link" onclick="switchTab('stake')">
+                    🥩 Stake
+                </a>
+                <a href="#" class="nav-link" onclick="switchTab('farms')">
+                    🌾 Farms
+                </a>
+                <a href="#" class="nav-link" onclick="switchTab('pools')">
+                    💧 Pools
+                </a>
             </div>
-            <button class="connect-wallet" onclick="connectWallet()">Connect Wallet</button>
+            <button class="button button-primary" onclick="connectWallet()" id="wallet-button">
+                Connect Wallet
+            </button>
+        </nav>
+    </div>
+
+    <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 1rem;">
+        <!-- Quick Actions -->
+        <div class="quick-actions">
+            <div class="quick-action" onclick="quickStake()">
+                <div style="font-size: 2rem;">🦁</div>
+                <div>Quick Stake</div>
+                <div style="color: var(--primary);">420% APY</div>
+            </div>
+            <div class="quick-action" onclick="addLiquidity()">
+                <div style="font-size: 2rem;">💧</div>
+                <div>Add Liquidity</div>
+                <div style="color: var(--primary);">Earn Fees</div>
+            </div>
+            <div class="quick-action" onclick="claimRewards()">
+                <div style="font-size: 2rem;">🎁</div>
+                <div>Claim Rewards</div>
+                <div style="color: var(--success)">Available: 0 ZOO</div>
+            </div>
         </div>
-    </nav>
 
-    <div class="container">
-        <!-- Dashboard Page -->
-        <div id="dashboard" class="page active">
-            <h1>Dashboard</h1>
-            <div class="grid">
-                <div class="stat-card">
-                    <h3>ZOOTOKEN Price</h3>
-                    <div class="stat-value">$0.0042</div>
-                    <div class="chart-container" id="price-chart"></div>
-                </div>
-                <div class="stat-card">
-                    <h3>Total Value Locked</h3>
-                    <div class="stat-value">$4,206,900</div>
-                </div>
-                <div class="stat-card">
-                    <h3>Market Cap</h3>
-                    <div class="stat-value">$42,069,000</div>
-                </div>
-            </div>
-
-            <div class="card">
-                <h2>Your Portfolio</h2>
-                <div class="portfolio-summary">
-                    <p>Connect wallet to view your holdings</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Staking Page -->
-        <div id="stake" class="page">
-            <h1>Staking</h1>
-            <div class="tabs">
-                <div class="tab active">Single Stake</div>
-                <div class="tab">LP Stake</div>
-            </div>
-
-            <div class="grid">
-                <div class="pool-card">
-                    <div class="animal-badge">🦁</div>
-                    <h3>Lion Pool - Alpha</h3>
-                    <div class="stats">
-                        <div>APY: 420%</div>
-                        <div>TVL: $1.2M</div>
-                        <div>Your Stake: 0 ZOO</div>
-                    </div>
-                    <div class="input-group">
-                        <input type="number" placeholder="Enter amount...">
-                        <button onclick="stake('lion')">Stake ZOO</button>
+        <!-- Staking Pools -->
+        <div class="pools-grid">
+            <div class="pool-card animate__animated animate__fadeIn">
+                <div class="pool-header">
+                    <div class="pool-icon">🦁</div>
+                    <div>
+                        <h3>Lion Pool</h3>
+                        <p style="color: var(--text-light)">King of the Jungle Returns</p>
                     </div>
                 </div>
-                <!-- Add more pool cards -->
-            </div>
-        </div>
-
-        <!-- Farms Page -->
-        <div id="farms" class="page">
-            <h1>Yield Farms</h1>
-            <div class="grid">
-                <div class="pool-card">
-                    <div class="animal-badge">🐘</div>
-                    <h3>Elephant Farm - ZOO/ETH</h3>
-                    <div class="stats">
-                        <div>APR: 280%</div>
-                        <div>TVL: $2.4M</div>
-                        <div>Your LP: 0</div>
+                <div class="pool-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">APY</div>
+                        <div class="stat-value">420%</div>
                     </div>
-                    <div class="input-group">
-                        <input type="number" placeholder="Enter LP amount...">
-                        <button onclick="farm('elephant')">Farm</button>
+                    <div class="stat-item">
+                        <div class="stat-label">TVL</div>
+                        <div class="stat-value">$1.2M</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Your Stake</div>
+                        <div class="stat-value">0 ZOO</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Rewards</div>
+                        <div class="stat-value">0 ZOO</div>
                     </div>
                 </div>
-                <!-- Add more farm cards -->
+                <div class="input-group">
+                    <div class="input-wrapper">
+                        <input type="number" placeholder="Enter amount..." id="stake-amount">
+                        <span class="max-button">MAX</span>
+                    </div>
+                </div>
+                <button class="button button-primary" style="width: 100%" onclick="stake('lion')">
+                    Stake ZOO
+                </button>
             </div>
-        </div>
 
-        <!-- Pools Page -->
-        <div id="pools" class="page">
-            <h1>Liquidity Pools</h1>
-            <div class="grid">
-                <!-- Add liquidity pool cards -->
-            </div>
-        </div>
-
-        <!-- Governance Page -->
-        <div id="governance" class="page">
-            <h1>Governance</h1>
-            <div class="card">
-                <h2>Active Proposals</h2>
-                <!-- Add governance proposals -->
-            </div>
-        </div>
-
-        <!-- Analytics Page -->
-        <div id="analytics" class="page">
-            <h1>Analytics</h1>
-            <div class="grid">
-                <!-- Add analytics cards -->
+            <div class="pool-card animate__animated animate__fadeIn" style="animation-delay: 0.1s;">
+                <div class="pool-header">
+                    <div class="pool-icon">🐘</div>
+                    <div>
+                        <h3>Elephant Pool</h3>
+                        <p style="color: var(--text-light)">Heavy Weight Returns</p>
+                    </div>
+                </div>
+                <div class="pool-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">APY</div>
+                        <div class="stat-value">280%</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">TVL</div>
+                        <div class="stat-value">$2.4M</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Your Stake</div>
+                        <div class="stat-value">0 ZOO</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Rewards</div>
+                        <div class="stat-value">0 ZOO</div>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <div class="input-wrapper">
+                        <input type="number" placeholder="Enter amount..." id="stake-amount-2">
+                        <span class="max-button">MAX</span>
+                    </div>
+                </div>
+                <button class="button button-primary" style="width: 100%" onclick="stake('elephant')">
+                    Stake ZOO
+                </button>
             </div>
         </div>
     </div>
 
-    <script>
-        // Page Navigation
-        function showPage(pageId) {
-            document.querySelectorAll('.page').forEach(page => {
-                page.classList.remove('active');
-            });
-            document.getElementById(pageId).classList.add('active');
-        }
-
-        // Wallet Connection
-        function connectWallet() {
-            alert('Wallet connection would be implemented here with Web3 provider');
-        }
-
-        // Staking Function
-        function stake(pool) {
-            alert(`Staking in ${pool} pool. This would trigger a smart contract interaction.`);
-        }
-
-        // Farming Function
-        function farm(pool) {
-            alert(`Farming in ${pool} pool. This would trigger a smart contract interaction.`);
-        }
-
-        // Mock Price Updates
-        setInterval(() => {
-            const price = 0.0042 * (1 + (Math.random() - 0.5) * 0.1);
-            document.querySelector('.stat-value').textContent = `$${price.toFixed(4)}`;
-        }, 3000);
-
-        // Initialize
-        document.addEventListener('DOMContentLoaded', () => {
-            // Would initialize charts, load data, etc.
-            console.log('DeFi platform initialized');
-        });
-    </script>
-</body>
-</html>
+    <!-- Toast Container -->
+    <div class="toast-container"

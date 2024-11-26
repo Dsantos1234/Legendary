@@ -1,166 +1,246 @@
-import React, { useState, useEffect } from 'react';
-import { Rocket, Skull, Flame, DollarSign, ExternalLink, Atom, MessageCircle, Send, BarChart3 } from 'lucide-react';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>👽 ALIENCOIN 👽 - To The Galaxy!</title>
+  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" as="style">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
 
-const App = () => {
-  const [marketCap, setMarketCap] = useState(1234567);
-  const [holders, setHolders] = useState(1532);
+  <style>
+    /* Base styles */
+    :root {
+      --primary: #22c55e;
+      --primary-dark: #166534;
+      --text: #4ade80;
+    }
 
-  useEffect(() => {
-    const marketCapInterval = setInterval(() => {
-      setMarketCap(prev => prev + Math.floor(Math.random() * 10000));
-    }, 2000);
+    /* Critical CSS inlined for faster rendering */
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, sans-serif;
+      background-color: #000;
+      color: var(--text);
+    }
 
-    const holdersInterval = setInterval(() => {
-      setHolders(prev => prev + Math.floor(Math.random() * 5));
-    }, 5000);
+    .container {
+      width: min(100% - 2rem, 1200px);
+      margin-inline: auto;
+    }
 
-    return () => {
-      clearInterval(marketCapInterval);
-      clearInterval(holdersInterval);
-    };
-  }, []);
+    /* Performance optimizations */
+    .will-change {
+      will-change: transform;
+    }
 
-  const features = [
-    { title: "NGMI PROTECTION", desc: "Anti-rug forcefield activated", icon: <Skull className="w-8 h-8" /> },
-    { title: "BASED TAX", desc: "4.20% for maximum kek", icon: <Flame className="w-8 h-8" /> },
-    { title: "MOON MISSION", desc: "We came from there ser", icon: <Rocket className="w-8 h-8" /> },
-    { title: "ALIEN TECH", desc: "Trust us bro", icon: <Atom className="w-8 h-8" /> }
-  ];
+    /* Reduce layout shifts */
+    .aspect-ratio-box {
+      aspect-ratio: 16/9;
+    }
 
-  return (
-    <div className="min-h-screen bg-gradient-to-b from-black via-gray-900 to-green-900 text-green-400 font-mono">
-      {/* Animated background grid */}
-      <div 
-        className="fixed inset-0 opacity-20"
-        style={{
-          backgroundImage: 'linear-gradient(rgba(0, 255, 0, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 255, 0, 0.1) 1px, transparent 1px)',
-          backgroundSize: '50px 50px',
-          zIndex: 0
-        }}
-      />
+    /* Efficient animations */
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
 
-      {/* Floating glows */}
-      <div className="fixed top-1/4 left-1/4 w-96 h-96 bg-green-500/20 rounded-full filter blur-[100px] animate-pulse" />
-      <div className="fixed bottom-1/3 right-1/4 w-96 h-96 bg-green-500/20 rounded-full filter blur-[100px] animate-pulse delay-1000" />
+    .float {
+      animation: float 3s ease-in-out infinite;
+    }
 
-      <div className="relative z-10">
-        {/* Navigation */}
-        <nav className="fixed w-full backdrop-blur-md bg-black/30 border-b border-green-500/20">
-          <div className="max-w-7xl mx-auto px-6 py-4">
-            <div className="flex justify-between items-center">
-              <div className="flex items-center space-x-2">
-                <Rocket className="w-8 h-8" />
-                <span className="text-2xl font-bold animate-pulse">$AYYLMAO</span>
-              </div>
-              <div className="hidden md:flex space-x-8">
-                <a href="#about" className="hover:text-green-300 transition">APE IN</a>
-                <a href="#tokenomics" className="hover:text-green-300 transition">NUMBERS</a>
-                <a href="#roadmap" className="hover:text-green-300 transition">MASTER PLAN</a>
-                <a href="#community" className="hover:text-green-300 transition">FRENS</a>
-              </div>
-              <button className="bg-green-500 text-black px-6 py-2 rounded-full font-bold hover:bg-green-400 transition">
-                BUY OR NGMI
-              </button>
-            </div>
+    /* Responsive images */
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* Optimized button styles */
+    .btn {
+      background: var(--primary);
+      color: #000;
+      padding: 0.75rem 1.5rem;
+      border-radius: 9999px;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s ease, background-color 0.2s ease;
+    }
+
+    .btn:hover {
+      background: #16a34a;
+      transform: scale(1.05);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--primary);
+      color: var(--text);
+    }
+
+    .btn-outline:hover {
+      background: rgba(34, 197, 94, 0.2);
+    }
+
+    /* Optimized card styles */
+    .card {
+      background: rgba(21, 128, 61, 0.2);
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      backdrop-filter: blur(8px);
+    }
+
+    /* Grid system */
+    .grid {
+      display: grid;
+      gap: 2rem;
+    }
+
+    @media (min-width: 768px) {
+      .grid-cols-3 {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    /* Optimized particles container */
+    #particles-js {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+  </style>
+</head>
+<body>
+  <div id="particles-js"></div>
+
+  <div class="relative">
+    <header class="container py-4">
+      <nav class="flex justify-between items-center">
+        <h1 class="text-2xl font-bold m-0">👽 ALIENCOIN</h1>
+        <div class="flex gap-6">
+          <a href="#about" class="hover:text-green-300">About</a>
+          <a href="#tokenomics" class="hover:text-green-300">Tokenomics</a>
+          <a href="#roadmap" class="hover:text-green-300">Roadmap</a>
+          <button class="btn">Buy Now</button>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container py-20">
+      <section class="text-center mb-20">
+        <h2 class="text-6xl font-bold mb-6 float">
+          ALIENCOIN
+          <span class="block text-xl mt-2">First Memecoin From Area 51</span>
+        </h2>
+
+        <div class="max-w-2xl mx-auto mb-12">
+          <p class="text-xl mb-4">🛸 We're not saying it's aliens... but it's aliens 🛸</p>
+          <p class="text-xl">Join 100,000+ believers in the galaxy's most absurd cryptocurrency!</p>
+        </div>
+
+        <div class="flex justify-center gap-6 mb-20">
+          <button class="btn will-change">Buy $ALIEN</button>
+          <button class="btn btn-outline will-change">Join Discord</button>
+        </div>
+      </section>
+
+      <section id="tokenomics" class="grid grid-cols-3 gap-8 mb-20">
+        <div class="card">
+          <h3 class="text-2xl font-bold mb-4">Tokenomics</h3>
+          <p>1 Billion Total Supply</p>
+          <p>50% Burned 🔥</p>
+          <p>2% Reflection to Holders</p>
+        </div>
+        <div class="card">
+          <h3 class="text-2xl font-bold mb-4">Security</h3>
+          <p>Liquidity Locked 🔒</p>
+          <p>Contract Audited</p>
+          <p>Ownership Renounced</p>
+        </div>
+        <div class="card">
+          <h3 class="text-2xl font-bold mb-4">Community</h3>
+          <p>100K+ Holders 👥</p>
+          <p>50K+ Discord Members</p>
+          <p>Active DAO</p>
+        </div>
+      </section>
+
+      <section id="roadmap" class="mb-20">
+        <h2 class="text-4xl font-bold mb-12 text-center">Roadmap</h2>
+        <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
+          <div class="card">
+            <h3 class="text-xl font-bold mb-4">Phase 1 - Abduction</h3>
+            <ul class="space-y-2 list-none p-0 m-0">
+              <li>✅ Token Launch</li>
+              <li>✅ Website Launch</li>
+              <li>✅ 10,000 Holders</li>
+              <li>🔄 CoinGecko Listing</li>
+            </ul>
           </div>
-        </nav>
-
-        {/* Hero Section */}
-        <section className="min-h-screen flex items-center justify-center px-4 pt-20">
-          <div className="text-center">
-            <div className="flex justify-center mb-6">
-              <div className="relative">
-                <Atom className="w-32 h-32 text-green-500 animate-spin-slow" />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-6xl">👽</span>
-                </div>
-              </div>
-            </div>
-
-            <h1 className="text-6xl md:text-8xl font-bold mb-6">$AYYLMAO</h1>
-            
-            <div className="mb-8">
-              <p className="text-xl md:text-2xl mb-2 text-green-300">
-                ⟟⎎ ⊬⍜⎍ ⍙⏃⋏⏁ ⏁⍜ ⎍⋏⎅⟒⍀⌇⏁⏃⋏⎅ ⋔⟒
-              </p>
-              <p className="text-xl md:text-2xl mb-2 text-green-300">
-                ⌰⟒⏁⌇ ⟟⋏⏁⟒⍀⏃☊⏁ ⍜⋏ ⌖
-              </p>
-            </div>
-
-            <div className="text-4xl font-bold mb-8 bg-black/30 backdrop-blur-sm rounded-xl p-6 inline-block">
-              <span className="text-green-400">$</span>
-              <span>{marketCap.toLocaleString()}</span>
-              <div className="text-sm text-green-300 mt-2">Market Cap</div>
-            </div>
-
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
-              {features.map((feature, index) => (
-                <div key={index} 
-                     className="backdrop-blur-md bg-black/30 p-6 rounded-xl border border-green-500/20 hover:border-green-500/40 transition-all hover:scale-105 group">
-                  <div className="text-green-400 mb-4 group-hover:scale-110 transition-transform">
-                    {feature.icon}
-                  </div>
-                  <h3 className="text-lg font-bold mb-2">{feature.title}</h3>
-                  <p className="text-sm text-green-300">{feature.desc}</p>
-                </div>
-              ))}
-            </div>
-
-            <div className="grid grid-cols-3 gap-6 max-w-2xl mx-auto mt-12">
-              <div className="backdrop-blur-md bg-black/30 p-4 rounded-xl border border-green-500/20">
-                <div className="text-2xl font-bold text-green-300">{holders.toLocaleString()}</div>
-                <div className="text-sm">HODLERS</div>
-              </div>
-              <div className="backdrop-blur-md bg-black/30 p-4 rounded-xl border border-green-500/20">
-                <div className="text-2xl font-bold text-green-300">4.20%</div>
-                <div className="text-sm">BASED TAX</div>
-              </div>
-              <div className="backdrop-blur-md bg-black/30 p-4 rounded-xl border border-green-500/20">
-                <div className="text-2xl font-bold text-green-300">∞</div>
-                <div className="text-sm">POTENTIAL</div>
-              </div>
-            </div>
-
-            <div className="flex flex-wrap justify-center gap-4 mt-12">
-              <button className="bg-green-500 text-black px-8 py-4 rounded-full font-bold hover:bg-green-400 transition transform hover:scale-105">
-                APE IN NOW
-                <span className="block text-xs">ngmi = false</span>
-              </button>
-              <button className="border-2 border-green-500 px-8 py-4 rounded-full font-bold hover:bg-green-500 hover:text-black transition transform hover:scale-105">
-                CHART
-                <span className="block text-xs">up only</span>
-              </button>
-            </div>
+          <div class="card">
+            <h3 class="text-xl font-bold mb-4">Phase 2 - Invasion</h3>
+            <ul class="space-y-2 list-none p-0 m-0">
+              <li>⏳ NFT Collection</li>
+              <li>⏳ Area 51 Game</li>
+              <li>⏳ CEX Listings</li>
+              <li>⏳ 100,000 Holders</li>
+            </ul>
           </div>
-        </section>
+        </div>
+      </section>
+    </main>
 
-        {/* Social Links */}
-        <section className="py-20 px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-4xl font-bold mb-8">Join the Invasion</h2>
-            <p className="text-xl mb-12">Connect with fellow believers across the galaxy</p>
-            <div className="flex justify-center gap-6">
-              <a href="#" className="bg-green-500/20 hover:bg-green-500/30 p-4 rounded-full backdrop-blur-sm">
-                <Send className="w-6 h-6" />
-              </a>
-              <a href="#" className="bg-green-500/20 hover:bg-green-500/30 p-4 rounded-full backdrop-blur-sm">
-                <MessageCircle className="w-6 h-6" />
-              </a>
-              <a href="#" className="bg-green-500/20 hover:bg-green-500/30 p-4 rounded-full backdrop-blur-sm">
-                <BarChart3 className="w-6 h-6" />
-              </a>
-            </div>
-          </div>
-        </section>
-
-        {/* Footer */}
-        <footer className="py-8 text-center backdrop-blur-sm bg-black/30">
-          <p className="text-sm">© 2024 $AYYLMAO. Made with 👽 for Earth.</p>
-        </footer>
+    <footer class="container py-8 text-center">
+      <div class="flex justify-center gap-6 mb-6">
+        <a href="#" class="hover:text-green-300">Twitter</a>
+        <a href="#" class="hover:text-green-300">Telegram</a>
+        <a href="#" class="hover:text-green-300">Discord</a>
+        <a href="#" class="hover:text-green-300">Medium</a>
       </div>
-    </div>
-  );
-};
+      <p class="text-sm opacity-60">© 2024 AlienCoin. We come in peace 🛸</p>
+    </footer>
+  </div>
 
-export default App;
+  <script>
+    // Initialize particles only after the page has loaded
+    window.addEventListener('load', () => {
+      particlesJS('particles-js', {
+        particles: {
+          number: { value: 80, density: { enable: true, value_area: 800 } },
+          color: { value: '#22c55e' },
+          shape: { type: 'circle' },
+          opacity: { 
+            value: 0.5,
+            random: false,
+            anim: { enable: false }
+          },
+          size: { 
+            value: 3,
+            random: true,
+            anim: { enable: false }
+          },
+          move: {
+            enable: true,
+            speed: 2,
+            direction: 'none',
+            random: false,
+            straight: false,
+            out_mode: 'out',
+            bounce: false
+          }
+        },
+        interactivity: {
+          detect_on: 'canvas',
+          events: {
+            onhover: { enable: true, mode: 'repulse' },
+            resize: true
+          }
+        },
+        retina_detect: true
+      });
+    });
+  </script>
+</body>
+</html>

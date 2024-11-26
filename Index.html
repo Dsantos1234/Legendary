@@ -1,484 +1,299 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZOOTOKEN - Complete DeFi Platform</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.8.1/ethers.umd.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #7C3AED;
-            --primary-light: #8B5CF6;
-            --secondary: #10B981;
-            --accent: #F59E0B;
-            --background: #F3F4F6;
-            --card-bg: #FFFFFF;
-            --text: #1F2937;
-            --text-light: #6B7280;
-            --success: #34D399;
-            --warning: #FBBF24;
-            --error: #EF4444;
-            --border-radius: 16px;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
+import React, { useState, useEffect } from 'react';
+import {
+  Rocket,
+  Globe,
+  ChevronDown,
+  Users,
+  DollarSign,
+  Zap,
+  ExternalLink,
+  Atom,
+  MessageCircle,
+  Send,
+  BarChart3,
+  TrendingUp,
+  Sparkles,
+  Flame,
+  Skull
+} from 'lucide-react';
 
-        [data-theme="dark"] {
-            --background: #111827;
-            --card-bg: #1F2937;
-            --text: #F9FAFB;
-            --text-light: #9CA3AF;
-        }
+// Background Components
+const UFO = () => (
+  <div className="w-12 h-12 text-green-400 opacity-20">
+    <svg viewBox="0 0 100 100">
+      <ellipse cx="50" cy="60" rx="45" ry="15" fill="currentColor"/>
+      <ellipse cx="50" cy="50" rx="25" ry="10" fill="currentColor"/>
+      <circle cx="50" cy="30" r="15" fill="currentColor"/>
+      <circle cx="50" cy="30" r="5" className="animate-pulse" fill="currentColor"/>
+    </svg>
+  </div>
+);
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            transition: all 0.2s ease;
-        }
+const AlienSymbol = () => (
+  <div className="w-8 h-8 text-green-400 opacity-10">
+    <svg viewBox="0 0 100 100">
+      <circle cx="50" cy="30" r="20" fill="none" stroke="currentColor" strokeWidth="4"/>
+      <line x1="50" y1="50" x2="50" y2="90" stroke="currentColor" strokeWidth="4"/>
+      <line x1="30" y1="70" x2="70" y2="70" stroke="currentColor" strokeWidth="4"/>
+    </svg>
+  </div>
+);
 
-        body {
-            font-family: system-ui, -apple-system, sans-serif;
-            background: var(--background);
-            color: var(--text);
-            line-height: 1.6;
-            min-height: 100vh;
-        }
+const CropCircle = () => (
+  <div className="w-16 h-16 text-green-400 opacity-5">
+    <svg viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" strokeWidth="2"/>
+      <circle cx="50" cy="50" r="30" fill="none" stroke="currentColor" strokeWidth="2"/>
+      <circle cx="50" cy="50" r="20" fill="none" stroke="currentColor" strokeWidth="2"/>
+      <line x1="10" y1="50" x2="90" y2="50" stroke="currentColor" strokeWidth="2"/>
+      <line x1="50" y1="10" x2="50" y2="90" stroke="currentColor" strokeWidth="2"/>
+    </svg>
+  </div>
+);
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
+const Background = ({ ufoPositions, symbolPositions, circlePositions }) => (
+  <div className="fixed inset-0 bg-gradient-to-b from-gray-900 via-black to-green-900">
+    <div className="absolute inset-0" 
+         style={{
+           backgroundImage: 'linear-gradient(rgba(0, 255, 0, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 255, 0, 0.1) 1px, transparent 1px)',
+           backgroundSize: '50px 50px',
+           opacity: 0.2
+         }}>
+    </div>
 
-        /* Navigation */
-        .nav-wrapper {
-            background: var(--card-bg);
-            box-shadow: var(--shadow);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
+    {ufoPositions?.map((pos, i) => (
+      <div key={`ufo-${i}`} 
+           className="absolute transition-transform duration-[20s] ease-in-out animate-float"
+           style={{
+             left: `${pos.x}%`,
+             top: `${pos.y}%`,
+             transform: `rotate(${pos.rotation}deg)`,
+             animationDelay: `${pos.animationDelay}s`
+           }}>
+        <UFO />
+      </div>
+    ))}
 
-        nav {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+    {symbolPositions?.map((pos, i) => (
+      <div key={`symbol-${i}`}
+           className="absolute animate-pulse"
+           style={{
+             left: `${pos.x}%`,
+             top: `${pos.y}%`,
+             transform: `rotate(${pos.rotation}deg)`,
+             animationDelay: `${pos.animationDelay}s`
+           }}>
+        <AlienSymbol />
+      </div>
+    ))}
 
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--primary);
-        }
+    {circlePositions?.map((pos, i) => (
+      <div key={`circle-${i}`}
+           className="absolute"
+           style={{
+             left: `${pos.x}%`,
+             top: `${pos.y}%`,
+             transform: `rotate(${pos.rotation}deg)`
+           }}>
+        <CropCircle />
+      </div>
+    ))}
 
-        .nav-links {
-            display: flex;
-            gap: 1rem;
-        }
+    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-green-500/5 to-transparent animate-scan"></div>
+    <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-green-500/20 rounded-full filter blur-[100px] animate-pulse"></div>
+    <div className="absolute bottom-1/3 right-1/4 w-96 h-96 bg-green-500/20 rounded-full filter blur-[100px] animate-pulse delay-1000"></div>
+  </div>
+);
 
-        .nav-link {
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            color: var(--text);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            cursor: pointer;
-        }
+const MUBCoin = () => {
+  const [marketCap, setMarketCap] = useState(1234567);
+  const [holders, setHolders] = useState(1532);
+  const [ufoPositions, setUfoPositions] = useState([]);
+  const [symbolPositions, setSymbolPositions] = useState([]);
+  const [circlePositions, setCirclePositions] = useState([]);
 
-        .nav-link:hover {
-            background: var(--background);
-        }
+  useEffect(() => {
+    const generatePositions = (count) => {
+      return Array.from({ length: count }, () => ({
+        x: Math.random() * 100,
+        y: Math.random() * 100,
+        rotation: Math.random() * 360,
+        animationDelay: Math.random() * 5
+      }));
+    };
 
-        .nav-link.active {
-            background: var(--primary);
-            color: white;
-        }
+    setUfoPositions(generatePositions(6));
+    setSymbolPositions(generatePositions(12));
+    setCirclePositions(generatePositions(8));
 
-        /* Cards */
-        .card {
-            background: var(--card-bg);
-            border-radius: var(--border-radius);
-            padding: 1.5rem;
-            box-shadow: var(--shadow);
-            margin-bottom: 1.5rem;
-            animation: fadeIn 0.5s ease;
-        }
+    const marketCapInterval = setInterval(() => {
+      setMarketCap(prev => prev + Math.floor(Math.random() * 10000));
+    }, 2000);
 
-        /* Stats Grid */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
+    const holdersInterval = setInterval(() => {
+      setHolders(prev => prev + Math.floor(Math.random() * 5));
+    }, 5000);
 
-        .stat-card {
-            background: var(--card-bg);
-            padding: 1.5rem;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow);
-        }
+    return () => {
+      clearInterval(marketCapInterval);
+      clearInterval(holdersInterval);
+    };
+  }, []);
 
-        .stat-value {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--primary);
-        }
+  const basedFeatures = [
+    {
+      title: "NGMI PROTECTION",
+      description: "Anti-dump forcefield activated",
+      icon: <Skull className="w-8 h-8" />
+    },
+    {
+      title: "AYYLMAO TAX",
+      description: "4.20% to keep it real",
+      icon: <Sparkles className="w-8 h-8" />
+    },
+    {
+      title: "MOON SOON",
+      description: "We literally came from there",
+      icon: <Rocket className="w-8 h-8" />
+    },
+    {
+      title: "BASED AF",
+      description: "Trust us bro",
+      icon: <Flame className="w-8 h-8" />
+    }
+  ];
 
-        /* Pools */
-        .pools-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
+  const basedAlienQuotes = [
+    "⟟'⋔ ⋏⍜⏁ ⎎⎍☊☍⟟⋏☌ ⌰⟒⏃⎐⟟⋏☌",
+    "⍙⟒'⍀⟒ ⏃⌰⌰ ☌⍜⋏⋏⏃ ⋔⏃☍⟒ ⟟⏁",
+    "⊑⎍⋔⏃⋏⌇ ⏃⍀⟒ ⋏☌⋔⟟"
+  ];
 
-        .pool-card {
-            background: var(--card-bg);
-            border-radius: var(--border-radius);
-            padding: 1.5rem;
-            position: relative;
-            box-shadow: var(--shadow);
+  return (
+    <div className="relative min-h-screen text-green-400 font-mono">
+      <style jsx global>{`
+        @keyframes scan {
+          0%, 100% { transform: translateY(-100%); }
+          50% { transform: translateY(100%); }
         }
-
-        .pool-header {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1rem;
+        .animate-scan {
+          animation: scan 15s infinite linear;
         }
-
-        .pool-icon {
-            font-size: 2rem;
+        @keyframes float {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-20px); }
         }
-
-        .pool-stats {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
-            margin: 1rem 0;
-            padding: 1rem;
-            background: var(--background);
-            border-radius: 8px;
+        .animate-float {
+          animation: float 10s infinite ease-in-out;
         }
-
-        /* Forms */
-        .input-group {
-            margin-bottom: 1rem;
+        @keyframes pulse-glow {
+          0%, 100% { text-shadow: 0 0 20px rgba(0, 255, 0, 0.5); }
+          50% { text-shadow: 0 0 40px rgba(0, 255, 0, 0.8); }
         }
-
-        .input-wrapper {
-            position: relative;
-            display: flex;
-            align-items: center;
+        .glow-text {
+          animation: pulse-glow 2s infinite;
         }
+      `}</style>
 
-        input {
-            width: 100%;
-            padding: 0.75rem 1rem;
-            border: 2px solid #E5E7EB;
-            border-radius: 8px;
-            font-size: 1rem;
-            background: var(--card-bg);
-            color: var(--text);
-        }
+      <Background
+        ufoPositions={ufoPositions}
+        symbolPositions={symbolPositions}
+        circlePositions={circlePositions}
+      />
 
-        input:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
-        }
-
-        .max-button {
-            position: absolute;
-            right: 0.5rem;
-            padding: 0.25rem 0.5rem;
-            background: var(--primary-light);
-            color: white;
-            border-radius: 4px;
-            font-size: 0.875rem;
-            cursor: pointer;
-        }
-
-        /* Buttons */
-        .button {
-            padding: 0.75rem 1.5rem;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-            border: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: all 0.2s;
-        }
-
-        .button-primary {
-            background: var(--primary);
-            color: white;
-        }
-
-        .button-primary:hover {
-            opacity: 0.9;
-            transform: translateY(-1px);
-        }
-
-        /* Toast Notifications */
-        .toast-container {
-            position: fixed;
-            bottom: 1rem;
-            right: 1rem;
-            z-index: 1000;
-        }
-
-        .toast {
-            background: var(--card-bg);
-            border-radius: 8px;
-            padding: 1rem;
-            margin-top: 0.5rem;
-            box-shadow: var(--shadow);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            animation: slideIn 0.3s ease;
-        }
-
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes slideIn {
-            from { transform: translateX(100%); }
-            to { transform: translateX(0); }
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .pools-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="nav-wrapper">
-        <nav>
-            <div class="logo">
-                <span>🦁</span>
-                <span>ZOOTOKEN</span>
+      <div className="relative z-10">
+        <nav className="fixed w-full backdrop-blur-md bg-black/30 border-b border-green-500/20 z-50">
+          <div className="max-w-7xl mx-auto px-6 py-4">
+            <div className="flex justify-between items-center">
+              <div className="flex items-center space-x-2">
+                <Rocket className="w-8 h-8" />
+                <span className="text-2xl font-bold glow-text">$MUB</span>
+              </div>
+              <div className="hidden md:flex space-x-8">
+                <a href="#about" className="hover:text-green-300 transition">APE IN</a>
+                <a href="#tokenomics" className="hover:text-green-300 transition">NUMBERS</a>
+                <a href="#roadmap" className="hover:text-green-300 transition">MASTER PLAN</a>
+                <a href="#community" className="hover:text-green-300 transition">FRENS</a>
+              </div>
+              <button className="bg-green-500 text-black px-6 py-2 rounded-full font-bold hover:bg-green-400 transition animate-pulse">
+                BUY OR NGMI
+              </button>
             </div>
-            <div class="nav-links">
-                <a href="#dashboard" class="nav-link active" onclick="switchTab('dashboard')">
-                    📊 Dashboard
-                </a>
-                <a href="#stake" class="nav-link" onclick="switchTab('stake')">
-                    🥩 Stake
-                </a>
-                <a href="#farms" class="nav-link" onclick="switchTab('farms')">
-                    🌾 Farms
-                </a>
-                <a href="#pools" class="nav-link" onclick="switchTab('pools')">
-                    💧 Pools
-                </a>
-            </div>
-            <button class="button button-primary" id="wallet-button" onclick="connectWallet()">
-                Connect Wallet
-            </button>
+          </div>
         </nav>
+
+        <section className="min-h-screen flex items-center justify-center px-4 pt-20">
+          <div className="text-center max-w-4xl mx-auto">
+            <div className="flex justify-center mb-6">
+              <div className="relative group">
+                <Atom className="w-32 h-32 text-green-500 animate-spin-slow" />
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className="text-6xl group-hover:animate-bounce">👽</span>
+                </div>
+              </div>
+            </div>
+
+            <h1 className="text-6xl md:text-8xl font-bold mb-6 glow-text">$MUB</h1>
+            
+            <div className="mb-12">
+              {basedAlienQuotes.map((quote, index) => (
+                <p key={index} className="text-xl md:text-2xl mb-2 text-green-300 hover:scale-105 transition-transform">
+                  {quote}
+                </p>
+              ))}
+            </div>
+
+            <div className="text-4xl font-bold mb-12 bg-black/30 backdrop-blur-sm rounded-xl p-6 inline-block">
+              <span className="text-green-400">$</span>
+              <span className="glow-text">{marketCap.toLocaleString()}</span>
+              <div className="text-sm text-green-300 mt-2">MARKET CAP AND CLIMBING</div>
+            </div>
+
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+              {basedFeatures.map((feature, index) => (
+                <div key={index} 
+                     className="backdrop-blur-md bg-black/30 p-6 rounded-xl border border-green-500/20 hover:border-green-500/40 transition-all hover:scale-105 group">
+                  <div className="text-green-400 mb-4 group-hover:scale-110 transition-transform">
+                    {feature.icon}
+                  </div>
+                  <h3 className="text-lg font-bold mb-2">{feature.title}</h3>
+                  <p className="text-sm text-green-300">{feature.description}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="flex flex-wrap justify-center gap-4 mt-12">
+              <button className="bg-green-500 text-black px-8 py-4 rounded-full font-bold hover:bg-green-400 transition transform hover:scale-105 group">
+                APE IN NOW
+                <span className="block text-xs opacity-0 group-hover:opacity-100 transition-opacity">
+                  ngmi = false
+                </span>
+              </button>
+              <button className="border-2 border-green-500 px-8 py-4 rounded-full font-bold hover:bg-green-500 hover:text-black transition transform hover:scale-105">
+                CHART
+                <span className="block text-xs">up only ser</span>
+              </button>
+            </div>
+
+            <div className="grid grid-cols-3 gap-6 max-w-2xl mx-auto mt-12 text-center">
+              <div className="backdrop-blur-md bg-black/30 p-4 rounded-xl border border-green-500/20">
+                <div className="text-2xl font-bold text-green-300 glow-text">{holders.toLocaleString()}</div>
+                <div className="text-sm">DIAMOND HANDS</div>
+              </div>
+              <div className="backdrop-blur-md bg-black/30 p-4 rounded-xl border border-green-500/20">
+                <div className="text-2xl font-bold text-green-300 glow-text">4.20%</div>
+                <div className="text-sm">BASED TAX</div>
+              </div>
+              <div className="backdrop-blur-md bg-black/30 p-4 rounded-xl border border-green-500/20">
+                <div className="text-2xl font-bold text-green-300 glow-text">∞</div>
+                <div className="text-sm">POTENTIAL</div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
     </div>
+  );
+};
 
-    <div class="container">
-        <!-- Dashboard Section -->
-        <div id="dashboard" class="page active">
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <h3>ZOOTOKEN Price</h3>
-                    <div class="stat-value" id="token-price">$0.0042</div>
-                </div>
-                <div class="stat-card">
-                    <h3>Total Value Locked</h3>
-                    <div class="stat-value">$4,206,900</div>
-                </div>
-                <div class="stat-card">
-                    <h3>Your Balance</h3>
-                    <div class="stat-value user-balance">0 ZOO</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Staking Pools -->
-        <div class="pools-grid">
-            <div class="pool-card">
-                <div class="pool-header">
-                    <div class="pool-icon">🦁</div>
-                    <div>
-                        <h3>Lion Pool</h3>
-                        <p>King of the Jungle Returns</p>
-                    </div>
-                </div>
-                <div class="pool-stats">
-                    <div>
-                        <h4>APY</h4>
-                        <div class="stat-value">420%</div>
-                    </div>
-                    <div>
-                        <h4>Your Stake</h4>
-                        <div class="stat-value user-stake">0 ZOO</div>
-                    </div>
-                </div>
-                <div class="input-group">
-                    <div class="input-wrapper">
-                        <input type="number" id="stake-amount-lion" placeholder="Amount to stake...">
-                        <span class="max-button" onclick="setMaxAmount('lion')">MAX</span>
-                    </div>
-                </div>
-                <button class="button button-primary" style="width: 100%" onclick="stake('lion')">
-                    Stake ZOO
-                </button>
-            </div>
-
-            <div class="pool-card">
-                <div class="pool-header">
-                    <div class="pool-icon">🐘</div>
-                    <div>
-                        <h3>Elephant Pool</h3>
-                        <p>Heavy Weight Returns</p>
-                    </div>
-                </div>
-                <div class="pool-stats">
-                    <div>
-                        <h4>APY</h4>
-                        <div class="stat-value">280%</div>
-                    </div>
-                    <div>
-                        <h4>Your Stake</h4>
-                        <div class="stat-value user-stake">0 ZOO</div>
-                    </div>
-                </div>
-                <div class="input-group">
-                    <div class="input-wrapper">
-                        <input type="number" id="stake-amount-elephant" placeholder="Amount to stake...">
-                        <span class="max-button" onclick="setMaxAmount('elephant')">MAX</span>
-                    </div>
-                </div>
-                <button class="button button-primary" style="width: 100%" onclick="stake('elephant')">
-                    Stake ZOO
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <div class="toast-container"></div>
-
-    <script>
-        // Web3 Configuration
-        const CONFIG = {
-            contractAddress: '0x123...', // Replace with your contract address
-            chainId: '0x1', // Ethereum Mainnet
-            supportedChains: {
-                '0x1': 'Ethereum Mainnet',
-                '0x89': 'Polygon Mainnet',
-                '0xa86a': 'Avalanche'
-            },
-            contractABI: [
-                "function stake(uint256 amount) external",
-                "function withdraw(uint256 amount) external",
-                "function getRewards() external view returns (uint256)",
-                "function balanceOf(address account) external view returns (uint256)"
-            ]
-        };
-
-        // State Variables
-        let provider = null;
-        let signer = null;
-        let contract = null;
-        let userAddress = null;
-
-        // Initialize Web3
-        async function initializeWeb3() {
-            try {
-                if (typeof window.ethereum !== 'undefined') {
-                    provider = new ethers.BrowserProvider(window.ethereum);
-                    
-                    window.ethereum.on('accountsChanged', handleAccountChange);
-                    window.ethereum.on('chainChanged', handleChainChange);
-
-                    updateConnectionButton();
-                } else {
-                    showToast('Please install MetaMask!', 'error');
-                }
-            } catch (error) {
-                console.error('Error initializing Web3:', error);
-                showToast('Failed to initialize Web3', 'error');
-            }
-        }
-
-        // Connect Wallet
-        async function connectWallet() {
-            try {
-                if (!provider) {
-                    await initializeWeb3();
-                }
-
-                const accounts = await window.ethereum.request({
-                    method: 'eth_requestAccounts'
-                });
-                
-                userAddress = accounts[0];
-                signer = await provider.getSigner();
-                
-                contract = new ethers.Contract(
-                    CONFIG.contractAddress,
-                    CONFIG.contractABI,
-                    signer
-                );
-
-                const network = await provider.getNetwork();
-                if (!CONFIG.supportedChains[network.chainId]) {
-                    await switchNetwork();
-                }
-
-                updateUI();
-                showToast('Wallet connected successfully!', 'success');
-            } catch (error) {
-                console.error('Error connecting wallet:', error);
-                showToast('Failed to connect wallet', 'error');
-            }
-        }
-
-        // Handle Account Change
-        async function handleAccountChange(accounts) {
-            if (accounts.length === 0) {
-                userAddress = null;
-                signer = null;
-                contract = null;
-                updateUI();
-                showToast('Wallet disconnected', 'warning');
-            } else {
-                userAddress = accounts[0];
-                signer = await provider.getSigner();
-                updateUI();
-                showToast('Account changed', 'info');
-            }
-        }
-
-        // Handle Chain Change
-        function handleChainChange() {
-            window.location.reload();
-        }
-
-        // Switch Network
+export default MUBCoin;

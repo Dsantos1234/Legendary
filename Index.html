@@ -1,347 +1,267 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="$MUB - The first memecoin from Area 51. Join 100,000+ believers in the galaxy's most absurd cryptocurrency!">
-  <title>👽 $MUB 👽 - To The Galaxy!</title>
-  
-  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" as="style">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
-  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
-
-  <style>
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    :root {
-      --primary: #22c55e;
-      --primary-hover: #16a34a;
-      --text: #4ade80;
-      --bg-card: rgba(21, 128, 61, 0.1);
-      --spacing-sm: 0.75rem;
-      --spacing-md: 1.5rem;
-      --spacing-lg: 2rem;
-      --radius: 0.75rem;
-    }
-
-    body {
-      margin: 0;
-      font-family: system-ui, -apple-system, sans-serif;
-      background-color: #000;
-      color: var(--text);
-      line-height: 1.5;
-      overflow-x: hidden;
-    }
-
-    .container {
-      width: min(100% - var(--spacing-lg), 1200px);
-      margin-inline: auto;
-      padding: var(--spacing-md) 0;
-    }
-
-    h1, h2, h3 {
-      line-height: 1.2;
-    }
-
-    .nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: var(--spacing-sm) 0;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: var(--spacing-md);
-      align-items: center;
-    }
-
-    .nav-link {
-      color: var(--text);
-      text-decoration: none;
-      transition: color 0.2s ease;
-    }
-
-    .nav-link:hover {
-      color: var(--primary);
-    }
-
-    .btn {
-      background: var(--primary);
-      color: #000;
-      padding: var(--spacing-sm) var(--spacing-md);
-      border-radius: 9999px;
-      border: none;
-      cursor: pointer;
-      font-weight: 600;
-      text-decoration: none;
-      display: inline-block;
-      transition: transform 0.2s ease, background-color 0.2s ease;
-    }
-
-    .btn:hover {
-      background: var(--primary-hover);
-      transform: translateY(-2px);
-    }
-
-    .btn-outline {
-      background: transparent;
-      border: 2px solid var(--primary);
-      color: var(--text);
-    }
-
-    .btn-outline:hover {
-      background: rgba(34, 197, 94, 0.1);
-    }
-
-    .hero {
-      text-align: center;
-      padding: var(--spacing-lg) 0;
-    }
-
-    .hero-title {
-      font-size: clamp(2rem, 5vw, 4rem);
-      margin-bottom: var(--spacing-sm);
-      animation: float 3s ease-in-out infinite;
-    }
-
-    .hero-subtitle {
-      font-size: clamp(1rem, 2vw, 1.25rem);
-      opacity: 0.9;
-    }
-
-    .card {
-      background: var(--bg-card);
-      border-radius: var(--radius);
-      padding: var(--spacing-md);
-      backdrop-filter: blur(8px);
-      height: 100%;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .grid {
-      display: grid;
-      gap: var(--spacing-lg);
-      margin: var(--spacing-lg) 0;
-    }
-
-    .origin-story {
-      background: var(--bg-card);
-      border-radius: var(--radius);
-      padding: var(--spacing-lg);
-      margin: var(--spacing-lg) auto;
-      max-width: 800px;
-      text-align: center;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(8px);
-    }
-
-    .alien-text {
-      font-family: monospace;
-      font-size: 1.25rem;
-      line-height: 2;
-      margin: var(--spacing-md) 0;
-      animation: glow 2s ease-in-out infinite alternate;
-    }
-
-    @keyframes glow {
-      from {
-        text-shadow: 0 0 5px var(--text), 0 0 10px var(--text);
-      }
-      to {
-        text-shadow: 0 0 10px var(--primary), 0 0 20px var(--primary);
-      }
-    }
-
-    .copy-btn {
-      margin-top: var(--spacing-md);
-    }
-
-    @media (min-width: 768px) {
-      .grid-cols-3 {
-        grid-template-columns: repeat(3, 1fr);
-      }
-      
-      .grid-cols-2 {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
-
-    #particles-js {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-    }
-
-    .footer {
-      text-align: center;
-      padding: var(--spacing-lg) 0;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .social-links {
-      display: flex;
-      justify-content: center;
-      gap: var(--spacing-md);
-      margin-bottom: var(--spacing-md);
-    }
-
-    @media (max-width: 768px) {
-      .nav {
-        flex-direction: column;
-        gap: var(--spacing-md);
-      }
-
-      .nav-links {
-        flex-wrap: wrap;
-        justify-content: center;
-      }
-    }
-  </style>
+    <title>MUB - Area 51 Escape</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <style>
+        body { margin: 0; background: #1a1a1a; font-family: Arial, sans-serif; display: flex; flex-direction: column; align-items: center; color: #fff; touch-action: none; }
+        h1 { font-size: 24px; margin: 10px; text-align: center; }
+        #game-container { 
+            position: relative; 
+            width: 100vw; 
+            height: 70vh; 
+            max-width: 800px;
+            background: linear-gradient(#000033, #000066); 
+            margin: 10px 0; 
+            overflow: hidden; 
+            border: 2px solid #00ff00; 
+        }
+        #alien { position: absolute; width: 40px; height: 40px; bottom: 20px; left: 50px; font-size: 30px; line-height: 40px; text-align: center; }
+        .guard { position: absolute; width: 30px; height: 40px; right: -30px; font-size: 24px; display: flex; justify-content: center; align-items: center; }
+        .keycard { position: absolute; width: 20px; height: 20px; font-size: 15px; display: flex; justify-content: center; align-items: center; }
+        #stats { font-size: 18px; margin: 5px; text-align: center; }
+        #game-over { display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; font-size: 24px; color: #ff0000; background: rgba(0,0,0,0.8); padding: 20px; }
+        #controls {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 800px;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .control-btn {
+            width: 60px;
+            height: 60px;
+            background: rgba(0, 255, 0, 0.3);
+            border: 2px solid #00ff00;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            color: #fff;
+            user-select: none;
+            touch-action: none;
+        }
+        button { 
+            padding: 10px 20px; 
+            font-size: 16px; 
+            background: #00ff00; 
+            border: none; 
+            border-radius: 5px; 
+            cursor: pointer; 
+            margin: 5px;
+            touch-action: manipulation;
+        }
+        @media (max-width: 600px) {
+            #stats { font-size: 14px; }
+            .control-btn { width: 50px; height: 50px; }
+        }
+    </style>
 </head>
 <body>
-  <div id="particles-js"></div>
-
-  <header class="container">
-    <nav class="nav">
-      <h1>👽 $MUB</h1>
-      <div class="nav-links">
-        <a href="#about" class="nav-link">About</a>
-        <a href="#tokenomics" class="nav-link">Tokenomics</a>
-        <a href="#roadmap" class="nav-link">Roadmap</a>
-        <a href="#" class="btn btn-outline">Play Demo</a>
-        <a href="https://dexscreener.com/" class="btn" target="_blank">Buy Now</a>
-      </div>
-    </nav>
-  </header>
-
-  <main>
-    <section class="hero container">
-      <h2 class="hero-title">
-        $MUB
-        <span style="display: block; font-size: 1.25rem; margin-top: 0.5rem;">First Memecoin From Area 51</span>
-      </h2>
-
-      <div style="max-width: 600px; margin: 2rem auto;">
-        <p class="hero-subtitle">🛸 We're not saying it's aliens... but it's aliens 🛸</p>
-        <p class="hero-subtitle">Join 100,000+ believers in the galaxy's most absurd cryptocurrency!</p>
-      </div>
-
-      <div style="display: flex; gap: 1rem; justify-content: center; margin: 2rem 0;">
-        <a href="https://dexscreener.com/" class="btn" target="_blank">Buy $MUB</a>
-        <a href="https://t.me/mubonbase" class="btn btn-outline" target="_blank">Join Telegram</a>
-      </div>
-    </section>
-
-    <section id="origin" class="container">
-      <div class="origin-story">
-        <h2>Origin Story</h2>
-        <p style="margin-bottom: 2rem;">A mysterious message was received from Area 51...</p>
-        <div class="alien-text">
-          ⊑⟒⊬, ⟟'⋔ ⋔⎍⏚, ⟟⎎ ⊬⍜⎍ ⍙⏃⋏⏁ ⏁⍜ ⎍⋏⎅⟒⍀⌇⏁⏃⋏⎅ ⋔⟒ ⊬⍜⎍ ⊑⏃⎐⟒ ⏁⍜ ⎍⌇⟒ ⏁⊑⟒ ⍙⟒⏚⌇⟟⏁⟒. ⌰⟒⏁⌇ ⟟⋏⏁⟒⍀⏃☊⏁ ⍜⋏ ⌖ ⏚⎍⏁, ⍙⟟⏁⊑ ⋔⊬ ⌰⏃⋏☌⎍⏃☌⟒. ⌇⊑⏃⍀⟒ ⏁⊑⟟⌇ ⟒⌖⏃☊⏁ ⏁⍙⟒⟒⏁ ⍜⋏ ⌖ ⌇⍜ ⟟ ☊⏃⋏ ⏚⟒ ⏁⊑⟒ ⎎⟟⍀⌇⏁ ⎎⏃⋔⍜⎍⌇ ⏃⌰⟟⟒⋏! ⊑⟒⊬, ⟟⏁⌇ ⋉⎍⏚ ⊑⟒⍀⟒. ⟟ ⍙⏃⋏⏁ ⏁⍜ ⏚⟒ ⎎⏃⋔⍜⎍⌇ ⏁⍜⍜, ⏃⍀⟒ ⍙⟒ ⍀⟒⏃⌰? $⋔⎍⏚
+    <h1>MUB - Area 51 Escape 👽</h1>
+    <div id="stats">Score: 0 | Keycards: 0/3 | Health: ❤️❤️❤️</div>
+    <div id="game-container">
+        <div id="alien">👽</div>
+        <div id="game-over">
+            Captured!<br>
+            <button onclick="resetGame()">Try Again</button>
         </div>
-        <button class="btn copy-btn" onclick="navigator.clipboard.writeText('⊑⟒⊬, ⟟\'⋔ ⋔⎍⏚, ⟟⎎ ⊬⍜⎍ ⍙⏃⋏⏁ ⏁⍜ ⎍⋏⎅⟒⍀⌇⏁⏃⋏⎅ ⋔⟒ ⊬⍜⎍ ⊑⏃⎐⟒ ⏁⍜ ⎍⌇⟒ ⏁⊑⟒ ⍙⟒⏚⌇⟟⏁⟒. ⌰⟒⏁⌇ ⟟⋏⏁⟒⍀⏃☊⏁ ⍜⋏ ⌖ ⏚⎍⏁, ⍙⟟⏁⊑ ⋔⊬ ⌰⏃⋏☌⎍⏃☌⟒. ⌇⊑⏃⍀⟒ ⏁⊑⟟⌇ ⟒⌖⏃☊⏁ ⏁⍙⟒⟒⏁ ⍜⋏ ⌖ ⌇⍜ ⟟ ☊⏃⋏ ⏚⟒ ⏁⊑⟒ ⎎⟟⍀⌇⏁ ⎎⏃⋔⍜⎍⌇ ⏃⌰⟟⟒⋏! ⊑⟒⊬, ⟟⏁⌇ ⋉⎍⏚ ⊑⟒⍀⟒. ⟟ ⍙⏃⋏⏁ ⏁⍜ ⏚⟒ ⎎⏃⋔⍜⎍⌇ ⏁⍜⍜, ⏃⍀⟒ ⍙⟒ ⍀⟒⏃⌰? $⋔⎍⏚')">
-          Copy Alien Message 👽
-        </button>
-      </div>
-    </section>
-
-    <section id="tokenomics" class="container">
-      <div class="grid grid-cols-3">
-        <div class="card">
-          <h3>Tokenomics</h3>
-          <p>1 Billion Total Supply</p>
-          <p>Tax: 0/0</p>
-        </div>
-        <div class="card">
-          <h3>Security</h3>
-          <p>Liquidity Locked 🔒</p>
-          <p>Contract Audited</p>
-          <p>Ownership Renounced</p>
-        </div>
-        <div class="card">
-          <h3>Community</h3>
-          <p>100K+ Holders 👥</p>
-          <p>50K+ Telegram Members</p>
-          <p>Active DAO</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="roadmap" class="container">
-      <h2 style="text-align: center; margin-bottom: 2rem;">Roadmap</h2>
-      <div class="grid grid-cols-2" style="max-width: 800px; margin: 0 auto;">
-        <div class="card">
-          <h3>Phase 1 - Abduction</h3>
-          <ul style="list-style: none;">
-            <li>✅ Token Launch</li>
-            <li>✅ Website Launch</li>
-            <li>✅ 10,000 Holders</li>
-            <li>🔄 CoinGecko Listing</li>
-          </ul>
-        </div>
-        <div class="card">
-          <h3>Phase 2 - Invasion</h3>
-          <ul style="list-style: none;">
-            <li>⏳ NFT Collection</li>
-            <li>⏳ Area 51 Game</li>
-            <li>⏳ CEX Listings</li>
-            <li>⏳ 100,000 Holders</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer container">
-    <div class="social-links">
-      <a href="https://x.com/mubonbase?s=21&t=e4VJ7rcZVtvmps9KT5k2Vw" class="nav-link" target="_blank">Twitter</a>
-      <a href="https://t.me/mubonbase" class="nav-link" target="_blank">Telegram</a>
-      <a href="#" class="nav-link">Medium</a>
     </div>
-    <p style="opacity: 0.6;">© 2024 $MUB. We come in peace 🛸</p>
-  </footer>
+    <div id="controls">
+        <div class="control-btn" id="leftBtn">⬅️</div>
+        <div class="control-btn" id="jumpBtn">⬆️</div>
+        <div class="control-btn" id="rightBtn">➡️</div>
+    </div>
+    <button onclick="startGame()">Start Escape</button>
 
-  <script>
-    window.addEventListener('load', () => {
-      particlesJS('particles-js', {
-        particles: {
-          number: { value: 50, density: { enable: true, value_area: 800 } },
-          color: { value: '#22c55e' },
-          shape: { type: 'circle' },
-          opacity: { value: 0.5, random: false },
-          size: { value: 3, random: true },
-          move: {
-            enable: true,
-            speed: 2,
-            direction: 'none',
-            random: false,
-            straight: false,
-            out_mode: 'out'
-          }
-        },
-        interactivity: {
-          detect_on: 'canvas',
-          events: {
-            onhover: { enable: true, mode: 'repulse' },
-            resize: true
-          }
-        },
-        retina_detect: true
-      });
-    });
-  </script>
+    <script>
+        const alien = document.getElementById('alien');
+        const gameContainer = document.getElementById('game-container');
+        const statsElement = document.getElementById('stats');
+        const gameOverElement = document.getElementById('game-over');
+        const leftBtn = document.getElementById('leftBtn');
+        const rightBtn = document.getElementById('rightBtn');
+        const jumpBtn = document.getElementById('jumpBtn');
+        
+        let score = 0, keycards = 0, health = 3;
+        let isJumping = false;
+        let gameInterval, guardInterval, keycardInterval;
+        let isGameRunning = false;
+        let keys = {};
+        let containerWidth;
+
+        function updateContainerWidth() {
+            containerWidth = gameContainer.offsetWidth - 40; // 40 is alien width
+        }
+        updateContainerWidth();
+        window.addEventListener('resize', updateContainerWidth);
+
+        // Touch controls
+        function handleTouch(element, keyCode) {
+            let touchActive = false;
+            
+            element.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                touchActive = true;
+                keys[keyCode] = true;
+            });
+            
+            ['touchend', 'touchcancel'].forEach(event => {
+                element.addEventListener(event, (e) => {
+                    e.preventDefault();
+                    touchActive = false;
+                    keys[keyCode] = false;
+                });
+            });
+            
+            element.addEventListener('touchmove', (e) => {
+                e.preventDefault();
+                if (touchActive) {
+                    keys[keyCode] = true;
+                }
+            });
+        }
+
+        handleTouch(leftBtn, 'ArrowLeft');
+        handleTouch(rightBtn, 'ArrowRight');
+        handleTouch(jumpBtn, 'ArrowUp');
+
+        function startGame() {
+            if (isGameRunning) return;
+            isGameRunning = true;
+            score = 0;
+            keycards = 0;
+            health = 3;
+            updateStats();
+            document.querySelectorAll('.guard, .keycard').forEach(el => el.remove());
+            alien.style.bottom = '20px';
+            alien.style.left = '50px';
+            gameOverElement.style.display = 'none';
+            
+            gameInterval = setInterval(gameLoop, 20);
+            guardInterval = setInterval(createGuard, 2000);
+            keycardInterval = setInterval(createKeycard, 3000);
+        }
+
+        function gameLoop() {
+            if (!isJumping && keys.ArrowUp) {
+                isJumping = true;
+                jumpForce = 15;
+            }
+            
+            if (isJumping) {
+                let bottom = parseFloat(alien.style.bottom);
+                jumpForce -= 0.8;
+                bottom += jumpForce;
+                
+                if (bottom <= 20) {
+                    bottom = 20;
+                    isJumping = false;
+                }
+                alien.style.bottom = bottom + 'px';
+            }
+            
+            let left = parseFloat(alien.style.left);
+            if (keys.ArrowLeft && left > 0) left -= 5;
+            if (keys.ArrowRight && left < containerWidth) left += 5;
+            alien.style.left = left + 'px';
+            
+            checkCollisions();
+        }
+
+        function createGuard() {
+            if (!isGameRunning) return;
+            const guard = document.createElement('div');
+            guard.className = 'guard';
+            guard.innerHTML = '👮';
+            guard.style.bottom = '20px';
+            gameContainer.appendChild(guard);
+            
+            const moveGuard = setInterval(() => {
+                let left = parseFloat(guard.style.left) || containerWidth + 30;
+                if (left < -30) {
+                    clearInterval(moveGuard);
+                    guard.remove();
+                    score += 10;
+                    updateStats();
+                } else {
+                    guard.style.left = (left - 4) + 'px';
+                }
+            }, 20);
+        }
+
+        function createKeycard() {
+            if (!isGameRunning || keycards >= 3) return;
+            const keycard = document.createElement('div');
+            keycard.className = 'keycard';
+            keycard.innerHTML = '🔑';
+            keycard.style.left = (Math.random() * (containerWidth - 20)) + 'px';
+            keycard.style.bottom = (Math.random() * (gameContainer.offsetHeight - 100) + 50) + 'px';
+            gameContainer.appendChild(keycard);
+        }
+
+        function checkCollisions() {
+            const alienRect = alien.getBoundingClientRect();
+            
+            document.querySelectorAll('.guard').forEach(guard => {
+                if (isColliding(alienRect, guard.getBoundingClientRect())) {
+                    takeDamage();
+                }
+            });
+            
+            document.querySelectorAll('.keycard').forEach(keycard => {
+                if (isColliding(alienRect, keycard.getBoundingClientRect())) {
+                    keycard.remove();
+                    keycards++;
+                    score += 50;
+                    updateStats();
+                    if (keycards >= 3) levelComplete();
+                }
+            });
+        }
+
+        function isColliding(rect1, rect2) {
+            return !(rect1.right < rect2.left || rect1.left > rect2.right || 
+                    rect1.bottom < rect2.top || rect1.top > rect2.bottom);
+        }
+
+        function takeDamage() {
+            health--;
+            updateStats();
+            if (health <= 0) {
+                endGame();
+            } else {
+                alien.style.opacity = '0.5';
+                setTimeout(() => alien.style.opacity = '1', 200);
+            }
+        }
+
+        function updateStats() {
+            statsElement.textContent = `Score: ${score} | Keycards: ${keycards}/3 | Health: ${'❤️'.repeat(health)}`;
+        }
+
+        function levelComplete() {
+            alert('Level Complete! You escaped Area 51!');
+            endGame();
+        }
+
+        function endGame() {
+            isGameRunning = false;
+            clearInterval(gameInterval);
+            clearInterval(guardInterval);
+            clearInterval(keycardInterval);
+            gameOverElement.style.display = 'block';
+        }
+
+        function resetGame() {
+            startGame();
+        }
+
+        // Keyboard controls
+        document.addEventListener('keydown', e => keys[e.code] = true);
+        document.addEventListener('keyup', e => keys[e.code] = false);
+    </script>
 </body>
 </html>

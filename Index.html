@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Area 51 Escape</title>
+    <title>$MUB's Area 51 Escape</title>
     <style>
         :root {
-            --primary: #22c55e;
+            --primary: #7B68EE;
             --background: #000033;
             --health: #ff3333;
         }
@@ -76,6 +76,8 @@
             z-index: 100;
             transition: transform 0.1s;
             user-select: none;
+            color: #808080;
+            text-shadow: 0 0 10px rgba(123, 104, 238, 0.8);
         }
 
         .vehicle {
@@ -103,11 +105,11 @@
             position: absolute;
             width: 6px;
             height: 6px;
-            background: yellow;
+            background: var(--primary);
             border-radius: 50%;
             transform: translate(-50%, -50%);
             z-index: 80;
-            box-shadow: 0 0 5px yellow;
+            box-shadow: 0 0 5px var(--primary);
         }
 
         #hud {
@@ -120,6 +122,35 @@
             border: 1px solid var(--primary);
             z-index: 1000;
             pointer-events: none;
+        }
+
+        .mub-power {
+            position: fixed;
+            top: 70px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid var(--primary);
+            z-index: 1000;
+            pointer-events: none;
+        }
+
+        .power-meter {
+            width: 150px;
+            height: 10px;
+            background: #222;
+            border: 1px solid var(--primary);
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 5px;
+        }
+
+        .power-fill {
+            width: 100%;
+            height: 100%;
+            background: var(--primary);
+            transition: width 0.3s;
         }
 
         #health-bar {
@@ -160,7 +191,7 @@
             position: absolute;
             width: 50px;
             height: 50px;
-            background: rgba(34, 197, 94, 0.5);
+            background: rgba(123, 104, 238, 0.5);
             border-radius: 50%;
             top: 50%;
             left: 50%;
@@ -182,7 +213,7 @@
             width: 60px;
             height: 60px;
             border-radius: 50%;
-            background: rgba(34, 197, 94, 0.2);
+            background: rgba(123, 104, 238, 0.2);
             border: 2px solid var(--primary);
             color: var(--primary);
             font-size: 20px;
@@ -215,6 +246,8 @@
             animation: pulse 2s infinite;
             z-index: 85;
             user-select: none;
+            color: #808080;
+            text-shadow: 0 0 10px rgba(123, 104, 238, 0.8);
         }
 
         .mission-objective {
@@ -265,6 +298,11 @@
             animation: fadeIn 0.3s forwards;
         }
 
+        #time-limit {
+            margin-top: 10px;
+            color: var(--primary);
+        }
+
         @keyframes pulse {
             0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
             50% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
@@ -296,11 +334,6 @@
                 height: 50px;
             }
         }
-
-        #time-limit {
-            margin-top: 10px;
-            color: var(--primary);
-        }
     </style>
 </head>
 <body>
@@ -316,8 +349,13 @@
         <div id="wanted-level">⭐</div>
     </div>
 
+    <div class="mub-power">
+        $MUB's Power
+        <div class="power-meter"><div class="power-fill"></div></div>
+    </div>
+
     <div class="mission-objective">
-        Mission: Rescue 5 Aliens!<br>
+        Mission: Help $MUB Rescue Friends!<br>
         Aliens Rescued: <span id="rescued-count">0</span>/5<br>
         <div id="time-limit">Time: 5:00</div>
     </div>
@@ -327,22 +365,18 @@
     </div>
 
     <div id="action-buttons">
-        <button class="action-btn" id="shoot-btn">🔫</button>
+        <button class="action-btn" id="shoot-btn">🔮</button>
         <button class="action-btn" id="action-btn">🚗</button>
     </div>
 
     <div class="damage-indicator"></div>
 
     <script>
-        [Previous JavaScript code goes here]
-    </script>
-</body>
-</html>
-<script>
         // Game variables
         const gameWorld = document.getElementById('game-world');
         const player = document.getElementById('player');
         const healthFill = document.getElementById('health-fill');
+        const powerFill = document.querySelector('.power-fill');
         const damageIndicator = document.createElement('div');
         damageIndicator.className = 'damage-indicator';
         document.body.appendChild(damageIndicator);
@@ -351,15 +385,29 @@
         let playerY = 1500;
         let playerRotation = 0;
         let playerHealth = 100;
+        let playerPower = 100;
+        let powerRegenInterval;
         let playerInVehicle = null;
         let wantedLevel = 1;
         let rescuedAliens = 0;
-        let timeLimit = 300; // 5 minutes in seconds
+        let timeLimit = 300;
         let isGameWon = false;
         let isGameRunning = true;
         const ALIENS_NEEDED = 5;
 
-        // Environment generation
+        function updatePower(amount) {
+            playerPower = Math.max(0, Math.min(100, playerPower + amount));
+            powerFill.style.width = playerPower + '%';
+        }
+
+        function startPowerRegen() {
+            powerRegenInterval = setInterval(() => {
+                if (playerPower < 100) {
+                    updatePower(1);
+                }
+            }, 1000);
+        }
+
         function generateEnvironment() {
             // Generate roads
             for (let i = 0; i < 5; i++) {
@@ -386,7 +434,6 @@
             ];
 
             areas.forEach(area => {
-                // Perimeter fence
                 const fence = document.createElement('div');
                 fence.className = 'fence';
                 fence.style.left = area.x + 'px';
@@ -395,21 +442,20 @@
                 fence.style.height = area.height + 'px';
                 gameWorld.appendChild(fence);
 
-                // Buildings within area
                 const numBuildings = Math.floor((area.width * area.height) / 40000);
                 for (let i = 0; i < numBuildings; i++) {
                     const building = document.createElement('div');
                     building.className = 'building';
                     building.style.width = Math.random() * 100 + 50 + 'px';
                     building.style.height = Math.random() * 100 + 50 + 'px';
-                    building.style.left = (area.x + Math.random() * (area.width - 100)) + 'px';
+                    building.style.left = (area.x + Math.random
+                        building.style.left = (area.x + Math.random() * (area.width - 100)) + 'px';
                     building.style.top = (area.y + Math.random() * (area.height - 100)) + 'px';
                     gameWorld.appendChild(building);
                 }
             });
         }
 
-        // Generate vehicles
         function generateVehicles() {
             const vehicleTypes = ['🚗', '🚙', '🚐', '🚛'];
             for (let i = 0; i < 15; i++) {
@@ -422,7 +468,6 @@
             }
         }
 
-        // Guard AI
         function spawnGuards() {
             const numGuards = 20;
             for (let i = 0; i < numGuards; i++) {
@@ -433,7 +478,6 @@
                 guard.style.top = Math.random() * gameWorld.offsetHeight + 'px';
                 gameWorld.appendChild(guard);
 
-                // Guard behavior
                 setInterval(() => {
                     if (!isGameRunning) return;
                     
@@ -443,8 +487,7 @@
                     const dy = playerRect.top - guardRect.top;
                     const distance = Math.sqrt(dx * dx + dy * dy);
 
-                    if (distance < 300) { // Detection range
-                        // Chase player
+                    if (distance < 300) {
                         const angle = Math.atan2(dy, dx);
                         const speed = 2;
                         const newX = parseFloat(guard.style.left) + Math.cos(angle) * speed;
@@ -453,7 +496,6 @@
                         guard.style.left = newX + 'px';
                         guard.style.top = newY + 'px';
 
-                        // Attack if very close
                         if (distance < 50 && !playerInVehicle) {
                             damagePlayer(5);
                         }
@@ -462,9 +504,8 @@
             }
         }
 
-        // Spawn captured aliens
         function spawnCapturedAliens() {
-            const numAliens = 8; // Spawn more than needed to give options
+            const numAliens = 8;
             for (let i = 0; i < numAliens; i++) {
                 const alien = document.createElement('div');
                 alien.className = 'captured-alien';
@@ -475,7 +516,6 @@
             }
         }
 
-        // Create UFO escape point
         function createUFO() {
             const ufo = document.createElement('div');
             ufo.className = 'ufo';
@@ -485,74 +525,24 @@
             gameWorld.appendChild(ufo);
         }
 
-        // Damage and health management
         function damagePlayer(amount) {
             if (!isGameRunning) return;
             
             playerHealth = Math.max(0, playerHealth - amount);
             healthFill.style.width = playerHealth + '%';
             
-            // Visual feedback
             damageIndicator.style.opacity = '1';
             setTimeout(() => damageIndicator.style.opacity = '0', 300);
 
             if (playerHealth <= 0) {
-                gameOver("Captured by the guards!");
+                gameOver("$MUB has been captured!");
             }
         }
 
-        // Mobile controls
-        const joystickArea = document.getElementById('joystick-area');
-        const joystick = document.getElementById('joystick');
-        const shootBtn = document.getElementById('shoot-btn');
-        const actionBtn = document.getElementById('action-btn');
-
-        let joystickActive = false;
-        let joystickCenter = { x: 0, y: 0 };
-        let moveVector = { x: 0, y: 0 };
-
-        joystickArea.addEventListener('touchstart', (e) => {
-            joystickActive = true;
-            const touch = e.touches[0];
-            const rect = joystickArea.getBoundingClientRect();
-            joystickCenter = {
-                x: rect.left + rect.width / 2,
-                y: rect.top + rect.height / 2
-            };
-            updateJoystick(touch);
-        });
-
-        document.addEventListener('touchmove', (e) => {
-            if (!joystickActive) return;
-            updateJoystick(e.touches[0]);
-        });
-
-        document.addEventListener('touchend', () => {
-            joystickActive = false;
-            joystick.style.transform = 'translate(-50%, -50%)';
-            moveVector = { x: 0, y: 0 };
-        });
-
-        function updateJoystick(touch) {
-            const dx = touch.clientX - joystickCenter.x;
-            const dy = touch.clientY - joystickCenter.y;
-            const distance = Math.min(50, Math.sqrt(dx * dx + dy * dy));
-            const angle = Math.atan2(dy, dx);
-            
-            moveVector = {
-                x: Math.cos(angle) * (distance / 50),
-                y: Math.sin(angle) * (distance / 50)
-            };
-
-            joystick.style.transform = `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px))`;
-        }
-
-        shootBtn.addEventListener('touchstart', shoot);
-        actionBtn.addEventListener('touchstart', handleVehicleInteraction);
-
-        // Game mechanics
         function shoot() {
-            if (!isGameRunning || playerInVehicle) return;
+            if (!isGameRunning || playerInVehicle || playerPower < 20) return;
+
+            updatePower(-20);
 
             const bullet = document.createElement('div');
             bullet.className = 'bullet';
@@ -572,7 +562,6 @@
                 bullet.style.left = (x + vx) + 'px';
                 bullet.style.top = (y + vy) + 'px';
 
-                // Check for collisions with guards
                 const bulletRect = bullet.getBoundingClientRect();
                 document.querySelectorAll('.guard').forEach(guard => {
                     const guardRect = guard.getBoundingClientRect();
@@ -652,7 +641,6 @@
             };
         }
 
-        // Collision detection
         function isColliding(rect1, rect2) {
             return !(rect1.right < rect2.left || 
                     rect1.left > rect2.right || 
@@ -660,16 +648,22 @@
                     rect1.top > rect2.bottom);
         }
 
-        // Win/Loss conditions
         function gameOver(message = "Game Over!") {
             isGameRunning = false;
             const gameOverScreen = document.createElement('div');
             gameOverScreen.className = 'message';
             gameOverScreen.innerHTML = `
                 <h2>${message}</h2>
-                <p>Aliens Rescued: ${rescuedAliens}/${ALIENS_NEEDED}</p>
+                <p>$MUB's Rescued Friends: ${rescuedAliens}/${ALIENS_NEEDED}</p>
                 <p>Wanted Level: ${'⭐'.repeat(wantedLevel)}</p>
-                <button onclick="location.reload()" class="btn">
+                <button onclick="location.reload()" style="
+                    background: var(--primary);
+                    border: none;
+                    padding: 10px 20px;
+                    border-radius: 5px;
+                    color: white;
+                    margin-top: 10px;
+                    cursor: pointer;">
                     Try Again
                 </button>
             `;
@@ -682,10 +676,17 @@
             const gameWonScreen = document.createElement('div');
             gameWonScreen.className = 'message';
             gameWonScreen.innerHTML = `
-                <h2>Mission Accomplished!</h2>
-                <p>All aliens rescued in ${Math.floor(300 - timeLimit)} seconds!</p>
+                <h2>$MUB's Mission Accomplished!</h2>
+                <p>All friends rescued in ${Math.floor(300 - timeLimit)} seconds!</p>
                 <p>Wanted Level: ${'⭐'.repeat(wantedLevel)}</p>
-                <button onclick="location.reload()" class="btn">
+                <button onclick="location.reload()" style="
+                    background: var(--primary);
+                    border: none;
+                    padding: 10px 20px;
+                    border-radius: 5px;
+                    color: white;
+                    margin-top: 10px;
+                    cursor: pointer;">
                     Play Again
                 </button>
             `;
@@ -699,7 +700,7 @@
             document.getElementById('rescued-count').textContent = rescuedAliens;
             
             if (rescuedAliens >= ALIENS_NEEDED) {
-                showMessage("All aliens rescued! Get to the UFO to escape!", 3000);
+                showMessage("All friends rescued! Get to the UFO!", 3000);
             }
         }
 
@@ -710,71 +711,6 @@
                 `Time: ${minutes}:${seconds.toString().padStart(2, '0')}`;
         }
 
-        // Game loop
-        function updateGame() {
-            if (!isGameRunning) return;
-
-            timeLimit -= 1/60;
-            updateTimer();
-            
-            if (timeLimit <= 0) {
-                gameOver("Time's up! The military has locked down the area!");
-                return;
-            }
-
-            if (joystickActive) {
-                const speed = playerInVehicle ? 8 : 5;
-                playerX += moveVector.x * speed;
-                playerY += moveVector.
-                    playerY += moveVector.y * speed;
-                
-                if (moveVector.x || moveVector.y) {
-                    playerRotation = Math.atan2(moveVector.y, moveVector.x) * 180 / Math.PI;
-                }
-            }
-
-            playerX = Math.max(20, Math.min(gameWorld.offsetWidth - 20, playerX));
-            playerY = Math.max(20, Math.min(gameWorld.offsetHeight - 20, playerY));
-
-            player.style.left = playerX + 'px';
-            player.style.top = playerY + 'px';
-            player.style.transform = `translate(-50%, -50%) rotate(${playerRotation}deg)`;
-
-            if (playerInVehicle) {
-                playerInVehicle.style.left = playerX + 'px';
-                playerInVehicle.style.top = playerY + 'px';
-                playerInVehicle.style.transform = `translate(-50%, -50%) rotate(${playerRotation}deg)`;
-            }
-
-            const cameraX = playerX - window.innerWidth / 2;
-            const cameraY = playerY - window.innerHeight / 2;
-            gameWorld.style.transform = `translate(${-cameraX}px, ${-cameraY}px)`;
-
-            // Check for alien rescue
-            const playerRect = player.getBoundingClientRect();
-            document.querySelectorAll('.captured-alien').forEach(alien => {
-                const alienRect = alien.getBoundingClientRect();
-                if (isColliding(playerRect, alienRect)) {
-                    rescueAlien(alien);
-                }
-            });
-
-            // Check for UFO escape when all aliens are rescued
-            if (rescuedAliens >= ALIENS_NEEDED) {
-                const ufo = document.querySelector('.ufo');
-                if (ufo) {
-                    const ufoRect = ufo.getBoundingClientRect();
-                    if (isColliding(playerRect, ufoRect)) {
-                        winGame();
-                        return;
-                    }
-                }
-            }
-
-            requestAnimationFrame(updateGame);
-        }
-
-        // Utility functions
         function showMessage(text, duration = 2000) {
             const message = document.createElement('div');
             message.className = 'message';
@@ -792,7 +728,55 @@
             setTimeout(() => effect.remove(), 1000);
         }
 
-        // Keyboard controls
+        // Mobile controls
+        const joystickArea = document.getElementById('joystick-area');
+        const joystick = document.getElementById('joystick');
+        const shootBtn = document.getElementById('shoot-btn');
+        const actionBtn = document.getElementById('action-btn');
+
+        let joystickActive = false;
+        let joystickCenter = { x: 0, y: 0 };
+        let moveVector = { x: 0, y: 0 };
+
+        joystickArea.addEventListener('touchstart', (e) => {
+            joystickActive = true;
+            const touch = e.touches[0];
+            const rect = joystickArea.getBoundingClientRect();
+            joystickCenter = {
+                x: rect.left + rect.width / 2,
+                y: rect.top + rect.height / 2
+            };
+            updateJoystick(touch);
+        });
+
+        document.addEventListener('touchmove', (e) => {
+            if (!joystickActive) return;
+            updateJoystick(e.touches[0]);
+        });
+
+        document.addEventListener('touchend', () => {
+            joystickActive = false;
+            joystick.style.transform = 'translate(-50%, -50%)';
+            moveVector = { x: 0, y: 0 };
+        });
+
+        function updateJoystick(touch) {
+            const dx = touch.clientX - joystickCenter.x;
+            const dy = touch.clientY - joystickCenter.y;
+            const distance = Math.min(50, Math.sqrt(dx * dx + dy * dy));
+            const angle = Math.atan2(dy, dx);
+            
+            moveVector = {
+                x: Math.cos(angle) * (distance / 50),
+                y: Math.sin(angle) * (distance / 50)
+            };
+
+            joystick.style.transform = `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px))`;
+        }
+
+        shootBtn.addEventListener('touchstart', shoot);
+        actionBtn.addEventListener('touchstart', handleVehicleInteraction);
+
         document.addEventListener('keydown', (e) => {
             switch(e.key) {
                 case 'ArrowUp':
@@ -841,16 +825,85 @@
             }
         });
 
-        // Initialize game
-        generateEnvironment();
-        generateVehicles();
-        spawnGuards();
-        spawnCapturedAliens();
-        createUFO();
-        updateGame();
+        function updateGame() {
+            if (!isGameRunning) return;
 
-        // Show initial message
-        showMessage("Rescue 5 aliens and escape in the UFO!", 3000);
+            timeLimit -= 1/60;
+            updateTimer();
+            
+            if (timeLimit <= 0) {
+                gameOver("Time's up! The military has locked down the area!");
+                return;
+            }
+
+            if (joystickActive || moveVector.x !== 0 || moveVector.y !== 0) {
+                const speed = playerInVehicle ? 8 : 5;
+                playerX += moveVector.x * speed;
+                playerY += moveVector.y * speed;
+                
+                if (moveVector.x || moveVector.y) {
+                    playerRotation = Math.atan2(moveVector.y, moveVector.x) * 180 / Math.PI;
+                }
+            }
+
+            playerX = Math.max(20, Math.min(gameWorld.offsetWidth - 20, playerX));
+            playerY = Math.max(20, Math.min(gameWorld.offsetHeight - 20, playerY));
+
+            player.style.left = playerX + 'px';
+            player.style.
+                player.style.top = playerY + 'px';
+            player.style.transform = `translate(-50%, -50%) rotate(${playerRotation}deg)`;
+
+            if (playerInVehicle) {
+                playerInVehicle.style.left = playerX + 'px';
+                playerInVehicle.style.top = playerY + 'px';
+                playerInVehicle.style.transform = `translate(-50%, -50%) rotate(${playerRotation}deg)`;
+            }
+
+            const cameraX = playerX - window.innerWidth / 2;
+            const cameraY = playerY - window.innerHeight / 2;
+            gameWorld.style.transform = `translate(${-cameraX}px, ${-cameraY}px)`;
+
+            // Check for alien rescue
+            const playerRect = player.getBoundingClientRect();
+            document.querySelectorAll('.captured-alien').forEach(alien => {
+                const alienRect = alien.getBoundingClientRect();
+                if (isColliding(playerRect, alienRect)) {
+                    rescueAlien(alien);
+                }
+            });
+
+            // Check for UFO escape when all aliens are rescued
+            if (rescuedAliens >= ALIENS_NEEDED) {
+                const ufo = document.querySelector('.ufo');
+                if (ufo) {
+                    const ufoRect = ufo.getBoundingClientRect();
+                    if (isColliding(playerRect, ufoRect)) {
+                        winGame();
+                        return;
+                    }
+                }
+            }
+
+            requestAnimationFrame(updateGame);
+        }
+
+        // Initialize game with $MUB specifics
+        function initGame() {
+            generateEnvironment();
+            generateVehicles();
+            spawnGuards();
+            spawnCapturedAliens();
+            createUFO();
+            startPowerRegen();
+            updateGame();
+            
+            // Custom welcome message for $MUB
+            showMessage("Help $MUB rescue friends and escape in the UFO!", 3000);
+        }
+
+        // Start the game
+        initGame();
     </script>
 </body>
 </html>

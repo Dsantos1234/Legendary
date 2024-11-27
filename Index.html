@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Area 51 Escape</title>
+    <title>Alien GTA: Area 51</title>
     <style>
         :root {
             --primary: #22c55e;
@@ -20,194 +20,292 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            overflow: hidden;
         }
 
         #game-container {
             width: 800px;
-            height: 400px;
+            height: 600px;
             position: relative;
             overflow: hidden;
-            background: linear-gradient(rgba(0,0,51,0.8), rgba(0,0,102,0.8));
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h100v100H0z' fill='%23001a33'/%3E%3Cpath d='M10 10h10v10H10zM30 10h10v10H30zM50 10h10v10H50zM70 10h10v10H70zM90 10h10v10H90z' fill='%23003366' fill-opacity='0.4'/%3E%3C/svg%3E");
             border: 2px solid var(--primary);
             border-radius: 8px;
             box-shadow: 0 0 20px rgba(34, 197, 94, 0.2);
         }
 
-        #player {
-            width: 40px;
-            height: 40px;
+        #game-world {
+            position: relative;
+            width: 2400px;
+            height: 1800px;
+            background: #001a33;
+            transform-origin: top left;
+        }
+
+        .building {
             position: absolute;
-            bottom: 20px;
-            left: 50px;
-            font-size: 30px;
+            background: #112244;
+            border: 1px solid var(--primary);
+        }
+
+        #player {
+            width: 30px;
+            height: 30px;
+            position: absolute;
+            font-size: 24px;
+            transform: translate(-50%, -50%);
             z-index: 10;
+            transition: transform 0.1s;
             user-select: none;
+        }
+
+        .vehicle {
+            position: absolute;
+            width: 40px;
+            height: 60px;
+            background: #444;
+            border-radius: 5px;
+            transform: translate(-50%, -50%);
+            border: 1px solid #666;
         }
 
         .guard {
             position: absolute;
-            width: 40px;
-            height: 40px;
-            font-size: 30px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            user-select: none;
-        }
-
-        .keycard {
-            position: absolute;
             width: 30px;
             height: 30px;
-            font-size: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            animation: float 2s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
-
-        #score-display {
             font-size: 24px;
-            margin: 20px 0;
-        }
-
-        #controls {
-            margin-top: 20px;
-        }
-
-        .btn {
-            padding: 10px 20px;
-            font-size: 18px;
-            background: var(--primary);
-            border: none;
-            border-radius: 4px;
-            color: black;
-            cursor: pointer;
-            margin: 0 10px;
-        }
-
-        .stars {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-        }
-
-        .star {
-            position: absolute;
-            background: white;
-            border-radius: 50%;
-            animation: twinkle 1.5s infinite ease-in-out;
-        }
-
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 1; }
-        }
-
-        #game-over {
-            display: none;
-            position: absolute;
-            top: 50%;
-            left: 50%;
             transform: translate(-50%, -50%);
-            background: rgba(0, 0, 0, 0.9);
-            padding: 20px;
-            border-radius: 8px;
-            text-align: center;
-            border: 2px solid red;
+            user-select: none;
+            z-index: 5;
         }
 
-        #mobile-controls {
-            display: none;
-            margin-top: 20px;
+        #hud {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid var(--primary);
         }
 
-        .mobile-btn {
-            width: 60px;
-            height: 60px;
-            font-size: 24px;
-            margin: 5px;
-            background: rgba(34, 197, 94, 0.2);
-            border: 2px solid var(--primary);
-            border-radius: 8px;
-            color: var(--primary);
+        #wanted-level {
+            margin-top: 10px;
+            color: red;
+        }
+
+        .bullet {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: yellow;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 4;
+        }
+
+        #controls-help {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 14px;
         }
 
         @media (max-width: 850px) {
             #game-container {
                 width: 100%;
-                height: 350px;
-            }
-
-            #mobile-controls {
-                display: block;
+                height: 400px;
             }
         }
     </style>
 </head>
 <body>
-    <h1>Area 51 Escape 👽</h1>
-    <div id="score-display">Score: 0 | Keycards: 0/3 | Health: ❤️❤️❤️</div>
+    <h1>Alien GTA: Area 51</h1>
     
     <div id="game-container">
-        <div class="stars"></div>
-        <div id="player">👽</div>
-        <div id="game-over">
-            Game Over!<br><br>
-            <button class="btn" onclick="resetGame()">Try Again</button>
+        <div id="game-world">
+            <!-- Buildings and objects will be generated here -->
         </div>
     </div>
 
-    <div id="controls">
-        <button class="btn" onclick="startGame()">Start Game</button>
+    <div id="hud">
+        Health: ❤️❤️❤️<br>
+        Wanted Level: <span id="wanted-level">⭐</span>
     </div>
 
-    <div id="mobile-controls">
-        <button class="mobile-btn" id="jumpBtn">⬆️</button>
-        <br>
-        <button class="mobile-btn" id="leftBtn">⬅️</button>
-        <button class="mobile-btn" id="rightBtn">➡️</button>
+    <div id="controls-help">
+        WASD or Arrows: Move<br>
+        E: Enter/Exit Vehicle<br>
+        Space: Shoot<br>
+        Shift: Sprint
     </div>
 
     <script>
-        // Base game variables
-        const player = document.getElementById('player');
         const gameContainer = document.getElementById('game-container');
-        const scoreDisplay = document.getElementById('score-display');
-        const gameOver = document.getElementById('game-over');
-        
-        let score = 0;
-        let keycards = 0;
-        let health = 3;
-        let isGameRunning = false;
-        let isJumping = false;
-        let jumpForce = 0;
+        const gameWorld = document.getElementById('game-world');
+        const wantedLevel = document.getElementById('wanted-level');
 
-        // Create stars background
-        function createStars() {
-            const starsContainer = document.querySelector('.stars');
-            for (let i = 0; i < 50; i++) {
-                const star = document.createElement('div');
-                star.className = 'star';
-                star.style.left = `${Math.random() * 100}%`;
-                star.style.top = `${Math.random() * 100}%`;
-                star.style.width = `${Math.random() * 2 + 1}px`;
-                star.style.height = star.style.width;
-                star.style.animationDelay = `${Math.random() * 2}s`;
-                starsContainer.appendChild(star);
+        let playerX = 400;
+        let playerY = 300;
+        let playerRotation = 0;
+        let playerInVehicle = null;
+        let playerHealth = 3;
+        let wantedStars = 1;
+        
+        // Create player
+        const player = document.createElement('div');
+        player.id = 'player';
+        player.innerHTML = '👽';
+        gameWorld.appendChild(player);
+
+        // Generate buildings
+        function generateBuildings() {
+            const numBuildings = 20;
+            for (let i = 0; i < numBuildings; i++) {
+                const building = document.createElement('div');
+                building.className = 'building';
+                building.style.width = Math.random() * 200 + 100 + 'px';
+                building.style.height = Math.random() * 200 + 100 + 'px';
+                building.style.left = Math.random() * (gameWorld.offsetWidth - 300) + 'px';
+                building.style.top = Math.random() * (gameWorld.offsetHeight - 300) + 'px';
+                gameWorld.appendChild(building);
             }
         }
 
-        // Initialize stars
-        createStars();
+        // Generate vehicles
+        function generateVehicles() {
+            const vehicles = ['🚗', '🚙', '🚐', '🚛'];
+            for (let i = 0; i < 10; i++) {
+                const vehicle = document.createElement('div');
+                vehicle.className = 'vehicle';
+                vehicle.innerHTML = vehicles[Math.floor(Math.random() * vehicles.length)];
+                vehicle.style.left = Math.random() * (gameWorld.offsetWidth - 100) + 'px';
+                vehicle.style.top = Math.random() * (gameWorld.offsetHeight - 100) + 'px';
+                gameWorld.appendChild(vehicle);
+            }
+        }
+
+        // Generate guards
+        function generateGuards() {
+            for (let i = 0; i < 10; i++) {
+                const guard = document.createElement('div');
+                guard.className = 'guard';
+                guard.innerHTML = '👮';
+                guard.style.left = Math.random() * (gameWorld.offsetWidth - 100) + 'px';
+                guard.style.top = Math.random() * (gameWorld.offsetHeight - 100) + 'px';
+                gameWorld.appendChild(guard);
+            }
+        }
+
+        // Movement and controls
+        const keys = {};
+        document.addEventListener('keydown', (e) => {
+            keys[e.key] = true;
+            if (e.key === 'e' || e.key === 'E') {
+                handleVehicleInteraction();
+            }
+            if (e.key === ' ') {
+                shoot();
+            }
+        });
+        document.addEventListener('keyup', (e) => keys[e.key] = false);
+
+        function shoot() {
+            if (playerInVehicle) return;
+            
+            const bullet = document.createElement('div');
+            bullet.className = 'bullet';
+            bullet.style.left = playerX + 'px';
+            bullet.style.top = playerY + 'px';
+            gameWorld.appendChild(bullet);
+
+            const angle = (playerRotation * Math.PI) / 180;
+            const speed = 10;
+            const vx = Math.cos(angle) * speed;
+            const vy = Math.sin(angle) * speed;
+
+            function updateBullet() {
+                const x = parseFloat(bullet.style.left);
+                const y = parseFloat(bullet.style.top);
+                bullet.style.left = (x + vx) + 'px';
+                bullet.style.top = (y + vy) + 'px';
+
+                // Check for collisions or remove if out of bounds
+                if (x < 0 || x > gameWorld.offsetWidth || y < 0 || y > gameWorld.offsetHeight) {
+                    bullet.remove();
+                } else {
+                    requestAnimationFrame(updateBullet);
+                }
+            }
+            requestAnimationFrame(updateBullet);
+        }
+
+        function handleVehicleInteraction() {
+            if (playerInVehicle) {
+                // Exit vehicle
+                playerInVehicle = null;
+                player.innerHTML = '👽';
+            } else {
+                // Try to enter nearby vehicle
+                const vehicles = document.querySelectorAll('.vehicle');
+                for (const vehicle of vehicles) {
+                    const vx = parseFloat(vehicle.style.left);
+                    const vy = parseFloat(vehicle.style.top);
+                    const distance = Math.hypot(playerX - vx, playerY - vy);
+                    
+                    if (distance < 50) {
+                        playerInVehicle = vehicle;
+                        player.innerHTML = vehicle.innerHTML;
+                        break;
+                    }
+                }
+            }
+        }
+
+        function updateGame() {
+            const speed = keys.Shift ? 5 : 3;
+            let dx = 0;
+            let dy = 0;
+
+            if (keys.w || keys.W || keys.ArrowUp) dy -= speed;
+            if (keys.s || keys.S || keys.ArrowDown) dy += speed;
+            if (keys.a || keys.A || keys.ArrowLeft) dx -= speed;
+            if (keys.d || keys.D || keys.ArrowRight) dx += speed;
+
+            if (dx || dy) {
+                playerRotation = Math.atan2(dy, dx) * 180 / Math.PI;
+                playerX = Math.max(0, Math.min(gameWorld.offsetWidth, playerX + dx));
+                playerY = Math.max(0, Math.min(gameWorld.offsetHeight, playerY + dy));
+                
+                player.style.left = playerX + 'px';
+                player.style.top = playerY + 'px';
+                player.style.transform = `translate(-50%, -50%) rotate(${playerRotation}deg)`;
+
+                // Update vehicle position if in vehicle
+                if (playerInVehicle) {
+                    playerInVehicle.style.left = playerX + 'px';
+                    playerInVehicle.style.top = playerY + 'px';
+                    playerInVehicle.style.transform = `translate(-50%, -50%) rotate(${playerRotation}deg)`;
+                }
+
+                // Update camera
+                const containerRect = gameContainer.getBoundingClientRect();
+                const cameraX = Math.max(0, Math.min(gameWorld.offsetWidth - containerRect.width, playerX - containerRect.width / 2));
+                const cameraY = Math.max(0, Math.min(gameWorld.offsetHeight - containerRect.height, playerY - containerRect.height / 2));
+                gameWorld.style.transform = `translate(${-cameraX}px, ${-cameraY}px)`;
+            }
+
+            requestAnimationFrame(updateGame);
+        }
+
+        // Initialize game
+        generateBuildings();
+        generateVehicles();
+        generateGuards();
+        updateGame();
     </script>
 </body>
 </html>

@@ -1,198 +1,213 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- Previous head and style sections remain the same -->
 <head>
-    <!-- Previous styles remain the same -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Area 51 Escape</title>
+    <style>
+        :root {
+            --primary: #22c55e;
+            --background: #000033;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            background: radial-gradient(circle at center, var(--background), #000022);
+            color: white;
+            font-family: system-ui, -apple-system, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #game-container {
+            width: 800px;
+            height: 400px;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(rgba(0,0,51,0.8), rgba(0,0,102,0.8));
+            border: 2px solid var(--primary);
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(34, 197, 94, 0.2);
+        }
+
+        #player {
+            width: 40px;
+            height: 40px;
+            position: absolute;
+            bottom: 20px;
+            left: 50px;
+            font-size: 30px;
+            z-index: 10;
+            user-select: none;
+        }
+
+        .guard {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            font-size: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            user-select: none;
+        }
+
+        .keycard {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            font-size: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: float 2s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        #score-display {
+            font-size: 24px;
+            margin: 20px 0;
+        }
+
+        #controls {
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            font-size: 18px;
+            background: var(--primary);
+            border: none;
+            border-radius: 4px;
+            color: black;
+            cursor: pointer;
+            margin: 0 10px;
+        }
+
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 1.5s infinite ease-in-out;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        #game-over {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.9);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            border: 2px solid red;
+        }
+
+        #mobile-controls {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .mobile-btn {
+            width: 60px;
+            height: 60px;
+            font-size: 24px;
+            margin: 5px;
+            background: rgba(34, 197, 94, 0.2);
+            border: 2px solid var(--primary);
+            border-radius: 8px;
+            color: var(--primary);
+        }
+
+        @media (max-width: 850px) {
+            #game-container {
+                width: 100%;
+                height: 350px;
+            }
+
+            #mobile-controls {
+                display: block;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="stars"></div>
-    <div class="background-ufo">🛸</div>
-
-    <h1>Area 51 Escape - Enhanced Edition 👽</h1>
-    <div id="level-info">Level 1</div>
-    <div id="stats">Score: 0 | Keycards: 0/3 | Health: ❤️❤️❤️</div>
+    <h1>Area 51 Escape 👽</h1>
+    <div id="score-display">Score: 0 | Keycards: 0/3 | Health: ❤️❤️❤️</div>
+    
     <div id="game-container">
-        <div class="facility-element control-panel" style="top: 20px; left: 30px">
-            <div class="blinking-light" style="top: 5px; left: 5px"></div>
-            <div class="blinking-light" style="top: 5px; right: 5px"></div>
-        </div>
-        <div class="facility-element control-panel" style="top: 20px; right: 30px">
-            <div class="blinking-light" style="top: 5px; left: 5px"></div>
-            <div class="blinking-light" style="top: 5px; right: 5px"></div>
-        </div>
-        
-        <div id="alien">👽</div>
+        <div class="stars"></div>
+        <div id="player">👽</div>
         <div id="game-over">
-            Game Over!<br>
+            Game Over!<br><br>
             <button class="btn" onclick="resetGame()">Try Again</button>
         </div>
-        <div id="level-complete">
-            Level Complete!<br>
-            <button class="btn" onclick="nextLevel()">Next Level</button>
-        </div>
     </div>
-    
+
+    <div id="controls">
+        <button class="btn" onclick="startGame()">Start Game</button>
+    </div>
+
     <div id="mobile-controls">
-        <div class="control-group">
-            <button class="control-btn" id="jumpBtn">⬆️</button>
-        </div>
-        <div class="control-group">
-            <button class="control-btn" id="leftBtn">⬅️</button>
-            <button class="control-btn" id="rightBtn">➡️</button>
-        </div>
-    </div>
-
-    <button class="btn" onclick="startGame()">Start Game</button>
-
-    <div id="leaderboard">
-        <h2>Top Scores</h2>
-        <div id="leaderboard-entries"></div>
+        <button class="mobile-btn" id="jumpBtn">⬆️</button>
+        <br>
+        <button class="mobile-btn" id="leftBtn">⬅️</button>
+        <button class="mobile-btn" id="rightBtn">➡️</button>
     </div>
 
     <script>
-        // Game variables
-        const alien = document.getElementById('alien');
+        // Base game variables
+        const player = document.getElementById('player');
         const gameContainer = document.getElementById('game-container');
-        const statsElement = document.getElementById('stats');
-        const levelInfoElement = document.getElementById('level-info');
-        const gameOverElement = document.getElementById('game-over');
-        const levelCompleteElement = document.getElementById('level-complete');
-        const leaderboardEntriesElement = document.getElementById('leaderboard-entries');
-
+        const scoreDisplay = document.getElementById('score-display');
+        const gameOver = document.getElementById('game-over');
+        
         let score = 0;
         let keycards = 0;
         let health = 3;
-        let level = 1;
+        let isGameRunning = false;
         let isJumping = false;
         let jumpForce = 0;
-        let isGameRunning = false;
-        let hasShield = false;
-        let guardInterval, keycardInterval, powerupInterval;
-        const keys = {};
 
-        // Level configuration
-        const levelConfig = {
-            1: { guardSpeed: 4, guardInterval: 2000, keycardsNeeded: 3, powerupChance: 0.3 },
-            2: { guardSpeed: 5, guardInterval: 1800, keycardsNeeded: 4, powerupChance: 0.25 },
-            3: { guardSpeed: 6, guardInterval: 1600, keycardsNeeded: 4, powerupChance: 0.2 },
-            4: { guardSpeed: 7, guardInterval: 1400, keycardsNeeded: 5, powerupChance: 0.15 },
-            5: { guardSpeed: 8, guardInterval: 1200, keycardsNeeded: 5, powerupChance: 0.1 }
-        };
-
-        // Game mechanics
-        function startGame() {
-            if (isGameRunning) return;
-            score = 0;
-            level = 1;
-            keycards = 0;
-            health = 3;
-            startLevel();
-        }
-
-        function startLevel() {
-            isGameRunning = true;
-            updateStats();
-            document.querySelectorAll('.guard, .keycard, .powerup').forEach(el => el.remove());
-            alien.style.bottom = '20px';
-            alien.style.left = '50px';
-            gameOverElement.style.display = 'none';
-            levelCompleteElement.style.display = 'none';
-            
-            guardInterval = setInterval(createGuard, levelConfig[level].guardInterval);
-            keycardInterval = setInterval(createKeycard, 3000);
-            powerupInterval = setInterval(createPowerup, 5000);
-            requestAnimationFrame(gameLoop);
-        }
-
-        function createGuard() {
-            if (!isGameRunning) return;
-            const guard = document.createElement('div');
-            guard.className = 'guard';
-            guard.innerHTML = '👮';
-            guard.style.bottom = `${Math.random() * 200}px`;
-            guard.style.right = '-30px';
-            gameContainer.appendChild(guard);
-            moveGuard(guard);
-        }
-
-        function moveGuard(guard) {
-            if (!isGameRunning) {
-                guard.remove();
-                return;
-            }
-            
-            let left = parseFloat(guard.style.left) || gameContainer.clientWidth;
-            if (left < -30) {
-                guard.remove();
-                score += 10;
-                updateStats();
-            } else {
-                guard.style.left = `${left - levelConfig[level].guardSpeed}px`;
-                requestAnimationFrame(() => moveGuard(guard));
+        // Create stars background
+        function createStars() {
+            const starsContainer = document.querySelector('.stars');
+            for (let i = 0; i < 50; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.width = `${Math.random() * 2 + 1}px`;
+                star.style.height = star.style.width;
+                star.style.animationDelay = `${Math.random() * 2}s`;
+                starsContainer.appendChild(star);
             }
         }
 
-        function createKeycard() {
-            if (!isGameRunning || keycards >= levelConfig[level].keycardsNeeded) return;
-            const keycard = document.createElement('div');
-            keycard.className = 'keycard';
-            keycard.innerHTML = '🔑';
-            keycard.style.left = `${Math.random() * (gameContainer.clientWidth - 50) + 50}px`;
-            keycard.style.bottom = `${Math.random() * 300 + 50}px`;
-            gameContainer.appendChild(keycard);
-        }
-
-        function gameLoop() {
-            if (!isGameRunning) return;
-
-            // Handle jumping
-            if (!isJumping && keys.ArrowUp) {
-                isJumping = true;
-                jumpForce = 15;
-            }
-            
-            if (isJumping) {
-                let bottom = parseFloat(alien.style.bottom) || 20;
-                jumpForce -= 0.8;
-                bottom += jumpForce;
-                
-                if (bottom <= 20) {
-                    bottom = 20;
-                    isJumping = false;
-                }
-                alien.style.bottom = `${bottom}px`;
-            }
-            
-            // Handle horizontal movement
-            let left = parseFloat(alien.style.left) || 50;
-            if (keys.ArrowLeft && left > 0) left -= 5;
-            if (keys.ArrowRight && left < gameContainer.clientWidth - 40) left += 5;
-            alien.style.left = `${left}px`;
-            
-            checkCollisions();
-            requestAnimationFrame(gameLoop);
-        }
-
-        // Collision detection and game state management functions here
-        // [Previous collision detection code remains the same]
-
-        // Event listeners
-        document.addEventListener('keydown', e => {
-            keys[e.code] = true;
-            if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', ' '].includes(e.code)) {
-                e.preventDefault();
-            }
-        });
-        
-        document.addEventListener('keyup', e => keys[e.code] = false);
-
-        // Initialize mobile controls
-        setupMobileControls();
-        
-        // Start background effects
-        createBackgroundUFOs();
+        // Initialize stars
         createStars();
-        createFacilityElements();
     </script>
 </body>
 </html>

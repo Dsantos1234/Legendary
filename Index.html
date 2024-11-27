@@ -11,7 +11,12 @@
             --health: #ff3333;
         }
 
-        * { box-sizing: border-box; }
+        * { 
+            box-sizing: border-box;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
 
         body {
             margin: 0;
@@ -23,6 +28,7 @@
             font-family: system-ui, -apple-system, sans-serif;
             overflow: hidden;
             touch-action: none;
+            position: fixed; /* Prevent overscroll on mobile */
         }
 
         #game-container {
@@ -39,6 +45,7 @@
             width: 3000px;
             height: 3000px;
             transform-origin: top left;
+            will-change: transform; /* Optimize performance */
         }
 
         .grass {
@@ -46,12 +53,14 @@
             width: 100%;
             height: 100%;
             background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='%23003300' fill-opacity='0.2' d='M0 0h100v100H0z'/%3E%3Cpath d='M10 10h5v5h-5zM30 10h5v5h-5zM50 10h5v5h-5z' fill='%23004400' fill-opacity='0.3'/%3E%3C/svg%3E");
+            pointer-events: none;
         }
 
         .road {
             position: absolute;
             background: #222;
             border: 1px solid #333;
+            pointer-events: none;
         }
 
         .building {
@@ -78,6 +87,7 @@
             user-select: none;
             color: #808080;
             text-shadow: 0 0 10px rgba(123, 104, 238, 0.8);
+            will-change: transform; /* Optimize performance */
         }
 
         .vehicle {
@@ -89,6 +99,7 @@
             transform: translate(-50%, -50%);
             border: 1px solid #888;
             z-index: 50;
+            will-change: transform;
         }
 
         .guard {
@@ -99,6 +110,7 @@
             transform: translate(-50%, -50%);
             user-select: none;
             z-index: 90;
+            will-change: transform;
         }
 
         .bullet {
@@ -110,6 +122,7 @@
             transform: translate(-50%, -50%);
             z-index: 80;
             box-shadow: 0 0 5px var(--primary);
+            pointer-events: none;
         }
 
         #hud {
@@ -122,6 +135,7 @@
             border: 1px solid var(--primary);
             z-index: 1000;
             pointer-events: none;
+            touch-action: none;
         }
 
         .mub-power {
@@ -134,6 +148,7 @@
             border: 1px solid var(--primary);
             z-index: 1000;
             pointer-events: none;
+            touch-action: none;
         }
 
         .power-meter {
@@ -197,6 +212,7 @@
             left: 50%;
             transform: translate(-50%, -50%);
             pointer-events: none;
+            will-change: transform;
         }
 
         #action-buttons {
@@ -222,6 +238,11 @@
             justify-content: center;
             user-select: none;
             touch-action: none;
+            cursor: pointer;
+        }
+
+        .action-btn:active {
+            background: rgba(123, 104, 238, 0.4);
         }
 
         .damage-indicator {
@@ -260,6 +281,7 @@
             border: 1px solid var(--primary);
             z-index: 1000;
             font-size: 14px;
+            pointer-events: none;
         }
 
         .ufo {
@@ -271,6 +293,7 @@
             z-index: 95;
             animation: hover 3s infinite ease-in-out;
             user-select: none;
+            will-change: transform;
         }
 
         .teleport-effect {
@@ -280,6 +303,7 @@
             background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
             animation: teleport 1s forwards;
             z-index: 110;
+            pointer-events: none;
         }
 
         .message {
@@ -334,6 +358,14 @@
                 height: 50px;
             }
         }
+
+        /* Prevent text selection on iOS */
+        @supports (-webkit-touch-callout: none) {
+            * {
+                -webkit-user-select: none;
+                user-select: none;
+            }
+        }
     </style>
 </head>
 <body>
@@ -377,9 +409,7 @@
         const player = document.getElementById('player');
         const healthFill = document.getElementById('health-fill');
         const powerFill = document.querySelector('.power-fill');
-        const damageIndicator = document.createElement('div');
-        damageIndicator.className = 'damage-indicator';
-        document.body.appendChild(damageIndicator);
+        const damageIndicator = document.querySelector('.damage-indicator');
 
         let playerX = 1500;
         let playerY = 1500;
@@ -395,12 +425,17 @@
         let isGameRunning = true;
         const ALIENS_NEEDED = 5;
 
+        // Prevent default touch behavior
+        document.addEventListener('touchmove', (e) => e.preventDefault(), { passive: false });
+        document.addEventListener('touchstart', (e) => e.preventDefault(), { passive: false });
+
         function updatePower(amount) {
             playerPower = Math.max(0, Math.min(100, playerPower + amount));
             powerFill.style.width = playerPower + '%';
         }
 
         function startPowerRegen() {
+            clearInterval(powerRegenInterval);
             powerRegenInterval = setInterval(() => {
                 if (playerPower < 100) {
                     updatePower(1);
@@ -421,12 +456,18 @@
                 const vertical = document.createElement('div');
                 vertical.className = 'road';
                 vertical.style.width = '60px';
+                vertical.style.
+                    [Previous code remains the same until the generateEnvironment function]
+
+                const vertical = document.createElement('div');
+                vertical.className = 'road';
+                vertical.style.width = '60px';
                 vertical.style.height = '100%';
                 vertical.style.left = (i * 600) + 'px';
                 gameWorld.appendChild(vertical);
             }
 
-            // Generate buildings
+            // Generate buildings and areas
             const areas = [
                 { name: 'Military Base', x: 0, y: 0, width: 1000, height: 1000 },
                 { name: 'Research Lab', x: 1500, y: 500, width: 800, height: 800 },
@@ -446,11 +487,12 @@
                 for (let i = 0; i < numBuildings; i++) {
                     const building = document.createElement('div');
                     building.className = 'building';
-                    building.style.width = Math.random() * 100 + 50 + 'px';
-                    building.style.height = Math.random() * 100 + 50 + 'px';
-                    building.style.left = (area.x + Math.random
-                        building.style.left = (area.x + Math.random() * (area.width - 100)) + 'px';
-                    building.style.top = (area.y + Math.random() * (area.height - 100)) + 'px';
+                    const buildingWidth = Math.random() * 100 + 50;
+                    const buildingHeight = Math.random() * 100 + 50;
+                    building.style.width = buildingWidth + 'px';
+                    building.style.height = buildingHeight + 'px';
+                    building.style.left = (area.x + Math.random() * (area.width - buildingWidth)) + 'px';
+                    building.style.top = (area.y + Math.random() * (area.height - buildingHeight)) + 'px';
                     gameWorld.appendChild(building);
                 }
             });
@@ -490,8 +532,8 @@
                     if (distance < 300) {
                         const angle = Math.atan2(dy, dx);
                         const speed = 2;
-                        const newX = parseFloat(guard.style.left) + Math.cos(angle) * speed;
-                        const newY = parseFloat(guard.style.top) + Math.sin(angle) * speed;
+                        const newX = parseFloat(guard.style.left || 0) + Math.cos(angle) * speed;
+                        const newY = parseFloat(guard.style.top || 0) + Math.sin(angle) * speed;
                         
                         guard.style.left = newX + 'px';
                         guard.style.top = newY + 'px';
@@ -555,7 +597,13 @@
             const vx = Math.cos(angle) * speed;
             const vy = Math.sin(angle) * speed;
 
-            function updateBullet() {
+            const bulletInterval = setInterval(() => {
+                if (!isGameRunning) {
+                    clearInterval(bulletInterval);
+                    bullet.remove();
+                    return;
+                }
+
                 const x = parseFloat(bullet.style.left);
                 const y = parseFloat(bullet.style.top);
                 
@@ -568,19 +616,17 @@
                     if (isColliding(bulletRect, guardRect)) {
                         guard.remove();
                         bullet.remove();
+                        clearInterval(bulletInterval);
                         increaseWantedLevel();
                     }
                 });
 
                 if (x < 0 || x > gameWorld.offsetWidth || y < 0 || y > gameWorld.offsetHeight) {
                     bullet.remove();
-                } else {
-                    requestAnimationFrame(updateBullet);
+                    clearInterval(bulletInterval);
                 }
-            }
-            requestAnimationFrame(updateBullet);
+            }, 16);
         }
-
         function handleVehicleInteraction() {
             if (playerInVehicle) {
                 playerInVehicle.style.opacity = '1';
@@ -650,6 +696,8 @@
 
         function gameOver(message = "Game Over!") {
             isGameRunning = false;
+            clearInterval(powerRegenInterval);
+            
             const gameOverScreen = document.createElement('div');
             gameOverScreen.className = 'message';
             gameOverScreen.innerHTML = `
@@ -672,7 +720,8 @@
 
         function winGame() {
             isGameRunning = false;
-            isGameWon = true;
+            clearInterval(powerRegenInterval);
+            
             const gameWonScreen = document.createElement('div');
             gameWonScreen.className = 'message';
             gameWonScreen.innerHTML = `
@@ -739,6 +788,7 @@
         let moveVector = { x: 0, y: 0 };
 
         joystickArea.addEventListener('touchstart', (e) => {
+            e.preventDefault();
             joystickActive = true;
             const touch = e.touches[0];
             const rect = joystickArea.getBoundingClientRect();
@@ -750,11 +800,13 @@
         });
 
         document.addEventListener('touchmove', (e) => {
+            e.preventDefault();
             if (!joystickActive) return;
             updateJoystick(e.touches[0]);
         });
 
-        document.addEventListener('touchend', () => {
+        document.addEventListener('touchend', (e) => {
+            e.preventDefault();
             joystickActive = false;
             joystick.style.transform = 'translate(-50%, -50%)';
             moveVector = { x: 0, y: 0 };
@@ -774,60 +826,57 @@
             joystick.style.transform = `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px))`;
         }
 
-        shootBtn.addEventListener('touchstart', shoot);
-        actionBtn.addEventListener('touchstart', handleVehicleInteraction);
+        shootBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            shoot();
+        });
+        actionBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            handleVehicleInteraction();
+        });
 
+        // Keyboard controls
+        const keyState = {};
+        
         document.addEventListener('keydown', (e) => {
+            keyState[e.key] = true;
+            
             switch(e.key) {
-                case 'ArrowUp':
-                case 'w':
-                    moveVector.y = -1;
-                    break;
-                case 'ArrowDown':
-                case 's':
-                    moveVector.y = 1;
-                    break;
-                case 'ArrowLeft':
-                case 'a':
-                    moveVector.x = -1;
-                    break;
-                case 'ArrowRight':
-                case 'd':
-                    moveVector.x = 1;
-                    break;
                 case ' ':
                     shoot();
                     break;
                 case 'e':
+                case 'E':
                     handleVehicleInteraction();
                     break;
             }
         });
 
         document.addEventListener('keyup', (e) => {
-            switch(e.key) {
-                case 'ArrowUp':
-                case 'w':
-                    if (moveVector.y < 0) moveVector.y = 0;
-                    break;
-                case 'ArrowDown':
-                case 's':
-                    if (moveVector.y > 0) moveVector.y = 0;
-                    break;
-                case 'ArrowLeft':
-                case 'a':
-                    if (moveVector.x < 0) moveVector.x = 0;
-                    break;
-                case 'ArrowRight':
-                case 'd':
-                    if (moveVector.x > 0) moveVector.x = 0;
-                    break;
-            }
+            keyState[e.key] = false;
         });
+
+        function handleKeyboardInput() {
+            moveVector.x = 0;
+            moveVector.y = 0;
+            
+            if (keyState['ArrowUp'] || keyState['w'] || keyState['W']) moveVector.y = -1;
+            if (keyState['ArrowDown'] || keyState['s'] || keyState['S']) moveVector.y = 1;
+            if (keyState['ArrowLeft'] || keyState['a'] || keyState['A']) moveVector.x = -1;
+            if (keyState['ArrowRight'] || keyState['d'] || keyState['D']) moveVector.x = 1;
+
+            // Normalize diagonal movement
+            if (moveVector.x !== 0 && moveVector.y !== 0) {
+                const length = Math.sqrt(moveVector.x * moveVector.x + moveVector.y * moveVector.y);
+                moveVector.x /= length;
+                moveVector.y /= length;
+            }
+        }
 
         function updateGame() {
             if (!isGameRunning) return;
 
+            // Update timer
             timeLimit -= 1/60;
             updateTimer();
             
@@ -836,30 +885,35 @@
                 return;
             }
 
-            if (joystickActive || moveVector.x !== 0 || moveVector.y !== 0) {
+            // Handle keyboard input
+            handleKeyboardInput();
+
+            // Update player position
+            if (moveVector.x !== 0 || moveVector.y !== 0) {
                 const speed = playerInVehicle ? 8 : 5;
                 playerX += moveVector.x * speed;
                 playerY += moveVector.y * speed;
                 
-                if (moveVector.x || moveVector.y) {
-                    playerRotation = Math.atan2(moveVector.y, moveVector.x) * 180 / Math.PI;
-                }
+                playerRotation = Math.atan2(moveVector.y, moveVector.x) * 180 / Math.PI;
             }
 
+            // Keep player within bounds
             playerX = Math.max(20, Math.min(gameWorld.offsetWidth - 20, playerX));
             playerY = Math.max(20, Math.min(gameWorld.offsetHeight - 20, playerY));
 
+            // Update player position and rotation
             player.style.left = playerX + 'px';
-            player.style.
-                player.style.top = playerY + 'px';
+            player.style.top = playerY + 'px';
             player.style.transform = `translate(-50%, -50%) rotate(${playerRotation}deg)`;
 
+            // Update vehicle position if player is in vehicle
             if (playerInVehicle) {
                 playerInVehicle.style.left = playerX + 'px';
                 playerInVehicle.style.top = playerY + 'px';
                 playerInVehicle.style.transform = `translate(-50%, -50%) rotate(${playerRotation}deg)`;
             }
 
+            // Update camera position
             const cameraX = playerX - window.innerWidth / 2;
             const cameraY = playerY - window.innerHeight / 2;
             gameWorld.style.transform = `translate(${-cameraX}px, ${-cameraY}px)`;
@@ -888,19 +942,31 @@
             requestAnimationFrame(updateGame);
         }
 
-        // Initialize game with $MUB specifics
+        // Initialize game
         function initGame() {
+            // Generate game elements
             generateEnvironment();
             generateVehicles();
             spawnGuards();
             spawnCapturedAliens();
             createUFO();
+            
+            // Start power regeneration
             startPowerRegen();
+            
+            // Start game loop
             updateGame();
             
-            // Custom welcome message for $MUB
+            // Show welcome message
             showMessage("Help $MUB rescue friends and escape in the UFO!", 3000);
         }
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            const cameraX = playerX - window.innerWidth / 2;
+            const cameraY = playerY - window.innerHeight / 2;
+            gameWorld.style.transform = `translate(${-cameraX}px, ${-cameraY}px)`;
+        });
 
         // Start the game
         initGame();

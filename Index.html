@@ -10,6 +10,8 @@
   <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" as="style">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+  <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+  <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
 
   <style>
     /* Modern CSS reset */
@@ -180,6 +182,50 @@
       margin-bottom: var(--spacing-md);
     }
 
+    /* Game Popup Styles */
+    .game-popup {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .game-popup.active {
+      display: flex;
+    }
+
+    .game-container {
+      background: #1a1a1a;
+      padding: 20px;
+      border-radius: 10px;
+      position: relative;
+      width: 850px;
+      max-width: 95vw;
+    }
+
+    .close-button {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .game-frame {
+      width: 100%;
+      height: 600px;
+      border: none;
+    }
+
     /* Responsive adjustments */
     @media (max-width: 768px) {
       .nav {
@@ -191,11 +237,23 @@
         flex-wrap: wrap;
         justify-content: center;
       }
+
+      .game-frame {
+        height: 450px;
+      }
     }
   </style>
 </head>
 <body>
   <div id="particles-js"></div>
+
+  <!-- Game Popup -->
+  <div class="game-popup" id="gamePopup">
+    <div class="game-container">
+      <button class="close-button" onclick="closeGame()">×</button>
+      <iframe id="gameFrame" class="game-frame" title="Area 51 Escape Game"></iframe>
+    </div>
+  </div>
 
   <header class="container">
     <nav class="nav">
@@ -204,7 +262,7 @@
         <a href="#about" class="nav-link">About</a>
         <a href="#tokenomics" class="nav-link">Tokenomics</a>
         <a href="#roadmap" class="nav-link">Roadmap</a>
-        <a href="#" class="btn btn-outline">Play Demo</a>
+        <button class="btn btn-outline" onclick="openGame()">Play Demo</button>
         <a href="https://dexscreener.com/" class="btn" target="_blank">Buy Now</a>
       </div>
     </nav>
@@ -284,7 +342,202 @@
     <p style="opacity: 0.6;">© 2024 $MUB. We come in peace 🛸</p>
   </footer>
 
+  <!-- Game HTML (embedded as a data URL) -->
   <script>
+    const gameHTML = `
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MUB - Area 51 Escape</title>
+    <style>
+        body { margin: 0; background: #1a1a1a; font-family: Arial, sans-serif; display: flex; flex-direction: column; align-items: center; color: #fff; }
+        #game-container { position: relative; width: 800px; height: 400px; background: linear-gradient(#000033, #000066); margin: 20px; overflow: hidden; border: 2px solid #00ff00; }
+        #alien { position: absolute; width: 40px; height: 40px; bottom: 20px; left: 50px; font-size: 30px; line-height: 40px; text-align: center; }
+        .guard { position: absolute; width: 30px; height: 40px; background: #ff0000; right: -30px; font-size: 24px; display: flex; justify-content: center; align-items: center; }
+        .keycard { position: absolute; width: 20px; height: 20px; font-size: 15px; display: flex; justify-content: center; align-items: center; }
+        #stats { font-size: 24px; margin: 10px; }
+        #game-over { display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; font-size: 32px; color: #ff0000; background: rgba(0,0,0,0.8); padding: 20px; }
+        button { padding: 10px 20px; font-size: 18px; background: #00ff00; border: none; border-radius: 5px; cursor: pointer; margin: 10px; }
+    </style>
+</head>
+<body>
+    <h1>MUB - Area 51 Escape 👽</h1>
+    <div id="stats">Score: 0 | Keycards: 0/3 | Health: ❤️❤️❤️</div>
+    <div id="game-container">
+        <div id="alien">👽</div>
+        <div id="game-over">
+            Captured!<br>
+            <button onclick="resetGame()">Try Again</button>
+        </div>
+    </div>
+    <button onclick="startGame()">Start Escape</button>
+
+    <script>
+        const alien = document.getElementById('alien');
+        const gameContainer = document.getElementById('game-container');
+        const statsElement = document.getElementById('stats');
+        const gameOverElement = document.getElementById('game-over');
+        let score = 0, keycards = 0, health = 3;
+        let isJumping = false;
+        let gameInterval, guardInterval, keycardInterval;
+        let isGameRunning = false;
+        let jumpForce = 0;
+        const keys = {};
+
+        function startGame() {
+            if (isGameRunning) return;
+            isGameRunning = true;
+            score = 0;
+            keycards = 0;
+            health = 3;
+            updateStats();
+            document.querySelectorAll('.guard, .keycard').forEach(el => el.remove());
+            alien.style.bottom = '20px';
+            alien.style.left = '50px';
+            gameOverElement.style.display = 'none';
+            
+            gameInterval = setInterval(gameLoop, 20);
+            guardInterval = setInterval(createGuard, 2000);
+            keycardInterval = setInterval(createKeycard, 3000);
+        }
+
+        function gameLoop() {
+            if (!isJumping && keys.ArrowUp) {
+                isJumping = true;
+                jumpForce = 15;
+            }
+            
+            if (isJumping) {
+                let bottom = parseFloat(alien.style.bottom);
+                jumpForce -= 0.8;
+                bottom += jumpForce;
+                
+                if (bottom <= 20) {
+                    bottom = 20;
+                    isJumping = false;
+                }
+                alien.style.bottom = bottom + 'px';
+            }
+            
+            let left = parseFloat(alien.style.left);
+            if (keys.ArrowLeft && left > 0) left -= 5;
+            if (keys.ArrowRight && left < 760) left += 5;
+            alien.style.left = left + 'px';
+            
+            checkCollisions();
+        }
+
+        function createGuard() {
+            if (!isGameRunning) return;
+            const guard = document.createElement('div');
+            guard.className = 'guard';
+            guard.innerHTML = '👮';
+            guard.style.bottom = '20px';
+            gameContainer.appendChild(guard);
+            
+            const moveGuard = setInterval(() => {
+                let left = parseFloat(guard.style.left) || 800;
+                if (left < -30) {
+                    clearInterval(moveGuard);
+                    guard.remove();
+                    score += 10;
+                    updateStats();
+                } else {
+                    guard.style.left = (left - 4) + 'px';
+                }
+            }, 20);
+        }
+
+        function createKeycard() {
+            if (!isGameRunning || keycards >= 3) return;
+            const keycard = document.createElement('div');
+            keycard.className = 'keycard';
+            keycard.innerHTML = '🔑';
+            keycard.style.left = (Math.random() * 700 + 50) + 'px';
+            keycard.style.bottom = (Math.random() * 300 + 50) + 'px';
+            gameContainer.appendChild(keycard);
+        }
+
+        function checkCollisions() {
+            const alienRect = alien.getBoundingClientRect();
+            
+            document.querySelectorAll('.guard').forEach(guard => {
+                if (isColliding(alienRect, guard.getBoundingClientRect())) {
+                    takeDamage();
+                }
+            });
+            
+            document.querySelectorAll('.keycard').forEach(keycard => {
+                if (isColliding(alienRect, keycard.getBoundingClientRect())) {
+                    keycard.remove();
+                    keycards++;
+                    score += 50;
+                    updateStats();
+                    if (keycards >= 3) levelComplete();
+                }
+            });
+        }
+
+        function isColliding(rect1, rect2) {
+            return !(rect1.right < rect2.left || rect1.left > rect2.right || 
+                    rect1.bottom < rect2.top || rect1.top > rect2.bottom);
+        }
+
+        function takeDamage() {
+            health--;
+            updateStats();
+            if (health <= 0) {
+                endGame();
+            } else {
+                alien.style.opacity = '0.5';
+                setTimeout(() => alien.style.opacity = '1', 200);
+            }
+        }
+
+        function updateStats() {
+            statsElement.textContent = \`Score: \${score} | Keycards: \${keycards}/3 | Health: \${'❤️'.repeat(health)}\`;
+        }
+
+        function levelComplete() {
+            alert('Level Complete! You escaped Area 51!');
+            endGame();
+        }
+
+        function endGame() {
+            isGameRunning = false;
+            clearInterval(gameInterval);
+            clearInterval(guardInterval);
+            clearInterval(keycardInterval);
+            gameOverElement.style.display = 'block';
+        }
+
+        function resetGame() {
+            startGame();
+        }
+
+        document.addEventListener('keydown', e => keys[e.code] = true);
+        document.addEventListener('keyup', e => keys[e.code] = false);
+    </script>
+</body>
+</html>
+    `;
+
+    // Functions to handle the game popup
+    function openGame() {
+      const popup = document.getElementById('gamePopup');
+      const frame = document.getElementById('gameFrame');
+      popup.classList.add('active');
+      frame.srcdoc = gameHTML;
+    }
+
+    function closeGame() {
+      const popup = document.getElementById('gamePopup');
+      const frame = document.getElementById('gameFrame');
+      popup.classList.remove('active');
+      frame.srcdoc = '';
+    }
+
+    // Initialize particles.js
     window.addEventListener('load', () => {
       particlesJS('particles-js', {
         particles: {

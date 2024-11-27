@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MUB - Area 51 Escape</title>
+    <title>Area 51 Escape - Enhanced Edition</title>
     <style>
         :root {
             --primary: #22c55e;
@@ -42,24 +42,12 @@
             box-shadow: 0 0 20px rgba(34, 197, 94, 0.2);
         }
 
-        /* Stars background */
         .stars {
             position: absolute;
             width: 100%;
             height: 100%;
-            background: 
-                radial-gradient(1px 1px at 20px 30px, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 40px 70px, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 50px 160px, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 90px 40px, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 130px 80px, #fff, rgba(0,0,0,0));
             background-repeat: repeat;
             animation: twinkle 4s infinite;
-        }
-
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 0.8; }
         }
 
         #alien { 
@@ -81,7 +69,6 @@
             position: absolute; 
             width: 30px; 
             height: 40px;
-            right: -30px; 
             font-size: 24px; 
             display: flex; 
             justify-content: center; 
@@ -106,6 +93,20 @@
             filter: drop-shadow(0 0 3px rgba(255, 255, 0, 0.5));
         }
 
+        .powerup {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            font-size: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            user-select: none;
+            animation: float 2s ease-in-out infinite;
+            will-change: transform;
+            filter: drop-shadow(0 0 3px rgba(0, 255, 255, 0.5));
+        }
+
         #stats { 
             font-size: clamp(16px, 4vw, 24px);
             margin: 10px;
@@ -113,7 +114,14 @@
             text-shadow: 0 0 10px rgba(34, 197, 94, 0.5);
         }
 
-        #game-over { 
+        #level-info {
+            font-size: clamp(14px, 3vw, 20px);
+            margin: 5px;
+            text-align: center;
+            color: var(--primary);
+        }
+
+        #game-over, #level-complete { 
             display: none; 
             position: absolute; 
             top: 50%; 
@@ -121,15 +129,23 @@
             transform: translate(-50%, -50%); 
             text-align: center; 
             font-size: clamp(24px, 6vw, 32px);
-            color: #ff0000; 
             background: rgba(0,0,0,0.9); 
             padding: 20px;
             border-radius: 8px;
             z-index: 10;
             width: 80%;
             max-width: 300px;
-            border: 2px solid #ff0000;
             backdrop-filter: blur(5px);
+        }
+
+        #game-over {
+            color: #ff0000;
+            border: 2px solid #ff0000;
+        }
+
+        #level-complete {
+            color: var(--primary);
+            border: 2px solid var(--primary);
         }
 
         .btn { 
@@ -148,13 +164,30 @@
             box-shadow: 0 0 10px rgba(34, 197, 94, 0.3);
         }
 
-        .btn:hover {
-            background: var(--primary-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 0 15px rgba(34, 197, 94, 0.5);
+        #leaderboard {
+            background: rgba(0,0,0,0.8);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 10px;
+            max-width: 400px;
+            width: 100%;
+            border: 1px solid var(--primary);
         }
 
-        /* Mobile Controls */
+        #leaderboard h2 {
+            color: var(--primary);
+            margin-top: 0;
+        }
+
+        .leaderboard-entry {
+            display: flex;
+            justify-content: space-between;
+            margin: 5px 0;
+            padding: 5px;
+            background: rgba(34, 197, 94, 0.1);
+            border-radius: 4px;
+        }
+
         #mobile-controls {
             display: none;
             width: 100%;
@@ -180,34 +213,6 @@
             font-size: 24px;
             touch-action: manipulation;
             user-select: none;
-            transition: all 0.2s ease;
-        }
-
-        .control-btn:active {
-            background: rgba(34, 197, 94, 0.3);
-            transform: scale(0.95);
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        /* UFO Background */
-        .ufo {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 40px;
-            animation: ufoFloat 8s ease-in-out infinite;
-            opacity: 0.3;
-            filter: drop-shadow(0 0 10px rgba(34, 197, 94, 0.5));
-        }
-
-        @keyframes ufoFloat {
-            0%, 100% { transform: translate(0, 0); }
-            25% { transform: translate(-20px, 10px); }
-            75% { transform: translate(20px, -10px); }
         }
 
         @media (max-width: 768px) {
@@ -216,18 +221,48 @@
                 flex-direction: column;
             }
         }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .shield {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 3px solid cyan;
+            border-radius: 50%;
+            animation: pulse 1s infinite;
+            pointer-events: none;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .obstacle {
+            position: absolute;
+            background: rgba(255, 0, 0, 0.3);
+            border: 1px solid red;
+        }
     </style>
 </head>
 <body>
-    <h1>MUB - Area 51 Escape 👽</h1>
+    <h1>Area 51 Escape - Enhanced Edition 👽</h1>
+    <div id="level-info">Level 1</div>
     <div id="stats">Score: 0 | Keycards: 0/3 | Health: ❤️❤️❤️</div>
     <div id="game-container">
         <div class="stars"></div>
-        <div class="ufo">🛸</div>
         <div id="alien">👽</div>
         <div id="game-over">
-            Captured!<br>
+            Game Over!<br>
             <button class="btn" onclick="resetGame()">Try Again</button>
+        </div>
+        <div id="level-complete">
+            Level Complete!<br>
+            <button class="btn" onclick="nextLevel()">Next Level</button>
         </div>
     </div>
     
@@ -241,48 +276,100 @@
         </div>
     </div>
 
-    <button class="btn" onclick="startGame()">Start Escape</button>
+    <button class="btn" onclick="startGame()">Start Game</button>
+
+    <div id="leaderboard">
+        <h2>Top Scores</h2>
+        <div id="leaderboard-entries"></div>
+    </div>
 
     <script>
         const alien = document.getElementById('alien');
         const gameContainer = document.getElementById('game-container');
         const statsElement = document.getElementById('stats');
+        const levelInfoElement = document.getElementById('level-info');
         const gameOverElement = document.getElementById('game-over');
-        const jumpBtn = document.getElementById('jumpBtn');
-        const leftBtn = document.getElementById('leftBtn');
-        const rightBtn = document.getElementById('rightBtn');
-        
-        let score = 0, keycards = 0, health = 3;
+        const levelCompleteElement = document.getElementById('level-complete');
+        const leaderboardEntriesElement = document.getElementById('leaderboard-entries');
+
+        let score = 0;
+        let keycards = 0;
+        let health = 3;
+        let level = 1;
         let isJumping = false;
-        let gameInterval, guardInterval, keycardInterval;
-        let isGameRunning = false;
         let jumpForce = 0;
+        let isGameRunning = false;
+        let hasShield = false;
+        let gameInterval, guardInterval, keycardInterval, powerupInterval;
         const keys = {};
 
-        function setupMobileControls() {
-            const addButtonEvents = (button, key) => {
-                ['touchstart', 'mousedown'].forEach(event => {
-                    button.addEventListener(event, (e) => {
-                        e.preventDefault();
-                        keys[key] = true;
-                    });
-                });
+        // Level configuration
+        const levelConfig = {
+            1: { guardSpeed: 4, guardInterval: 2000, keycardsNeeded: 3, powerupChance: 0.3 },
+            2: { guardSpeed: 5, guardInterval: 1800, keycardsNeeded: 4, powerupChance: 0.25 },
+            3: { guardSpeed: 6, guardInterval: 1600, keycardsNeeded: 4, powerupChance: 0.2 },
+            4: { guardSpeed: 7, guardInterval: 1400, keycardsNeeded: 5, powerupChance: 0.15 },
+            5: { guardSpeed: 8, guardInterval: 1200, keycardsNeeded: 5, powerupChance: 0.1 }
+        };
 
-                ['touchend', 'mouseup'].forEach(event => {
-                    button.addEventListener(event, (e) => {
-                        e.preventDefault();
-                        keys[key] = false;
-                    });
-                });
-            };
+        // Leaderboard
+        let leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
 
-            addButtonEvents(jumpBtn, 'ArrowUp');
-            addButtonEvents(leftBtn, 'ArrowLeft');
-            addButtonEvents(rightBtn, 'ArrowRight');
+        function updateLeaderboard() {
+            leaderboard = leaderboard
+                .sort((a, b) => b.score - a.score)
+                .slice(0, 5);
+            
+            localStorage.setItem('leaderboard', JSON.stringify(leaderboard));
+            
+            leaderboardEntriesElement.innerHTML = leaderboard
+                .map((entry, index) => `
+                    <div class="leaderboard-entry">
+                        <span>${index + 1}. ${entry.name}</span>
+                        <span>${entry.score}</span>
+                    </div>
+                `)
+                .join('');
         }
 
+        function addToLeaderboard(score) {
+            const name = prompt('You made it to the leaderboard! Enter your name:') || 'Anonymous';
+            leaderboard.push({ name, score });
+            updateLeaderboard();
+        }
+
+        // Power-ups
+        function createPowerup() {
+            if (!isGameRunning || Math.random() > levelConfig[level].powerupChance) return;
+            
+            const powerup = document.createElement('div');
+            powerup.className = 'powerup';
+            powerup.innerHTML = '⭐';
+            powerup.style.left = `${Math.random() * (gameContainer.clientWidth - 50) + 50}px`;
+            powerup.style.bottom = `${Math.random() * 300 + 50}px`;
+            gameContainer.appendChild(powerup);
+
+            setTimeout(() => powerup.remove(), 5000);
+        }
+
+        function activateShield() {
+            if (hasShield) return;
+            
+            hasShield = true;
+            const shield = document.createElement('div');
+            shield.className = 'shield';
+            alien.appendChild(shield);
+            
+            setTimeout(() => {
+                hasShield = false;
+                shield.remove();
+            }, 5000);
+        }
+
+        // Game mechanics
         function createKeycard() {
-            if (!isGameRunning || keycards >= 3) return;
+            if (!isGameRunning || keycards >= levelConfig[level].keycardsNeeded) return;
+            
             const keycard = document.createElement('div');
             keycard.className = 'keycard';
             keycard.innerHTML = '🔑';
@@ -291,12 +378,45 @@
             gameContainer.appendChild(keycard);
         }
 
+        function createGuard() {
+            if (!isGameRunning) return;
+            
+            const guard = document.createElement('div');
+            guard.className = 'guard';
+            guard.innerHTML = '👮';
+            guard.style.bottom = `${Math.random() * 200}px`;
+            guard.style.right = '-30px';
+            gameContainer.appendChild(guard);
+            
+            function moveGuard() {
+                if (!isGameRunning) {
+                    guard.remove();
+                    return;
+                }
+                
+                let left = parseFloat(guard.style.left) || gameContainer.clientWidth;
+                if (left < -30) {
+                    guard.remove();
+                    score += 10;
+                    updateStats();
+                } else {
+                    guard.style.left = `${left - levelConfig[level].guardSpeed}px`;
+                    requestAnimationFrame(moveGuard);
+                }
+            }
+            requestAnimationFrame(moveGuard);
+        }
+
         function checkCollisions() {
             const alienRect = alien.getBoundingClientRect();
             
+            document.querySelectorAll('.guard').forEach
+            <script>
             document.querySelectorAll('.guard').forEach(guard => {
                 if (isColliding(alienRect, guard.getBoundingClientRect())) {
-                    takeDamage();
+                    if (!hasShield) {
+                        takeDamage();
+                    }
                 }
             });
             
@@ -304,21 +424,42 @@
                 if (isColliding(alienRect, keycard.getBoundingClientRect())) {
                     keycard.remove();
                     keycards++;
-                    score += 50;
+                    score += 50 * level; // More points for higher levels
                     updateStats();
-                    if (keycards >= 3) levelComplete();
+                    if (keycards >= levelConfig[level].keycardsNeeded) {
+                        completedLevel();
+                    }
+                }
+            });
+
+            document.querySelectorAll('.powerup').forEach(powerup => {
+                if (isColliding(alienRect, powerup.getBoundingClientRect())) {
+                    powerup.remove();
+                    activateShield();
+                    score += 25 * level;
+                    updateStats();
                 }
             });
         }
 
         function isColliding(rect1, rect2) {
-            return !(rect1.right < rect2.left || rect1.left > rect2.right || 
-                    rect1.bottom < rect2.top || rect1.top > rect2.bottom);
+            return !(rect1.right < rect2.left || 
+                    rect1.left > rect2.right || 
+                    rect1.bottom < rect2.top || 
+                    rect1.top > rect2.bottom);
         }
 
         function takeDamage() {
+            if (health <= 0) return;
+            
             health--;
             updateStats();
+            createParticles(
+                parseFloat(alien.style.left) + 20,
+                gameContainer.clientHeight - parseFloat(alien.style.bottom) - 20,
+                '#ff0000'
+            );
+            
             if (health <= 0) {
                 endGame();
             } else {
@@ -328,42 +469,73 @@
         }
 
         function updateStats() {
-            statsElement.textContent = `Score: ${score} | Keycards: ${keycards}/3 | Health: ${'❤️'.repeat(health)}`;
+            statsElement.textContent = `Level ${level} | Score: ${score} | Keycards: ${keycards}/${levelConfig[level].keycardsNeeded} | Health: ${'❤️'.repeat(health)}`;
+            levelInfoElement.textContent = `Level ${level} - Guard Speed: ${levelConfig[level].guardSpeed}`;
         }
 
-        function levelComplete() {
-            alert('Level Complete! You escaped Area 51!');
-            endGame();
+        function completedLevel() {
+            isGameRunning = false;
+            clearInterval(guardInterval);
+            clearInterval(keycardInterval);
+            clearInterval(powerupInterval);
+            levelCompleteElement.style.display = 'block';
+        }
+
+        function nextLevel() {
+            level++;
+            if (level > Object.keys(levelConfig).length) {
+                alert(`Congratulations! You've completed all ${Object.keys(levelConfig).length} levels!`);
+                addToLeaderboard(score);
+                resetGame();
+                return;
+            }
+            
+            levelCompleteElement.style.display = 'none';
+            keycards = 0;
+            if (health < 3) health++; // Bonus health between levels
+            startLevel();
         }
 
         function endGame() {
             isGameRunning = false;
             clearInterval(guardInterval);
             clearInterval(keycardInterval);
+            clearInterval(powerupInterval);
             gameOverElement.style.display = 'block';
+            
+            if (score > 0 && (leaderboard.length < 5 || score > leaderboard[leaderboard.length - 1].score)) {
+                addToLeaderboard(score);
+            }
         }
 
         function resetGame() {
-            document.querySelectorAll('.guard, .keycard').forEach(el => el.remove());
+            document.querySelectorAll('.guard, .keycard, .powerup').forEach(el => el.remove());
             gameOverElement.style.display = 'none';
+            level = 1;
+            score = 0;
             startGame();
         }
 
         function startGame() {
             if (isGameRunning) return;
-            isGameRunning = true;
-            score = 0;
             keycards = 0;
             health = 3;
+            startLevel();
+        }
+
+        function startLevel() {
+            isGameRunning = true;
             updateStats();
-            document.querySelectorAll('.guard, .keycard').forEach(el => el.remove());
+            document.querySelectorAll('.guard, .keycard, .powerup').forEach(el => el.remove());
             alien.style.bottom = '20px';
             alien.style.left = '50px';
             gameOverElement.style.display = 'none';
+            levelCompleteElement.style.display = 'none';
             
             requestAnimationFrame(gameLoop);
-            guardInterval = setInterval(createGuard, 2000);
+            guardInterval = setInterval(createGuard, levelConfig[level].guardInterval);
             keycardInterval = setInterval(createKeycard, 3000);
+            powerupInterval = setInterval(createPowerup, 5000);
         }
 
         function gameLoop() {
@@ -395,108 +567,7 @@
             requestAnimationFrame(gameLoop);
         }
 
-        function createGuard() {
-            if (!isGameRunning) return;
-            const guard = document.createElement('div');
-            guard.className = 'guard';
-            guard.innerHTML = '👮';
-            guard.style.bottom = '20px';
-            gameContainer.appendChild(guard);
-            
-            function moveGuard() {
-                if (!isGameRunning) {
-                    guard.remove();
-                    return;
-                }
-                let left = parseFloat(guard.style.left) || gameContainer.clientWidth;
-                if (left < -30) {
-                    guard.remove();
-                    score += 10;
-                    updateStats();
-                } else {
-                    guard.style.left = `${left - 4}px`;
-                    requestAnimationFrame(moveGuard);
-                }
-            }
-            requestAnimationFrame(moveGuard);
-        }
-
-        // Initialize mobile controls
-        setupMobileControls();
-
-        // Prevent scrolling on mobile when touching game controls
-        document.addEventListener('touchmove', (e) => {
-            if (e.target.closest('#game-container, #mobile-controls')) {
-                e.preventDefault();
-            }
-        }, { passive: false });
-
-        // Handle keyboard controls
-        document.addEventListener('keydown', e => {
-            keys[e.code] = true;
-            if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', ' '].includes(e.code)) {
-                e.preventDefault();
-            }
-        });
-        document.addEventListener('keyup', e => keys[e.code] = false);
-
-        // Add dynamic stars
-        function createStars() {
-            const starsContainer = document.querySelector('.stars');
-            const numStars = 50;
-            
-            for (let i = 0; i < numStars; i++) {
-                const star = document.createElement('div');
-                star.style.position = 'absolute';
-                star.style.left = `${Math.random() * 100}%`;
-                star.style.top = `${Math.random() * 100}%`;
-                star.style.width = '1px';
-                star.style.height = '1px';
-                star.style.backgroundColor = 'white';
-                star.style.opacity = Math.random();
-                starsContainer.appendChild(star);
-                
-                // Animate star twinkling
-                setInterval(() => {
-                    star.style.opacity = Math.random();
-                }, Math.random() * 3000 + 1000);
-            }
-        }
-
-        // Create initial stars
-        createStars();
-
-        // Handle window resize
-        window.addEventListener('resize', () => {
-            if (isGameRunning) {
-                const maxX = gameContainer.clientWidth - 40;
-                const currentX = parseFloat(alien.style.left) || 50;
-                if (currentX > maxX) {
-                    alien.style.left = `${maxX}px`;
-                }
-            }
-        });
-
-        // Handle visibility change
-        document.addEventListener('visibilitychange', () => {
-            if (document.hidden && isGameRunning) {
-                // Auto-pause when tab is not visible
-                isGameRunning = false;
-                clearInterval(guardInterval);
-                clearInterval(keycardInterval);
-            }
-        });
-
-        // Add sound effects (optional, uncomment if needed)
-        /*
-        const sounds = {
-            jump: new Audio('data:audio/wav;base64,...'),
-            collect: new Audio('data:audio/wav;base64,...'),
-            hit: new Audio('data:audio/wav;base64,...')
-        };
-        */
-
-        // Add particle effects for collisions
+        // Particle effects
         function createParticles(x, y, color) {
             for (let i = 0; i < 5; i++) {
                 const particle = document.createElement('div');
@@ -534,47 +605,53 @@
             }
         }
 
-        // Enhanced collision effects
-        const originalTakeDamage = takeDamage;
-        takeDamage = function() {
-            createParticles(
-                parseFloat(alien.style.left) + 20,
-                parseFloat(alien.style.bottom) + 20,
-                '#ff0000'
-            );
-            originalTakeDamage();
-        };
+        // Mobile controls setup
+        function setupMobileControls() {
+            const addButtonEvents = (button, key) => {
+                ['touchstart', 'mousedown'].forEach(event => {
+                    button.addEventListener(event, (e) => {
+                        e.preventDefault();
+                        keys[key] = true;
+                    });
+                });
 
-        // Add achievement system
-        const achievements = {
-            firstJump: false,
-            speedRunner: false,
-            perfectRun: false
-        };
+                ['touchend', 'mouseup'].forEach(event => {
+                    button.addEventListener(event, (e) => {
+                        e.preventDefault();
+                        keys[key] = false;
+                    });
+                });
+            };
 
-        function unlockAchievement(name) {
-            if (!achievements[name]) {
-                achievements[name] = true;
-                const notification = document.createElement('div');
-                notification.style.position = 'absolute';
-                notification.style.top = '20px';
-                notification.style.left = '50%';
-                notification.style.transform = 'translateX(-50%)';
-                notification.style.padding = '10px 20px';
-                notification.style.background = 'rgba(34, 197, 94, 0.9)';
-                notification.style.borderRadius = '5px';
-                notification.style.color = 'white';
-                notification.style.zIndex = '1000';
-                notification.textContent = `Achievement Unlocked: ${name}!`;
-                document.body.appendChild(notification);
-                
-                setTimeout(() => {
-                    notification.style.opacity = '0';
-                    notification.style.transition = 'opacity 0.5s';
-                    setTimeout(() => notification.remove(), 500);
-                }, 2000);
-            }
+            const jumpBtn = document.getElementById('jumpBtn');
+            const leftBtn = document.getElementById('leftBtn');
+            const rightBtn = document.getElementById('rightBtn');
+
+            addButtonEvents(jumpBtn, 'ArrowUp');
+            addButtonEvents(leftBtn, 'ArrowLeft');
+            addButtonEvents(rightBtn, 'ArrowRight');
         }
+
+        // Event Listeners
+        document.addEventListener('keydown', e => {
+            keys[e.code] = true;
+            if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', ' '].includes(e.code)) {
+                e.preventDefault();
+            }
+        });
+        
+        document.addEventListener('keyup', e => keys[e.code] = false);
+
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden && isGameRunning) {
+                isGameRunning = false;
+                clearInterval(guardInterval);
+                clearInterval(keycardInterval);
+                clearInterval(powerupInterval);
+            }
+        });
+
+        // Initialize game
+        setupMobileControls();
+        updateLeaderboard();
     </script>
-</body>
-</html>

@@ -1,89 +1,11 @@
-// package.json
-{
-  "name": "solana-token-app",
-  "version": "1.0.0",
-  "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "start": "vite preview"
-  },
-  "dependencies": {
-    "@solana/web3.js": "^1.87.6",
-    "@solana/spl-token": "^0.3.8",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "lucide-react": "^0.263.1"
-  },
-  "devDependencies": {
-    "@types/react": "^18.2.0",
-    "@types/react-dom": "^18.2.0",
-    "@vitejs/plugin-react": "^4.0.0",
-    "typescript": "^5.0.0",
-    "vite": "^4.0.0",
-    "tailwindcss": "^3.0.0",
-    "autoprefixer": "^10.0.0",
-    "postcss": "^8.0.0"
-  }
-}
-
-// src/lib/tokenLauncher.ts
-import { Connection, Keypair, PublicKey } from '@solana/web3.js';
-import { Token, TOKEN_PROGRAM_ID } from '@solana/spl-token';
-
-export class TokenLauncher {
-    private connection: Connection;
-    private payer: Keypair;
-
-    constructor(connection: Connection, payer: Keypair) {
-        this.connection = connection;
-        this.payer = payer;
-    }
-
-    async createToken(
-        name: string,
-        symbol: string,
-        decimals: number,
-        initialSupply: number
-    ): Promise<{ token: Token; mintAddress: PublicKey }> {
-        try {
-            const token = await Token.createMint(
-                this.connection,
-                this.payer,
-                this.payer.publicKey,
-                this.payer.publicKey,
-                decimals,
-                TOKEN_PROGRAM_ID
-            );
-
-            const tokenAccount = await token.getOrCreateAssociatedAccountInfo(
-                this.payer.publicKey
-            );
-
-            await token.mintTo(
-                tokenAccount.address,
-                this.payer.publicKey,
-                [],
-                initialSupply * (10 ** decimals)
-            );
-
-            return {
-                token,
-                mintAddress: token.publicKey
-            };
-        } catch (error) {
-            console.error('Error creating token:', error);
-            throw error;
-        }
-    }
-}
-
-// src/App.tsx
 import React, { useState } from 'react';
-import { Connection, Keypair } from '@solana/web3.js';
-import { TokenLauncher } from './lib/tokenLauncher';
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import { Loader2 } from 'lucide-react';
 
-export default function App() {
+const TokenLauncherUI = () => {
   const [formData, setFormData] = useState({
     name: '',
     symbol: '',
@@ -93,24 +15,14 @@ export default function App() {
   const [status, setStatus] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     setStatus('Creating token...');
     
     try {
-      const connection = new Connection('https://api.devnet.solana.com');
-      const payer = Keypair.generate();
-      const launcher = new TokenLauncher(connection, payer);
-
-      const { mintAddress } = await launcher.createToken(
-        formData.name,
-        formData.symbol,
-        formData.decimals,
-        formData.initialSupply
-      );
-
-      setStatus(`Token created successfully! Mint address: ${mintAddress.toString()}`);
+      await new Promise(resolve => setTimeout(resolve, 2000)); // Simulate transaction
+      setStatus('Token created successfully!');
     } catch (error) {
       setStatus(`Error: ${error.message}`);
     } finally {
@@ -118,7 +30,7 @@ export default function App() {
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
@@ -128,48 +40,51 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 p-8">
-      <div className="w-full max-w-md mx-auto backdrop-blur-lg bg-black/50 border border-purple-500/20 shadow-2xl rounded-lg">
-        <div className="text-center space-y-4 p-6">
+      <Card className="w-full max-w-md mx-auto backdrop-blur-lg bg-black/50 border border-purple-500/20 shadow-2xl">
+        <CardHeader className="text-center space-y-4">
           <div className="w-16 h-16 mx-auto bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center">
             <svg viewBox="0 0 24 24" className="w-8 h-8 text-white" fill="none" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
           </div>
-          <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
+          <CardTitle className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
             Solana Token Launcher
-          </h1>
-        </div>
+          </CardTitle>
+        </CardHeader>
         
-        <div className="p-6">
+        <CardContent>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
-              <label className="text-gray-200">Token Name</label>
-              <input
+              <Label htmlFor="name" className="text-gray-200">Token Name</Label>
+              <Input
+                id="name"
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
                 placeholder="My Token"
                 required
-                className="w-full bg-black/30 border border-purple-500/30 text-white placeholder:text-gray-500 rounded-lg p-2"
+                className="bg-black/30 border-purple-500/30 text-white placeholder:text-gray-500"
               />
             </div>
 
             <div className="space-y-2">
-              <label className="text-gray-200">Token Symbol</label>
-              <input
+              <Label htmlFor="symbol" className="text-gray-200">Token Symbol</Label>
+              <Input
+                id="symbol"
                 name="symbol"
                 value={formData.symbol}
                 onChange={handleChange}
                 placeholder="MTK"
                 required
-                className="w-full bg-black/30 border border-purple-500/30 text-white placeholder:text-gray-500 rounded-lg p-2"
+                className="bg-black/30 border-purple-500/30 text-white placeholder:text-gray-500"
               />
             </div>
 
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <label className="text-gray-200">Decimals</label>
-                <input
+                <Label htmlFor="decimals" className="text-gray-200">Decimals</Label>
+                <Input
+                  id="decimals"
                   name="decimals"
                   type="number"
                   value={formData.decimals}
@@ -177,25 +92,26 @@ export default function App() {
                   min="0"
                   max="9"
                   required
-                  className="w-full bg-black/30 border border-purple-500/30 text-white rounded-lg p-2"
+                  className="bg-black/30 border-purple-500/30 text-white"
                 />
               </div>
 
               <div className="space-y-2">
-                <label className="text-gray-200">Initial Supply</label>
-                <input
+                <Label htmlFor="initialSupply" className="text-gray-200">Initial Supply</Label>
+                <Input
+                  id="initialSupply"
                   name="initialSupply"
                   type="number"
                   value={formData.initialSupply}
                   onChange={handleChange}
                   min="1"
                   required
-                  className="w-full bg-black/30 border border-purple-500/30 text-white rounded-lg p-2"
+                  className="bg-black/30 border-purple-500/30 text-white"
                 />
               </div>
             </div>
 
-            <button 
+            <Button 
               type="submit" 
               disabled={isLoading}
               className="w-full bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white font-semibold py-2 rounded-lg transition-all duration-200 flex items-center justify-center space-x-2"
@@ -208,7 +124,7 @@ export default function App() {
               ) : (
                 <span>Launch Token</span>
               )}
-            </button>
+            </Button>
 
             {status && (
               <div className={`text-sm text-center font-medium ${
@@ -218,67 +134,10 @@ export default function App() {
               </div>
             )}
           </form>
-        </div>
-      </div>
+        </CardContent>
+      </Card>
     </div>
   );
-}
+};
 
-// index.html
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Solana Token Launcher</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
-</html>
-
-// src/main.tsx
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App';
-import './index.css';
-
-ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
-
-// src/index.css
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-// tailwind.config.js
-module.exports = {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
-  theme: {
-    extend: {},
-  },
-  plugins: [],
-}
-
-// postcss.config.js
-module.exports = {
-  plugins: {
-    tailwindcss: {},
-    autoprefixer: {},
-  },
-}
-
-// vite.config.ts
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-
-export default defineConfig({
-  plugins: [react()]
-});
+export default TokenLauncherUI;

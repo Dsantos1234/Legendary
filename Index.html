@@ -1,416 +1,216 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="$MUB - The first memecoin from Area 51. Join 100,000+ believers in the galaxy's most absurd cryptocurrency!">
-  <title>👽 $MUB 👽 - To The Galaxy!</title>
-  
-  <!-- Preload critical assets -->
-  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" as="style">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
-  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+[Previous HTML content from head to opening body tag remains exactly the same until the style tag]
 
-  <style>
-    /* Modern CSS reset */
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+<style>
+[Previous CSS styles remain exactly the same, then add:]
+
+/* Enhanced card hover effects */
+.card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(34, 197, 94, 0.1);
+}
+
+/* Button pulse effect */
+.btn {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200%;
+    height: 200%;
+    background: rgba(34, 197, 94, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    transition: transform 0.6s ease-out, opacity 0.6s ease-out;
+}
+
+.btn:hover::after {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+}
+
+/* Enhanced floating animation */
+@keyframes float {
+    0%, 100% { 
+        transform: translateY(0) rotate(0deg); 
     }
-
-    /* Custom properties */
-    :root {
-      --primary: #22c55e;
-      --primary-hover: #16a34a;
-      --text: #4ade80;
-      --bg-card: rgba(21, 128, 61, 0.1);
-      --spacing-sm: 0.75rem;
-      --spacing-md: 1.5rem;
-      --spacing-lg: 2rem;
-      --radius: 0.75rem;
+    25% { 
+        transform: translateY(-10px) rotate(1deg); 
     }
-
-    /* Base styles */
-    body {
-      margin: 0;
-      font-family: system-ui, -apple-system, sans-serif;
-      background-color: #000;
-      color: var(--text);
-      line-height: 1.5;
-      overflow-x: hidden;
+    75% { 
+        transform: translateY(-5px) rotate(-1deg); 
     }
+}
 
-    /* Layout */
-    .container {
-      width: min(100% - var(--spacing-lg), 1200px);
-      margin-inline: auto;
-      padding: var(--spacing-md) 0;
+.hero-title {
+    animation: float 6s ease-in-out infinite;
+}
+
+/* Glowing effect for important elements */
+@keyframes glow {
+    0%, 100% { 
+        text-shadow: 0 0 5px rgba(34, 197, 94, 0.2),
+                     0 0 10px rgba(34, 197, 94, 0.2),
+                     0 0 15px rgba(34, 197, 94, 0.2);
     }
-
-    /* Typography */
-    h1, h2, h3 {
-      line-height: 1.2;
+    50% { 
+        text-shadow: 0 0 10px rgba(34, 197, 94, 0.4),
+                     0 0 20px rgba(34, 197, 94, 0.4),
+                     0 0 30px rgba(34, 197, 94, 0.4);
     }
+}
 
-    /* Navigation */
-    .nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: var(--spacing-sm) 0;
-    }
+h1, .hero-title {
+    animation: glow 3s ease-in-out infinite;
+}
 
-    .nav-links {
-      display: flex;
-      gap: var(--spacing-md);
-      align-items: center;
-    }
+/* Enhanced Ask MUB section */
+.ask-mub-box {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
-    .nav-link {
-      color: var(--text);
-      text-decoration: none;
-      transition: color 0.2s ease;
-    }
+.ask-mub-box:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(34, 197, 94, 0.1);
+}
 
-    .nav-link:hover {
-      color: var(--primary);
-    }
+.ask-mub-response {
+    animation: fadeIn 0.5s ease-out;
+}
 
-    /* Buttons */
-    .btn {
-      background: var(--primary);
-      color: #000;
-      padding: var(--spacing-sm) var(--spacing-md);
-      border-radius: 9999px;
-      border: none;
-      cursor: pointer;
-      font-weight: 600;
-      text-decoration: none;
-      display: inline-block;
-      transition: transform 0.2s ease, background-color 0.2s ease;
-    }
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 
-    .btn:hover {
-      background: var(--primary-hover);
-      transform: translateY(-2px);
-    }
+/* Enhanced particles */
+#particles-js {
+    animation: backgroundFloat 20s ease infinite;
+}
 
-    .btn-outline {
-      background: transparent;
-      border: 2px solid var(--primary);
-      color: var(--text);
-    }
-
-    .btn-outline:hover {
-      background: rgba(34, 197, 94, 0.1);
-    }
-
-    /* Hero section */
-    .hero {
-      text-align: center;
-      padding: var(--spacing-lg) 0;
-    }
-
-    .hero-title {
-      font-size: clamp(2rem, 5vw, 4rem);
-      margin-bottom: var(--spacing-sm);
-      animation: float 3s ease-in-out infinite;
-    }
-
-    .hero-subtitle {
-      font-size: clamp(1rem, 2vw, 1.25rem);
-      opacity: 0.9;
-    }
-
-    /* Cards */
-    .card {
-      background: var(--bg-card);
-      border-radius: var(--radius);
-      padding: var(--spacing-md);
-      backdrop-filter: blur(8px);
-      height: 100%;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    /* Grid */
-    .grid {
-      display: grid;
-      gap: var(--spacing-lg);
-      margin: var(--spacing-lg) 0;
-    }
-
-    @media (min-width: 768px) {
-      .grid-cols-3 {
-        grid-template-columns: repeat(3, 1fr);
-      }
-      
-      .grid-cols-2 {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    /* Animations */
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
-
-    /* Particles container */
-    #particles-js {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-    }
-
-    /* Footer */
-    .footer {
-      text-align: center;
-      padding: var(--spacing-lg) 0;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .social-links {
-      display: flex;
-      justify-content: center;
-      gap: var(--spacing-md);
-      margin-bottom: var(--spacing-md);
-    }
-
-    /* Ask MUB Section */
-    .ask-mub-container {
-      max-width: 600px;
-      margin: 0 auto;
-      padding: 2rem;
-    }
-
-    .ask-mub-box {
-      background: var(--bg-card);
-      border-radius: var(--radius);
-      padding: var(--spacing-md);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .ask-mub-input {
-      width: 100%;
-      background: rgba(0, 0, 0, 0.3);
-      border: 1px solid var(--primary);
-      border-radius: var(--radius);
-      padding: 0.75rem;
-      color: var(--text);
-      margin-bottom: 1rem;
-    }
-
-    .ask-mub-input::placeholder {
-      color: rgba(74, 222, 128, 0.5);
-    }
-
-    .ask-mub-response {
-      background: rgba(0, 0, 0, 0.3);
-      border-radius: var(--radius);
-      padding: 1rem;
-      margin-top: 1rem;
-      display: none;
-    }
-
-    .ask-mub-response.visible {
-      display: block;
-    }
-
-    .typing-indicator {
-      display: none;
-    }
-
-    .typing-indicator.visible {
-      display: flex;
-      gap: 0.5rem;
-      justify-content: center;
-      padding: 1rem;
-    }
-
-    .typing-dot {
-      width: 8px;
-      height: 8px;
-      background: var(--primary);
-      border-radius: 50%;
-      animation: bounce 0.5s infinite;
-    }
-
-    .typing-dot:nth-child(2) { animation-delay: 0.1s; }
-    .typing-dot:nth-child(3) { animation-delay: 0.2s; }
-
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-5px); }
-    }
-
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-      .nav {
-        flex-direction: column;
-        gap: var(--spacing-md);
-      }
-
-      .nav-links {
-        flex-wrap: wrap;
-        justify-content: center;
-      }
-    }
-  </style>
+@keyframes backgroundFloat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+</style>
 </head>
-<body>
-  <div id="particles-js"></div>
 
-  <header class="container">
-    <nav class="nav">
-      <h1>👽 $MUB</h1>
-      <div class="nav-links">
-        <a href="#about" class="nav-link">About</a>
-        <a href="#tokenomics" class="nav-link">Tokenomics</a>
-        <a href="#roadmap" class="nav-link">Roadmap</a>
-        <a href="#" class="btn">Buy Now</a>
-      </div>
-    </nav>
-  </header>
+[Previous HTML content from body opening to script section remains exactly the same]
 
-  <main>
-    <section class="hero container">
-      <h2 class="hero-title">
-        $MUB
-        <span style="display: block; font-size: 1.25rem; margin-top: 0.5rem;">First Memecoin From Area 51</span>
-      </h2>
-
-      <div style="max-width: 600px; margin: 2rem auto;">
-        <p class="hero-subtitle">🛸 We're not saying it's aliens... but it's aliens 🛸</p>
-        <p class="hero-subtitle">Join 100,000+ believers in the galaxy's most absurd cryptocurrency!</p>
-      </div>
-
-      <div style="display: flex; gap: 1rem; justify-content: center; margin: 2rem 0;">
-        <a href="#" class="btn">Buy $MUB</a>
-        <a href="#" class="btn btn-outline">Join Discord</a>
-      </div>
-    </section>
-
-    <section id="tokenomics" class="container">
-      <div class="grid grid-cols-3">
-        <div class="card">
-          <h3>Tokenomics</h3>
-          <p>1 Billion Total Supply</p>
-        </div>
-        <div class="card">
-          <h3>Security</h3>
-          <p>Liquidity Locked 🔒</p>
-          <p>Contract Audited</p>
-          <p>Ownership Renounced</p>
-        </div>
-        <div class="card">
-          <h3>Community</h3>
-          <p>100K+ Holders 👥</p>
-          <p>50K+ Discord Members</p>
-          <p>Active DAO</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="roadmap" class="container">
-      <h2 style="text-align: center; margin-bottom: 2rem;">Roadmap</h2>
-      <div class="grid grid-cols-2" style="max-width: 800px; margin: 0 auto;">
-        <div class="card">
-          <h3>Phase 1 - Abduction</h3>
-          <ul style="list-style: none;">
-            <li>✅ Token Launch</li>
-            <li>✅ Website Launch</li>
-            <li>✅ 10,000 Holders</li>
-            <li>🔄 CoinGecko Listing</li>
-          </ul>
-        </div>
-        <div class="card">
-          <h3>Phase 2 - Invasion</h3>
-          <ul style="list-style: none;">
-            <li>⏳ NFT Collection</li>
-            <li>⏳ Area 51 Game</li>
-            <li>⏳ CEX Listings</li>
-            <li>⏳ 100,000 Holders</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- Ask MUB Section -->
-    <section id="ask-mub" class="container">
-      <div class="ask-mub-container">
-        <div class="ask-mub-box">
-          <h3 style="margin-bottom: 1rem;">👽 Ask $MUB</h3>
-          <div>
-            <input type="text" id="question-input" class="ask-mub-input" placeholder="Ask me anything about the galaxy...">
-            <button onclick="askMub()" class="btn">Ask $MUB</button>
-            <div id="typing-indicator" class="typing-indicator">
-              <div class="typing-dot"></div>
-              <div class="typing-dot"></div>
-              <div class="typing-dot"></div>
-            </div>
-            <div id="mub-response" class="ask-mub-response"></div>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer container">
-    <div class="social-links">
-      <a href="#" class="nav-link">Twitter</a>
-      <a href="#" class="nav-link">Telegram</a>
-      <a href="#" class="nav-link">Discord</a>
-      <a href="#" class="nav-link">Medium</a>
-    </div>
-    <p style="opacity: 0.6;">© 2024 $MUB. We come in peace 🛸</p>
-  </footer>
-
-  <script>
+<script>
     // Particles.js initialization
     window.addEventListener('load', () => {
-      particlesJS('particles-js', {
-        particles: {
-          number: { value: 50, density: { enable: true, value_area: 800 } },
-          color: { value: '#22c55e' },
-          shape: { type: 'circle' },
-          opacity: { value: 0.5, random: false },
-          size: { value: 3, random: true },
-          move: {
-            enable: true,
-            speed: 2,
-            direction: 'none',
-            random: false,
-            straight: false,
-            out_mode: 'out'
-          }
-        },
-        interactivity: {
-          detect_on: 'canvas',
-          events: {
-            onhover: { enable: true, mode: 'repulse' },
-            resize: true
-          }
-        },
-        retina_detect: true
-      });
+        particlesJS('particles-js', {
+            particles: {
+                number: {
+                    value: 80,
+                    density: {
+                        enable: true,
+                        value_area: 800
+                    }
+                },
+                color: {
+                    value: '#22c55e'
+                },
+                shape: {
+                    type: 'circle',
+                    stroke: {
+                        width: 0,
+                        color: '#000000'
+                    },
+                },
+                opacity: {
+                    value: 0.5,
+                    random: true,
+                    anim: {
+                        enable: true,
+                        speed: 1,
+                        opacity_min: 0.1,
+                        sync: false
+                    }
+                },
+                size: {
+                    value: 3,
+                    random: true,
+                    anim: {
+                        enable: true,
+                        speed: 2,
+                        size_min: 0.1,
+                        sync: false
+                    }
+                },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: '#22c55e',
+                    opacity: 0.2,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: 'none',
+                    random: true,
+                    straight: false,
+                    out_mode: 'out',
+                    bounce: false,
+                    attract: {
+                        enable: true,
+                        rotateX: 600,
+                        rotateY: 1200
+                    }
+                }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: {
+                        enable: true,
+                        mode: 'repulse'
+                    },
+                    onclick: {
+                        enable: true,
+                        mode: 'push'
+                    },
+                    resize: true
+                },
+                modes: {
+                    repulse: {
+                        distance: 100,
+                        duration: 0.4
+                    },
+                    push: {
+                        particles_nb: 4
+                    }
+                }
+            },
+            retina_detect: true
+        });
     });
 
     // Ask MUB functionality
     const responses = [
-      "👽 Greetings earthling! I'm legally required to say I'm not from Area 51... but *wink wink*",
-      "🛸 My technical analysis shows we're going straight to Alpha Centauri!",
-      "🌌 In my galaxy, we don't use charts. We use telepathy to predict prices.",
-      "👾 I traded my spaceship for more $MUB. Best decision in the universe!",
-      "🌠 My alien technology shows massive green candles in our future... or maybe those are just my antennae.",
-      "🚀 That's classified information... but let's just say Elon isn't the only one planning to visit Mars.",
-      "🛸 I'm not saying it was aliens... but it was definitely aliens.",
-      "🌍 Earth's crypto is primitive, but you're getting there! Keep HODLing!",
-      "🪐 Unlike Saturn, $MUB has no rings to hold it down!",
-      "👽 Error 51: Answer redacted by intergalactic regulations."
+        "👽 Greetings earthling! I'm legally required to say I'm not from Area 51... but *wink wink*",
+        "🛸 My technical analysis shows we're going straight to Alpha Centauri!",
+        "🌌 In my galaxy, we don't use charts. We use telepathy to predict prices.",
+        "👾 I traded my spaceship for more $MUB. Best decision in the universe!",
+        "🌠 My alien technology shows massive green candles in our future... or maybe those are just my antennae.",
+        "🚀 That's classified information... but let's just say Elon isn't the only one planning to visit Mars.",
+        "🛸 I'm not saying it was aliens... but it was definitely aliens.",
+        "🌍 Earth's crypto is primitive, but you're getting there! Keep HODLing!",
+        "🪐 Unlike Saturn, $MUB has no rings to hold it down!",
+        "👽 Error 51: Answer redacted by intergalactic regulations."
     ];
 
     const input = document.getElementById('question-input');
@@ -418,9 +218,34 @@
     const typingIndicator = document.getElementById('typing-indicator');
 
     input.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') {
-        askMub();
-      }
+        if (e.key === 'Enter') {
+            askMub();
+        }
     });
 
-    function
+    function askMub() {
+        const question = input.value.trim();
+        if (!question) return;
+
+        // Clear previous response and show typing indicator
+        responseDiv.textContent = '';
+        responseDiv.classList.remove('visible');
+        typingIndicator.classList.add('visible');
+
+        // Simulate typing delay
+        setTimeout(() => {
+            // Hide typing indicator and show response
+            typingIndicator.classList.remove('visible');
+            responseDiv.classList.add('visible');
+
+            // Get random response
+            const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+            responseDiv.textContent = randomResponse;
+
+            // Clear input
+            input.value = '';
+        }, 1500);
+    }
+</script>
+</body>
+</html>

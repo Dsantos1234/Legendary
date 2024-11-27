@@ -4,22 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="$MUB - The first memecoin from Area 51. Join 100,000+ believers in the galaxy's most absurd cryptocurrency!">
+  <meta name="theme-color" content="#22c55e">
+  
   <title>👽 $MUB 👽 - To The Galaxy!</title>
   
   <!-- Preload critical assets -->
   <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" as="style">
+  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js" as="script">
+  
   <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
 
   <style>
-    /* Modern CSS reset */
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    /* Custom properties */
     :root {
       --primary: #22c55e;
       --primary-hover: #16a34a;
@@ -31,7 +26,15 @@
       --radius: 0.75rem;
     }
 
-    /* Base styles */
+    /* Modern CSS reset with performance optimizations */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      will-change: transform;
+    }
+
+    /* Performance optimizations */
     body {
       margin: 0;
       font-family: system-ui, -apple-system, sans-serif;
@@ -39,26 +42,28 @@
       color: var(--text);
       line-height: 1.5;
       overflow-x: hidden;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
     }
 
-    /* Layout */
+    /* Use containment for better performance */
     .container {
       width: min(100% - var(--spacing-lg), 1200px);
       margin-inline: auto;
       padding: var(--spacing-md) 0;
+      contain: content;
     }
 
-    /* Typography */
-    h1, h2, h3 {
-      line-height: 1.2;
-    }
-
-    /* Navigation */
     .nav {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: var(--spacing-sm) 0;
+      position: sticky;
+      top: 0;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(8px);
+      z-index: 100;
     }
 
     .nav-links {
@@ -71,13 +76,14 @@
       color: var(--text);
       text-decoration: none;
       transition: color 0.2s ease;
+      padding: 0.5rem;
     }
 
     .nav-link:hover {
       color: var(--primary);
     }
 
-    /* Buttons */
+    /* Optimized button styles */
     .btn {
       background: var(--primary);
       color: #000;
@@ -89,6 +95,8 @@
       text-decoration: none;
       display: inline-block;
       transition: transform 0.2s ease, background-color 0.2s ease;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .btn:hover {
@@ -106,16 +114,18 @@
       background: rgba(34, 197, 94, 0.1);
     }
 
-    /* Hero section */
+    /* Optimized hero section */
     .hero {
       text-align: center;
       padding: var(--spacing-lg) 0;
+      contain: content;
     }
 
     .hero-title {
       font-size: clamp(2rem, 5vw, 4rem);
       margin-bottom: var(--spacing-sm);
       animation: float 3s ease-in-out infinite;
+      contain: content;
     }
 
     .hero-subtitle {
@@ -123,7 +133,7 @@
       opacity: 0.9;
     }
 
-    /* Cards */
+    /* Optimized card styles */
     .card {
       background: var(--bg-card);
       border-radius: var(--radius);
@@ -131,13 +141,15 @@
       backdrop-filter: blur(8px);
       height: 100%;
       border: 1px solid rgba(255, 255, 255, 0.1);
+      contain: content;
     }
 
-    /* Grid */
+    /* Optimized grid */
     .grid {
       display: grid;
       gap: var(--spacing-lg);
       margin: var(--spacing-lg) 0;
+      contain: layout style;
     }
 
     @media (min-width: 768px) {
@@ -150,13 +162,12 @@
       }
     }
 
-    /* Animations */
+    /* Optimized animations */
     @keyframes float {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-10px); }
     }
 
-    /* Particles container */
     #particles-js {
       position: fixed;
       top: 0;
@@ -164,13 +175,15 @@
       width: 100%;
       height: 100%;
       z-index: -1;
+      pointer-events: none;
     }
 
-    /* Footer */
+    /* Optimized footer */
     .footer {
       text-align: center;
       padding: var(--spacing-lg) 0;
       border-top: 1px solid rgba(255, 255, 255, 0.1);
+      contain: content;
     }
 
     .social-links {
@@ -180,7 +193,7 @@
       margin-bottom: var(--spacing-md);
     }
 
-    /* Game Popup Styles */
+    /* Optimized game popup */
     .game-popup {
       display: none;
       position: fixed;
@@ -192,10 +205,13 @@
       z-index: 1000;
       justify-content: center;
       align-items: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
     }
 
     .game-popup.active {
       display: flex;
+      opacity: 1;
     }
 
     .game-container {
@@ -206,6 +222,7 @@
       width: 850px;
       max-width: 95vw;
       box-shadow: 0 0 20px rgba(34, 197, 94, 0.2);
+      contain: content;
     }
 
     .close-button {
@@ -218,6 +235,7 @@
       font-size: 32px;
       cursor: pointer;
       z-index: 1000;
+      padding: 0.5rem;
     }
 
     .close-button:hover {
@@ -228,9 +246,10 @@
       width: 100%;
       height: 600px;
       border: none;
+      border-radius: var(--radius);
     }
 
-    /* Responsive adjustments */
+    /* Responsive optimizations */
     @media (max-width: 768px) {
       .nav {
         flex-direction: column;
@@ -246,15 +265,23 @@
         height: 450px;
       }
     }
+
+    /* Print styles */
+    @media print {
+      .game-popup,
+      .btn,
+      #particles-js {
+        display: none !important;
+      }
+    }
   </style>
 </head>
 <body>
-  <div id="particles-js"></div>
+  <div id="particles-js" aria-hidden="true"></div>
 
-  <!-- Game Popup -->
-  <div class="game-popup" id="gamePopup">
+  <div class="game-popup" id="gamePopup" role="dialog" aria-modal="true" aria-label="Game">
     <div class="game-container">
-      <button class="close-button" onclick="closeGame()">×</button>
+      <button class="close-button" onclick="closeGame()" aria-label="Close game">×</button>
       <iframe id="gameFrame" class="game-frame" title="Area 51 Escape Game"></iframe>
     </div>
   </div>
@@ -262,12 +289,12 @@
   <header class="container">
     <nav class="nav">
       <h1>👽 $MUB</h1>
-      <div class="nav-links">
+      <div class="nav-links" role="navigation">
         <a href="#about" class="nav-link">About</a>
         <a href="#tokenomics" class="nav-link">Tokenomics</a>
         <a href="#roadmap" class="nav-link">Roadmap</a>
-        <button class="btn btn-outline" onclick="openGame()">Play Demo</button>
-        <a href="https://dexscreener.com/" class="btn" target="_blank">Buy Now</a>
+        <button class="btn btn-outline" onclick="openGame()" aria-label="Play demo game">Play Demo</button>
+        <a href="https://dexscreener.com/" class="btn" target="_blank" rel="noopener">Buy Now</a>
       </div>
     </nav>
   </header>
@@ -285,8 +312,8 @@
       </div>
 
       <div style="display: flex; gap: 1rem; justify-content: center; margin: 2rem 0;">
-        <a href="https://dexscreener.com/" class="btn" target="_blank">Buy $MUB</a>
-        <a href="https://t.me/mubonbase" class="btn btn-outline" target="_blank">Join Telegram</a>
+        <a href="https://dexscreener.com/" class="btn" target="_blank" rel="noopener">Buy $MUB</a>
+        <a href="https://t.me/mubonbase" class="btn btn-outline" target="_blank" rel="noopener">Join Telegram</a>
       </div>
     </section>
 
@@ -339,341 +366,130 @@
 
   <footer class="footer container">
     <div class="social-links">
-      <a href="https://x.com/mubonbase?s=21&t=e4VJ7rcZVtvmps9KT5k2Vw" class="nav-link" target="_blank">Twitter</a>
-      <a href="https://t.me/mubonbase" class="nav-link" target="_blank">Telegram</a>
+      <a href="https://x.com/mubonbase?s=21&t=e4VJ7rcZVtvmps9KT5k2Vw" class="nav-link" target="_blank" rel="noopener">Twitter</a>
+      <a href="https://t.me/mubonbase" class="nav-link" target="_blank" rel="noopener">Telegram</a>
       <a href="#" class="nav-link">Medium</a>
     </div>
     <p style="opacity: 0.6;">© 2024 $MUB. We come in peace 🛸</p>
   </footer>
 
+  <!-- Deferred loading of non-critical scripts -->
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+  
   <script>
-    // Functions to handle the game popup
+    // Lazy load game popup functionality
+    const gamePopup = document.getElementById('gamePopup');
+    const gameFrame = document.getElementById('gameFrame');
+
     function openGame() {
-      const popup = document.getElementById('gamePopup');
-      const frame = document.getElementById('gameFrame');
-      popup.classList.add('active');
-      frame.src = 'game.html';
+      gamePopup.classList.add('active');
+      gameFrame.src = 'game.html';
+      document.body.style.overflow = 'hidden';
     }
 
     function closeGame() {
-      const popup = document.getElementById('gamePopup');
-      const frame = document.getElementById('gameFrame');
-      popup.classList.remove('active');
-      frame.src = '';
+      gamePopup.classList.remove('active');
+      gameFrame.src = '';
+      document.body.style.overflow = '';
+    }
+
+    // Optimize particles.js loading
+    window.addEventListener('load', () => {
+      if (window.particlesJS) {
+        requestIdleCallback(() => {
+          particlesJS('particles-js', {
+            "particles": {
+              "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
+              "color": { "value": "#22c55e" },
+              "shape": { "type": "circle" },
+              "opacity": { "value": 0.2, "random": false },
+              "size": { "value": 3, "random": true },
+              "line_linked": {
+                "enable": true,
+                "distance": 150,
+                "color": "#22c55e",
+                "opacity": 0.2,
+                "width": 1
+              },
+              "move": {
+                "enable": true,
+                "speed": 2,
+                "direction": "none",
+                "random": true
+                "straight": false,
+                "out_mode": "out",
+                "bounce": false
+              }
+            },
+            "interactivity": {
+              "detect_on": "canvas",
+              "events": {
+                "onhover": {
+                  "enable": true,
+                  "mode": "grab"
+                },
+                "resize": true
+              },
+              "modes": {
+                "grab": {
+                  "distance": 140,
+                  "line_linked": {
+                    "opacity": 0.5
+                  }
+                }
+              }
+            },
+            "retina_detect": true
+          });
+        });
+      }
+    });
+
+    // Performance optimization: Use Intersection Observer for animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate__animated', 'animate__fadeIn');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.1
+    });
+
+    // Observe all cards for lazy animation
+    document.querySelectorAll('.card').forEach(card => {
+      observer.observe(card);
+    });
+
+    // Add smooth scrolling for navigation
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Handle errors gracefully
+    window.addEventListener('error', function(e) {
+      console.error('Runtime error:', e);
+      // Implement error tracking here if needed
+    });
+
+    // Add service worker for offline support
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').catch(err => {
+          console.error('ServiceWorker registration failed:', err);
+        });
+      });
     }
   </script>
-
-  <script src="particles-config.js"></script>
 </body>
 </html>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>MUB - Area 51 Escape</title>
-    <style>
-        body { 
-            margin: 0; 
-            background: #1a1a1a; 
-            font-family: Arial, sans-serif; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            color: #fff; 
-        }
-        #game-container { 
-            position: relative; 
-            width: 800px; 
-            height: 400px; 
-            background: linear-gradient(#000033, #000066); 
-            margin: 20px; 
-            overflow: hidden; 
-            border: 2px solid #00ff00; 
-        }
-        #alien { 
-            position: absolute; 
-            width: 40px; 
-            height: 40px; 
-            bottom: 20px; 
-            left: 50px; 
-            font-size: 30px; 
-            line-height: 40px; 
-            text-align: center; 
-        }
-        .guard { 
-            position: absolute; 
-            width: 30px; 
-            height: 40px; 
-            background: #ff0000; 
-            right: -30px; 
-            font-size: 24px; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-        }
-        .keycard { 
-            position: absolute; 
-            width: 20px; 
-            height: 20px; 
-            font-size: 15px; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-        }
-        #stats { 
-            font-size: 24px; 
-            margin: 10px; 
-        }
-        #game-over { 
-            display: none; 
-            position: absolute; 
-            top: 50%; 
-            left: 50%; 
-            transform: translate(-50%, -50%); 
-            text-align: center; 
-            font-size: 32px; 
-            color: #ff0000; 
-            background: rgba(0,0,0,0.8); 
-            padding: 20px; 
-        }
-        button { 
-            padding: 10px 20px; 
-            font-size: 18px; 
-            background: #00ff00; 
-            border: none; 
-            border-radius: 5px; 
-            cursor: pointer; 
-            margin: 10px; 
-        }
-
-        @media (max-width: 850px) {
-            #game-container {
-                width: 95vw;
-                max-width: 800px;
-            }
-        }
-    </style>
-</head>
-<body>
-    <h1>MUB - Area 51 Escape 👽</h1>
-    <div id="stats">Score: 0 | Keycards: 0/3 | Health: ❤️❤️❤️</div>
-    <div id="game-container">
-        <div id="alien">👽</div>
-        <div id="game-over">
-            Captured!<br>
-            <button onclick="resetGame()">Try Again</button>
-        </div>
-    </div>
-    <button onclick="startGame()">Start Escape</button>
-
-    <script>
-        const alien = document.getElementById('alien');
-        const gameContainer = document.getElementById('game-container');
-        const statsElement = document.getElementById('stats');
-        const gameOverElement = document.getElementById('game-over');
-        let score = 0, keycards = 0, health = 3;
-        let isJumping = false;
-        let gameInterval, guardInterval, keycardInterval;
-        let isGameRunning = false;
-        let jumpForce = 0;
-        const keys = {};
-
-        function startGame() {
-            if (isGameRunning) return;
-            isGameRunning = true;
-            score = 0;
-            keycards = 0;
-            health = 3;
-            updateStats();
-            document.querySelectorAll('.guard, .keycard').forEach(el => el.remove());
-            alien.style.bottom = '20px';
-            alien.style.left = '50px';
-            gameOverElement.style.display = 'none';
-            
-            gameInterval = setInterval(gameLoop, 20);
-            guardInterval = setInterval(createGuard, 2000);
-            keycardInterval = setInterval(createKeycard, 3000);
-        }
-
-        function gameLoop() {
-            if (!isJumping && keys.ArrowUp) {
-                isJumping = true;
-                jumpForce = 15;
-            }
-            
-            if (isJumping) {
-                let bottom = parseFloat(alien.style.bottom);
-                jumpForce -= 0.8;
-                bottom += jumpForce;
-                
-                if (bottom <= 20) {
-                    bottom = 20;
-                    isJumping = false;
-                }
-                alien.style.bottom = bottom + 'px';
-            }
-            
-            let left = parseFloat(alien.style.left);
-            if (keys.ArrowLeft && left > 0) left -= 5;
-            if (keys.ArrowRight && left < 760) left += 5;
-            alien.style.left = left + 'px';
-            
-            checkCollisions();
-        }
-
-        function createGuard() {
-            if (!isGameRunning) return;
-            const guard = document.createElement('div');
-            guard.className = 'guard';
-            guard.innerHTML = '👮';
-            guard.style.bottom = '20px';
-            gameContainer.appendChild(guard);
-            
-            const moveGuard = setInterval(() => {
-                let left = parseFloat(guard.style.left) || 800;
-                if (left < -30) {
-                    clearInterval(moveGuard);
-                    guard.remove();
-                    score += 10;
-                    updateStats();
-                } else {
-                    guard.style.left = (left - 4) + 'px';
-                }
-            }, 20);
-        }
-
-        function createKeycard() {
-            if (!isGameRunning || keycards >= 3) return;
-            const keycard = document.createElement('div');
-            keycard.className = 'keycard';
-            keycard.innerHTML = '🔑';
-            keycard.style.left = (Math.random() * 700 + 50) + 'px';
-            keycard.style.bottom = (Math.random() * 300 + 50) + 'px';
-            gameContainer.appendChild(keycard);
-        }
-
-        function checkCollisions() {
-            const alienRect = alien.getBoundingClientRect();
-            
-            document.querySelectorAll('.guard').forEach(guard => {
-                if (isColliding(alienRect, guard.getBoundingClientRect())) {
-                    takeDamage();
-                }
-            });
-            
-            document.querySelectorAll('.keycard').forEach(keycard => {
-                if (isColliding(alienRect, keycard.getBoundingClientRect())) {
-                    keycard.remove();
-                    keycards++;
-                    score += 50;
-                    updateStats();
-                    if (keycards >= 3) levelComplete();
-                }
-            });
-        }
-
-        function isColliding(rect1, rect2) {
-            return !(rect1.right < rect2.left || rect1.left > rect2.right || 
-                    rect1.bottom < rect2.top || rect1.top > rect2.bottom);
-        }
-
-        function takeDamage() {
-            health--;
-            updateStats();
-            if (health <= 0) {
-                endGame();
-            } else {
-                alien.style.opacity = '0.5';
-                setTimeout(() => alien.style.opacity = '1', 200);
-            }
-        }
-
-        function updateStats() {
-            statsElement.textContent = `Score: ${score} | Keycards: ${keycards}/3 | Health: ${'❤️'.repeat(health)}`;
-        }
-
-        function levelComplete() {
-            alert('Level Complete! You escaped Area 51!');
-            endGame();
-        }
-
-        function endGame() {
-            isGameRunning = false;
-            clearInterval(gameInterval);
-            clearInterval(guardInterval);
-            clearInterval(keycardInterval);
-            gameOverElement.style.display = 'block';
-        }
-
-        function resetGame() {
-            startGame();
-        }
-
-        document.addEventListener('keydown', e => keys[e.code] = true);
-        document.addEventListener('keyup', e => keys[e.code] = false);
-    </script>
-</body>
-</html>
-window.addEventListener('load', () => {
-  if (window.particlesJS) {
-    particlesJS('particles-js', {
-      "particles": {
-        "number": {
-          "value": 160,
-          "density": {
-            "enable": true,
-            "value_area": 800
-          }
-        },
-        "color": {
-          "value": "#22c55e"
-        },
-        "shape": {
-          "type": "circle"
-        },
-        "opacity": {
-          "value": 0.2,
-          "random": false
-        },
-        "size": {
-          "value": 3,
-          "random": true
-        },
-        "line_linked": {
-          "enable": true,
-          "distance": 150,
-          "color": "#22c55e",
-          "opacity": 0.2,
-          "width": 1
-        },
-        "move": {
-          "enable": true,
-          "speed": 2,
-          "direction": "none",
-          "random": true,
-          "straight": false,
-          "out_mode": "out",
-          "bounce": false
-        }
-      },
-      "interactivity": {
-        "detect_on": "canvas",
-        "events": {
-          "onhover": {
-            "enable": true,
-            "mode": "grab"
-          },
-          "resize": true
-        },
-        "modes": {
-          "grab": {
-            "distance": 140,
-            "line_linked": {
-              "opacity": 0.5
-            }
-          }
-        }
-      },
-      "retina_detect": true
-    });
-  }
-});

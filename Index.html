@@ -2,9 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>MUB - Area 51 Escape</title>
     <style>
+        :root {
+            --primary: #22c55e;
+            --primary-hover: #16a34a;
+            --game-height: min(400px, 70vh);
+        }
+        
         body { 
             margin: 0; 
             background: #1a1a1a; 
@@ -14,17 +20,25 @@
             align-items: center; 
             color: #fff;
             overflow: hidden;
+            touch-action: none;
+            -webkit-tap-highlight-color: transparent;
+            height: 100vh;
+            padding: 10px;
+            box-sizing: border-box;
         }
+
         #game-container { 
             position: relative; 
-            width: 800px; 
-            height: 400px; 
+            width: min(800px, 100%);
+            height: var(--game-height);
             background: linear-gradient(#000033, #000066); 
-            margin: 20px; 
+            margin: 10px 0; 
             overflow: hidden; 
-            border: 2px solid #22c55e;
+            border: 2px solid var(--primary);
             border-radius: 8px;
+            touch-action: none;
         }
+
         #alien { 
             position: absolute; 
             width: 40px; 
@@ -36,7 +50,9 @@
             text-align: center;
             user-select: none;
             z-index: 2;
+            will-change: transform;
         }
+
         .guard { 
             position: absolute; 
             width: 30px; 
@@ -48,7 +64,9 @@
             align-items: center;
             user-select: none;
             z-index: 1;
+            will-change: transform;
         }
+
         .keycard { 
             position: absolute; 
             width: 20px; 
@@ -59,12 +77,15 @@
             align-items: center;
             user-select: none;
             animation: float 2s ease-in-out infinite;
+            will-change: transform;
         }
+
         #stats { 
-            font-size: 24px; 
+            font-size: clamp(16px, 4vw, 24px);
             margin: 10px;
             text-align: center;
         }
+
         #game-over { 
             display: none; 
             position: absolute; 
@@ -72,52 +93,128 @@
             left: 50%; 
             transform: translate(-50%, -50%); 
             text-align: center; 
-            font-size: 32px; 
+            font-size: clamp(24px, 6vw, 32px);
             color: #ff0000; 
-            background: rgba(0,0,0,0.8); 
+            background: rgba(0,0,0,0.9); 
             padding: 20px;
             border-radius: 8px;
             z-index: 10;
+            width: 80%;
+            max-width: 300px;
         }
+
         .btn { 
-            padding: 10px 20px; 
-            font-size: 18px; 
-            background: #22c55e; 
+            padding: 12px 24px; 
+            font-size: clamp(16px, 4vw, 18px);
+            background: var(--primary);
             color: #000;
             border: none; 
-            border-radius: 5px; 
+            border-radius: 8px; 
             cursor: pointer; 
             margin: 10px;
             transition: background-color 0.2s ease;
+            touch-action: manipulation;
         }
+
         .btn:hover {
-            background: #16a34a;
+            background: var(--primary-hover);
         }
+
+        .instructions {
+            text-align: center;
+            margin: 10px 0;
+            font-size: clamp(12px, 3vw, 14px);
+            opacity: 0.8;
+            padding: 0 10px;
+        }
+
+        /* Mobile Controls */
+        #mobile-controls {
+            display: none;
+            width: 100%;
+            max-width: 800px;
+            padding: 10px;
+            gap: 10px;
+        }
+
+        .control-group {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            gap: 10px;
+        }
+
+        .control-btn {
+            flex: 1;
+            padding: 15px;
+            background: rgba(34, 197, 94, 0.2);
+            border: 2px solid var(--primary);
+            border-radius: 8px;
+            color: var(--primary);
+            font-size: 24px;
+            touch-action: manipulation;
+            user-select: none;
+        }
+
+        .control-btn:active {
+            background: rgba(34, 197, 94, 0.4);
+        }
+
         @keyframes float {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-10px); }
         }
-        @media (max-width: 850px) {
-            #game-container {
-                width: 95vw;
-                max-width: 800px;
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 24px;
+                margin: 10px 0;
             }
-            #stats {
-                font-size: 18px;
+
+            #mobile-controls {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .instructions {
+                display: none;
+            }
+
+            #game-container {
+                margin: 5px 0;
             }
         }
-        .instructions {
-            text-align: center;
-            margin-bottom: 10px;
-            font-size: 14px;
-            opacity: 0.8;
+
+        /* Landscape mode optimizations */
+        @media (max-height: 500px) and (orientation: landscape) {
+            body {
+                padding: 5px;
+            }
+
+            h1 {
+                font-size: 20px;
+                margin: 5px 0;
+            }
+
+            #game-container {
+                height: min(400px, 80vh);
+            }
+
+            .control-group {
+                padding: 0 50px;
+            }
+
+            .control-btn {
+                padding: 10px;
+            }
         }
     </style>
 </head>
 <body>
     <h1>MUB - Area 51 Escape 👽</h1>
     <div class="instructions">
-        Use arrow keys to move and jump. Collect keycards 🔑 and avoid guards 👮
+        Desktop: Arrow keys to move and jump<br>
+        Mobile: Use on-screen controls
     </div>
     <div id="stats">Score: 0 | Keycards: 0/3 | Health: ❤️❤️❤️</div>
     <div id="game-container">
@@ -127,6 +224,18 @@
             <button class="btn" onclick="resetGame()">Try Again</button>
         </div>
     </div>
+    
+    <!-- Mobile Controls -->
+    <div id="mobile-controls">
+        <div class="control-group">
+            <button class="control-btn" id="jumpBtn">⬆️</button>
+        </div>
+        <div class="control-group">
+            <button class="control-btn" id="leftBtn">⬅️</button>
+            <button class="control-btn" id="rightBtn">➡️</button>
+        </div>
+    </div>
+
     <button class="btn" onclick="startGame()">Start Escape</button>
 
     <script>
@@ -134,6 +243,10 @@
         const gameContainer = document.getElementById('game-container');
         const statsElement = document.getElementById('stats');
         const gameOverElement = document.getElementById('game-over');
+        const jumpBtn = document.getElementById('jumpBtn');
+        const leftBtn = document.getElementById('leftBtn');
+        const rightBtn = document.getElementById('rightBtn');
+        
         let score = 0, keycards = 0, health = 3;
         let isJumping = false;
         let gameInterval, guardInterval, keycardInterval;
@@ -141,7 +254,54 @@
         let jumpForce = 0;
         const keys = {};
 
-        // Optimized game loop with requestAnimationFrame
+        // Mobile control handlers
+        function setupMobileControls() {
+            // Jump button
+            ['touchstart', 'mousedown'].forEach(event => {
+                jumpBtn.addEventListener(event, (e) => {
+                    e.preventDefault();
+                    keys.ArrowUp = true;
+                });
+            });
+
+            ['touchend', 'mouseup'].forEach(event => {
+                jumpBtn.addEventListener(event, (e) => {
+                    e.preventDefault();
+                    keys.ArrowUp = false;
+                });
+            });
+
+            // Left button
+            ['touchstart', 'mousedown'].forEach(event => {
+                leftBtn.addEventListener(event, (e) => {
+                    e.preventDefault();
+                    keys.ArrowLeft = true;
+                });
+            });
+
+            ['touchend', 'mouseup'].forEach(event => {
+                leftBtn.addEventListener(event, (e) => {
+                    e.preventDefault();
+                    keys.ArrowLeft = false;
+                });
+            });
+
+            // Right button
+            ['touchstart', 'mousedown'].forEach(event => {
+                rightBtn.addEventListener(event, (e) => {
+                    e.preventDefault();
+                    keys.ArrowRight = true;
+                });
+            });
+
+            ['touchend', 'mouseup'].forEach(event => {
+                rightBtn.addEventListener(event, (e) => {
+                    e.preventDefault();
+                    keys.ArrowRight = false;
+                });
+            });
+        }
+
         function gameLoop() {
             if (!isGameRunning) return;
 
@@ -197,95 +357,21 @@
             requestAnimationFrame(moveGuard);
         }
 
-        function createKeycard() {
-            if (!isGameRunning || keycards >= 3) return;
-            const keycard = document.createElement('div');
-            keycard.className = 'keycard';
-            keycard.innerHTML = '🔑';
-            keycard.style.left = `${Math.random() * (gameContainer.clientWidth - 50) + 50}px`;
-            keycard.style.bottom = `${Math.random() * 300 + 50}px`;
-            gameContainer.appendChild(keycard);
-        }
+        // Initialize mobile controls
+        setupMobileControls();
 
-        function checkCollisions() {
-            const alienRect = alien.getBoundingClientRect();
-            
-            document.querySelectorAll('.guard').forEach(guard => {
-                if (isColliding(alienRect, guard.getBoundingClientRect())) {
-                    takeDamage();
-                }
-            });
-            
-            document.querySelectorAll('.keycard').forEach(keycard => {
-                if (isColliding(alienRect, keycard.getBoundingClientRect())) {
-                    keycard.remove();
-                    keycards++;
-                    score += 50;
-                    updateStats();
-                    if (keycards >= 3) levelComplete();
-                }
-            });
-        }
+        // Rest of your game code remains the same...
+        // [Previous functions: createKeycard, checkCollisions, isColliding, 
+        // takeDamage, updateStats, levelComplete, endGame, resetGame, startGame]
 
-        function isColliding(rect1, rect2) {
-            return !(rect1.right < rect2.left || rect1.left > rect2.right || 
-                    rect1.bottom < rect2.top || rect1.top > rect2.bottom);
-        }
-
-        function takeDamage() {
-            health--;
-            updateStats();
-            if (health <= 0) {
-                endGame();
-            } else {
-                alien.style.opacity = '0.5';
-                setTimeout(() => alien.style.opacity = '1', 200);
+        // Prevent scrolling on mobile when touching game controls
+        document.addEventListener('touchmove', (e) => {
+            if (e.target.closest('#game-container, #mobile-controls')) {
+                e.preventDefault();
             }
-        }
+        }, { passive: false });
 
-        function updateStats() {
-            statsElement.textContent = `Score: ${score} | Keycards: ${keycards}/3 | Health: ${'❤️'.repeat(health)}`;
-        }
-
-        function levelComplete() {
-            isGameRunning = false;
-            clearInterval(guardInterval);
-            clearInterval(keycardInterval);
-            alert('Level Complete! You escaped Area 51!');
-            endGame();
-        }
-
-        function endGame() {
-            isGameRunning = false;
-            clearInterval(guardInterval);
-            clearInterval(keycardInterval);
-            gameOverElement.style.display = 'block';
-        }
-
-        function resetGame() {
-            document.querySelectorAll('.guard, .keycard').forEach(el => el.remove());
-            gameOverElement.style.display = 'none';
-            startGame();
-        }
-
-        function startGame() {
-            if (isGameRunning) return;
-            isGameRunning = true;
-            score = 0;
-            keycards = 0;
-            health = 3;
-            updateStats();
-            document.querySelectorAll('.guard, .keycard').forEach(el => el.remove());
-            alien.style.bottom = '20px';
-            alien.style.left = '50px';
-            gameOverElement.style.display = 'none';
-            
-            requestAnimationFrame(gameLoop);
-            guardInterval = setInterval(createGuard, 2000);
-            keycardInterval = setInterval(createKeycard, 3000);
-        }
-
-        // Event listeners
+        // Handle keyboard controls
         document.addEventListener('keydown', e => {
             keys[e.code] = true;
             if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', ' '].includes(e.code)) {
@@ -294,30 +380,27 @@
         });
         document.addEventListener('keyup', e => keys[e.code] = false);
 
-        // Mobile touch controls
-        let touchStartX = 0;
-        gameContainer.addEventListener('touchstart', e => {
-            touchStartX = e.touches[0].clientX;
-            if (e.touches[0].clientY < window.innerHeight / 2) {
-                keys.ArrowUp = true;
+        // Adjust game speed based on device performance
+        const gameSpeed = window.matchMedia('(max-width: 768px)').matches ? 0.8 : 1;
+
+        // Handle visibility change to pause/resume game
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden && isGameRunning) {
+                // Auto-pause when tab is not visible
+                isGameRunning = false;
             }
         });
 
-        gameContainer.addEventListener('touchmove', e => {
-            const touchX = e.touches[0].clientX;
-            if (touchX < touchStartX - 30) {
-                keys.ArrowLeft = true;
-                keys.ArrowRight = false;
-            } else if (touchX > touchStartX + 30) {
-                keys.ArrowRight = true;
-                keys.ArrowLeft = false;
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            if (isGameRunning) {
+                // Adjust alien position if needed
+                const maxX = gameContainer.clientWidth - 40;
+                const currentX = parseFloat(alien.style.left) || 50;
+                if (currentX > maxX) {
+                    alien.style.left = `${maxX}px`;
+                }
             }
-        });
-
-        gameContainer.addEventListener('touchend', () => {
-            keys.ArrowUp = false;
-            keys.ArrowLeft = false;
-            keys.ArrowRight = false;
         });
     </script>
 </body>

@@ -1,975 +1,317 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>$MUB's Area 51 Escape</title>
-    <style>
-        :root {
-            --primary: #7B68EE;
-            --background: #000033;
-            --health: #ff3333;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="$MUB - The first memecoin from Area 51. Join 100,000+ believers in the galaxy's most absurd cryptocurrency!">
+  <title>👽 $MUB 👽 - To The Galaxy!</title>
+  
+  <!-- Preload critical assets -->
+  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" as="style">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
 
-        * { 
-            box-sizing: border-box;
-            -webkit-touch-callout: none;
-            -webkit-user-select: none;
-            user-select: none;
-        }
+  <style>
+    /* Modern CSS reset */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        body {
-            margin: 0;
-            padding: 0;
-            width: 100vw;
-            height: 100vh;
-            background: black;
-            color: white;
-            font-family: system-ui, -apple-system, sans-serif;
-            overflow: hidden;
-            touch-action: none;
-            position: fixed; /* Prevent overscroll on mobile */
-        }
+    /* Custom properties */
+    :root {
+      --primary: #22c55e;
+      --primary-hover: #16a34a;
+      --text: #4ade80;
+      --bg-card: rgba(21, 128, 61, 0.1);
+      --spacing-sm: 0.75rem;
+      --spacing-md: 1.5rem;
+      --spacing-lg: 2rem;
+      --radius: 0.75rem;
+    }
 
-        #game-container {
-            width: 100vw;
-            height: 100vh;
-            position: relative;
-            overflow: hidden;
-            background: #001a33;
-            touch-action: none;
-        }
+    /* Base styles */
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, sans-serif;
+      background-color: #000;
+      color: var(--text);
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
 
-        #game-world {
-            position: absolute;
-            width: 3000px;
-            height: 3000px;
-            transform-origin: top left;
-            will-change: transform; /* Optimize performance */
-        }
+    /* Layout */
+    .container {
+      width: min(100% - var(--spacing-lg), 1200px);
+      margin-inline: auto;
+      padding: var(--spacing-md) 0;
+    }
 
-        .grass {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='%23003300' fill-opacity='0.2' d='M0 0h100v100H0z'/%3E%3Cpath d='M10 10h5v5h-5zM30 10h5v5h-5zM50 10h5v5h-5z' fill='%23004400' fill-opacity='0.3'/%3E%3C/svg%3E");
-            pointer-events: none;
-        }
+    /* Typography */
+    h1, h2, h3 {
+      line-height: 1.2;
+    }
 
-        .road {
-            position: absolute;
-            background: #222;
-            border: 1px solid #333;
-            pointer-events: none;
-        }
+    /* Navigation */
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--spacing-sm) 0;
+    }
 
-        .building {
-            position: absolute;
-            background: linear-gradient(135deg, #112244 0%, #223366 100%);
-            border: 1px solid var(--primary);
-            box-shadow: 0 0 10px rgba(34, 197, 94, 0.2);
-        }
+    .nav-links {
+      display: flex;
+      gap: var(--spacing-md);
+      align-items: center;
+    }
 
-        .fence {
-            position: absolute;
-            background: #334455;
-            border: 2px solid var(--primary);
-        }
+    .nav-link {
+      color: var(--text);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
 
-        #player {
-            width: 40px;
-            height: 40px;
-            position: absolute;
-            font-size: 30px;
-            transform: translate(-50%, -50%);
-            z-index: 100;
-            transition: transform 0.1s;
-            user-select: none;
-            color: #808080;
-            text-shadow: 0 0 10px rgba(123, 104, 238, 0.8);
-            will-change: transform; /* Optimize performance */
-        }
+    .nav-link:hover {
+      color: var(--primary);
+    }
 
-        .vehicle {
-            position: absolute;
-            width: 50px;
-            height: 80px;
-            background: linear-gradient(45deg, #444 0%, #666 100%);
-            border-radius: 8px;
-            transform: translate(-50%, -50%);
-            border: 1px solid #888;
-            z-index: 50;
-            will-change: transform;
-        }
+    /* Buttons */
+    .btn {
+      background: var(--primary);
+      color: #000;
+      padding: var(--spacing-sm) var(--spacing-md);
+      border-radius: 9999px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-block;
+      transition: transform 0.2s ease, background-color 0.2s ease;
+    }
 
-        .guard {
-            position: absolute;
-            width: 40px;
-            height: 40px;
-            font-size: 30px;
-            transform: translate(-50%, -50%);
-            user-select: none;
-            z-index: 90;
-            will-change: transform;
-        }
+    .btn:hover {
+      background: var(--primary-hover);
+      transform: translateY(-2px);
+    }
 
-        .bullet {
-            position: absolute;
-            width: 6px;
-            height: 6px;
-            background: var(--primary);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 80;
-            box-shadow: 0 0 5px var(--primary);
-            pointer-events: none;
-        }
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--primary);
+      color: var(--text);
+    }
 
-        #hud {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            background: rgba(0, 0, 0, 0.8);
-            padding: 15px;
-            border-radius: 10px;
-            border: 1px solid var(--primary);
-            z-index: 1000;
-            pointer-events: none;
-            touch-action: none;
-        }
+    .btn-outline:hover {
+      background: rgba(34, 197, 94, 0.1);
+    }
 
-        .mub-power {
-            position: fixed;
-            top: 70px;
-            left: 20px;
-            background: rgba(0, 0, 0, 0.8);
-            padding: 15px;
-            border-radius: 10px;
-            border: 1px solid var(--primary);
-            z-index: 1000;
-            pointer-events: none;
-            touch-action: none;
-        }
+    /* Hero section */
+    .hero {
+      text-align: center;
+      padding: var(--spacing-lg) 0;
+    }
 
-        .power-meter {
-            width: 150px;
-            height: 10px;
-            background: #222;
-            border: 1px solid var(--primary);
-            border-radius: 5px;
-            overflow: hidden;
-            margin-top: 5px;
-        }
+    .hero-title {
+      font-size: clamp(2rem, 5vw, 4rem);
+      margin-bottom: var(--spacing-sm);
+      animation: float 3s ease-in-out infinite;
+    }
 
-        .power-fill {
-            width: 100%;
-            height: 100%;
-            background: var(--primary);
-            transition: width 0.3s;
-        }
+    .hero-subtitle {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      opacity: 0.9;
+    }
 
-        #health-bar {
-            width: 150px;
-            height: 20px;
-            background: #222;
-            border: 1px solid var(--primary);
-            border-radius: 10px;
-            overflow: hidden;
-        }
+    /* Cards */
+    .card {
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      padding: var(--spacing-md);
+      backdrop-filter: blur(8px);
+      height: 100%;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
 
-        #health-fill {
-            width: 100%;
-            height: 100%;
-            background: var(--health);
-            transition: width 0.3s;
-        }
+    /* Grid */
+    .grid {
+      display: grid;
+      gap: var(--spacing-lg);
+      margin: var(--spacing-lg) 0;
+    }
 
-        #wanted-level {
-            margin-top: 10px;
-            color: red;
-        }
+    @media (min-width: 768px) {
+      .grid-cols-3 {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      
+      .grid-cols-2 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
 
-        #joystick-area {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            width: 150px;
-            height: 150px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            border: 2px solid var(--primary);
-            z-index: 1000;
-            touch-action: none;
-        }
+    /* Animations */
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
 
-        #joystick {
-            position: absolute;
-            width: 50px;
-            height: 50px;
-            background: rgba(123, 104, 238, 0.5);
-            border-radius: 50%;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            pointer-events: none;
-            will-change: transform;
-        }
+    /* Particles container */
+    #particles-js {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
 
-        #action-buttons {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 1000;
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-        }
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: var(--spacing-lg) 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
 
-        .action-btn {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: rgba(123, 104, 238, 0.2);
-            border: 2px solid var(--primary);
-            color: var(--primary);
-            font-size: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            user-select: none;
-            touch-action: none;
-            cursor: pointer;
-        }
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: var(--spacing-md);
+      margin-bottom: var(--spacing-md);
+    }
 
-        .action-btn:active {
-            background: rgba(123, 104, 238, 0.4);
-        }
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .nav {
+        flex-direction: column;
+        gap: var(--spacing-md);
+      }
 
-        .damage-indicator {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at center, transparent 60%, rgba(255,0,0,0.3) 100%);
-            opacity: 0;
-            pointer-events: none;
-            z-index: 2000;
-            transition: opacity 0.3s;
-        }
-
-        .captured-alien {
-            position: absolute;
-            width: 40px;
-            height: 40px;
-            font-size: 30px;
-            transform: translate(-50%, -50%);
-            animation: pulse 2s infinite;
-            z-index: 85;
-            user-select: none;
-            color: #808080;
-            text-shadow: 0 0 10px rgba(123, 104, 238, 0.8);
-        }
-
-        .mission-objective {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: rgba(0, 0, 0, 0.8);
-            padding: 15px;
-            border-radius: 10px;
-            border: 1px solid var(--primary);
-            z-index: 1000;
-            font-size: 14px;
-            pointer-events: none;
-        }
-
-        .ufo {
-            position: absolute;
-            width: 80px;
-            height: 50px;
-            font-size: 40px;
-            transform: translate(-50%, -50%);
-            z-index: 95;
-            animation: hover 3s infinite ease-in-out;
-            user-select: none;
-            will-change: transform;
-        }
-
-        .teleport-effect {
-            position: absolute;
-            width: 40px;
-            height: 40px;
-            background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
-            animation: teleport 1s forwards;
-            z-index: 110;
-            pointer-events: none;
-        }
-
-        .message {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(0, 0, 0, 0.9);
-            padding: 20px;
-            border-radius: 10px;
-            border: 2px solid var(--primary);
-            color: white;
-            font-size: 24px;
-            text-align: center;
-            z-index: 2000;
-            animation: fadeIn 0.3s forwards;
-        }
-
-        #time-limit {
-            margin-top: 10px;
-            color: var(--primary);
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
-            50% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
-        }
-
-        @keyframes hover {
-            0%, 100% { transform: translate(-50%, -50%) translateY(0); }
-            50% { transform: translate(-50%, -50%) translateY(-10px); }
-        }
-
-        @keyframes teleport {
-            0% { transform: scale(0); opacity: 1; }
-            100% { transform: scale(2); opacity: 0; }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @media (max-width: 768px) {
-            #hud {
-                transform: scale(0.8);
-                transform-origin: top left;
-            }
-            
-            .action-btn {
-                width: 50px;
-                height: 50px;
-            }
-        }
-
-        /* Prevent text selection on iOS */
-        @supports (-webkit-touch-callout: none) {
-            * {
-                -webkit-user-select: none;
-                user-select: none;
-            }
-        }
-    </style>
+      .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div id="game-container">
-        <div id="game-world">
-            <div class="grass"></div>
+  <div id="particles-js"></div>
+
+  <header class="container">
+    <nav class="nav">
+      <h1>👽 $MUB</h1>
+      <div class="nav-links">
+        <a href="#about" class="nav-link">About</a>
+        <a href="#tokenomics" class="nav-link">Tokenomics</a>
+        <a href="#roadmap" class="nav-link">Roadmap</a>
+        <a href="#" class="btn btn-outline">Play Demo</a>
+        <a href="https://dexscreener.com/" class="btn" target="_blank">Buy Now</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero container">
+      <h2 class="hero-title">
+        $MUB
+        <span style="display: block; font-size: 1.25rem; margin-top: 0.5rem;">First Memecoin From Area 51</span>
+      </h2>
+
+      <div style="max-width: 600px; margin: 2rem auto;">
+        <p class="hero-subtitle">🛸 We're not saying it's aliens... but it's aliens 🛸</p>
+        <p class="hero-subtitle">Join 100,000+ believers in the galaxy's most absurd cryptocurrency!</p>
+      </div>
+
+      <div style="display: flex; gap: 1rem; justify-content: center; margin: 2rem 0;">
+        <a href="https://dexscreener.com/" class="btn" target="_blank">Buy $MUB</a>
+        <a href="https://t.me/mubonbase" class="btn btn-outline" target="_blank">Join Telegram</a>
+      </div>
+    </section>
+
+    <section id="tokenomics" class="container">
+      <div class="grid grid-cols-3">
+        <div class="card">
+          <h3>Tokenomics</h3>
+          <p>1 Billion Total Supply</p>
+          <p>Tax: 0/0</p>
         </div>
-        <div id="player">👽</div>
+        <div class="card">
+          <h3>Security</h3>
+          <p>Liquidity Locked 🔒</p>
+          <p>Contract Audited</p>
+          <p>Ownership Renounced</p>
+        </div>
+        <div class="card">
+          <h3>Community</h3>
+          <p>100K+ Holders 👥</p>
+          <p>50K+ Telegram Members</p>
+          <p>Active DAO</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="roadmap" class="container">
+      <h2 style="text-align: center; margin-bottom: 2rem;">Roadmap</h2>
+      <div class="grid grid-cols-2" style="max-width: 800px; margin: 0 auto;">
+        <div class="card">
+          <h3>Phase 1 - Abduction</h3>
+          <ul style="list-style: none;">
+            <li>✅ Token Launch</li>
+            <li>✅ Website Launch</li>
+            <li>✅ 10,000 Holders</li>
+            <li>🔄 CoinGecko Listing</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Phase 2 - Invasion</h3>
+          <ul style="list-style: none;">
+            <li>⏳ NFT Collection</li>
+            <li>⏳ Area 51 Game</li>
+            <li>⏳ CEX Listings</li>
+            <li>⏳ 100,000 Holders</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer container">
+    <div class="social-links">
+      <a href="https://x.com/mubonbase?s=21&t=e4VJ7rcZVtvmps9KT5k2Vw" class="nav-link" target="_blank">Twitter</a>
+      <a href="https://t.me/mubonbase" class="nav-link" target="_blank">Telegram</a>
+      <a href="#" class="nav-link">Medium</a>
     </div>
-
-    <div id="hud">
-        <div id="health-bar"><div id="health-fill"></div></div>
-        <div id="wanted-level">⭐</div>
-    </div>
-
-    <div class="mub-power">
-        $MUB's Power
-        <div class="power-meter"><div class="power-fill"></div></div>
-    </div>
-
-    <div class="mission-objective">
-        Mission: Help $MUB Rescue Friends!<br>
-        Aliens Rescued: <span id="rescued-count">0</span>/5<br>
-        <div id="time-limit">Time: 5:00</div>
-    </div>
-
-    <div id="joystick-area">
-        <div id="joystick"></div>
-    </div>
-
-    <div id="action-buttons">
-        <button class="action-btn" id="shoot-btn">🔮</button>
-        <button class="action-btn" id="action-btn">🚗</button>
-    </div>
-
-    <div class="damage-indicator"></div>
-
-    <script>
-        // Game variables
-        const gameWorld = document.getElementById('game-world');
-        const player = document.getElementById('player');
-        const healthFill = document.getElementById('health-fill');
-        const powerFill = document.querySelector('.power-fill');
-        const damageIndicator = document.querySelector('.damage-indicator');
-
-        let playerX = 1500;
-        let playerY = 1500;
-        let playerRotation = 0;
-        let playerHealth = 100;
-        let playerPower = 100;
-        let powerRegenInterval;
-        let playerInVehicle = null;
-        let wantedLevel = 1;
-        let rescuedAliens = 0;
-        let timeLimit = 300;
-        let isGameWon = false;
-        let isGameRunning = true;
-        const ALIENS_NEEDED = 5;
-
-        // Prevent default touch behavior
-        document.addEventListener('touchmove', (e) => e.preventDefault(), { passive: false });
-        document.addEventListener('touchstart', (e) => e.preventDefault(), { passive: false });
-
-        function updatePower(amount) {
-            playerPower = Math.max(0, Math.min(100, playerPower + amount));
-            powerFill.style.width = playerPower + '%';
-        }
-
-        function startPowerRegen() {
-            clearInterval(powerRegenInterval);
-            powerRegenInterval = setInterval(() => {
-                if (playerPower < 100) {
-                    updatePower(1);
-                }
-            }, 1000);
-        }
-
-        function generateEnvironment() {
-            // Generate roads
-            for (let i = 0; i < 5; i++) {
-                const horizontal = document.createElement('div');
-                horizontal.className = 'road';
-                horizontal.style.width = '100%';
-                horizontal.style.height = '60px';
-                horizontal.style.top = (i * 600) + 'px';
-                gameWorld.appendChild(horizontal);
-
-                const vertical = document.createElement('div');
-                vertical.className = 'road';
-                vertical.style.width = '60px';
-                vertical.style.
-                    [Previous code remains the same until the generateEnvironment function]
-
-                const vertical = document.createElement('div');
-                vertical.className = 'road';
-                vertical.style.width = '60px';
-                vertical.style.height = '100%';
-                vertical.style.left = (i * 600) + 'px';
-                gameWorld.appendChild(vertical);
-            }
-
-            // Generate buildings and areas
-            const areas = [
-                { name: 'Military Base', x: 0, y: 0, width: 1000, height: 1000 },
-                { name: 'Research Lab', x: 1500, y: 500, width: 800, height: 800 },
-                { name: 'Storage Area', x: 500, y: 1500, width: 600, height: 900 }
-            ];
-
-            areas.forEach(area => {
-                const fence = document.createElement('div');
-                fence.className = 'fence';
-                fence.style.left = area.x + 'px';
-                fence.style.top = area.y + 'px';
-                fence.style.width = area.width + 'px';
-                fence.style.height = area.height + 'px';
-                gameWorld.appendChild(fence);
-
-                const numBuildings = Math.floor((area.width * area.height) / 40000);
-                for (let i = 0; i < numBuildings; i++) {
-                    const building = document.createElement('div');
-                    building.className = 'building';
-                    const buildingWidth = Math.random() * 100 + 50;
-                    const buildingHeight = Math.random() * 100 + 50;
-                    building.style.width = buildingWidth + 'px';
-                    building.style.height = buildingHeight + 'px';
-                    building.style.left = (area.x + Math.random() * (area.width - buildingWidth)) + 'px';
-                    building.style.top = (area.y + Math.random() * (area.height - buildingHeight)) + 'px';
-                    gameWorld.appendChild(building);
-                }
-            });
-        }
-
-        function generateVehicles() {
-            const vehicleTypes = ['🚗', '🚙', '🚐', '🚛'];
-            for (let i = 0; i < 15; i++) {
-                const vehicle = document.createElement('div');
-                vehicle.className = 'vehicle';
-                vehicle.textContent = vehicleTypes[Math.floor(Math.random() * vehicleTypes.length)];
-                vehicle.style.left = Math.random() * (gameWorld.offsetWidth - 100) + 50 + 'px';
-                vehicle.style.top = Math.random() * (gameWorld.offsetHeight - 100) + 50 + 'px';
-                gameWorld.appendChild(vehicle);
-            }
-        }
-
-        function spawnGuards() {
-            const numGuards = 20;
-            for (let i = 0; i < numGuards; i++) {
-                const guard = document.createElement('div');
-                guard.className = 'guard';
-                guard.innerHTML = '👮';
-                guard.style.left = Math.random() * gameWorld.offsetWidth + 'px';
-                guard.style.top = Math.random() * gameWorld.offsetHeight + 'px';
-                gameWorld.appendChild(guard);
-
-                setInterval(() => {
-                    if (!isGameRunning) return;
-                    
-                    const guardRect = guard.getBoundingClientRect();
-                    const playerRect = player.getBoundingClientRect();
-                    const dx = playerRect.left - guardRect.left;
-                    const dy = playerRect.top - guardRect.top;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-
-                    if (distance < 300) {
-                        const angle = Math.atan2(dy, dx);
-                        const speed = 2;
-                        const newX = parseFloat(guard.style.left || 0) + Math.cos(angle) * speed;
-                        const newY = parseFloat(guard.style.top || 0) + Math.sin(angle) * speed;
-                        
-                        guard.style.left = newX + 'px';
-                        guard.style.top = newY + 'px';
-
-                        if (distance < 50 && !playerInVehicle) {
-                            damagePlayer(5);
-                        }
-                    }
-                }, 50);
-            }
-        }
-
-        function spawnCapturedAliens() {
-            const numAliens = 8;
-            for (let i = 0; i < numAliens; i++) {
-                const alien = document.createElement('div');
-                alien.className = 'captured-alien';
-                alien.innerHTML = '👽';
-                alien.style.left = Math.random() * (gameWorld.offsetWidth - 200) + 100 + 'px';
-                alien.style.top = Math.random() * (gameWorld.offsetHeight - 200) + 100 + 'px';
-                gameWorld.appendChild(alien);
-            }
-        }
-
-        function createUFO() {
-            const ufo = document.createElement('div');
-            ufo.className = 'ufo';
-            ufo.innerHTML = '🛸';
-            ufo.style.left = '2900px';
-            ufo.style.top = '2900px';
-            gameWorld.appendChild(ufo);
-        }
-
-        function damagePlayer(amount) {
-            if (!isGameRunning) return;
-            
-            playerHealth = Math.max(0, playerHealth - amount);
-            healthFill.style.width = playerHealth + '%';
-            
-            damageIndicator.style.opacity = '1';
-            setTimeout(() => damageIndicator.style.opacity = '0', 300);
-
-            if (playerHealth <= 0) {
-                gameOver("$MUB has been captured!");
-            }
-        }
-
-        function shoot() {
-            if (!isGameRunning || playerInVehicle || playerPower < 20) return;
-
-            updatePower(-20);
-
-            const bullet = document.createElement('div');
-            bullet.className = 'bullet';
-            bullet.style.left = playerX + 'px';
-            bullet.style.top = playerY + 'px';
-            gameWorld.appendChild(bullet);
-
-            const angle = (playerRotation * Math.PI) / 180;
-            const speed = 15;
-            const vx = Math.cos(angle) * speed;
-            const vy = Math.sin(angle) * speed;
-
-            const bulletInterval = setInterval(() => {
-                if (!isGameRunning) {
-                    clearInterval(bulletInterval);
-                    bullet.remove();
-                    return;
-                }
-
-                const x = parseFloat(bullet.style.left);
-                const y = parseFloat(bullet.style.top);
-                
-                bullet.style.left = (x + vx) + 'px';
-                bullet.style.top = (y + vy) + 'px';
-
-                const bulletRect = bullet.getBoundingClientRect();
-                document.querySelectorAll('.guard').forEach(guard => {
-                    const guardRect = guard.getBoundingClientRect();
-                    if (isColliding(bulletRect, guardRect)) {
-                        guard.remove();
-                        bullet.remove();
-                        clearInterval(bulletInterval);
-                        increaseWantedLevel();
-                    }
-                });
-
-                if (x < 0 || x > gameWorld.offsetWidth || y < 0 || y > gameWorld.offsetHeight) {
-                    bullet.remove();
-                    clearInterval(bulletInterval);
-                }
-            }, 16);
-        }
-        function handleVehicleInteraction() {
-            if (playerInVehicle) {
-                playerInVehicle.style.opacity = '1';
-                playerInVehicle = null;
-                player.innerHTML = '👽';
-                return;
-            }
-
-            const vehicles = document.querySelectorAll('.vehicle');
-            let nearestVehicle = null;
-            let nearestDistance = Infinity;
-
-            vehicles.forEach(vehicle => {
-                const dx = parseFloat(vehicle.style.left) - playerX;
-                const dy = parseFloat(vehicle.style.top) - playerY;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-
-                if (distance < 100 && distance < nearestDistance) {
-                    nearestDistance = distance;
-                    nearestVehicle = vehicle;
-                }
-            });
-
-            if (nearestVehicle) {
-                playerInVehicle = nearestVehicle;
-                nearestVehicle.style.opacity = '0.5';
-                player.innerHTML = '🚗';
-            }
-        }
-
-        function increaseWantedLevel() {
-            if (wantedLevel < 5) {
-                wantedLevel++;
-                document.getElementById('wanted-level').textContent = '⭐'.repeat(wantedLevel);
-                spawnReinforcements();
-            }
-        }
-
-        function spawnReinforcements() {
-            const numReinforcements = wantedLevel * 2;
-            for (let i = 0; i < numReinforcements; i++) {
-                const spawnPoint = getRandomSpawnPoint();
-                const guard = document.createElement('div');
-                guard.className = 'guard';
-                guard.innerHTML = '👮';
-                guard.style.left = spawnPoint.x + 'px';
-                guard.style.top = spawnPoint.y + 'px';
-                gameWorld.appendChild(guard);
-            }
-        }
-
-        function getRandomSpawnPoint() {
-            const angle = Math.random() * Math.PI * 2;
-            const distance = 500;
-            return {
-                x: playerX + Math.cos(angle) * distance,
-                y: playerY + Math.sin(angle) * distance
-            };
-        }
-
-        function isColliding(rect1, rect2) {
-            return !(rect1.right < rect2.left || 
-                    rect1.left > rect2.right || 
-                    rect1.bottom < rect2.top || 
-                    rect1.top > rect2.bottom);
-        }
-
-        function gameOver(message = "Game Over!") {
-            isGameRunning = false;
-            clearInterval(powerRegenInterval);
-            
-            const gameOverScreen = document.createElement('div');
-            gameOverScreen.className = 'message';
-            gameOverScreen.innerHTML = `
-                <h2>${message}</h2>
-                <p>$MUB's Rescued Friends: ${rescuedAliens}/${ALIENS_NEEDED}</p>
-                <p>Wanted Level: ${'⭐'.repeat(wantedLevel)}</p>
-                <button onclick="location.reload()" style="
-                    background: var(--primary);
-                    border: none;
-                    padding: 10px 20px;
-                    border-radius: 5px;
-                    color: white;
-                    margin-top: 10px;
-                    cursor: pointer;">
-                    Try Again
-                </button>
-            `;
-            document.body.appendChild(gameOverScreen);
-        }
-
-        function winGame() {
-            isGameRunning = false;
-            clearInterval(powerRegenInterval);
-            
-            const gameWonScreen = document.createElement('div');
-            gameWonScreen.className = 'message';
-            gameWonScreen.innerHTML = `
-                <h2>$MUB's Mission Accomplished!</h2>
-                <p>All friends rescued in ${Math.floor(300 - timeLimit)} seconds!</p>
-                <p>Wanted Level: ${'⭐'.repeat(wantedLevel)}</p>
-                <button onclick="location.reload()" style="
-                    background: var(--primary);
-                    border: none;
-                    padding: 10px 20px;
-                    border-radius: 5px;
-                    color: white;
-                    margin-top: 10px;
-                    cursor: pointer;">
-                    Play Again
-                </button>
-            `;
-            document.body.appendChild(gameWonScreen);
-        }
-
-        function rescueAlien(alien) {
-            createTeleportEffect(alien);
-            alien.remove();
-            rescuedAliens++;
-            document.getElementById('rescued-count').textContent = rescuedAliens;
-            
-            if (rescuedAliens >= ALIENS_NEEDED) {
-                showMessage("All friends rescued! Get to the UFO!", 3000);
-            }
-        }
-
-        function updateTimer() {
-            const minutes = Math.floor(timeLimit / 60);
-            const seconds = Math.floor(timeLimit % 60);
-            document.getElementById('time-limit').textContent = 
-                `Time: ${minutes}:${seconds.toString().padStart(2, '0')}`;
-        }
-
-        function showMessage(text, duration = 2000) {
-            const message = document.createElement('div');
-            message.className = 'message';
-            message.textContent = text;
-            document.body.appendChild(message);
-            setTimeout(() => message.remove(), duration);
-        }
-
-        function createTeleportEffect(alien) {
-            const effect = document.createElement('div');
-            effect.className = 'teleport-effect';
-            effect.style.left = alien.style.left;
-            effect.style.top = alien.style.top;
-            gameWorld.appendChild(effect);
-            setTimeout(() => effect.remove(), 1000);
-        }
-
-        // Mobile controls
-        const joystickArea = document.getElementById('joystick-area');
-        const joystick = document.getElementById('joystick');
-        const shootBtn = document.getElementById('shoot-btn');
-        const actionBtn = document.getElementById('action-btn');
-
-        let joystickActive = false;
-        let joystickCenter = { x: 0, y: 0 };
-        let moveVector = { x: 0, y: 0 };
-
-        joystickArea.addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            joystickActive = true;
-            const touch = e.touches[0];
-            const rect = joystickArea.getBoundingClientRect();
-            joystickCenter = {
-                x: rect.left + rect.width / 2,
-                y: rect.top + rect.height / 2
-            };
-            updateJoystick(touch);
-        });
-
-        document.addEventListener('touchmove', (e) => {
-            e.preventDefault();
-            if (!joystickActive) return;
-            updateJoystick(e.touches[0]);
-        });
-
-        document.addEventListener('touchend', (e) => {
-            e.preventDefault();
-            joystickActive = false;
-            joystick.style.transform = 'translate(-50%, -50%)';
-            moveVector = { x: 0, y: 0 };
-        });
-
-        function updateJoystick(touch) {
-            const dx = touch.clientX - joystickCenter.x;
-            const dy = touch.clientY - joystickCenter.y;
-            const distance = Math.min(50, Math.sqrt(dx * dx + dy * dy));
-            const angle = Math.atan2(dy, dx);
-            
-            moveVector = {
-                x: Math.cos(angle) * (distance / 50),
-                y: Math.sin(angle) * (distance / 50)
-            };
-
-            joystick.style.transform = `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px))`;
-        }
-
-        shootBtn.addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            shoot();
-        });
-        actionBtn.addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            handleVehicleInteraction();
-        });
-
-        // Keyboard controls
-        const keyState = {};
-        
-        document.addEventListener('keydown', (e) => {
-            keyState[e.key] = true;
-            
-            switch(e.key) {
-                case ' ':
-                    shoot();
-                    break;
-                case 'e':
-                case 'E':
-                    handleVehicleInteraction();
-                    break;
-            }
-        });
-
-        document.addEventListener('keyup', (e) => {
-            keyState[e.key] = false;
-        });
-
-        function handleKeyboardInput() {
-            moveVector.x = 0;
-            moveVector.y = 0;
-            
-            if (keyState['ArrowUp'] || keyState['w'] || keyState['W']) moveVector.y = -1;
-            if (keyState['ArrowDown'] || keyState['s'] || keyState['S']) moveVector.y = 1;
-            if (keyState['ArrowLeft'] || keyState['a'] || keyState['A']) moveVector.x = -1;
-            if (keyState['ArrowRight'] || keyState['d'] || keyState['D']) moveVector.x = 1;
-
-            // Normalize diagonal movement
-            if (moveVector.x !== 0 && moveVector.y !== 0) {
-                const length = Math.sqrt(moveVector.x * moveVector.x + moveVector.y * moveVector.y);
-                moveVector.x /= length;
-                moveVector.y /= length;
-            }
-        }
-
-        function updateGame() {
-            if (!isGameRunning) return;
-
-            // Update timer
-            timeLimit -= 1/60;
-            updateTimer();
-            
-            if (timeLimit <= 0) {
-                gameOver("Time's up! The military has locked down the area!");
-                return;
-            }
-
-            // Handle keyboard input
-            handleKeyboardInput();
-
-            // Update player position
-            if (moveVector.x !== 0 || moveVector.y !== 0) {
-                const speed = playerInVehicle ? 8 : 5;
-                playerX += moveVector.x * speed;
-                playerY += moveVector.y * speed;
-                
-                playerRotation = Math.atan2(moveVector.y, moveVector.x) * 180 / Math.PI;
-            }
-
-            // Keep player within bounds
-            playerX = Math.max(20, Math.min(gameWorld.offsetWidth - 20, playerX));
-            playerY = Math.max(20, Math.min(gameWorld.offsetHeight - 20, playerY));
-
-            // Update player position and rotation
-            player.style.left = playerX + 'px';
-            player.style.top = playerY + 'px';
-            player.style.transform = `translate(-50%, -50%) rotate(${playerRotation}deg)`;
-
-            // Update vehicle position if player is in vehicle
-            if (playerInVehicle) {
-                playerInVehicle.style.left = playerX + 'px';
-                playerInVehicle.style.top = playerY + 'px';
-                playerInVehicle.style.transform = `translate(-50%, -50%) rotate(${playerRotation}deg)`;
-            }
-
-            // Update camera position
-            const cameraX = playerX - window.innerWidth / 2;
-            const cameraY = playerY - window.innerHeight / 2;
-            gameWorld.style.transform = `translate(${-cameraX}px, ${-cameraY}px)`;
-
-            // Check for alien rescue
-            const playerRect = player.getBoundingClientRect();
-            document.querySelectorAll('.captured-alien').forEach(alien => {
-                const alienRect = alien.getBoundingClientRect();
-                if (isColliding(playerRect, alienRect)) {
-                    rescueAlien(alien);
-                }
-            });
-
-            // Check for UFO escape when all aliens are rescued
-            if (rescuedAliens >= ALIENS_NEEDED) {
-                const ufo = document.querySelector('.ufo');
-                if (ufo) {
-                    const ufoRect = ufo.getBoundingClientRect();
-                    if (isColliding(playerRect, ufoRect)) {
-                        winGame();
-                        return;
-                    }
-                }
-            }
-
-            requestAnimationFrame(updateGame);
-        }
-
-        // Initialize game
-        function initGame() {
-            // Generate game elements
-            generateEnvironment();
-            generateVehicles();
-            spawnGuards();
-            spawnCapturedAliens();
-            createUFO();
-            
-            // Start power regeneration
-            startPowerRegen();
-            
-            // Start game loop
-            updateGame();
-            
-            // Show welcome message
-            showMessage("Help $MUB rescue friends and escape in the UFO!", 3000);
-        }
-
-        // Handle window resize
-        window.addEventListener('resize', () => {
-            const cameraX = playerX - window.innerWidth / 2;
-            const cameraY = playerY - window.innerHeight / 2;
-            gameWorld.style.transform = `translate(${-cameraX}px, ${-cameraY}px)`;
-        });
-
-        // Start the game
-        initGame();
-    </script>
+    <p style="opacity: 0.6;">© 2024 $MUB. We come in peace 🛸</p>
+  </footer>
+
+  <script>
+    window.addEventListener('load', () => {
+      particlesJS('particles-js', {
+        particles: {
+          number: { value: 50, density: { enable: true, value_area: 800 } },
+          color: { value: '#22c55e' },
+          shape: { type: 'circle' },
+          opacity: { value: 0.5, random: false },
+          size: { value: 3, random: true },
+          move: {
+            enable: true,
+            speed: 2,
+            direction: 'none',
+            random: false,
+            straight: false,
+            out_mode: 'out'
+          }
+        },
+        interactivity: {
+          detect_on: 'canvas',
+          events: {
+            onhover: { enable: true, mode: 'repulse' },
+            resize: true
+          }
+        },
+        retina_detect: true
+      });
+    });
+  </script>
 </body>
 </html>

@@ -1,56 +1,38 @@
 // package.json
 {
-    "name": "solana-token-launcher",
-    "version": "1.0.0",
-    "description": "Token launcher for Solana blockchain",
-    "main": "dist/index.js",
-    "types": "dist/index.d.ts",
-    "scripts": {
-        "build": "tsc",
-        "start": "node dist/index.js"
-    },
-    "dependencies": {
-        "@solana/web3.js": "^1.87.6",
-        "@solana/spl-token": "^0.3.8"
-    },
-    "devDependencies": {
-        "typescript": "^5.0.0",
-        "@types/node": "^18.0.0"
-    }
+  "name": "solana-token-app",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "start": "vite preview"
+  },
+  "dependencies": {
+    "@solana/web3.js": "^1.87.6",
+    "@solana/spl-token": "^0.3.8",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "lucide-react": "^0.263.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "@vitejs/plugin-react": "^4.0.0",
+    "typescript": "^5.0.0",
+    "vite": "^4.0.0",
+    "tailwindcss": "^3.0.0",
+    "autoprefixer": "^10.0.0",
+    "postcss": "^8.0.0"
+  }
 }
 
-// tsconfig.json
-{
-    "compilerOptions": {
-        "target": "es2020",
-        "module": "commonjs",
-        "declaration": true,
-        "outDir": "./dist",
-        "strict": true,
-        "esModuleInterop": true
-    },
-    "include": ["src"],
-    "exclude": ["node_modules"]
-}
-
-// src/index.ts
-import {
-    Connection,
-    Keypair,
-    PublicKey,
-    Transaction,
-    sendAndConfirmTransaction,
-} from '@solana/web3.js';
-import {
-    Token,
-    TOKEN_PROGRAM_ID,
-    ASSOCIATED_TOKEN_PROGRAM_ID,
-    MintLayout,
-} from '@solana/spl-token';
+// src/lib/tokenLauncher.ts
+import { Connection, Keypair, PublicKey } from '@solana/web3.js';
+import { Token, TOKEN_PROGRAM_ID } from '@solana/spl-token';
 
 export class TokenLauncher {
-    connection: Connection;
-    payer: Keypair;
+    private connection: Connection;
+    private payer: Keypair;
 
     constructor(connection: Connection, payer: Keypair) {
         this.connection = connection;
@@ -64,11 +46,6 @@ export class TokenLauncher {
         initialSupply: number
     ): Promise<{ token: Token; mintAddress: PublicKey }> {
         try {
-            const mintKeypair = Keypair.generate();
-            const mintRent = await this.connection.getMinimumBalanceForRentExemption(
-                MintLayout.span
-            );
-
             const token = await Token.createMint(
                 this.connection,
                 this.payer,
@@ -89,10 +66,6 @@ export class TokenLauncher {
                 initialSupply * (10 ** decimals)
             );
 
-            console.log('Token created successfully!');
-            console.log('Mint address:', token.publicKey.toString());
-            console.log('Token Account:', tokenAccount.address.toString());
-
             return {
                 token,
                 mintAddress: token.publicKey
@@ -102,291 +75,210 @@ export class TokenLauncher {
             throw error;
         }
     }
-
-    async getTokenBalance(tokenAddress: PublicKey, ownerAddress: PublicKey): Promise<number> {
-        try {
-            const tokenAccount = await Token.getAssociatedTokenAddress(
-                ASSOCIATED_TOKEN_PROGRAM_ID,
-                TOKEN_PROGRAM_ID,
-                tokenAddress,
-                ownerAddress
-            );
-
-            const balance = await this.connection.getTokenAccountBalance(tokenAccount);
-            return balance.value.uiAmount || 0;
-        } catch (error) {
-            console.error('Error getting token balance:', error);
-            throw error;
-        }
-    }
-
-    async transferTokens(
-        token: Token,
-        fromAddress: PublicKey,
-        toAddress: PublicKey,
-        amount: number
-    ): Promise<string> {
-        try {
-            const fromTokenAccount = await token.getOrCreateAssociatedAccountInfo(
-                fromAddress
-            );
-            const toTokenAccount = await token.getOrCreateAssociatedAccountInfo(
-                toAddress
-            );
-
-            const transaction = new Transaction().add(
-                Token.createTransferInstruction(
-                    TOKEN_PROGRAM_ID,
-                    fromTokenAccount.address,
-                    toTokenAccount.address,
-                    fromAddress,
-                    [],
-                    amount
-                )
-            );
-
-            const signature = await sendAndConfirmTransaction(
-                this.connection,
-                transaction,
-                [this.payer]
-            );
-
-            return signature;
-        } catch (error) {
-            console.error('Error transferring tokens:', error);
-            throw error;
-        }
-    }
 }
 
-// Example usage
-export const createExampleToken = async () => {
-    const connection = new Connection('https://api.devnet.solana.com');
-    const payer = Keypair.generate();
-    const launcher = new TokenLauncher(connection, payer);
+// src/App.tsx
+import React, { useState } from 'react';
+import { Connection, Keypair } from '@solana/web3.js';
+import { TokenLauncher } from './lib/tokenLauncher';
+import { Loader2 } from 'lucide-react';
 
-    const { token, mintAddress } = await launcher.createToken(
-        "MyToken",
-        "MTK",
-        9,
-        1000000
-    );
+export default function App() {
+  const [formData, setFormData] = useState({
+    name: '',
+    symbol: '',
+    decimals: 9,
+    initialSupply: 1000000
+  });
+  const [status, setStatus] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
-    return { token, mintAddress };
-};
-      // src/utils/constants.ts
-export const NETWORKS = {
-    MAINNET: 'https://api.mainnet-beta.solana.com',
-    DEVNET: 'https://api.devnet.solana.com',
-    TESTNET: 'https://api.testnet.solana.com'
-};
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setStatus('Creating token...');
+    
+    try {
+      const connection = new Connection('https://api.devnet.solana.com');
+      const payer = Keypair.generate();
+      const launcher = new TokenLauncher(connection, payer);
 
-export const DEFAULT_DECIMALS = 9;
+      const { mintAddress } = await launcher.createToken(
+        formData.name,
+        formData.symbol,
+        formData.decimals,
+        formData.initialSupply
+      );
 
-// src/utils/validation.ts
-export const validateTokenParams = (
-    name: string,
-    symbol: string,
-    decimals: number,
-    initialSupply: number
-): void => {
-    if (!name || name.length < 2) throw new Error('Invalid token name');
-    if (!symbol || symbol.length < 2) throw new Error('Invalid token symbol');
-    if (decimals < 0 || decimals > 9) throw new Error('Decimals must be between 0 and 9');
-    if (initialSupply <= 0) throw new Error('Initial supply must be greater than 0');
-};
+      setStatus(`Token created successfully! Mint address: ${mintAddress.toString()}`);
+    } catch (error) {
+      setStatus(`Error: ${error.message}`);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
-// src/types/index.ts
-import { PublicKey } from '@solana/web3.js';
-import { Token } from '@solana/spl-token';
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
 
-export interface TokenInfo {
-    token: Token;
-    mintAddress: PublicKey;
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 p-8">
+      <div className="w-full max-w-md mx-auto backdrop-blur-lg bg-black/50 border border-purple-500/20 shadow-2xl rounded-lg">
+        <div className="text-center space-y-4 p-6">
+          <div className="w-16 h-16 mx-auto bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center">
+            <svg viewBox="0 0 24 24" className="w-8 h-8 text-white" fill="none" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
+            Solana Token Launcher
+          </h1>
+        </div>
+        
+        <div className="p-6">
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="space-y-2">
+              <label className="text-gray-200">Token Name</label>
+              <input
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                placeholder="My Token"
+                required
+                className="w-full bg-black/30 border border-purple-500/30 text-white placeholder:text-gray-500 rounded-lg p-2"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-gray-200">Token Symbol</label>
+              <input
+                name="symbol"
+                value={formData.symbol}
+                onChange={handleChange}
+                placeholder="MTK"
+                required
+                className="w-full bg-black/30 border border-purple-500/30 text-white placeholder:text-gray-500 rounded-lg p-2"
+              />
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <label className="text-gray-200">Decimals</label>
+                <input
+                  name="decimals"
+                  type="number"
+                  value={formData.decimals}
+                  onChange={handleChange}
+                  min="0"
+                  max="9"
+                  required
+                  className="w-full bg-black/30 border border-purple-500/30 text-white rounded-lg p-2"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-gray-200">Initial Supply</label>
+                <input
+                  name="initialSupply"
+                  type="number"
+                  value={formData.initialSupply}
+                  onChange={handleChange}
+                  min="1"
+                  required
+                  className="w-full bg-black/30 border border-purple-500/30 text-white rounded-lg p-2"
+                />
+              </div>
+            </div>
+
+            <button 
+              type="submit" 
+              disabled={isLoading}
+              className="w-full bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white font-semibold py-2 rounded-lg transition-all duration-200 flex items-center justify-center space-x-2"
+            >
+              {isLoading ? (
+                <>
+                  <Loader2 className="animate-spin" />
+                  <span>Creating Token...</span>
+                </>
+              ) : (
+                <span>Launch Token</span>
+              )}
+            </button>
+
+            {status && (
+              <div className={`text-sm text-center font-medium ${
+                status.includes('Error') ? 'text-red-400' : 'text-green-400'
+              }`}>
+                {status}
+              </div>
+            )}
+          </form>
+        </div>
+      </div>
+    </div>
+  );
 }
 
-export interface TokenMetadata {
-    name: string;
-    symbol: string;
-    decimals: number;
-    initialSupply: number;
+// index.html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Solana Token Launcher</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+
+// src/main.tsx
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
+import './index.css';
+
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
+
+// src/index.css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+// tailwind.config.js
+module.exports = {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
 }
 
-// src/errors/index.ts
-export class TokenLauncherError extends Error {
-    constructor(message: string, public code: string) {
-        super(message);
-        this.name = 'TokenLauncherError';
-    }
+// postcss.config.js
+module.exports = {
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {},
+  },
 }
 
-// src/index.ts (updated with error handling and validation)
-import { Connection, Keypair, PublicKey, Transaction, sendAndConfirmTransaction } from '@solana/web3.js';
-import { Token, TOKEN_PROGRAM_ID, ASSOCIATED_TOKEN_PROGRAM_ID, MintLayout } from '@solana/spl-token';
-import { validateTokenParams } from './utils/validation';
-import { TokenInfo, TokenMetadata } from './types';
-import { TokenLauncherError } from './errors';
-import { NETWORKS, DEFAULT_DECIMALS } from './utils/constants';
+// vite.config.ts
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
-export class TokenLauncher {
-    private connection: Connection;
-    private payer: Keypair;
-
-    constructor(connection: Connection, payer: Keypair) {
-        this.connection = connection;
-        this.payer = payer;
-    }
-
-    async createToken(metadata: TokenMetadata): Promise<TokenInfo> {
-        try {
-            validateTokenParams(
-                metadata.name,
-                metadata.symbol,
-                metadata.decimals,
-                metadata.initialSupply
-            );
-
-            const mintKeypair = Keypair.generate();
-            await this.ensureMinimumBalance();
-
-            const token = await this.createMintAndInitialize(metadata.decimals);
-            await this.mintInitialSupply(token, metadata.initialSupply, metadata.decimals);
-
-            return {
-                token,
-                mintAddress: token.publicKey
-            };
-        } catch (error) {
-            throw new TokenLauncherError(
-                `Failed to create token: ${error.message}`,
-                'CREATE_TOKEN_ERROR'
-            );
-        }
-    }
-
-    private async ensureMinimumBalance(): Promise<void> {
-        const balance = await this.connection.getBalance(this.payer.publicKey);
-        const minimumBalance = await this.connection.getMinimumBalanceForRentExemption(
-            MintLayout.span
-        );
-
-        if (balance < minimumBalance) {
-            throw new TokenLauncherError(
-                'Insufficient balance for token creation',
-                'INSUFFICIENT_BALANCE'
-            );
-        }
-    }
-
-    private async createMintAndInitialize(decimals: number): Promise<Token> {
-        return await Token.createMint(
-            this.connection,
-            this.payer,
-            this.payer.publicKey,
-            this.payer.publicKey,
-            decimals,
-            TOKEN_PROGRAM_ID
-        );
-    }
-
-    private async mintInitialSupply(
-        token: Token,
-        initialSupply: number,
-        decimals: number
-    ): Promise<void> {
-        const tokenAccount = await token.getOrCreateAssociatedAccountInfo(
-            this.payer.publicKey
-        );
-
-        await token.mintTo(
-            tokenAccount.address,
-            this.payer.publicKey,
-            [],
-            initialSupply * (10 ** decimals)
-        );
-    }
-
-    // Utility methods for token operations
-    async getTokenBalance(tokenAddress: PublicKey, ownerAddress: PublicKey): Promise<number> {
-        try {
-            const tokenAccount = await Token.getAssociatedTokenAddress(
-                ASSOCIATED_TOKEN_PROGRAM_ID,
-                TOKEN_PROGRAM_ID,
-                tokenAddress,
-                ownerAddress
-            );
-
-            const balance = await this.connection.getTokenAccountBalance(tokenAccount);
-            return balance.value.uiAmount || 0;
-        } catch (error) {
-            throw new TokenLauncherError(
-                `Failed to get token balance: ${error.message}`,
-                'GET_BALANCE_ERROR'
-            );
-        }
-    }
-
-    async transferTokens(
-        token: Token,
-        fromAddress: PublicKey,
-        toAddress: PublicKey,
-        amount: number
-    ): Promise<string> {
-        try {
-            if (amount <= 0) {
-                throw new Error('Transfer amount must be greater than 0');
-            }
-
-            const fromTokenAccount = await token.getOrCreateAssociatedAccountInfo(
-                fromAddress
-            );
-            const toTokenAccount = await token.getOrCreateAssociatedAccountInfo(
-                toAddress
-            );
-
-            const transaction = new Transaction().add(
-                Token.createTransferInstruction(
-                    TOKEN_PROGRAM_ID,
-                    fromTokenAccount.address,
-                    toTokenAccount.address,
-                    fromAddress,
-                    [],
-                    amount
-                )
-            );
-
-            return await sendAndConfirmTransaction(
-                this.connection,
-                transaction,
-                [this.payer]
-            );
-        } catch (error) {
-            throw new TokenLauncherError(
-                `Failed to transfer tokens: ${error.message}`,
-                'TRANSFER_ERROR'
-            );
-        }
-    }
-}
-
-// Export utility functions and types
-export { NETWORKS, DEFAULT_DECIMALS } from './utils/constants';
-export { validateTokenParams } from './utils/validation';
-export { TokenInfo, TokenMetadata } from './types';
-export { TokenLauncherError } from './errors';
-
-// Example usage
-export const createExampleToken = async () => {
-    const connection = new Connection(NETWORKS.DEVNET);
-    const payer = Keypair.generate();
-    const launcher = new TokenLauncher(connection, payer);
-
-    const tokenMetadata: TokenMetadata = {
-        name: "MyToken",
-        symbol: "MTK",
-        decimals: DEFAULT_DECIMALS,
-        initialSupply: 1000000
-    };
-
-    return await launcher.createToken(tokenMetadata);
-};
+export default defineConfig({
+  plugins: [react()]
+});

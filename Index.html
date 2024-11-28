@@ -2,6 +2,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Karl Marx Terminal</title>
     <style>
         body {
             background-color: #000;
@@ -34,13 +35,14 @@
             right: 0;
             bottom: 0;
             pointer-events: none;
-            opacity: 0.8;
+            opacity: 1;
             z-index: 0;
         }
 
         .terminal {
-            background-color: rgba(0, 0, 0, 0.7);
+            background-color: rgba(0, 0, 0, 0.6);
             border: 1px solid #00ff00;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
             padding: 15px;
             height: calc(100vh - 350px);
             overflow-y: auto;
@@ -287,14 +289,15 @@
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
 
-        const letters = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ123456789@#$%^&*()*&^%";
-        const fontSize = 14;
-        const columns = canvas.width / fontSize;
+        const fontSize = 20;
+        const columns = Math.ceil(canvas.width / fontSize);
         const drops = [];
 
         for (let i = 0; i < columns; i++) {
-            drops[i] = 1;
+            drops[i] = Math.floor(Math.random() * canvas.height/fontSize);
         }
+
+        const letters = "日ﾊﾐﾋｰｳｼﾅﾓﾆｻﾜﾂｵﾘｱﾎﾃﾏｹﾒｴｶｷﾑﾕﾗｾﾈｽﾀﾇﾍｦｲｸｺｿﾁﾄﾉﾌﾔﾖﾙﾚﾛﾝ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
         const marxFace = new Image();
         marxFace.src = 'data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMTAwIDEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNNTAgMTBDMjcuOTEgMTAgMTAgMjcuOTEgMTAgNTBjMCAyMi4wOSAxNy45MSA0MCA0MCA0MCA4LjI4IDAgMTYuMi0yLjUzIDIyLjg2LTcuMzIgOC4yLTUuOTQgMTMuODgtMTQuOTYgMTUuOS0yNS4xOCAxLjE3LTUuOTMuOTctMTEuOTQtLjU4LTE3Ljc1LTIuNzYtMTAuMzMtOS45NS0xOC45NS0xOS40Mi0yMy4yOEM2Mi40IDEyLjE2IDU2LjI4IDEwIDUwIDEweiIgc3Ryb2tlPSIjMDBmZjAwIiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9Im5vbmUiLz48L3N2Zz4=';
@@ -312,26 +315,34 @@
         }, marxFaceInterval);
 
         function drawMatrix() {
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
             ctx.fillStyle = '#00ff00';
             ctx.font = fontSize + 'px monospace';
-            ctx.shadowBlur = 8;
+            ctx.shadowBlur = 15;
             ctx.shadowColor = '#00ff00';
 
             for (let i = 0; i < drops.length; i++) {
-                const text = letters.charAt(Math.floor(Math.random() * letters.length));
+       const text = letters[Math.floor(Math.random() * letters.length)];
+                
+                if (Math.random() > 0.98) {
+                    ctx.fillStyle = '#fff';
+                    ctx.shadowColor = '#fff';
+                } else {
+                    ctx.fillStyle = '#0f0';
+                    ctx.shadowColor = '#0f0';
+                }
+
                 ctx.fillText(text, i * fontSize, drops[i] * fontSize);
 
                 if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
                     drops[i] = 0;
                 }
-                drops[i]++;
+
+                drops[i] += 0.5;
             }
 
-            if (showMarxFace) {
-                marxFaceOpacity = Math.min(marx
             if (showMarxFace) {
                 marxFaceOpacity = Math.min(marxFaceOpacity + 0.02, 0.6);
                 ctx.globalAlpha = marxFaceOpacity;
@@ -349,7 +360,7 @@
             ctx.shadowBlur = 0;
         }
 
-        setInterval(drawMatrix, 33);
+        setInterval(drawMatrix, 25);
 
         const marxResponses = [
             "The philosophers have only interpreted the world in various ways; the point, however, is to change it.",
@@ -428,4 +439,4 @@
         setMobileHeight();
     </script>
 </body>
-</html>                               
+</html>         

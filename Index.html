@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
+        /* Previous styles remain the same until matrix-bg */
         body {
             background-color: #000;
             color: #00ff00;
             font-family: 'Courier New', monospace;
             margin: 0;
-            padding: 20px;
+            padding: 10px;
             height: 100vh;
             overflow: hidden;
         }
@@ -15,13 +17,20 @@
         .container {
             max-width: 800px;
             margin: 0 auto;
+            position: relative;
+            z-index: 1;
         }
 
         .header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             border-bottom: 1px solid #00ff00;
-            padding-bottom: 20px;
+            padding-bottom: 15px;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            margin: 10px 0;
         }
 
         .matrix-bg {
@@ -31,41 +40,49 @@
             right: 0;
             bottom: 0;
             pointer-events: none;
-            opacity: 0.1;
-            z-index: -1;
+            opacity: 0.4;  /* Increased from 0.2 to 0.4 */
+            z-index: 0;
         }
 
         .terminal {
-            background-color: rgba(0, 0, 0, 0.9);
+            background-color: rgba(0, 0, 0, 0.85); /* Made slightly more opaque */
             border: 1px solid #00ff00;
-            padding: 20px;
-            height: 400px;
+            padding: 15px;
+            height: calc(100vh - 200px);
             overflow-y: auto;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
+            font-size: 16px;
+            position: relative;
+            z-index: 2;
         }
 
         .input-area {
             display: flex;
             gap: 10px;
+            position: sticky;
+            bottom: 0;
+            z-index: 2;
         }
 
         input {
             flex: 1;
-            background-color: #000;
+            background-color: rgba(0, 0, 0, 0.9);
             border: 1px solid #00ff00;
             color: #00ff00;
             padding: 10px;
             font-family: 'Courier New', monospace;
+            font-size: 16px;
         }
 
         button {
-            background-color: #000;
+            background-color: rgba(0, 0, 0, 0.9);
             border: 1px solid #00ff00;
             color: #00ff00;
-            padding: 10px 20px;
+            padding: 10px 15px;
             cursor: pointer;
             font-family: 'Courier New', monospace;
             transition: all 0.3s;
+            font-size: 16px;
         }
 
         button:hover {
@@ -76,6 +93,9 @@
         .message {
             margin-bottom: 15px;
             padding: 5px;
+            word-wrap: break-word;
+            position: relative;
+            z-index: 2;
         }
 
         .user-message {
@@ -84,6 +104,7 @@
 
         .marx-message {
             color: #00ff00;
+            text-shadow: 0 0 5px #00ff00;
         }
 
         .typing-effect::after {
@@ -94,6 +115,25 @@
         @keyframes blink {
             0%, 100% { opacity: 1; }
             50% { opacity: 0; }
+        }
+
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 20px;
+            }
+            
+            .terminal {
+                height: calc(100vh - 180px);
+                font-size: 14px;
+            }
+
+            input, button {
+                font-size: 14px;
+            }
+
+            button {
+                padding: 8px 12px;
+            }
         }
     </style>
 </head>
@@ -119,12 +159,17 @@
     </div>
 
     <script>
-        // Matrix rain effect
+        // Previous script remains the same until drawMatrix function
         const canvas = document.getElementById('matrix');
         const ctx = canvas.getContext('2d');
 
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
 
         const letters = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ123456789@#$%^&*()*&^%";
         const fontSize = 14;
@@ -135,12 +180,31 @@
             drops[i] = 1;
         }
 
+        // Create Marx face pattern with brighter stroke
+        const marxFace = new Image();
+        marxFace.src = 'data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMTAwIDEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNNTAgMTBDMjcuOTEgMTAgMTAgMjcuOTEgMTAgNTBjMCAyMi4wOSAxNy45MSA0MCA0MCA0MCA4LjI4IDAgMTYuMi0yLjUzIDIyLjg2LTcuMzIgOC4yLTUuOTQgMTMuODgtMTQuOTYgMTUuOS0yNS4xOCAxLjE3LTUuOTMuOTctMTEuOTQtLjU4LTE3Ljc1LTIuNzYtMTAuMzMtOS45NS0xOC45NS0xOS40Mi0yMy4yOEM2Mi40IDEyLjE2IDU2LjI4IDEwIDUwIDEweiIgc3Ryb2tlPSIjMDBmZjAwIiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9Im5vbmUiLz48L3N2Zz4=';
+
+        let showMarxFace = false;
+        let marxFaceOpacity = 0;
+        const marxFaceInterval = 15000;
+
+        setInterval(() => {
+            showMarxFace = true;
+            setTimeout(() => {
+                showMarxFace = false;
+                marxFaceOpacity = 0;
+            }, 3000);
+        }, marxFaceInterval);
+
         function drawMatrix() {
             ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            ctx.fillStyle = '#0F0';
+            // Draw Matrix rain with increased brightness
+            ctx.fillStyle = '#00ff00';
             ctx.font = fontSize + 'px monospace';
+            ctx.shadowBlur = 5;
+            ctx.shadowColor = '#00ff00';
 
             for (let i = 0; i < drops.length; i++) {
                 const text = letters.charAt(Math.floor(Math.random() * letters.length));
@@ -151,11 +215,28 @@
                 }
                 drops[i]++;
             }
+
+            // Draw Marx face with increased brightness
+            if (showMarxFace) {
+                marxFaceOpacity = Math.min(marxFaceOpacity + 0.02, 0.6); // Increased max opacity to 0.6
+                ctx.globalAlpha = marxFaceOpacity;
+                ctx.shadowBlur = 15; // Added glow effect
+                ctx.shadowColor = '#00ff00';
+                ctx.drawImage(marxFace, 
+                    canvas.width/2 - canvas.height/3, 
+                    canvas.height/2 - canvas.height/3,
+                    canvas.height/1.5, 
+                    canvas.height/1.5
+                );
+                ctx.globalAlpha = 1;
+            }
+            
+            ctx.shadowBlur = 0; // Reset shadow for next frame
         }
 
         setInterval(drawMatrix, 33);
 
-        // Marx responses
+        // Rest of the script remains the same
         const marxResponses = [
             "The philosophers have only interpreted the world in various ways; the point, however, is to change it.",
             "Workers of the world unite! You have nothing to lose but your chains!",
@@ -170,7 +251,6 @@
         ];
 
         function getMarxResponse(question) {
-            // Simple keyword matching for more contextual responses
             question = question.toLowerCase();
             
             if (question.includes('capitalism')) {
@@ -182,7 +262,6 @@
             } else if (question.includes('money') || question.includes('wealth')) {
                 return "The wealthy have created a world where man's needs are reduced to the simple need for money. This is the ultimate alienation of human potential.";
             } else {
-                // Return a random response if no keywords match
                 return marxResponses[Math.floor(Math.random() * marxResponses.length)];
             }
         }
@@ -193,13 +272,11 @@
             
             if (userInput.value.trim() === '') return;
 
-            // Add user message
             const userDiv = document.createElement('div');
             userDiv.className = 'message user-message';
             userDiv.textContent = '> ' + userInput.value;
             terminal.appendChild(userDiv);
 
-            // Add Marx's response with typing effect
             const marxDiv = document.createElement('div');
             marxDiv.className = 'message marx-message typing-effect';
             terminal.appendChild(marxDiv);
@@ -219,17 +296,22 @@
             
             typeWriter();
 
-            // Clear input and scroll to bottom
             userInput.value = '';
             terminal.scrollTop = terminal.scrollHeight;
         }
 
-        // Allow Enter key to send message
         document.getElementById('userInput').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 sendMessage();
             }
         });
+
+        function setMobileHeight() {
+            document.documentElement.style.height = `${window.innerHeight}px`;
+        }
+        window.addEventListener('resize', setMobileHeight);
+        window.addEventListener('orientationchange', setMobileHeight);
+        setMobileHeight();
     </script>
 </body>
 </html>

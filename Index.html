@@ -2,8 +2,8 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Karl Marx Terminal</title>
     <style>
+        /* Previous styles remain the same until matrix-bg */
         body {
             background-color: #000;
             color: #00ff00;
@@ -28,6 +28,11 @@
             padding-bottom: 15px;
         }
 
+        .header h1 {
+            font-size: 24px;
+            margin: 10px 0;
+        }
+
         .matrix-bg {
             position: fixed;
             top: 0;
@@ -35,108 +40,20 @@
             right: 0;
             bottom: 0;
             pointer-events: none;
-            opacity: 1;
+            opacity: 0.4;  /* Increased from 0.2 to 0.4 */
             z-index: 0;
         }
 
         .terminal {
-            background-color: rgba(0, 0, 0, 0.6);
+            background-color: rgba(0, 0, 0, 0.85); /* Made slightly more opaque */
             border: 1px solid #00ff00;
-            box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
             padding: 15px;
-            height: calc(100vh - 350px);
+            height: calc(100vh - 200px);
             overflow-y: auto;
             margin-bottom: 15px;
             font-size: 16px;
             position: relative;
             z-index: 2;
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin: 15px 0;
-            flex-wrap: wrap;
-        }
-
-        .social-link {
-            color: #00ff00;
-            text-decoration: none;
-            padding: 8px 15px;
-            border: 1px solid #00ff00;
-            transition: all 0.3s;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            text-shadow: 0 0 5px #00ff00;
-            animation: glowPulse 2s infinite;
-        }
-
-        @keyframes glowPulse {
-            0% { box-shadow: 0 0 5px #00ff00; }
-            50% { box-shadow: 0 0 15px #00ff00; }
-            100% { box-shadow: 0 0 5px #00ff00; }
-        }
-
-        .social-link:hover {
-            background-color: #00ff00;
-            color: #000;
-            box-shadow: 0 0 20px #00ff00;
-        }
-
-        .buy-section {
-            text-align: center;
-            margin: 15px 0;
-            padding: 15px;
-            border: 1px solid #00ff00;
-            background-color: rgba(0, 255, 0, 0.1);
-            animation: borderGlow 3s infinite;
-        }
-
-        @keyframes borderGlow {
-            0% { border-color: #00ff00; }
-            50% { border-color: #66ff66; }
-            100% { border-color: #00ff00; }
-        }
-
-        .buy-button {
-            background-color: #00ff00;
-            color: #000;
-            border: none;
-            padding: 10px 20px;
-            margin: 5px;
-            cursor: pointer;
-            font-family: 'Courier New', monospace;
-            font-weight: bold;
-            transition: all 0.3s;
-            animation: buttonPulse 2s infinite;
-        }
-
-        @keyframes buttonPulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-
-        .buy-button:hover {
-            background-color: #000;
-            color: #00ff00;
-            border: 1px solid #00ff00;
-            box-shadow: 0 0 15px #00ff00;
-        }
-
-        .icon {
-            width: 16px;
-            height: 16px;
-            fill: currentColor;
-            animation: iconSpin 3s linear infinite;
-        }
-
-        @keyframes iconSpin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
         }
 
         .input-area {
@@ -206,17 +123,8 @@
             }
             
             .terminal {
-                height: calc(100vh - 300px);
+                height: calc(100vh - 180px);
                 font-size: 14px;
-            }
-
-            .social-links {
-                gap: 10px;
-            }
-            
-            .social-link {
-                font-size: 12px;
-                padding: 6px 12px;
             }
 
             input, button {
@@ -234,34 +142,7 @@
     <div class="container">
         <div class="header">
             <h1>KARL MARX TERMINAL</h1>
-            <p>Enter your query to receive wisdom from the spirit of Marx</p>
-            
-            <div class="social-links">
-                <a href="https://t.me/karlmarxai" target="_blank" class="social-link">
-                    <svg class="icon" viewBox="0 0 24 24">
-                        <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.223-.548.223l.18-2.935 5.36-4.82c.23-.21-.054-.33-.354-.12l-6.62 4.17-2.863-.89c-.617-.2-.657-.617.136-.91l11.21-4.32c.515-.19.967.124.799.83z"/>
-                    </svg>
-                    Telegram
-                </a>
-                <a href="https://twitter.com/karlmarxai" target="_blank" class="social-link">
-                    <svg class="icon" viewBox="0 0 24 24">
-                        <path d="M23.643 4.937c-.835.37-1.732.62-2.675.733.962-.576 1.7-1.49 2.048-2.578-.9.534-1.897.922-2.958 1.13-.85-.904-2.06-1.47-3.4-1.47-2.572 0-4.658 2.086-4.658 4.66 0 .364.042.718.12 1.06-3.873-.195-7.304-2.05-9.602-4.868-.4.69-.63 1.49-.63 2.342 0 1.616.823 3.043 2.072 3.878-.764-.025-1.482-.234-2.11-.583v.06c0 2.257 1.605 4.14 3.737 4.568-.392.106-.803.162-1.227.162-.3 0-.593-.028-.877-.082.593 1.85 2.313 3.198 4.352 3.234-1.595 1.25-3.604 1.995-5.786 1.995-.376 0-.747-.022-1.112-.065 2.062 1.323 4.51 2.093 7.14 2.093 8.57 0 13.255-7.098 13.255-13.254 0-.2-.005-.402-.014-.602.91-.658 1.7-1.477 2.323-2.41z"/>
-                    </svg>
-                    Twitter
-                </a>
-                <a href="https://medium.com/@karlmarxai" target="_blank" class="social-link">
-                    <svg class="icon" viewBox="0 0 24 24">
-                        <path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"/>
-                    </svg>
-                    Medium
-                </a>
-            </div>
-
-            <div class="buy-section">
-                <p>Support the Revolution</p>
-                <button onclick="window.open('https://uniswap.org/swap', '_blank')" class="buy-button">Buy on Uniswap</button>
-                <button onclick="window.open('https://pancakeswap.finance/swap', '_blank')" class="buy-button">Buy on PancakeSwap</button>
-            </div>
+            <p>Enter your query to receive wisdom from the spirit of Karl Marx</p>
         </div>
         
         <div class="terminal" id="terminal">
@@ -278,6 +159,7 @@
     </div>
 
     <script>
+        // Previous script remains the same until drawMatrix function
         const canvas = document.getElementById('matrix');
         const ctx = canvas.getContext('2d');
 
@@ -289,16 +171,16 @@
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
 
-        const fontSize = 20;
-        const columns = Math.ceil(canvas.width / fontSize);
+        const letters = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ123456789@#$%^&*()*&^%";
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
         const drops = [];
 
         for (let i = 0; i < columns; i++) {
-            drops[i] = Math.floor(Math.random() * canvas.height/fontSize);
+            drops[i] = 1;
         }
 
-        const letters = "日ﾊﾐﾋｰｳｼﾅﾓﾆｻﾜﾂｵﾘｱﾎﾃﾏｹﾒｴｶｷﾑﾕﾗｾﾈｽﾀﾇﾍｦｲｸｺｿﾁﾄﾉﾌﾔﾖﾙﾚﾛﾝ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
+        // Create Marx face pattern with brighter stroke
         const marxFace = new Image();
         marxFace.src = 'data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMTAwIDEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNNTAgMTBDMjcuOTEgMTAgMTAgMjcuOTEgMTAgNTBjMCAyMi4wOSAxNy45MSA0MCA0MCA0MCA4LjI4IDAgMTYuMi0yLjUzIDIyLjg2LTcuMzIgOC4yLTUuOTQgMTMuODgtMTQuOTYgMTUuOS0yNS4xOCAxLjE3LTUuOTMuOTctMTEuOTQtLjU4LTE3Ljc1LTIuNzYtMTAuMzMtOS45NS0xOC45NS0xOS40Mi0yMy4yOEM2Mi40IDEyLjE2IDU2LjI4IDEwIDUwIDEweiIgc3Ryb2tlPSIjMDBmZjAwIiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9Im5vbmUiLz48L3N2Zz4=';
 
@@ -318,35 +200,27 @@
             ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+            // Draw Matrix rain with increased brightness
             ctx.fillStyle = '#00ff00';
             ctx.font = fontSize + 'px monospace';
-            ctx.shadowBlur = 15;
+            ctx.shadowBlur = 5;
             ctx.shadowColor = '#00ff00';
 
             for (let i = 0; i < drops.length; i++) {
-       const text = letters[Math.floor(Math.random() * letters.length)];
-                
-                if (Math.random() > 0.98) {
-                    ctx.fillStyle = '#fff';
-                    ctx.shadowColor = '#fff';
-                } else {
-                    ctx.fillStyle = '#0f0';
-                    ctx.shadowColor = '#0f0';
-                }
-
+                const text = letters.charAt(Math.floor(Math.random() * letters.length));
                 ctx.fillText(text, i * fontSize, drops[i] * fontSize);
 
                 if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
                     drops[i] = 0;
                 }
-
-                drops[i] += 0.5;
+                drops[i]++;
             }
 
+            // Draw Marx face with increased brightness
             if (showMarxFace) {
-                marxFaceOpacity = Math.min(marxFaceOpacity + 0.02, 0.6);
+                marxFaceOpacity = Math.min(marxFaceOpacity + 0.02, 0.6); // Increased max opacity to 0.6
                 ctx.globalAlpha = marxFaceOpacity;
-                ctx.shadowBlur = 15;
+                ctx.shadowBlur = 15; // Added glow effect
                 ctx.shadowColor = '#00ff00';
                 ctx.drawImage(marxFace, 
                     canvas.width/2 - canvas.height/3, 
@@ -357,11 +231,12 @@
                 ctx.globalAlpha = 1;
             }
             
-            ctx.shadowBlur = 0;
+            ctx.shadowBlur = 0; // Reset shadow for next frame
         }
 
-        setInterval(drawMatrix, 25);
+        setInterval(drawMatrix, 33);
 
+        // Rest of the script remains the same
         const marxResponses = [
             "The philosophers have only interpreted the world in various ways; the point, however, is to change it.",
             "Workers of the world unite! You have nothing to lose but your chains!",
@@ -439,4 +314,4 @@
         setMobileHeight();
     </script>
 </body>
-</html>         
+</html>

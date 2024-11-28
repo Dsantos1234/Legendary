@@ -1,15 +1,178 @@
+# Create the project
+mkdir token-launcher
+cd token-launcher
+npm init -y
+
+# Install dependencies
+npm install react react-dom next @radix-ui/react-alert-dialog @radix-ui/react-icons @radix-ui/react-label @radix-ui/react-progress @radix-ui/react-slider @radix-ui/react-switch @radix-ui/react-tabs class-variance-authority clsx lucide-react tailwind-merge tailwindcss-animate @types/node @types/react autoprefixer postcss typescript @shadcn/ui
+
+# Initialize Next.js and TypeScript
+npx create-next-app@latest . --typescript --tailwind --no-app --no-src --no-eslint
+
+# Initialize shadcn/ui
+npx shadcn-ui@latest init
+token-launcher/
+├── components/
+│   ├── TokenLauncher.tsx
+│   └── ui/
+│       ├── alert.tsx
+│       ├── button.tsx
+│       ├── card.tsx
+│       ├── input.tsx
+│       ├── label.tsx
+│       ├── progress.tsx
+│       ├── slider.tsx
+│       ├── switch.tsx
+│       └── tabs.tsx
+├── lib/
+│   └── utils.ts
+├── pages/
+│   ├── _app.tsx
+│   └── index.tsx
+├── styles/
+│   └── globals.css
+├── next.config.js
+├── package.json
+├── postcss.config.js
+├── tailwind.config.js
+└── tsconfig.json
+// next.config.js
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  reactStrictMode: true,
+}
+module.exports = nextConfig
+
+// postcss.config.js
+module.exports = {
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {},
+  },
+}
+
+// tailwind.config.js
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  darkMode: ["class"],
+  content: [
+    './pages/**/*.{ts,tsx}',
+    './components/**/*.{ts,tsx}',
+    './app/**/*.{ts,tsx}',
+    './src/**/*.{ts,tsx}',
+  ],
+  theme: {
+    extend: {
+      colors: {
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
+        primary: {
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
+        },
+      },
+    },
+  },
+  plugins: [require("tailwindcss-animate")],
+}
+
+// tsconfig.json
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./*"]
+    }
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"]
+}
+// lib/utils.ts
+import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+
+// pages/_app.tsx
+import type { AppProps } from 'next/app';
+import '../styles/globals.css';
+
+function MyApp({ Component, pageProps }: AppProps) {
+  return <Component {...pageProps} />;
+}
+
+export default MyApp;
+
+// pages/index.tsx
+import TokenLauncher from '../components/TokenLauncher';
+
+export default function Home() {
+  return (
+    <main className="min-h-screen p-8 bg-gradient-to-br from-purple-50 to-blue-50">
+      <TokenLauncher />
+    </main>
+  );
+}
+
+// styles/globals.css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+ 
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 262.1 83.3% 57.8%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 262.1 83.3% 57.8%;
+    --radius: 0.5rem;
+  }
+}
+ // components/TokenLauncher.tsx
 import React, { useState } from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
-import { Label } from '@/components/ui/label';
-import { Switch } from '@/components/ui/switch';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { Slider } from '@/components/ui/slider';
-import { Progress } from '@/components/ui/progress';
-import { ChevronDown, Wallet, Coins, Settings, Shield, Users, Lock } from 'lucide-react';
+import { Card, CardHeader, CardTitle, CardContent } from './ui/card';
+import { Input } from './ui/input';
+import { Button } from './ui/button';
+import { Alert, AlertDescription } from './ui/alert';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from './ui/tabs';
+import { Label } from './ui/label';
+import { Switch } from './ui/switch';
+import { Slider } from './ui/slider';
+import { Progress } from './ui/progress';
+import { Wallet, Coins, Shield, Users, Lock } from 'lucide-react';
 
 const TokenLauncher = () => {
   const [tokenDetails, setTokenDetails] = useState({
@@ -32,16 +195,16 @@ const TokenLauncher = () => {
 
   const [currentStep, setCurrentStep] = useState(1);
 
-  const handleTokenDetailChange = (field, value) => {
+  const handleTokenDetailChange = (field: string, value: any) => {
     setTokenDetails(prev => ({ ...prev, [field]: value }));
   };
 
-  const handleLaunchSettingChange = (field, value) => {
+  const handleLaunchSettingChange = (field: string, value: any) => {
     setLaunchSettings(prev => ({ ...prev, [field]: value }));
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto space-y-6 bg-gradient-to-br from-purple-50 to-blue-50 p-8 rounded-xl">
+    <div className="w-full max-w-4xl mx-auto space-y-6">
       <Card className="border-2 border-purple-200 bg-white/80 backdrop-blur-sm">
         <CardHeader className="bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-t-lg">
           <CardTitle className="flex items-center gap-2">
@@ -50,21 +213,20 @@ const TokenLauncher = () => {
           </CardTitle>
         </CardHeader>
         <CardContent className="pt-6">
-          <Progress value={currentStep * 25} className="mb-6 bg-purple-100" 
-                   indicatorClassName="bg-gradient-to-r from-purple-500 to-blue-500" />
+          <Progress value={currentStep * 25} className="mb-6" />
           
           <Tabs defaultValue="token" className="w-full">
-            <TabsList className="grid w-full grid-cols-4 bg-purple-50">
-              <TabsTrigger value="token" className="data-[state=active]:bg-purple-600 data-[state=active]:text-white">
+            <TabsList className="grid w-full grid-cols-4">
+              <TabsTrigger value="token">
                 <Coins className="w-4 h-4 mr-2" /> Token
               </TabsTrigger>
-              <TabsTrigger value="security" className="data-[state=active]:bg-purple-600 data-[state=active]:text-white">
+              <TabsTrigger value="security">
                 <Shield className="w-4 h-4 mr-2" /> Security
               </TabsTrigger>
-              <TabsTrigger value="distribution" className="data-[state=active]:bg-purple-600 data-[state=active]:text-white">
+              <TabsTrigger value="distribution">
                 <Users className="w-4 h-4 mr-2" /> Distribution
               </TabsTrigger>
-              <TabsTrigger value="launch" className="data-[state=active]:bg-purple-600 data-[state=active]:text-white">
+              <TabsTrigger value="launch">
                 <Lock className="w-4 h-4 mr-2" /> Launch
               </TabsTrigger>
             </TabsList>
@@ -72,135 +234,124 @@ const TokenLauncher = () => {
             <TabsContent value="token" className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label className="text-purple-700">Token Name</Label>
+                  <Label>Token Name</Label>
                   <Input 
                     value={tokenDetails.name}
                     onChange={(e) => handleTokenDetailChange('name', e.target.value)}
                     placeholder="My Token"
-                    className="border-purple-200 focus:border-purple-500"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label className="text-purple-700">Token Symbol</Label>
+                  <Label>Token Symbol</Label>
                   <Input 
                     value={tokenDetails.symbol}
                     onChange={(e) => handleTokenDetailChange('symbol', e.target.value)}
                     placeholder="MTK"
-                    className="border-purple-200 focus:border-purple-500"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label className="text-purple-700">Decimals</Label>
+                  <Label>Decimals</Label>
                   <Input 
                     type="number"
                     value={tokenDetails.decimals}
                     onChange={(e) => handleTokenDetailChange('decimals', parseInt(e.target.value))}
-                    className="border-purple-200 focus:border-purple-500"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label className="text-purple-700">Total Supply</Label>
+                  <Label>Total Supply</Label>
                   <Input 
                     type="number"
                     value={tokenDetails.totalSupply}
                     onChange={(e) => handleTokenDetailChange('totalSupply', parseInt(e.target.value))}
-                    className="border-purple-200 focus:border-purple-500"
                   />
                 </div>
               </div>
             </TabsContent>
 
             <TabsContent value="security" className="space-y-4">
-              <div className="space-y-4 p-4 bg-purple-50 rounded-lg">
+              <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <div className="space-y-0.5">
-                    <Label className="text-purple-700">Anti-Bot Protection</Label>
-                    <AlertDescription className="text-purple-600">Prevent trading bots and snipers</AlertDescription>
+                    <Label>Anti-Bot Protection</Label>
+                    <AlertDescription>Prevent trading bots and snipers</AlertDescription>
                   </div>
                   <Switch 
                     checked={launchSettings.antiBot}
                     onCheckedChange={(checked) => handleLaunchSettingChange('antiBot', checked)}
-                    className="bg-purple-200 data-[state=checked]:bg-purple-600"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label className="text-purple-700">Max Wallet Size (%)</Label>
+                  <Label>Max Wallet Size (%)</Label>
                   <Slider
                     value={[launchSettings.maxWalletSize]}
                     onValueChange={([value]) => handleLaunchSettingChange('maxWalletSize', value)}
                     max={10}
                     step={0.1}
-                    className="bg-purple-200"
-                    thumbClassName="bg-purple-600"
                   />
                 </div>
               </div>
             </TabsContent>
 
             <TabsContent value="distribution" className="space-y-4">
-              <div className="space-y-4 p-4 bg-blue-50 rounded-lg">
+              <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <div className="space-y-0.5">
-                    <Label className="text-blue-700">Enable Vesting</Label>
-                    <AlertDescription className="text-blue-600">Lock tokens for a period after launch</AlertDescription>
+                    <Label>Enable Vesting</Label>
+                    <AlertDescription>Lock tokens for a period after launch</AlertDescription>
                   </div>
                   <Switch 
                     checked={launchSettings.vestingEnabled}
                     onCheckedChange={(checked) => handleLaunchSettingChange('vestingEnabled', checked)}
-                    className="bg-blue-200 data-[state=checked]:bg-blue-600"
                   />
                 </div>
                 {launchSettings.vestingEnabled && (
                   <div className="space-y-2">
-                    <Label className="text-blue-700">Lock Period (days)</Label>
+                    <Label>Lock Period (days)</Label>
                     <Input 
                       type="number"
                       value={launchSettings.lockPeriod}
                       onChange={(e) => handleLaunchSettingChange('lockPeriod', parseInt(e.target.value))}
-                      className="border-blue-200 focus:border-blue-500"
                     />
                   </div>
                 )}
                 <div className="space-y-2">
-                  <Label className="text-blue-700">Liquidity Percentage</Label>
+                  <Label>Liquidity Percentage</Label>
                   <Slider
                     value={[launchSettings.liquidityPercentage]}
                     onValueChange={([value]) => handleLaunchSettingChange('liquidityPercentage', value)}
                     max={100}
                     step={1}
-                    className="bg-blue-200"
-                    thumbClassName="bg-blue-600"
                   />
                 </div>
               </div>
             </TabsContent>
 
             <TabsContent value="launch" className="space-y-4">
-              <Alert className="bg-gradient-to-r from-purple-100 to-blue-100 border-purple-200">
-                <AlertDescription className="text-purple-700">
+              <Alert>
+                <AlertDescription>
                   Review your token configuration before launching
                 </AlertDescription>
               </Alert>
               <div className="space-y-4">
-                <div className="grid grid-cols-2 gap-4 p-4 bg-gradient-to-br from-purple-50 to-blue-50 rounded-lg border border-purple-200">
+                <div className="grid grid-cols-2 gap-4 p-4 border rounded-lg">
                   <div>
-                    <p className="text-sm font-medium text-purple-600">Token Name:</p>
-                    <p className="text-lg text-purple-900">{tokenDetails.name || "Not set"}</p>
+                    <p className="text-sm font-medium">Token Name:</p>
+                    <p className="text-lg">{tokenDetails.name || "Not set"}</p>
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-purple-600">Symbol:</p>
-                    <p className="text-lg text-purple-900">{tokenDetails.symbol || "Not set"}</p>
+                    <p className="text-sm font-medium">Symbol:</p>
+                    <p className="text-lg">{tokenDetails.symbol || "Not set"}</p>
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-blue-600">Total Supply:</p>
-                    <p className="text-lg text-blue-900">{tokenDetails.totalSupply.toLocaleString()}</p>
+                    <p className="text-sm font-medium">Total Supply:</p>
+                    <p className="text-lg">{tokenDetails.totalSupply.toLocaleString()}</p>
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-blue-600">Security:</p>
-                    <p className="text-lg text-blue-900">{launchSettings.antiBot ? "Anti-bot enabled" : "Basic"}</p>
+                    <p className="text-sm font-medium">Security:</p>
+                    <p className="text-lg">{launchSettings.antiBot ? "Anti-bot enabled" : "Basic"}</p>
                   </div>
                 </div>
-                <Button className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700" size="lg">
+                <Button className="w-full" size="lg">
                   <Wallet className="w-4 h-4 mr-2" /> Connect Wallet to Launch
                 </Button>
               </div>
@@ -212,4 +363,4 @@ const TokenLauncher = () => {
   );
 };
 
-export default TokenLauncher;
+export default TokenLauncher;   

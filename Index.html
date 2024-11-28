@@ -1,366 +1,180 @@
-# Create the project
-mkdir token-launcher
-cd token-launcher
-npm init -y
+import React, { useState, useEffect } from 'react';
+import { Snowflake, Wallet, Users, LeafyGreen, Twitter, TrendingUp } from 'lucide-react';
 
-# Install dependencies
-npm install react react-dom next @radix-ui/react-alert-dialog @radix-ui/react-icons @radix-ui/react-label @radix-ui/react-progress @radix-ui/react-slider @radix-ui/react-switch @radix-ui/react-tabs class-variance-authority clsx lucide-react tailwind-merge tailwindcss-animate @types/node @types/react autoprefixer postcss typescript @shadcn/ui
+export default function CokkiLanding() {
+  const [scroll, setScroll] = useState(0);
 
-# Initialize Next.js and TypeScript
-npx create-next-app@latest . --typescript --tailwind --no-app --no-src --no-eslint
-
-# Initialize shadcn/ui
-npx shadcn-ui@latest init
-token-launcher/
-├── components/
-│   ├── TokenLauncher.tsx
-│   └── ui/
-│       ├── alert.tsx
-│       ├── button.tsx
-│       ├── card.tsx
-│       ├── input.tsx
-│       ├── label.tsx
-│       ├── progress.tsx
-│       ├── slider.tsx
-│       ├── switch.tsx
-│       └── tabs.tsx
-├── lib/
-│   └── utils.ts
-├── pages/
-│   ├── _app.tsx
-│   └── index.tsx
-├── styles/
-│   └── globals.css
-├── next.config.js
-├── package.json
-├── postcss.config.js
-├── tailwind.config.js
-└── tsconfig.json
-// next.config.js
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  reactStrictMode: true,
-}
-module.exports = nextConfig
-
-// postcss.config.js
-module.exports = {
-  plugins: {
-    tailwindcss: {},
-    autoprefixer: {},
-  },
-}
-
-// tailwind.config.js
-/** @type {import('tailwindcss').Config} */
-module.exports = {
-  darkMode: ["class"],
-  content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
-  ],
-  theme: {
-    extend: {
-      colors: {
-        border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
-        primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
-        },
-      },
-    },
-  },
-  plugins: [require("tailwindcss-animate")],
-}
-
-// tsconfig.json
-{
-  "compilerOptions": {
-    "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
-    "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "preserve",
-    "incremental": true,
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./*"]
-    }
-  },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"]
-}
-// lib/utils.ts
-import { type ClassValue, clsx } from "clsx";
-import { twMerge } from "tailwind-merge";
-
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
-
-// pages/_app.tsx
-import type { AppProps } from 'next/app';
-import '../styles/globals.css';
-
-function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />;
-}
-
-export default MyApp;
-
-// pages/index.tsx
-import TokenLauncher from '../components/TokenLauncher';
-
-export default function Home() {
-  return (
-    <main className="min-h-screen p-8 bg-gradient-to-br from-purple-50 to-blue-50">
-      <TokenLauncher />
-    </main>
-  );
-}
-
-// styles/globals.css
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
- 
-@layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 262.1 83.3% 57.8%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 262.1 83.3% 57.8%;
-    --radius: 0.5rem;
-  }
-}
- // components/TokenLauncher.tsx
-import React, { useState } from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from './ui/card';
-import { Input } from './ui/input';
-import { Button } from './ui/button';
-import { Alert, AlertDescription } from './ui/alert';
-import { Tabs, TabsList, TabsTrigger, TabsContent } from './ui/tabs';
-import { Label } from './ui/label';
-import { Switch } from './ui/switch';
-import { Slider } from './ui/slider';
-import { Progress } from './ui/progress';
-import { Wallet, Coins, Shield, Users, Lock } from 'lucide-react';
-
-const TokenLauncher = () => {
-  const [tokenDetails, setTokenDetails] = useState({
-    name: '',
-    symbol: '',
-    decimals: 9,
-    totalSupply: 1000000,
-    initialPrice: 0.1,
-    maxSupply: 10000000,
-  });
-
-  const [launchSettings, setLaunchSettings] = useState({
-    vestingEnabled: false,
-    lockPeriod: 180,
-    antiBot: true,
-    maxWalletSize: 2,
-    whitelistEnabled: false,
-    liquidityPercentage: 80,
-  });
-
-  const [currentStep, setCurrentStep] = useState(1);
-
-  const handleTokenDetailChange = (field: string, value: any) => {
-    setTokenDetails(prev => ({ ...prev, [field]: value }));
-  };
-
-  const handleLaunchSettingChange = (field: string, value: any) => {
-    setLaunchSettings(prev => ({ ...prev, [field]: value }));
-  };
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setScroll(prev => (prev + 1) % 100);
+    }, 50);
+    return () => clearInterval(timer);
+  }, []);
 
   return (
-    <div className="w-full max-w-4xl mx-auto space-y-6">
-      <Card className="border-2 border-purple-200 bg-white/80 backdrop-blur-sm">
-        <CardHeader className="bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-t-lg">
-          <CardTitle className="flex items-center gap-2">
-            <Coins className="w-6 h-6" />
-            Solana Token Launcher
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="pt-6">
-          <Progress value={currentStep * 25} className="mb-6" />
-          
-          <Tabs defaultValue="token" className="w-full">
-            <TabsList className="grid w-full grid-cols-4">
-              <TabsTrigger value="token">
-                <Coins className="w-4 h-4 mr-2" /> Token
-              </TabsTrigger>
-              <TabsTrigger value="security">
-                <Shield className="w-4 h-4 mr-2" /> Security
-              </TabsTrigger>
-              <TabsTrigger value="distribution">
-                <Users className="w-4 h-4 mr-2" /> Distribution
-              </TabsTrigger>
-              <TabsTrigger value="launch">
-                <Lock className="w-4 h-4 mr-2" /> Launch
-              </TabsTrigger>
-            </TabsList>
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-blue-100">
+      {/* Announcement Banner */}
+      <div className="bg-blue-600 text-white p-2 text-center">
+        <span className="animate-pulse">🔥 As seen on TikTok with over 10M views! 🔥</span>
+      </div>
 
-            <TabsContent value="token" className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label>Token Name</Label>
-                  <Input 
-                    value={tokenDetails.name}
-                    onChange={(e) => handleTokenDetailChange('name', e.target.value)}
-                    placeholder="My Token"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label>Token Symbol</Label>
-                  <Input 
-                    value={tokenDetails.symbol}
-                    onChange={(e) => handleTokenDetailChange('symbol', e.target.value)}
-                    placeholder="MTK"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label>Decimals</Label>
-                  <Input 
-                    type="number"
-                    value={tokenDetails.decimals}
-                    onChange={(e) => handleTokenDetailChange('decimals', parseInt(e.target.value))}
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label>Total Supply</Label>
-                  <Input 
-                    type="number"
-                    value={tokenDetails.totalSupply}
-                    onChange={(e) => handleTokenDetailChange('totalSupply', parseInt(e.target.value))}
-                  />
-                </div>
-              </div>
-            </TabsContent>
+      {/* Navigation */}
+      <nav className="fixed w-full bg-white/90 shadow-lg backdrop-blur-sm p-4">
+        <div className="flex justify-between items-center max-w-6xl mx-auto">
+          <div className="flex items-center gap-2">
+            <span className="text-3xl font-bold text-blue-900">$COKKI</span>
+            <img src="/api/placeholder/40/40" alt="Cokki" className="rounded-full" />
+          </div>
+          <div className="flex gap-6">
+            {['Home', 'Features', 'Tokenomics', 'Roadmap'].map(item => (
+              <button key={item} className="text-blue-900 hover:text-blue-700 transition-colors">
+                {item}
+              </button>
+            ))}
+          </div>
+          <div className="flex gap-4">
+            <button className="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition-colors">
+              Buy $COKKI
+            </button>
+          </div>
+        </div>
+      </nav>
 
-            <TabsContent value="security" className="space-y-4">
-              <div className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <div className="space-y-0.5">
-                    <Label>Anti-Bot Protection</Label>
-                    <AlertDescription>Prevent trading bots and snipers</AlertDescription>
-                  </div>
-                  <Switch 
-                    checked={launchSettings.antiBot}
-                    onCheckedChange={(checked) => handleLaunchSettingChange('antiBot', checked)}
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label>Max Wallet Size (%)</Label>
-                  <Slider
-                    value={[launchSettings.maxWalletSize]}
-                    onValueChange={([value]) => handleLaunchSettingChange('maxWalletSize', value)}
-                    max={10}
-                    step={0.1}
-                  />
-                </div>
-              </div>
-            </TabsContent>
+      {/* Hero Section */}
+      <div className="pt-32 px-4">
+        <div className="max-w-4xl mx-auto text-center py-20">
+          <div className="text-sm text-blue-600 font-bold mb-4">THE VIRAL PENGUIN OF CRYPTO</div>
+          <h1 className="text-6xl font-bold text-blue-900 mb-6">
+            Meet Cokki 🐧
+          </h1>
+          <p className="text-xl text-blue-800 mb-8">
+            From TikTok stardom to crypto phenomenon - Join the coolest meme coin of 2024!
+          </p>
+          <div className="flex gap-4 justify-center mb-8">
+            <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-full text-lg font-semibold transform transition hover:scale-105">
+              Buy on Uniswap
+            </button>
+            <button className="bg-pink-500 hover:bg-pink-600 text-white px-8 py-4 rounded-full text-lg font-semibold transform transition hover:scale-105">
+              Join TikTok
+            </button>
+          </div>
+          <div className="flex gap-6 justify-center">
+            <a href="#" className="flex items-center gap-2 text-blue-900 hover:text-blue-700">
+              <Twitter size={24} /> 50K+ Followers
+            </a>
+            <a href="#" className="flex items-center gap-2 text-blue-900 hover:text-blue-700">
+              <TrendingUp size={24} /> 10M+ Views
+            </a>
+          </div>
+        </div>
+      </div>
 
-            <TabsContent value="distribution" className="space-y-4">
-              <div className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <div className="space-y-0.5">
-                    <Label>Enable Vesting</Label>
-                    <AlertDescription>Lock tokens for a period after launch</AlertDescription>
-                  </div>
-                  <Switch 
-                    checked={launchSettings.vestingEnabled}
-                    onCheckedChange={(checked) => handleLaunchSettingChange('vestingEnabled', checked)}
-                  />
-                </div>
-                {launchSettings.vestingEnabled && (
-                  <div className="space-y-2">
-                    <Label>Lock Period (days)</Label>
-                    <Input 
-                      type="number"
-                      value={launchSettings.lockPeriod}
-                      onChange={(e) => handleLaunchSettingChange('lockPeriod', parseInt(e.target.value))}
-                    />
-                  </div>
-                )}
-                <div className="space-y-2">
-                  <Label>Liquidity Percentage</Label>
-                  <Slider
-                    value={[launchSettings.liquidityPercentage]}
-                    onValueChange={([value]) => handleLaunchSettingChange('liquidityPercentage', value)}
-                    max={100}
-                    step={1}
-                  />
-                </div>
-              </div>
-            </TabsContent>
+      {/* Features */}
+      <div className="max-w-6xl mx-auto p-8 grid grid-cols-1 md:grid-cols-3 gap-8">
+        {[
+          {
+            icon: <Users size={32} />,
+            title: "Viral Community",
+            desc: "Join the fastest-growing meme community powered by TikTok"
+          },
+          {
+            icon: <Snowflake size={32} />,
+            title: "Arctic Security",
+            desc: "LP locked and contract renounced - Safer than an igloo!"
+          },
+          {
+            icon: <LeafyGreen size={32} />,
+            title: "Creator Backed",
+            desc: "Regular TikTok updates and community events by Cokki"
+          }
+        ].map((feature, i) => (
+          <div key={i} className="bg-white/80 backdrop-blur-sm p-6 rounded-xl shadow-lg hover:transform hover:scale-105 transition">
+            <div className="text-blue-600 mb-4">{feature.icon}</div>
+            <h3 className="text-xl font-bold text-blue-900 mb-2">{feature.title}</h3>
+            <p className="text-blue-700">{feature.desc}</p>
+          </div>
+        ))}
+      </div>
 
-            <TabsContent value="launch" className="space-y-4">
-              <Alert>
-                <AlertDescription>
-                  Review your token configuration before launching
-                </AlertDescription>
-              </Alert>
-              <div className="space-y-4">
-                <div className="grid grid-cols-2 gap-4 p-4 border rounded-lg">
-                  <div>
-                    <p className="text-sm font-medium">Token Name:</p>
-                    <p className="text-lg">{tokenDetails.name || "Not set"}</p>
-                  </div>
-                  <div>
-                    <p className="text-sm font-medium">Symbol:</p>
-                    <p className="text-lg">{tokenDetails.symbol || "Not set"}</p>
-                  </div>
-                  <div>
-                    <p className="text-sm font-medium">Total Supply:</p>
-                    <p className="text-lg">{tokenDetails.totalSupply.toLocaleString()}</p>
-                  </div>
-                  <div>
-                    <p className="text-sm font-medium">Security:</p>
-                    <p className="text-lg">{launchSettings.antiBot ? "Anti-bot enabled" : "Basic"}</p>
-                  </div>
-                </div>
-                <Button className="w-full" size="lg">
-                  <Wallet className="w-4 h-4 mr-2" /> Connect Wallet to Launch
-                </Button>
+      {/* Tokenomics */}
+      <div className="bg-blue-50/50 backdrop-blur-sm p-8 mt-16">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-4xl font-bold text-blue-900 text-center mb-12">Tokenomics</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              { title: "Total Supply", value: "1,000,000,000,000 $COKKI" },
+              { title: "Initial LP", value: "95% Locked for 1 Year" },
+              { title: "Tax", value: "1/1 Buy/Sell" }
+            ].map((item, i) => (
+              <div key={i} className="bg-white/90 p-6 rounded-xl shadow-lg text-center">
+                <h3 className="text-xl font-bold text-blue-900 mb-4">{item.title}</h3>
+                <p className="text-blue-700">{item.value}</p>
               </div>
-            </TabsContent>
-          </Tabs>
-        </CardContent>
-      </Card>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Social Links */}
+      <div className="bg-white/90 backdrop-blur-sm p-8 mt-16">
+        <div className="max-w-6xl mx-auto text-center">
+          <h2 className="text-4xl font-bold text-blue-900 mb-8">Join the Colony</h2>
+          <div className="flex flex-wrap gap-6 justify-center">
+            {[
+              { name: "TikTok", url: "#", followers: "500K+" },
+              { name: "Twitter", url: "#", followers: "50K+" },
+              { name: "Telegram", url: "#", members: "25K+" },
+              { name: "Discord", url: "#", members: "10K+" }
+            ].map((social, i) => (
+              <a
+                key={i}
+                href={social.url}
+                className="bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700 transition-colors"
+              >
+                {social.name}
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Buy Links */}
+      <div className="bg-blue-900 text-white p-8 mt-16">
+        <div className="max-w-6xl mx-auto text-center">
+          <h2 className="text-4xl font-bold mb-8">How to Buy $COKKI</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              { name: "Uniswap", type: "DEX" },
+              { name: "Gate.io", type: "CEX" },
+              { name: "MEXC", type: "CEX" }
+            ].map((exchange, i) => (
+              <a
+                key={i}
+                href="#"
+                className="bg-white/10 p-6 rounded-xl hover:bg-white/20 transition-colors"
+              >
+                <h3 className="text-xl font-bold mb-2">{exchange.name}</h3>
+                <p className="opacity-75">{exchange.type}</p>
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Snow effect */}
+      {[...Array(20)].map((_, i) => (
+        <div
+          key={i}
+          className="fixed w-2 h-2 bg-white rounded-full pointer-events-none"
+          style={{
+            left: `${(i * 5 + scroll) % 100}%`,
+            top: `${(i * 7 + scroll) % 100}%`,
+            opacity: 0.6,
+            transform: `translateY(${scroll}px)`,
+            transition: 'transform 0.5s linear'
+          }}
+        />
+      ))}
     </div>
   );
-};
-
-export default TokenLauncher;   
+}

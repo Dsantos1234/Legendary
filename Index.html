@@ -1,317 +1,376 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>$ADVISOR - AI-Enhanced Monkey Financial Advisor 🐒</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/4.2.2/web3.min.js"></script>
     <style>
-        /* Previous styles remain the same until matrix-bg */
-        body {
-            background-color: #000;
-            color: #00ff00;
-            font-family: 'Courier New', monospace;
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(0, 255, 255, 0.4); }
+            70% { box-shadow: 0 0 0 20px rgba(0, 255, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 255, 255, 0); }
+        }
+
+        @keyframes matrix {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 0% 100%; }
+        }
+
+        * {
             margin: 0;
-            padding: 10px;
-            height: 100vh;
-            overflow: hidden;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
         }
 
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 20px;
-            border-bottom: 1px solid #00ff00;
-            padding-bottom: 15px;
-        }
-
-        .header h1 {
-            font-size: 24px;
-            margin: 10px 0;
+        body {
+            background: linear-gradient(135deg, #0a0a2e, #1a1a3a);
+            color: #fff;
+            line-height: 1.6;
+            overflow-x: hidden;
         }
 
         .matrix-bg {
             position: fixed;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
+            width: 100%;
+            height: 100%;
+            background: url('/api/placeholder/1920/1080');
+            opacity: 0.1;
             pointer-events: none;
-            opacity: 0.4;  /* Increased from 0.2 to 0.4 */
-            z-index: 0;
+            animation: matrix 20s linear infinite;
         }
 
-        .terminal {
-            background-color: rgba(0, 0, 0, 0.85); /* Made slightly more opaque */
-            border: 1px solid #00ff00;
-            padding: 15px;
-            height: calc(100vh - 200px);
-            overflow-y: auto;
-            margin-bottom: 15px;
-            font-size: 16px;
-            position: relative;
-            z-index: 2;
+        nav {
+            background: rgba(10, 10, 46, 0.95);
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            border-bottom: 2px solid #00ffff;
+            backdrop-filter: blur(10px);
         }
 
-        .input-area {
+        .nav-links {
             display: flex;
-            gap: 10px;
-            position: sticky;
-            bottom: 0;
-            z-index: 2;
+            justify-content: center;
+            gap: 2rem;
         }
 
-        input {
-            flex: 1;
-            background-color: rgba(0, 0, 0, 0.9);
-            border: 1px solid #00ff00;
-            color: #00ff00;
-            padding: 10px;
-            font-family: 'Courier New', monospace;
-            font-size: 16px;
+        .nav-links a {
+            color: #00ffff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        button {
-            background-color: rgba(0, 0, 0, 0.9);
-            border: 1px solid #00ff00;
-            color: #00ff00;
-            padding: 10px 15px;
-            cursor: pointer;
-            font-family: 'Courier New', monospace;
-            transition: all 0.3s;
-            font-size: 16px;
+        .nav-links a:hover {
+            color: #fff;
+            text-shadow: 0 0 10px #00ffff;
         }
 
-        button:hover {
-            background-color: #00ff00;
-            color: #000;
-        }
-
-        .message {
-            margin-bottom: 15px;
-            padding: 5px;
-            word-wrap: break-word;
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
             position: relative;
-            z-index: 2;
+            overflow: hidden;
         }
 
-        .user-message {
-            color: #ffffff;
+        .circuit-lines {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 50% 50%, 
+                    rgba(0, 255, 255, 0.1) 0%,
+                    transparent 50%);
+            pointer-events: none;
         }
 
-        .marx-message {
-            color: #00ff00;
-            text-shadow: 0 0 5px #00ff00;
+        .hero h1 {
+            font-size: 4.5rem;
+            margin-bottom: 1rem;
+            color: #00ffff;
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
         }
 
-        .typing-effect::after {
-            content: '█';
-            animation: blink 1s infinite;
+        .monkey-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin: 2rem;
+            animation: float 6s ease-in-out infinite;
         }
 
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
+        .monkey-image {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #00ffff, #0a0a2e);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 120px;
+            position: relative;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+            animation: pulse 2s infinite;
         }
 
-        @media (max-width: 600px) {
-            .header h1 {
-                font-size: 20px;
-            }
-            
-            .terminal {
-                height: calc(100vh - 180px);
-                font-size: 14px;
-            }
+        .suit-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
 
-            input, button {
-                font-size: 14px;
-            }
+        .tie {
+            position: absolute;
+            bottom: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 60px;
+            background: linear-gradient(45deg, #00ffff, #0066ff);
+            clip-path: polygon(50% 0%, 100% 25%, 50% 100%, 0% 25%);
+        }
 
-            button {
-                padding: 8px 12px;
-            }
+        .stats {
+            display: flex;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .stat-box {
+            background: rgba(0, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            min-width: 250px;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+            transition: all 0.3s;
+        }
+
+        .stat-box:hover {
+            border-color: rgba(0, 255, 255, 0.4);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
+        }
+
+        .stat-box h3 {
+            color: #00ffff;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            background: transparent;
+            color: #00ffff;
+            border: 2px solid #00ffff;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn:hover {
+            background: rgba(0, 255, 255, 0.1);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+        }
+
+        .advice-section {
+            padding: 6rem 2rem;
+            text-align: center;
+            background: rgba(10, 10, 46, 0.95);
+            position: relative;
+        }
+
+        .advice-box {
+            background: rgba(0, 255, 255, 0.05);
+            padding: 3rem;
+            border-radius: 15px;
+            margin: 2rem auto;
+            max-width: 800px;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .advice-box:hover {
+            border-color: rgba(0, 255, 255, 0.4);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
+        }
+
+        .advice-text {
+            font-size: 1.5rem;
+            color: #00ffff;
+            font-style: italic;
+            line-height: 1.8;
+        }
+
+        .floating-bananas {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .banana {
+            position: absolute;
+            font-size: 2rem;
+            animation: float 4s ease-in-out infinite;
+            opacity: 0.8;
+            filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.5));
+        }
+
+        .ai-tag {
+            background: rgba(0, 255, 255, 0.1);
+            color: #00ffff;
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            font-weight: bold;
+            display: inline-block;
+            margin: 1rem 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+        }
+
+        .binary {
+            position: fixed;
+            color: rgba(0, 255, 255, 0.1);
+            font-family: monospace;
+            font-size: 14px;
+            white-space: nowrap;
+            user-select: none;
         }
     </style>
 </head>
 <body>
-    <canvas class="matrix-bg" id="matrix"></canvas>
-    <div class="container">
-        <div class="header">
-            <h1>KARL MARX TERMINAL</h1>
-            <p>Enter your query to receive wisdom from the spirit of Karl Marx</p>
+    <div class="matrix-bg"></div>
+    
+    <nav>
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#tokenomics">Analysis</a>
+            <a href="#advice">AI Insights</a>
         </div>
+    </nav>
+
+    <section class="hero" id="home">
+        <div class="circuit-lines"></div>
+        <div class="floating-bananas">
+            <span class="banana" style="top: 15%; left: 15%;">🍌</span>
+            <span class="banana" style="top: 35%; right: 25%;">🍌</span>
+            <span class="banana" style="bottom: 25%; left: 35%;">🍌</span>
+            <span class="banana" style="top: 55%; right: 45%;">🍌</span>
+        </div>
+
+        <h1>$ADVISOR</h1>
+        <div class="ai-tag">Quantum Neural Banana Analysis™</div>
         
-        <div class="terminal" id="terminal">
-            <div class="message marx-message">
-                Greetings, Proletarian. I am the digital manifestation of Karl Marx. 
-                What questions do you have about class struggle, capitalism, or the revolution?
+        <div class="monkey-container">
+            <div class="monkey-image">
+                🐒
+                <div class="suit-elements">
+                    <div class="tie"></div>
+                </div>
             </div>
         </div>
 
-        <div class="input-area">
-            <input type="text" id="userInput" placeholder="Enter your question..." />
-            <button onclick="sendMessage()">TRANSMIT</button>
+        <div class="stats">
+            <div class="stat-box">
+                <h3>Neural Processing</h3>
+                <p>42,069 TPS (Trades Per Second)</p>
+            </div>
+            <div class="stat-box">
+                <h3>AI Accuracy</h3>
+                <p>50% ± Quantum Uncertainty</p>
+            </div>
+            <div class="stat-box">
+                <h3>Banana Algorithm v4.20</h3>
+                <p>∞ Computational Bananas</p>
+            </div>
         </div>
-    </div>
+        <a href="#" class="btn">Initialize Trading Protocol</a>
+    </section>
+
+    <section class="advice-section" id="advice">
+        <h2>AI-Generated Trading Insights</h2>
+        <div class="advice-box">
+            <p class="advice-text">"According to my quantum neural networks, these bananas exhibit strong buy signals across multiple parallel universes. 🍌🤖"</p>
+        </div>
+        <a href="#" class="btn">Connect Neural Interface</a>
+    </section>
 
     <script>
-        // Previous script remains the same until drawMatrix function
-        const canvas = document.getElementById('matrix');
-        const ctx = canvas.getContext('2d');
-
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+        // Add random floating bananas and binary
+        function addFloatingElement() {
+            const banana = document.createElement('span');
+            banana.className = 'banana';
+            banana.textContent = '🍌';
+            banana.style.left = Math.random() * 100 + '%';
+            banana.style.top = Math.random() * 100 + '%';
+            document.querySelector('.floating-bananas').appendChild(banana);
         }
 
-        resizeCanvas();
-        window.addEventListener('resize', resizeCanvas);
+        setInterval(addFloatingElement, 3000);
 
-        const letters = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ123456789@#$%^&*()*&^%";
-        const fontSize = 14;
-        const columns = canvas.width / fontSize;
-        const drops = [];
-
-        for (let i = 0; i < columns; i++) {
-            drops[i] = 1;
-        }
-
-        // Create Marx face pattern with brighter stroke
-        const marxFace = new Image();
-        marxFace.src = 'data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMTAwIDEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNNTAgMTBDMjcuOTEgMTAgMTAgMjcuOTEgMTAgNTBjMCAyMi4wOSAxNy45MSA0MCA0MCA0MCA4LjI4IDAgMTYuMi0yLjUzIDIyLjg2LTcuMzIgOC4yLTUuOTQgMTMuODgtMTQuOTYgMTUuOS0yNS4xOCAxLjE3LTUuOTMuOTctMTEuOTQtLjU4LTE3Ljc1LTIuNzYtMTAuMzMtOS45NS0xOC45NS0xOS40Mi0yMy4yOEM2Mi40IDEyLjE2IDU2LjI4IDEwIDUwIDEweiIgc3Ryb2tlPSIjMDBmZjAwIiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9Im5vbmUiLz48L3N2Zz4=';
-
-        let showMarxFace = false;
-        let marxFaceOpacity = 0;
-        const marxFaceInterval = 15000;
-
-        setInterval(() => {
-            showMarxFace = true;
-            setTimeout(() => {
-                showMarxFace = false;
-                marxFaceOpacity = 0;
-            }, 3000);
-        }, marxFaceInterval);
-
-        function drawMatrix() {
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            // Draw Matrix rain with increased brightness
-            ctx.fillStyle = '#00ff00';
-            ctx.font = fontSize + 'px monospace';
-            ctx.shadowBlur = 5;
-            ctx.shadowColor = '#00ff00';
-
-            for (let i = 0; i < drops.length; i++) {
-                const text = letters.charAt(Math.floor(Math.random() * letters.length));
-                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                    drops[i] = 0;
-                }
-                drops[i]++;
-            }
-
-            // Draw Marx face with increased brightness
-            if (showMarxFace) {
-                marxFaceOpacity = Math.min(marxFaceOpacity + 0.02, 0.6); // Increased max opacity to 0.6
-                ctx.globalAlpha = marxFaceOpacity;
-                ctx.shadowBlur = 15; // Added glow effect
-                ctx.shadowColor = '#00ff00';
-                ctx.drawImage(marxFace, 
-                    canvas.width/2 - canvas.height/3, 
-                    canvas.height/2 - canvas.height/3,
-                    canvas.height/1.5, 
-                    canvas.height/1.5
-                );
-                ctx.globalAlpha = 1;
-            }
-            
-            ctx.shadowBlur = 0; // Reset shadow for next frame
-        }
-
-        setInterval(drawMatrix, 33);
-
-        // Rest of the script remains the same
-        const marxResponses = [
-            "The philosophers have only interpreted the world in various ways; the point, however, is to change it.",
-            "Workers of the world unite! You have nothing to lose but your chains!",
-            "History repeats itself, first as tragedy, second as farce.",
-            "The production of too many useful things results in too many useless people.",
-            "Social progress can be measured by the social position of the female sex.",
-            "Capital is dead labor, which, vampire-like, lives only by sucking living labor.",
-            "The oppressed are allowed once every few years to decide which particular representatives of the oppressing class shall represent and repress them in parliament.",
-            "Religion is the opium of the people.",
-            "From each according to his abilities, to each according to his needs.",
-            "The rich will do anything for the poor but get off their backs."
+        // AI trading wisdom
+        const advice = [
+            "According to my quantum neural networks, these bananas exhibit strong buy signals across multiple parallel universes. 🍌🤖",
+            "My AI algorithms predict a 69.420% chance of banana market uptrend. Trust the machine learning. 🧠📈",
+            "Neural pattern recognition suggests optimal banana accumulation phase. Initiating HODL protocols. 🤖🍌",
+            "Quantum banana analysis complete: Buy signal detected in 9 out of 10 multiverse scenarios. 🌌💰",
+            "AI sentiment analysis indicates extreme banana bullishness. This is definitely financial advice (from a robot monkey). 🦾🐒"
         ];
 
-        function getMarxResponse(question) {
-            question = question.toLowerCase();
-            
-            if (question.includes('capitalism')) {
-                return "The essence of capitalism is exploitation of labor. The bourgeoisie has stripped of its halo every occupation hitherto honored and looked up to with reverent awe.";
-            } else if (question.includes('class') || question.includes('worker')) {
-                return "The history of all hitherto existing society is the history of class struggles. Freeman and slave, patrician and plebeian, lord and serf, guild-master and journeyman.";
-            } else if (question.includes('revolution')) {
-                return "Let the ruling classes tremble at a Communist revolution. The proletarians have nothing to lose but their chains. They have a world to win!";
-            } else if (question.includes('money') || question.includes('wealth')) {
-                return "The wealthy have created a world where man's needs are reduced to the simple need for money. This is the ultimate alienation of human potential.";
-            } else {
-                return marxResponses[Math.floor(Math.random() * marxResponses.length)];
-            }
-        }
-
-        function sendMessage() {
-            const userInput = document.getElementById('userInput');
-            const terminal = document.getElementById('terminal');
-            
-            if (userInput.value.trim() === '') return;
-
-            const userDiv = document.createElement('div');
-            userDiv.className = 'message user-message';
-            userDiv.textContent = '> ' + userInput.value;
-            terminal.appendChild(userDiv);
-
-            const marxDiv = document.createElement('div');
-            marxDiv.className = 'message marx-message typing-effect';
-            terminal.appendChild(marxDiv);
-
-            const response = getMarxResponse(userInput.value);
-            let i = 0;
-            
-            function typeWriter() {
-                if (i < response.length) {
-                    marxDiv.textContent = response.substring(0, i + 1);
-                    i++;
-                    setTimeout(typeWriter, 30);
-                } else {
-                    marxDiv.classList.remove('typing-effect');
-                }
-            }
-            
-            typeWriter();
-
-            userInput.value = '';
-            terminal.scrollTop = terminal.scrollHeight;
-        }
-
-        document.getElementById('userInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                sendMessage();
-            }
+        document.querySelector('.advice-box').addEventListener('click', () => {
+            const randomAdvice = advice[Math.floor(Math.random() * advice.length)];
+            document.querySelector('.advice-text').textContent = randomAdvice;
         });
 
-        function setMobileHeight() {
-            document.documentElement.style.height = `${window.innerHeight}px`;
+        // Add matrix-style binary background
+        function createBinary() {
+            const binary = document.createElement('div');
+            binary.className = 'binary';
+            binary.style.left = Math.random() * 100 + '%';
+            binary.style.top = Math.random() * 100 + '%';
+            binary.textContent = Math.random().toString(2).substr(2, 8);
+            document.body.appendChild(binary);
+            setTimeout(() => binary.remove(), 2000);
         }
-        window.addEventListener('resize', setMobileHeight);
-        window.addEventListener('orientationchange', setMobileHeight);
-        setMobileHeight();
+
+        setInterval(createBinary, 100);
     </script>
 </body>
 </html>

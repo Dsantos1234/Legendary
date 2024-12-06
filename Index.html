@@ -3,607 +3,368 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>$ADVISOR - AI-Enhanced Monkey Financial Advisor 🐒</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/4.2.2/web3.min.js"></script>
+    <title>Trust Me Bro</title>
+    <!-- Include Lucide icons via CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/lucide.min.js"></script>
     <style>
-        @keyframes float {
-            0% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(5deg); }
-            100% { transform: translateY(0px) rotate(0deg); }
+        /* Base styles */
+        body {
+            margin: 0;
+            font-family: monospace;
+            min-height: 100vh;
+            background: linear-gradient(to bottom, #38bdf8, #7dd3fc, #ffffff);
+            color: #0c4a6e;
+            overflow-x: hidden;
         }
 
-        @keyframes floatReverse {
-            0% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-15px) rotate(-5deg); }
-            100% { transform: translateY(0px) rotate(0deg); }
+        /* Animations */
+        @keyframes matrix-rain {
+            0% { transform: translateY(-100%); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(100%); opacity: 0; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(10px, -10px) rotate(5deg); }
+            50% { transform: translate(0, -20px) rotate(0deg); }
+            75% { transform: translate(-10px, -10px) rotate(-5deg); }
+        }
+
+        @keyframes glitch-1 {
+            0% { clip-path: inset(40% 0 61% 0); }
+            20% { clip-path: inset(92% 0 1% 0); }
+            40% { clip-path: inset(43% 0 1% 0); }
+            60% { clip-path: inset(25% 0 58% 0); }
+            80% { clip-path: inset(54% 0 7% 0); }
+            100% { clip-path: inset(58% 0 43% 0); }
+        }
+
+        @keyframes glitch-2 {
+            0% { clip-path: inset(24% 0 29% 0); }
+            20% { clip-path: inset(54% 0 21% 0); }
+            40% { clip-path: inset(25% 0 58% 0); }
+            60% { clip-path: inset(61% 0 35% 0); }
+            80% { clip-path: inset(70% 0 35% 0); }
+            100% { clip-path: inset(45% 0 70% 0); }
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
         }
 
         @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(0, 255, 255, 0.4); }
-            70% { box-shadow: 0 0 0 20px rgba(0, 255, 255, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(0, 255, 255, 0); }
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
         }
 
-        @keyframes matrix {
-            0% { background-position: 0% 0%; }
-            100% { background-position: 0% 100%; }
-        }
-
-        @keyframes glowText {
-            0% { text-shadow: 0 0 10px rgba(0, 255, 255, 0.5); }
-            50% { text-shadow: 0 0 20px rgba(0, 255, 255, 0.8); }
-            100% { text-shadow: 0 0 10px rgba(0, 255, 255, 0.5); }
-        }
-
-        @keyframes rotateBackground {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes ripple {
-            0% { transform: scale(1); opacity: 0.8; }
-            100% { transform: scale(2); opacity: 0; }
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
-            -webkit-tap-highlight-color: transparent;
-            backface-visibility: hidden;
-            -webkit-backface-visibility: hidden;
-        }
-
-        body {
-            background: linear-gradient(135deg, #0a0a2e, #1a1a3a);
-            color: #fff;
-            line-height: 1.6;
-            overflow-x: hidden;
-            max-width: 100vw;
-        }
-
-        .matrix-bg {
+        /* Background elements */
+        .matrix-rain {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: repeating-linear-gradient(
-                0deg,
-                rgba(0, 255, 255, 0.03) 0px,
-                rgba(0, 255, 255, 0.03) 1px,
-                transparent 1px,
-                transparent 2px
-            );
-            opacity: 0.1;
+            width: 1px;
+            height: 100vh;
+            background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.5), transparent);
+            animation: matrix-rain 2s linear infinite;
             pointer-events: none;
-            animation: matrix 20s linear infinite;
         }
 
-        .circuit-pattern {
+        .floating-emoji {
+            position: absolute;
+            animation: float 3s infinite ease-in-out;
+            pointer-events: none;
+        }
+
+        .glitch-layer {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 10% 20%, rgba(0, 255, 255, 0.05) 0%, transparent 20%),
-                radial-gradient(circle at 90% 80%, rgba(0, 255, 255, 0.05) 0%, transparent 20%),
-                linear-gradient(45deg, transparent 48%, rgba(0, 255, 255, 0.02) 49%, rgba(0, 255, 255, 0.02) 51%, transparent 52%);
-            background-size: 300% 300%, 300% 300%, 10px 10px;
-            animation: rotateBackground 60s linear infinite;
+            inset: 0;
             pointer-events: none;
+            opacity: 0.2;
         }
 
-        .ripple-effect {
-            position: absolute;
-            border: 2px solid rgba(0, 255, 255, 0.2);
-            border-radius: 50%;
-            animation: ripple 2s linear infinite;
+        .glitch-red {
+            background: radial-gradient(circle at center, rgba(255,0,0,0.1) 0%, transparent 100%);
+            animation: glitch-1 0.6s infinite;
         }
 
-        nav {
-            background: rgba(10, 10, 46, 0.95);
-            padding: 1rem;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 100;
-            border-bottom: 2px solid #00ffff;
-            backdrop-filter: blur(10px);
-            transform: translateZ(0);
+        .glitch-blue {
+            background: radial-gradient(circle at center, rgba(0,0,255,0.1) 0%, transparent 100%);
+            animation: glitch-2 0.4s infinite;
         }
 
-        .nav-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-        }
-
-        .nav-links a {
-            color: #00ffff;
-            text-decoration: none;
-            font-weight: bold;
-            transition: all 0.3s;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            position: relative;
-            padding: 0.5rem 1rem;
-        }
-
-        .nav-links a::before {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: #00ffff;
-            transform: scaleX(0);
-            transform-origin: right;
-            transition: transform 0.3s ease;
-        }
-
-        .nav-links a:hover::before {
-            transform: scaleX(1);
-            transform-origin: left;
-        }
-
-        .nav-links a:hover {
-            color: #fff;
-            text-shadow: 0 0 10px #00ffff;
-        }
-
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 2rem;
-            position: relative;
+        /* Layout and components */
+        .ticker {
+            background: rgba(2, 132, 199, 0.3);
+            backdrop-filter: blur(8px);
+            padding: 0.5rem;
             overflow: hidden;
+            white-space: nowrap;
         }
 
-        .circuit-lines {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 50% 50%, rgba(0, 255, 255, 0.1) 0%, transparent 50%),
-                linear-gradient(45deg, transparent 48%, rgba(0, 255, 255, 0.05) 49%, rgba(0, 255, 255, 0.05) 51%, transparent 52%),
-                linear-gradient(-45deg, transparent 48%, rgba(0, 255, 255, 0.05) 49%, rgba(0, 255, 255, 0.05) 51%, transparent 52%);
-            background-size: 100% 100%, 30px 30px, 30px 30px;
-            pointer-events: none;
-            animation: rotateBackground 60s linear infinite;
+        .ticker-content {
+            display: inline-block;
+            animation: marquee 20s linear infinite;
+            color: white;
         }
 
-        .hero h1 {
-            font-size: 4.5rem;
-            margin-bottom: 1rem;
-            color: #00ffff;
-            text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
-            animation: glowText 2s ease-in-out infinite;
-        }
-
-        .monkey-container {
-            position: relative;
-            width: 300px;
-            height: 300px;
-            margin: 2rem;
-            animation: float 6s ease-in-out infinite;
-            transform-style: preserve-3d;
-        }
-
-        .monkey-image {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, #00ffff, #0a0a2e);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 120px;
-            position: relative;
-            box-shadow: 
-                0 0 30px rgba(0, 255, 255, 0.3),
-                inset 0 0 20px rgba(0, 255, 255, 0.2);
-            animation: pulse 2s infinite;
-            transform-style: preserve-3d;
-        }
-
-        .monkey-glow {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: radial-gradient(circle at center, rgba(0, 255, 255, 0.2) 0%, transparent 70%);
-            animation: pulse 2s infinite alternate;
-        }
-
-        .suit-elements {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            animation: floatReverse 6s ease-in-out infinite;
-        }
-
-        .tie {
-            position: absolute;
-            bottom: 20%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 30px;
-            height: 60px;
-            background: linear-gradient(45deg, #00ffff, #0066ff);
-            clip-path: polygon(50% 0%, 100% 25%, 50% 100%, 0% 25%);
-            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
-        }
-.stats {
-            display: flex;
-            gap: 2rem;
-            margin: 2rem 0;
-            flex-wrap: wrap;
-            justify-content: center;
-            animation: fadeInUp 1s ease-out;
-        }
-
-        .stat-box {
-            background: rgba(0, 255, 255, 0.05);
-            padding: 1.5rem;
-            border-radius: 15px;
-            text-align: center;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(0, 255, 255, 0.2);
-            min-width: 250px;
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .stat-box::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle at center, rgba(0, 255, 255, 0.1) 0%, transparent 70%);
-            transform: rotate(0deg);
-            animation: rotateBackground 10s linear infinite;
-            pointer-events: none;
-        }
-
-        .stat-box:hover {
-            border-color: rgba(0, 255, 255, 0.4);
-            box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
-            transform: translateY(-5px);
-        }
-
-        .stat-box h3 {
-            color: #00ffff;
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        .search-section {
-            padding: 6rem 2rem;
-            position: relative;
-            background: rgba(10, 10, 46, 0.95);
-            overflow: hidden;
-        }
-
-        .search-container {
-            max-width: 800px;
+        .container {
+            max-width: 64rem;
             margin: 0 auto;
-            background: rgba(0, 255, 255, 0.05);
             padding: 2rem;
-            border-radius: 15px;
-            border: 1px solid rgba(0, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
             position: relative;
-            animation: fadeInUp 1s ease-out;
+            z-index: 10;
         }
 
-        .search-input {
-            width: 100%;
-            padding: 1rem 3rem;
-            background: rgba(0, 0, 0, 0.3);
-            border: 2px solid rgba(0, 255, 255, 0.3);
-            border-radius: 25px;
-            color: #fff;
-            font-size: 1.1rem;
-            transition: all 0.3s;
-            position: relative;
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3rem;
         }
 
-        .search-input:focus {
-            outline: none;
-            border-color: #00ffff;
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
         }
 
-        .search-result {
-            margin-top: 1.5rem;
-            padding: 1.5rem;
-            background: rgba(0, 255, 255, 0.05);
-            border-radius: 15px;
-            border: 1px solid rgba(0, 255, 255, 0.2);
-            display: none;
-            animation: fadeInUp 0.5s ease-out;
+        .nav {
+            display: flex;
+            gap: 1.5rem;
         }
 
-        .btn {
-            padding: 1rem 2rem;
+        .button {
+            padding: 0.75rem 1.5rem;
+            border: 2px solid #0284c7;
             background: transparent;
-            color: #00ffff;
-            border: 2px solid #00ffff;
-            border-radius: 25px;
+            color: inherit;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s;
-            text-decoration: none;
-            display: inline-block;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 255, 255, 0.1);
-            transition: transform 0.5s;
-            transform: skewX(-15deg);
-            z-index: -1;
+        .button:hover {
+            background: #0284c7;
+            color: white;
         }
 
-        .btn:hover::before {
-            transform: translateX(100%) skewX(-15deg);
+        .price-ticker {
+            background: rgba(2, 132, 199, 0.2);
+            backdrop-filter: blur(8px);
+            padding: 1rem;
+            text-align: center;
+            border-radius: 0.5rem;
+            margin-bottom: 2rem;
         }
 
-        .btn:hover {
-            background: rgba(0, 255, 255, 0.1);
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
-            transform: translateY(-2px);
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            padding: 4rem 0;
         }
 
-        .floating-bananas {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            overflow: hidden;
+        .card {
+            border: 1px solid rgba(2, 132, 199, 0.5);
+            padding: 1.5rem;
+            backdrop-filter: blur(8px);
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 0.5rem;
+            transition: all 0.3s;
         }
 
-        .banana {
-            position: absolute;
-            font-size: 2rem;
-            animation: float 4s ease-in-out infinite;
-            opacity: 0.8;
-            filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.5));
-            z-index: 1;
+        .card:hover {
+            border-color: #0284c7;
         }
 
-        .ai-tag {
-            background: rgba(0, 255, 255, 0.1);
-            color: #00ffff;
-            padding: 0.5rem 1.5rem;
-            border-radius: 20px;
-            font-weight: bold;
-            display: inline-block;
-            margin: 1rem 0;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border: 1px solid rgba(0, 255, 255, 0.3);
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .terminal {
+            background: rgba(2, 132, 199, 0.2);
+            border: 1px solid #0284c7;
+            padding: 1.5rem;
+            backdrop-filter: blur(8px);
+            border-radius: 0.5rem;
+        }
+
+        .alert {
+            background: rgba(2, 132, 199, 0.2);
+            backdrop-filter: blur(8px);
+            border: 1px solid #0284c7;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .pulse {
             animation: pulse 2s infinite;
         }
 
-        .binary {
-            position: fixed;
-            color: rgba(0, 255, 255, 0.1);
-            font-family: monospace;
-            font-size: 14px;
-            white-space: nowrap;
-            user-select: none;
-            z-index: 0;
-        }
-
+        /* Responsive design */
         @media (max-width: 768px) {
-            /* Mobile styles remain the same */
+            .header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .nav {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="matrix-bg"></div>
-    <div class="circuit-pattern"></div>
-    
-    <nav>
-        <div class="nav-links">
-            <a href="#home">Home</a>
-            <a href="#search">Ask AI</a>
-            <a href="#about">About</a>
-            <a href="#tokenomics">Analysis</a>
-            <a href="#advice">AI Insights</a>
-            <a href="https://t.me/soladvisor" target="_blank">Telegram</a>
-            <a href="https://x.com/sol_advisor1?s=21&t=e4VJ7rcZVtvmps9KT5k2Vw" target="_blank">Twitter</a>
-        </div>
-    </nav>
+    <!-- Background Elements -->
+    <div id="matrix-container"></div>
+    <div id="emoji-container"></div>
+    <div class="glitch-layer glitch-red"></div>
+    <div class="glitch-layer glitch-blue"></div>
 
-    <section class="hero" id="home">
-        <div class="circuit-lines"></div>
-        <div class="floating-bananas">
-            <span class="banana" style="top: 15%; left: 15%;">🍌</span>
-            <span class="banana" style="top: 35%; right: 25%;">🍌</span>
-            <span class="banana" style="bottom: 25%; left: 35%;">🍌</span>
-            <span class="banana" style="top: 55%; right: 45%;">🍌</span>
+    <!-- Ticker -->
+    <div class="ticker">
+        <div class="ticker-content">
+            🚀 NUMBER GO UP 📈 WAGMI 💎 NGMI BEARS REKT 🔥 FUD EXIT LIQUIDITY 🌙 GG NO RE 🚀 BASED AND REDPILLED 💊
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <i data-lucide="terminal" class="pulse"></i>
+                <h1 class="text-4xl font-bold">TRUST ME BRO</h1>
+            </div>
+            <nav class="nav">
+                <button class="button">TOKENOMICS</button>
+                <button class="button">ROADMAP</button>
+                <button class="button">APE IN</button>
+            </nav>
+        </header>
+
+        <div class="price-ticker pulse">
+            <span id="pump-amount" class="text-2xl font-bold">$1000% UP TODAY (TRUST ME BRO)</span>
         </div>
 
-        <h1>$ADVISOR</h1>
-        <div class="ai-tag">Quantum Neural Banana Analysis™</div>
-        
-        <div class="monkey-container">
-            <div class="monkey-image">
-                🐒
-                <div class="monkey-glow"></div>
-                <div class="suit-elements">
-                    <div class="tie"></div>
+        <div style="text-align: center; padding: 4rem 0;">
+            <h2 style="font-size: 3.75rem; font-weight: bold; line-height: 1.2; margin-bottom: 2rem;">
+                THE MOST TRUSTWORTHY <br>
+                TOKEN IN CRYPTO <br>
+                TRUST ME BRO
+            </h2>
+
+            <button id="ape-button" class="button">
+                <span>APE NOW SER</span>
+                <i data-lucide="arrow-right"></i>
+            </button>
+        </div>
+
+        <div id="success-alert" class="alert">
+            CONGRATS ANON! YOU'RE GONNA MAKE IT! 🎉
+        </div>
+
+        <div class="card-grid">
+            <div class="card">
+                <div class="card-header">
+                    <i data-lucide="lock"></i>
+                    <h3 class="text-2xl font-bold">LIQUIDITY = LOCKED</h3>
                 </div>
+                <p>Locked for 69 years. No rugs here bro, trust.</p>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <i data-lucide="bar-chart"></i>
+                    <h3 class="text-2xl font-bold">SUPPLY = BURNED</h3>
+                </div>
+                <p>420T supply, 69% burned. Number go up technology.</p>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <i data-lucide="users"></i>
+                    <h3 class="text-2xl font-bold">COMMUNITY = BASED</h3>
+                </div>
+                <p>Gigachad community of diamond hand hodlers only.</p>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <i data-lucide="rocket"></i>
+                    <h3 class="text-2xl font-bold">UTILITY = MOON</h3>
+                </div>
+                <p>We're going to the moon. That's the utility.</p>
             </div>
         </div>
 
-        <div class="stats">
-            <div class="stat-box">
-                <h3>Neural Processing</h3>
-                <p>42,069 TPS (Trades Per Second)</p>
+        <div class="terminal">
+            <div class="card-header">
+                <i data-lucide="flame"></i>
+                <span class="text-sm">trust_me_bro_terminal_v4.20</span>
             </div>
-            <div class="stat-box">
-                <h3>AI Accuracy</h3>
-                <p>50% ± Quantum Uncertainty</p>
-            </div>
-            <div class="stat-box">
-                <h3>Banana Algorithm v4.20</h3>
-                <p>∞ Computational Bananas</p>
+            <div style="margin-top: 1rem;">
+                <div style="display: flex; gap: 0.5rem;">
+                    <span>$</span>
+                    <span class="pulse">calculate_trust_level</span>
+                </div>
+                <div>> Trust level = MAX</div>
+                <div>> Source: Trust me bro</div>
+                <div>> Price prediction: WAGMI</div>
+                <div>> Checking potential... EXTREMELY BULLISH</div>
             </div>
         </div>
-        <a href="https://vvaifu.fun/" target="_blank" class="btn">Buy $ADVISOR</a>
-    </section>
-
-    <section class="search-section" id="search">
-        <div class="circuit-lines"></div>
-        <h2 style="text-align: center; color: #00ffff; margin-bottom: 2rem;">Ask the AI Monkey 🐒</h2>
-        <div class="search-container">
-            <input type="text" class="search-input" placeholder="Ask about investments, savings, crypto..." id="searchInput">
-            <div class="search-result" id="searchResult"></div>
-        </div>
-    </section>
-
-    <section class="advice-section" id="advice">
-        <div class="circuit-lines"></div>
-        <h2>AI-Generated Trading Insights</h2>
-        <div class="advice-box">
-            <p class="advice-text">"According to my quantum neural networks, these bananas exhibit strong buy signals across multiple parallel universes. 🍌🤖"</p>
-        </div>
-        <a href="#" class="btn">Connect Neural Interface</a>
-    </section>
+    </div>
 
     <script>
-        // Enhanced animations and functionality
-        function addFloatingElement() {
-            const banana = document.createElement('span');
-            banana.className = 'banana';
-            banana.textContent = '🍌';
-            banana.style.left = Math.random() * 100 + '%';
-            banana.style.top = Math.random() * 100 + '%';
-            banana.style.animationDelay = Math.random() * 2 + 's';
-            document.querySelector('.floating-bananas').appendChild(banana);
-            
-            // Remove banana after animation
-            setTimeout(() => banana.remove(), 6000);
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Generate matrix rain effect
+        const matrixContainer = document.getElementById('matrix-container');
+        for (let i = 0; i < 20; i++) {
+            const rain = document.createElement('div');
+            rain.className = 'matrix-rain';
+            rain.style.left = `${i * 5}%`;
+            rain.style.animationDelay = `${Math.random() * 2}s`;
+            matrixContainer.appendChild(rain);
         }
 
-        // Add bananas periodically
-        setInterval(addFloatingElement, 3000);
+        // Generate floating emojis
+        const emojis = ['🌚', '🥶', '🗿', '💀', '🤑', '🚀', '💎', '🌙', '🔥', '📈', '🦍', '🐸'];
+        const emojiContainer = document.getElementById('emoji-container');
+        for (let i = 0; i < 15; i++) {
+            const emoji = document.createElement('div');
+            emoji.className = 'floating-emoji';
+            emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+            emoji.style.left = `${Math.random() * 100}%`;
+            emoji.style.top = `${Math.random() * 100}%`;
+            emoji.style.fontSize = `${Math.random() * 30 + 20}px`;
+            emoji.style.animationDelay = `${Math.random() * 3}s`;
+            emoji.style.animationDuration = `${Math.random() * 8 + 4}s`;
+            emojiContainer.appendChild(emoji);
+        }
 
-        // Enhanced advice generator
-        const advice = [
-            "According to my quantum neural networks, these bananas exhibit strong buy signals across multiple parallel universes. 🍌🤖",
-            "My AI algorithms predict a 69.420% chance of banana market uptrend. Trust the machine learning. 🧠📈",
-            "Neural pattern recognition suggests optimal banana accumulation phase. Initiating HODL protocols. 🤖🍌",
-            "Quantum banana analysis complete: Buy signal detected in 9 out of 10 multiverse scenarios. 🌌💰",
-            "AI sentiment analysis indicates extreme banana bullishness. This is definitely financial advice (from a robot monkey). 🦾🐒"
-        ];
+        // Pump amount animation
+        const pumpAmount = document.getElementById('pump-amount');
+        setInterval(() => {
+            const currentAmount = parseInt(pumpAmount.textContent.replace(/\D/g, ''));
+            pumpAmount.textContent = `$${currentAmount + Math.floor(Math.random() * 100)}% UP TODAY (TRUST ME BRO)`;
+        }, 2000);
 
-        const adviceBox = document.querySelector('.advice-box');
-        adviceBox.addEventListener('click', () => {
-            const randomAdvice = advice[Math.floor(Math.random() * advice.length)];
-            const adviceText = document.querySelector('.advice-text');
-            adviceText.style.opacity = 0;
-            
+        // Ape button functionality
+        const apeButton = document.getElementById('ape-button');
+        const successAlert = document.getElementById('success-alert');
+        apeButton.addEventListener('click', () => {
+            successAlert.style.display = 'block';
             setTimeout(() => {
-                adviceText.textContent = randomAdvice;
-                adviceText.style.opacity = 1;
-            }, 300);
-        });
-
-        // Enhanced search functionality
-        const searchInput = document.getElementById('searchInput');
-        const searchResult = document.getElementById('searchResult');
-        
-        const responses = {
-            'investment': 'Consider diversifying your portfolio across different asset classes. A common strategy is the 60/40 split between stocks and bonds. 📈',
-            'savings': 'Try to save at least 20% of your income. Build an emergency fund that covers 3-6 months of expenses. 💰',
-            'crypto': 'Cryptocurrency investments are highly volatile. Never invest more than you can afford to lose. 🪙',
-            'stock': 'Research companies thoroughly, consider their fundamentals, and think long-term when investing in stocks. 📊',
-            'budget': 'Track your expenses, set realistic goals, and use the 50/30/20 rule: 50% needs, 30% wants, 20% savings. 📝',
-            'default': 'I recommend consulting with a qualified financial advisor for personalized advice based on your specific situation. 🤝'
-        };
-
-        searchInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                const query = searchInput.value.toLowerCase();
-                searchResult.style.display = 'block';
-                
-                let answer = responses.default;
-                Object.entries(responses).forEach(([key, value]) => {
-                    if (query.includes(key)) {
-                        answer = value;
-                    }
-                });
-                
-                searchResult.innerHTML = `<p style="color: #00ffff;">${answer}</p>`;
-                searchResult.style.opacity = 0;
-                setTimeout(() => {
-                    searchResult.style.opacity = 1;
-                }, 100);
-            }
-        });
-
-        // Add matrix-style binary background
-        function createBinary() {
-            const binary = document.createElement('div');
-            binary.className = 'binary';
-            binary.style.left = Math.random() * 100 + '%';
-            binary.style.top = Math.random() * 100 + '%';
-            binary.textContent = Math.random().toString(2).substr(2, 8);
-            document.body.appendChild(binary);
-            setTimeout(() => binary.remove(), 2000);
-        }
-
-        setInterval(createBinary, 100);
-
-        // Add ripple effect to buttons
-        document.querySelectorAll('.btn').forEach(button => {
-            button.addEventListener('click', function(e) {
-                const ripple = document.createElement('div');
-                ripple.className = 'ripple-effect';
-                this.appendChild(ripple);
-                setTimeout(() => ripple.remove(), 2000);
-            });
+                successAlert.style.display = 'none';
+            }, 3000);
         });
     </script>
 </body>

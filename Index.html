@@ -1,160 +1,169 @@
-'use client'
-
-import { useState, useRef, useEffect } from 'react'
-import { Button } from "@/components/ui/button"
-import { ArrowUpRight, X, Send, Copy, Check, Rocket, Users, TrendingUp } from 'lucide-react'
-import Image from 'next/image'
-
-export default function VibeCatLanding() {
-  const [isMuted, setIsMuted] = useState(true)
-  const [isCopied, setIsCopied] = useState(false)
-  const audioRef = useRef<HTMLAudioElement>(null)
-  const contractAddress = "0x1234567890123456789012345678901234567890" // Placeholder CA
-
-  useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.volume = 0.5
-      audioRef.current.loop = true
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    @keyframes rainbow {
+      0% { color: #ff0000; }
+      20% { color: #ff00ff; }
+      40% { color: #00ff00; }
+      60% { color: #00ffff; }
+      80% { color: #0000ff; }
+      100% { color: #ff0000; }
     }
-  }, [])
 
-  const toggleMute = () => {
-    setIsMuted(!isMuted)
-    if (audioRef.current) {
-      audioRef.current.muted = !audioRef.current.muted
-      if (!audioRef.current.muted) {
-        audioRef.current.play().catch(error => console.error("Audio playback failed:", error))
-      }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
     }
-  }
 
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(contractAddress).then(() => {
-      setIsCopied(true)
-      setTimeout(() => setIsCopied(false), 2000)
-    })
-  }
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
 
-  return (
-    <div className="min-h-screen bg-[#0052FF] text-white overflow-hidden relative">
-      <audio 
-        ref={audioRef} 
-        src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Jonas_Blue_-_I_Wanna_Dance_RELVAIRE_Remix-exo2wEwq8h7ZabSHcPYg4Bvftd3tnA.mp3"
-        loop
-      />
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(45deg, #ff00ff, #00ffff);
+      font-family: 'Comic Sans MS', cursive;
+      color: white;
+      text-align: center;
+      overflow-x: hidden;
+    }
 
-      <button 
-        onClick={toggleMute} 
-        className="absolute top-4 left-4 z-50 text-4xl cursor-pointer hover:opacity-80 transition-opacity"
-        aria-label={isMuted ? "Unmute background music" : "Mute background music"}
-      >
-        {isMuted ? '🔇' : '🎵'}
-      </button>
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
 
-      <div className="absolute inset-0 z-0 opacity-40">
-        <div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-0">
-          {[...Array(48)].map((_, i) => (
-            <div key={i} className="w-full aspect-square">
-              <img 
-                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" 
-                alt="" 
-                className="w-full h-full object-cover"
-              />
-            </div>
-          ))}
-        </div>
-      </div>
+    .header {
+      font-size: 4rem;
+      animation: rainbow 3s linear infinite;
+      text-shadow: 3px 3px 0 #000;
+      margin: 2rem 0;
+    }
 
-      <div className="relative z-10 container mx-auto px-4 py-8 sm:py-16 flex flex-col items-center justify-between min-h-screen">
-        <header className="text-center mb-8 sm:mb-16">
-          <div className="flex items-center justify-center gap-4 mb-4">
-            <h1 className="text-4xl sm:text-6xl font-bold animate-bounce">
-              Vibe Cat
-            </h1>
-            <Image 
-              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/base-NtwdNUzzIpsmgtJwal41eHx8ggIDzN.webp"
-              alt="Base Chain Logo"
-              width={48}
-              height={48}
-              className="w-8 h-8 sm:w-12 sm:h-12"
-            />
-          </div>
-          <p className="text-xl sm:text-2xl mb-6 sm:mb-8 animate-pulse">The most exciting vibe on Base Chain! 🐱🚀</p>
-          <Button size="lg" className="bg-[#00FFFF] hover:bg-[#00CCCC] text-[#0052FF] font-bold py-3 px-6 sm:py-4 sm:px-8 rounded-full animate-pulse">
-            Get $VIBE Now <ArrowUpRight className="ml-2" />
-          </Button>
-        </header>
+    .emoji {
+      font-size: 6rem;
+      animation: float 3s ease-in-out infinite;
+      display: inline-block;
+      margin: 1rem;
+    }
 
-        <div className="text-center mt-8 bg-[#0066FF]/50 p-4 rounded-lg">
-          <h2 className="text-xl font-bold mb-2">Contract Address</h2>
-          <div className="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-2">
-            <code className="bg-[#004080] px-3 py-1 rounded text-[#00FFFF] text-sm sm:text-base break-all">
-              CA: {contractAddress}
-            </code>
-            <Button
-              size="sm"
-              variant="ghost"
-              className="text-[#00FFFF] hover:text-white mt-2 sm:mt-0"
-              onClick={copyToClipboard}
-            >
-              {isCopied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
-            </Button>
-          </div>
-        </div>
+    .unicorn {
+      font-size: 8rem;
+      animation: spin 10s linear infinite;
+      display: inline-block;
+      margin: 2rem;
+    }
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 my-8 sm:my-16 max-w-4xl mx-auto">
-          <div className="bg-[#0066FF]/50 p-6 rounded-lg text-center">
-            <Rocket className="w-12 h-12 mx-auto mb-4 text-[#00FFFF]" />
-            <h3 className="text-xl font-bold mb-2">Moon Mission</h3>
-            <p>Strap in for a journey to the moon and beyond with Vibe Cat!</p>
-          </div>
-          <div className="bg-[#0066FF]/50 p-6 rounded-lg text-center">
-            <Users className="w-12 h-12 mx-auto mb-4 text-[#00FFFF]" />
-            <h3 className="text-xl font-bold mb-2">Vibrant Community</h3>
-            <p>Join a community of cat lovers and crypto enthusiasts!</p>
-          </div>
-          <div className="bg-[#0066FF]/50 p-6 rounded-lg text-center col-span-full">
-            <TrendingUp className="w-12 h-12 mx-auto mb-4 text-[#00FFFF]" />
-            <h3 className="text-xl font-bold mb-2">Explosive Growth</h3>
-            <p>Watch your investment grow as we take over the meme coin world!</p>
-          </div>
-        </div>
+    .animal-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      margin: 2rem 0;
+    }
 
-        <div className="text-center mt-8 sm:mt-auto">
-          <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 justify-center">
-            <Button
-              size="lg"
-              className="bg-black hover:bg-gray-800 text-white font-bold py-3 px-6 rounded-full w-full sm:w-auto"
-              onClick={() => window.open('https://x.com', '_blank')}
-            >
-              <X className="mr-2 h-5 w-5" />
-              X
-            </Button>
-            <Button
-              size="lg"
-              className="bg-[#0088cc] hover:bg-[#0077b5] text-white font-bold py-3 px-6 rounded-full w-full sm:w-auto"
-              onClick={() => window.open('https://telegram.org', '_blank')}
-            >
-              <Send className="mr-2 h-5 w-5" />
-              Telegram
-            </Button>
-          </div>
-        </div>
+    .animal-card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 2rem;
+      transition: transform 0.3s;
+    }
 
-        <footer className="text-center py-8 text-[#00FFFF] mt-16">
-          <p>© 2023 Vibe Cat on Base Chain. To the moon! 🚀🌙</p>
-        </footer>
-      </div>
+    .animal-card:hover {
+      transform: scale(1.05);
+    }
 
-      <style jsx>{`
-        @keyframes float {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-10px); }
-        }
-        .animate-float {
-          animation: float 3s ease-in-out infinite;
-        }
-      `}</style>
+    .buy-button {
+      background: linear-gradient(90deg, #ff00ff, #00ffff);
+      border: none;
+      border-radius: 50px;
+      padding: 1rem 3rem;
+      font-size: 2rem;
+      color: white;
+      cursor: pointer;
+      margin: 2rem 0;
+      font-family: 'Comic Sans MS', cursive;
+      text-transform: uppercase;
+      animation: rainbow 3s linear infinite;
+      transition: transform 0.3s;
+    }
+
+    .buy-button:hover {
+      transform: scale(1.1);
+    }
+
+    .stats {
+      display: flex;
+      justify-content: space-around;
+      margin: 4rem 0;
+      font-size: 1.5rem;
+    }
+
+    .stat {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 1rem 2rem;
+      border-radius: 10px;
+      backdrop-filter: blur(5px);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="header">🙏 AMEN 🙏</h1>
+    <div class="unicorn">🦄</div>
+    
+    <div class="stats">
+      <div class="stat">Market Cap: $4.20M</div>
+      <div class="stat">Holders: 69,420</div>
+      <div class="stat">Price: $0.0000042069</div>
     </div>
-  )
-}
+
+    <button class="buy-button">Buy $AMEN</button>
+
+    <div class="animal-grid">
+      <div class="animal-card">
+        <div class="emoji">🐈 🙏</div>
+        <h2>Blessed Cat</h2>
+        <p>Bringing good fortune to your wallet</p>
+      </div>
+      <div class="animal-card">
+        <div class="emoji">🐕 🙏</div>
+        <h2>Blessed Doge</h2>
+        <p>Much prayer, very wow</p>
+      </div>
+      <div class="animal-card">
+        <div class="emoji">🦊 🙏</div>
+        <h2>Blessed Fox</h2>
+        <p>Sneaky gains incoming</p>
+      </div>
+      <div class="animal-card">
+        <div class="emoji">🦁 🙏</div>
+        <h2>Blessed Lion</h2>
+        <p>King of the crypto jungle</p>
+      </div>
+    </div>
+
+    <div style="margin: 4rem 0;">
+      <h2 style="animation: rainbow 3s linear infinite;">Tokenomics</h2>
+      <div class="animal-grid">
+        <div class="animal-card">
+          <h3>5% Reflection</h3>
+          <p>To all blessed holders 🙏</p>
+        </div>
+        <div class="animal-card">
+          <h3>3% Liquidity</h3>
+          <p>For eternal blessings 🙏</p>
+        </div>
+        <div class="animal-card">
+          <h3>2% Charity</h3>
+          <p>Supporting animal shelters 🙏</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

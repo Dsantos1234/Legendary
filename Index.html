@@ -1,86 +1,133 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>PrayerCatCoin - The Holiest Coin in Crypto</title>
-<style>
-    body {
-        font-family: 'Comic Sans MS', cursive, sans-serif;
-        background: #f0f0f0;
-        margin: 0;
-        padding: 0;
-        color: #333;
-    }
-    .header {
-        background: #4CAF50;
-        color: white;
-        padding: 20px 0;
-        text-align: center;
-    }
-    .header h1 {
-        margin: 0;
-        font-size: 2.5em;
-    }
-    .content {
-        max-width: 800px;
-        margin: 20px auto;
-    }
-    .prayercat {
-        width: 100%;
-        max-width: 250px;
-        height: auto;
-        display: block;
-        margin: 20px auto;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        transition: transform 0.3s;
-    }
-    .prayercat:hover {
-        transform: scale(1.05);
-    }
-    .cta-button {
-        display: inline-block;
-        margin: 15px 10px;
-        padding: 15px 30px;
-        background: #4CAF50;
-        color: white;
-        text-decoration: none;
-        border-radius: 5px;
-        font-size: 1.2em;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        transition: background-color 0.3s;
-    }
-    .cta-button:hover {
-        background: #45a049;
-    }
-    .coin-info {
-        background: white;
-        padding: 20px;
-        border-radius: 10px;
-        margin: 20px auto;
-        width: 80%;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    }
-    .info-section {
-        margin-bottom: 20px;
-    }
-    .info-section h2 {
-        color: #4CAF50;
-    }
-    .footer {
-        background: #333;
-        color: white;
-        text-align: center;
-        padding: 10px 0;
-        position: fixed;
-        bottom: 0;
-        width: 100%;
-    }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="PrayerCatCoin - The Holiest Coin in Crypto">
+    <title>PrayerCatCoin - The Holiest Coin in Crypto</title>
+    <style>
+        :root {
+            --primary-color: #4CAF50;
+            --primary-hover: #45a049;
+            --text-color: #333;
+            --bg-color: #f0f0f0;
+            --shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* Layout */
+        .header {
+            background: var(--primary-color);
+            color: white;
+            padding: 1.25rem 0;
+            text-align: center;
+        }
+
+        .content {
+            max-width: 50rem;
+            margin: 1.25rem auto;
+            padding: 0 1rem;
+        }
+
+        /* Components */
+        .prayercat {
+            width: 100%;
+            max-width: 15.625rem;
+            height: auto;
+            display: block;
+            margin: 1.25rem auto;
+            border-radius: 0.625rem;
+            box-shadow: var(--shadow);
+            will-change: transform;
+            transition: transform 0.3s ease;
+        }
+
+        .prayercat:hover {
+            transform: scale(1.05);
+        }
+
+        .cta-button {
+            display: inline-block;
+            margin: 1rem 0.625rem;
+            padding: 0.9375rem 1.875rem;
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 0.3125rem;
+            font-size: 1.2em;
+            box-shadow: var(--shadow);
+            transition: background-color 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background: var(--primary-hover);
+        }
+
+        .coin-info {
+            background: white;
+            padding: 1.25rem;
+            border-radius: 0.625rem;
+            margin: 1.25rem auto;
+            width: 100%;
+            box-shadow: var(--shadow);
+        }
+
+        .info-section {
+            margin-bottom: 1.25rem;
+        }
+
+        .info-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 0.625rem;
+        }
+
+        .footer {
+            background: var(--text-color);
+            color: white;
+            text-align: center;
+            padding: 0.625rem 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        /* Media Queries */
+        @media (max-width: 768px) {
+            .coin-info {
+                width: 95%;
+            }
+            
+            .content {
+                padding: 0 0.625rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <header class="header">
         <h1>PrayerCatCoin</h1>
     </header>
-    <div class="content">
-        <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAAAAAAAD/2wCEAAkGBxISEhUTEhIVFRUXGBgYGBgYGBcYGBgYGBgYGBgYGBgXGBgYGBcYHSggGBolHRcYLxAnJyUmLys3Jy8rLxctLx8vLzc3NTAqNSYrNDI0Nzg5MTU1LTAqLTAqNTAqNDErNzg5MTU1Nzg2LTAqNDAqNTA1NDI1Nzg1Nzg1Nzg1Nzg1Nzg1Nzg1Nzg1Nzg1Nzg1Nzg1Nzg1Nzg1Nzg1Nzg1Nzg1Nzg1Nzg1Nzg1Nzg1Nzg1Nzg1Nzg1Nzg1Nzg1Nzg1Nzg1Nzg1Nzg1Nzg1Nzg1Nzg1Nzg1Nzg1Nzg1Nzg1Nzg1Nzg1Nzg1Nzg1Nzg1Nzg1Nzg1Nzg1Nzg1Nzg1Nzg1Nzg1Nzg1Nzg1Nzg1Nzg1Nzg1Nzg1Nzg1Nzg1Nzg1Nzg1Nzg1Nzg1Nzg1Nzg1Nzg1Nzg1Nzg1Nzg1Nzg1Nzg1Nzg1Nzg1Nzg1Nzg1N
+
+    <main class="content">
+        <img class="prayercat" src="prayercat.jpg" alt="PrayerCat Coin Logo" loading="lazy">
+        <!-- Rest of your content here -->
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2024 PrayerCatCoin. All rights reserved.</p>
+    </footer>
+</body>
+</html>

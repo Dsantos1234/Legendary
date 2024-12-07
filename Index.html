@@ -1,133 +1,139 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="PrayerCatCoin - The Holiest Coin in Crypto">
-    <title>PrayerCatCoin - The Holiest Coin in Crypto</title>
-    <style>
-        :root {
-            --primary-color: #4CAF50;
-            --primary-hover: #45a049;
-            --text-color: #333;
-            --bg-color: #f0f0f0;
-            --shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
+import { useState, useRef, useEffect } from 'react';
 
-        /* Reset */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+const VibeCatLanding = () => {
+  const [isMuted, setIsMuted] = useState(true);
+  const [isCopied, setIsCopied] = useState(false);
+  const audioRef = useRef(null);
+  const contractAddress = "0x1234567890123456789012345678901234567890";
 
-        body {
-            font-family: system-ui, -apple-system, sans-serif;
-            background: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.6;
-        }
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.volume = 0.5;
+      audioRef.current.loop = true;
+    }
+  }, []);
 
-        /* Layout */
-        .header {
-            background: var(--primary-color);
-            color: white;
-            padding: 1.25rem 0;
-            text-align: center;
-        }
+  const toggleMute = () => {
+    setIsMuted(!isMuted);
+    if (audioRef.current) {
+      audioRef.current.muted = !audioRef.current.muted;
+      if (!audioRef.current.muted) {
+        audioRef.current.play().catch(error => console.error("Audio playback failed:", error));
+      }
+    }
+  };
 
-        .content {
-            max-width: 50rem;
-            margin: 1.25rem auto;
-            padding: 0 1rem;
-        }
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(contractAddress).then(() => {
+      setIsCopied(true);
+      setTimeout(() => setIsCopied(false), 2000);
+    });
+  };
 
-        /* Components */
-        .prayercat {
-            width: 100%;
-            max-width: 15.625rem;
-            height: auto;
-            display: block;
-            margin: 1.25rem auto;
-            border-radius: 0.625rem;
-            box-shadow: var(--shadow);
-            will-change: transform;
-            transition: transform 0.3s ease;
-        }
+  return (
+    <div className="min-h-screen bg-blue-600 text-white overflow-hidden relative">
+      <audio 
+        ref={audioRef} 
+        src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Jonas_Blue_-_I_Wanna_Dance_RELVAIRE_Remix-exo2wEwq8h7ZabSHcPYg4Bvftd3tnA.mp3"
+        loop
+      />
 
-        .prayercat:hover {
-            transform: scale(1.05);
-        }
+      <button 
+        onClick={toggleMute} 
+        className="absolute top-4 left-4 z-50 text-4xl cursor-pointer hover:opacity-80 transition-opacity"
+        aria-label={isMuted ? "Unmute background music" : "Mute background music"}
+      >
+        {isMuted ? '🔇' : '🎵'}
+      </button>
 
-        .cta-button {
-            display: inline-block;
-            margin: 1rem 0.625rem;
-            padding: 0.9375rem 1.875rem;
-            background: var(--primary-color);
-            color: white;
-            text-decoration: none;
-            border-radius: 0.3125rem;
-            font-size: 1.2em;
-            box-shadow: var(--shadow);
-            transition: background-color 0.3s ease;
-        }
+      <div className="absolute inset-0 z-0 opacity-40">
+        <div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-0">
+          {[...Array(48)].map((_, i) => (
+            <div key={i} className="w-full aspect-square">
+              <img 
+                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" 
+                alt="" 
+                className="w-full h-full object-cover"
+              />
+            </div>
+          ))}
+        </div>
+      </div>
 
-        .cta-button:hover {
-            background: var(--primary-hover);
-        }
+      <div className="relative z-10 container mx-auto px-4 py-8 sm:py-16 flex flex-col items-center justify-between min-h-screen">
+        <header className="text-center mb-8 sm:mb-16">
+          <div className="flex items-center justify-center gap-4 mb-4">
+            <h1 className="text-4xl sm:text-6xl font-bold animate-bounce">
+              Vibe Cat
+            </h1>
+            <img 
+              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/base-NtwdNUzzIpsmgtJwal41eHx8ggIDzN.webp"
+              alt="Base Chain Logo"
+              className="w-8 h-8 sm:w-12 sm:h-12"
+            />
+          </div>
+          <p className="text-xl sm:text-2xl mb-6 sm:mb-8 animate-pulse">The most exciting vibe on Base Chain! 🐱🚀</p>
+          <button className="bg-cyan-400 hover:bg-cyan-500 text-blue-600 font-bold py-3 px-6 sm:py-4 sm:px-8 rounded-full animate-pulse">
+            Get $VIBE Now <span className="ml-2">↗</span>
+          </button>
+        </header>
 
-        .coin-info {
-            background: white;
-            padding: 1.25rem;
-            border-radius: 0.625rem;
-            margin: 1.25rem auto;
-            width: 100%;
-            box-shadow: var(--shadow);
-        }
+        <div className="text-center mt-8 bg-blue-700/50 p-4 rounded-lg">
+          <h2 className="text-xl font-bold mb-2">Contract Address</h2>
+          <div className="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-2">
+            <code className="bg-blue-800 px-3 py-1 rounded text-cyan-400 text-sm sm:text-base break-all">
+              CA: {contractAddress}
+            </code>
+            <button
+              className="text-cyan-400 hover:text-white mt-2 sm:mt-0 p-2"
+              onClick={copyToClipboard}
+            >
+              {isCopied ? '✓' : '📋'}
+            </button>
+          </div>
+        </div>
 
-        .info-section {
-            margin-bottom: 1.25rem;
-        }
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 my-8 sm:my-16 max-w-4xl mx-auto">
+          <div className="bg-blue-700/50 p-6 rounded-lg text-center">
+            <span className="inline-block w-12 h-12 mb-4 text-cyan-400">🚀</span>
+            <h3 className="text-xl font-bold mb-2">Moon Mission</h3>
+            <p>Strap in for a journey to the moon and beyond with Vibe Cat!</p>
+          </div>
+          <div className="bg-blue-700/50 p-6 rounded-lg text-center">
+            <span className="inline-block w-12 h-12 mb-4 text-cyan-400">👥</span>
+            <h3 className="text-xl font-bold mb-2">Vibrant Community</h3>
+            <p>Join a community of cat lovers and crypto enthusiasts!</p>
+          </div>
+          <div className="bg-blue-700/50 p-6 rounded-lg text-center col-span-full">
+            <span className="inline-block w-12 h-12 mb-4 text-cyan-400">📈</span>
+            <h3 className="text-xl font-bold mb-2">Explosive Growth</h3>
+            <p>Watch your investment grow as we take over the meme coin world!</p>
+          </div>
+        </div>
 
-        .info-section h2 {
-            color: var(--primary-color);
-            margin-bottom: 0.625rem;
-        }
+        <div className="text-center mt-8 sm:mt-auto">
+          <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 justify-center">
+            <button
+              className="bg-black hover:bg-gray-800 text-white font-bold py-3 px-6 rounded-full w-full sm:w-auto"
+              onClick={() => window.open('https://x.com', '_blank')}
+            >
+              𝕏
+            </button>
+            <button
+              className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-full w-full sm:w-auto"
+              onClick={() => window.open('https://telegram.org', '_blank')}
+            >
+              ✈️ Telegram
+            </button>
+          </div>
+        </div>
 
-        .footer {
-            background: var(--text-color);
-            color: white;
-            text-align: center;
-            padding: 0.625rem 0;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-        }
+        <footer className="text-center py-8 text-cyan-400 mt-16">
+          <p>© 2023 Vibe Cat on Base Chain. To the moon! 🚀🌙</p>
+        </footer>
+      </div>
+    </div>
+  );
+};
 
-        /* Media Queries */
-        @media (max-width: 768px) {
-            .coin-info {
-                width: 95%;
-            }
-            
-            .content {
-                padding: 0 0.625rem;
-            }
-        }
-    </style>
-</head>
-<body>
-    <header class="header">
-        <h1>PrayerCatCoin</h1>
-    </header>
-
-    <main class="content">
-        <img class="prayercat" src="prayercat.jpg" alt="PrayerCat Coin Logo" loading="lazy">
-        <!-- Rest of your content here -->
-    </main>
-
-    <footer class="footer">
-        <p>&copy; 2024 PrayerCatCoin. All rights reserved.</p>
-    </footer>
-</body>
-</html>
+export default VibeCatLanding;

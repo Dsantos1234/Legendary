@@ -11,12 +11,12 @@
             background-color: #0052FF;
             color: white;
             min-height: 100vh;
-            overflow-x: hidden;
+            overflow: hidden;
         }
         .container {
-            max-width: 100%;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 1rem;
+            padding: 2rem 1rem;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -26,22 +26,22 @@
             z-index: 10;
         }
         .bg-grid {
-            position: fixed;
+            position: absolute;
             inset: 0;
             z-index: 0;
             opacity: 0.4;
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(4, 1fr);
             gap: 0;
         }
         @media (min-width: 768px) {
             .bg-grid {
-                grid-template-columns: repeat(4, 1fr);
+                grid-template-columns: repeat(6, 1fr);
             }
         }
         @media (min-width: 1024px) {
             .bg-grid {
-                grid-template-columns: repeat(6, 1fr);
+                grid-template-columns: repeat(8, 1fr);
             }
         }
         .bg-grid img {
@@ -50,7 +50,7 @@
             object-fit: cover;
         }
         .mute-button {
-            position: fixed;
+            position: absolute;
             top: 1rem;
             left: 1rem;
             z-index: 50;
@@ -59,20 +59,18 @@
             background: none;
             border: none;
             color: white;
-            padding: 0.5rem;
-            touch-action: manipulation;
         }
         .header {
             text-align: center;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
         }
         .title {
-            font-size: 2rem;
+            font-size: 2.25rem;
             font-weight: bold;
             animation: bounce 1s infinite;
         }
         .subtitle {
-            font-size: 1rem;
+            font-size: 1.25rem;
             margin-bottom: 1rem;
             animation: pulse 2s infinite;
         }
@@ -86,16 +84,13 @@
             display: inline-flex;
             align-items: center;
             animation: pulse 2s infinite;
-            touch-action: manipulation;
         }
         .contract-address {
             text-align: center;
-            margin-top: 1.5rem;
+            margin-top: 2rem;
             background-color: rgba(0, 102, 255, 0.5);
             padding: 1rem;
             border-radius: 0.5rem;
-            width: 100%;
-            box-sizing: border-box;
         }
         .address-code {
             background-color: #004080;
@@ -104,54 +99,49 @@
             color: #00FFFF;
             font-family: monospace;
             word-break: break-all;
-            font-size: 0.8rem;
         }
         .features {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 1rem;
-            margin: 1.5rem auto;
-            width: 100%;
+            gap: 1.5rem;
+            margin: 2rem auto;
+            max-width: 64rem;
         }
         .feature {
             background-color: rgba(0, 102, 255, 0.5);
-            padding: 1rem;
+            padding: 1.5rem;
             border-radius: 0.5rem;
             text-align: center;
         }
         .feature-icon {
-            width: 2.5rem;
-            height: 2.5rem;
-            margin: 0 auto 0.5rem;
+            width: 3rem;
+            height: 3rem;
+            margin: 0 auto 1rem;
         }
         .social-buttons {
             display: flex;
             flex-direction: column;
-            gap: 0.5rem;
-            margin-top: 1.5rem;
-            width: 100%;
+            gap: 1rem;
+            margin-top: 2rem;
         }
         .social-button {
-            display: flex;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            padding: 0.75rem;
+            padding: 0.75rem 1.5rem;
             border-radius: 9999px;
             font-weight: bold;
             text-decoration: none;
-            width: 100%;
-            touch-action: manipulation;
         }
         .footer {
             text-align: center;
-            padding: 1rem 0;
+            padding: 2rem 0;
             color: #00FFFF;
-            margin-top: 2rem;
-            font-size: 0.8rem;
+            margin-top: 4rem;
         }
         @keyframes bounce {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
+            50% { transform: translateY(-10px); }
         }
         @keyframes pulse {
             0%, 100% { opacity: 1; }
@@ -159,119 +149,121 @@
         }
         @keyframes float {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
+            50% { transform: translateY(-10px); }
         }
         .animate-float {
             animation: float 3s ease-in-out infinite;
         }
         @media (min-width: 640px) {
-            .container { padding: 2rem; }
-            .title { font-size: 2.5rem; }
-            .subtitle { font-size: 1.25rem; }
+            .title { font-size: 3rem; }
+            .subtitle { font-size: 1.5rem; }
             .features { grid-template-columns: repeat(2, 1fr); }
             .social-buttons { flex-direction: row; }
-            .social-button { width: auto; }
         }
     </style>
 </head>
 <body>
-    <audio id="backgroundMusic" src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Jonas_Blue_-_I_Wanna_Dance_RELVAIRE_Remix-exo2wEwq8h7ZabSHcPYg4Bvftd3tnA.mp3" loop preload="none"></audio>
-
+    <audio id="backgroundMusic" src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Jonas_Blue_-_I_Wanna_Dance_RELVAIRE_Remix-exo2wEwq8h7ZabSHcPYg4Bvftd3tnA.mp3" loop></audio>
     <button id="muteButton" class="mute-button" aria-label="Unmute background music">🔇</button>
-
     <div class="bg-grid">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="" loading="lazy">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="" loading="lazy">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="" loading="lazy">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="" loading="lazy">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="" loading="lazy">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="" loading="lazy">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="" loading="lazy">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="" loading="lazy">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="" loading="lazy">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="" loading="lazy">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="" loading="lazy">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="" loading="lazy">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="" loading="lazy">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="" loading="lazy">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="" loading="lazy">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="" loading="lazy">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="" loading="lazy">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="" loading="lazy">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="" loading="lazy">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="" loading="lazy">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="" loading="lazy">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="" loading="lazy">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="" loading="lazy">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="" loading="lazy">
+        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
+        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
+        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
+        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
+        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
+        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
+        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
+        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
+        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
+        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
+        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
+        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
+        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
+        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
+        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
+        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
+        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
+        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
+        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
+        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
+        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
+        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
+        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
+        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
+        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
+        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
+        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
+        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
+        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
+        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
+        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
+        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
+        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
+        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
+        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
+        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
+        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
+        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
     </div>
-
     <div class="container">
         <header class="header">
-            <div style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+            <div style="display: flex; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 1rem;">
                 <h1 class="title">Vibe Cat</h1>
-                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/base-NtwdNUzzIpsmgtJwal41eHx8ggIDzN.webp" alt="Base Chain Logo" width="36" height="36" loading="lazy">
+                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/base-NtwdNUzzIpsmgtJwal41eHx8ggIDzN.webp" alt="Base Chain Logo" width="48" height="48">
             </div>
             <p class="subtitle">The most exciting vibe on Base Chain! 🐱🚀</p>
             <a href="https://ape.store" class="cta-button">
                 Get $VIBE Now
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 0.5rem;"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-2"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
             </a>
         </header>
-
         <div class="contract-address">
-            <h2 style="font-size: 1rem; font-weight: bold; margin-bottom: 0.5rem;">Contract Address</h2>
+            <h2 style="font-size: 1.25rem; font-weight: bold; margin-bottom: 0.5rem;">Contract Address</h2>
             <div style="display: flex; flex-direction: column; align-items: center;">
                 <code id="contractAddress" class="address-code">CA: 0x1234567890123456789012345678901234567890</code>
-                <button id="copyButton" style="background: none; border: none; color: #00FFFF; cursor: pointer; margin-top: 0.5rem; padding: 0.5rem; touch-action: manipulation;">
+                <button id="copyButton" style="background: none; border: none; color: #00FFFF; cursor: pointer; margin-top: 0.5rem;">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
                 </button>
             </div>
         </div>
-
         <div class="features">
             <div class="feature">
-                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#00FFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feature-icon"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path></svg>
-                <h3 style="font-size: 1rem; font-weight: bold; margin-bottom: 0.25rem;">Moon Mission</h3>
-                <p style="font-size: 0.9rem;">Strap in for a journey to the moon and beyond with Vibe Cat!</p>
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#00FFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feature-icon"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path></svg>
+                <h3 style="font-size: 1.25rem; font-weight: bold; margin-bottom: 0.5rem;">Moon Mission</h3>
+                <p>Strap in for a journey to the moon and beyond with Vibe Cat!</p>
             </div>
             <div class="feature">
-                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#00FFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feature-icon"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-                <h3 style="font-size: 1rem; font-weight: bold; margin-bottom: 0.25rem;">Vibrant Community</h3>
-                <p style="font-size: 0.9rem;">Join a community of cat lovers and crypto enthusiasts!</p>
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#00FFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feature-icon"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                <h3 style="font-size: 1.25rem; font-weight: bold; margin-bottom: 0.5rem;">Vibrant Community</h3>
+                <p>Join a community of cat lovers and crypto enthusiasts!</p>
             </div>
-            <div class="feature">
-                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#00FFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feature-icon"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
-                <h3 style="font-size: 1rem; font-weight: bold; margin-bottom: 0.25rem;">Explosive Growth</h3>
-                <p style="font-size: 0.9rem;">Watch your investment grow as we take over the meme coin world!</p>
+            <div class="feature" style="grid-column: 1 / -1;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#00FFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feature-icon"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+                <h3 style="font-size: 1.25rem; font-weight: bold; margin-bottom: 0.5rem;">Explosive Growth</h3>
+                <p>Watch your investment grow as we take over the meme coin world!</p>
             </div>
         </div>
-
         <div class="social-buttons">
-            <a href="https://x.com/vibeonbase?s=21" target="_blank" rel="noopener noreferrer" class="social-button" style="background-color: black; color: white;">
+            <a href="https://x.com/vibeonbase?s=21" target="_blank" class="social-button" style="background-color: black; color: white;">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 0.5rem;"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
                 X
             </a>
-            <a href="https://t.me/vibeonbase" target="_blank" rel="noopener noreferrer" class="social-button" style="background-color: #0088cc; color: white;">
+            <a href="https://t.me/vibeonbase" target="_blank" class="social-button" style="background-color: #0088cc; color: white;">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 0.5rem;"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
                 Telegram
             </a>
         </div>
-
         <footer class="footer">
             <p>© 2023 Vibe Cat on Base Chain. To the moon! 🚀🌙</p>
         </footer>
     </div>
-
     <script>
         const audioElement = document.getElementById('backgroundMusic');
         const muteButton = document.getElementById('muteButton');
         const copyButton = document.getElementById('copyButton');
         const contractAddress = document.getElementById('contractAddress');
         let isMuted = true;
-
         audioElement.volume = 0.5;
-
         muteButton.addEventListener('click', () => {
             isMuted = !isMuted;
             audioElement.muted = isMuted;
@@ -281,7 +273,6 @@
                 audioElement.play().catch(error => console.error("Audio playback failed:", error));
             }
         });
-
         copyButton.addEventListener('click', () => {
             const addressText = contractAddress.textContent.replace('CA: ', '');
             navigator.clipboard.writeText(addressText).then(() => {
@@ -291,25 +282,6 @@
                 }, 2000);
             });
         });
-
-        // Lazy load background images
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.src = entry.target.dataset.src;
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, {
-            rootMargin: '100px'
-        });
-
-        document.querySelectorAll('.bg-grid img').forEach(img => {
-            img.dataset.src = img.src;
-            img.src = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
-            observer.observe(img);
-        });
     </script>
 </body>
 </html>
-

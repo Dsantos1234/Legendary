@@ -3,24 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ultra Meme Coin</title>
+    <title>Dragon Ball Z Meme Coin</title>
     <style>
         body {
+            background: url('dbz-background.jpg') no-repeat center center fixed;
+            background-size: cover;
             font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #1a1a1a; /* Dark background */
+            color: #FFD700; /* Gold text for DBZ theme */
+            text-shadow: 2px 2px 4px #000; /* Add readability on dark backgrounds */
         }
         header, nav, main, aside, footer {
             padding: 20px;
         }
         header {
-            background: #2C3E50; /* Darker blue for header */
-            color: #ECF0F1; /* Light gray text */
             text-align: center;
+            background: rgba(0, 0, 0, 0.8);
+        }
+        .dbz-logo {
+            width: 150px;
+            height: 150px;
+            background: url('dragonball-logo.png') center/contain no-repeat;
+            margin: 0 auto 20px;
+            animation: float 3s ease-in-out infinite;
         }
         nav {
-            background: #34495E; /* Dark blue */
+            background: rgba(0, 0, 0, 0.6);
         }
         nav ul {
             list-style-type: none;
@@ -31,71 +38,68 @@
             margin-right: 10px;
         }
         nav ul li a {
-            color: #ECF0F1; /* Light gray for links */
+            color: #FFD700;
             text-decoration: none;
+            transition: color 0.3s;
         }
-        .coin {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            background: #F1C40F; /* Bright gold coin */
-            margin: 20px auto;
-            animation: spin 4s linear infinite; /* Suggest spinning animation */
+        nav ul li a:hover {
+            color: #FF4500; /* More vibrant orange on hover */
         }
         article {
-            background: #34495E; /* Dark blue for articles */
-            border: 1px solid #2C3E50; /* Darker blue border */
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid #FFD700;
             margin-bottom: 20px;
             padding: 15px;
-            color: #ECF0F1; /* Light gray text */
         }
         .cta-button {
             display: inline-block;
             padding: 10px 20px;
-            background: #E67E22; /* Warm orange for buttons */
-            color: #1a1a1a; /* Dark text on bright background */
+            background: #FFD700;
+            color: black;
             text-decoration: none;
             border-radius: 5px;
+            animation: pulse 2s infinite;
         }
         footer {
-            background: #2C3E50; /* Darker blue for footer */
-            color: #ECF0F1; /* Light gray text */
+            background: rgba(0, 0, 0, 0.8);
             text-align: center;
         }
-        /* Carousel structure */
-        .carousel {
-            width: 100%;
-            overflow: hidden;
+        /* Bouncing images */
+        .bouncing-image {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            animation: bounce 1s infinite ease-in-out;
         }
-        .carousel-inner {
-            display: flex;
-            transition: transform 0.5s ease-in-out;
-            animation: slide 20s linear infinite;
+        #goku {
+            background: url('goku.png') no-repeat center/contain;
+            left: 10%;
         }
-        .carousel-item {
-            min-width: 100%;
-            padding: 20px;
-            box-sizing: border-box;
-            text-align: center;
+        #vegeta {
+            background: url('vegeta.png') no-repeat center/contain;
+            left: 30%;
+            top: 20%;
         }
         /* Animations */
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
-        @keyframes slide {
-            0% { transform: translateX(0); }
-            25% { transform: translateX(-100%); }
-            50% { transform: translateX(-200%); }
-            75% { transform: translateX(-300%); }
-            100% { transform: translateX(0); }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>Ultra Meme Coin</h1>
-        <div class="coin"></div>
+        <div class="dbz-logo"></div>
+        <h1>Dragon Ball Z Meme Coin</h1>
     </header>
 
     <nav>
@@ -111,67 +115,55 @@
     <main>
         <section id="home">
             <article>
-                <h2>Welcome to Ultra Meme Coin</h2>
-                <p>The future of memetic finance is here. Join the revolution!</p>
+                <h2>Welcome to Dragon Ball Z Coin</h2>
+                <p>Unleash the power of the meme coin universe with the spirit of DBZ!</p>
                 <a href="#buy" class="cta-button">Buy Now</a>
             </article>
         </section>
 
         <section id="about">
-            <h2>What is Ultra Meme Coin?</h2>
+            <h2>What is DBZ Coin?</h2>
             <article>
-                <h3>Our Vision</h3>
-                <p>Ultra Meme Coin aims to revolutionize the crypto space with humor, innovation, and community-driven growth.</p>
+                <h3>Our Mission</h3>
+                <p>Like Goku's journey, we aim to push the boundaries of memetic currency to new heights.</p>
             </article>
             <article>
                 <h3>Tokenomics</h3>
-                <p>Total Supply: 1,000,000,000 UMC<br>
-                - 50% for presale<br>
-                - 30% for liquidity<br>
-                - 10% for marketing<br>
-                - 10% for development</p>
+                <p>Total Supply: 4,200,000,000 DBZC<br>
+                - 50% for community<br>
+                - 30% for development<br>
+                - 20% for marketing</p>
             </article>
         </section>
 
         <section id="roadmap">
             <h2>Roadmap</h2>
-            <div class="carousel">
-                <div class="carousel-inner">
-                    <div class="carousel-item">
-                        <h3>Phase 1: Launch</h3>
-                        <ul>
-                            <li>Website and social media launch</li>
-                            <li>Presale</li>
-                        </ul>
-                    </div>
-                    <div class="carousel-item">
-                        <h3>Phase 2: Growth</h3>
-                        <ul>
-                            <li>Exchange listings</li>
-                            <li>Community initiatives</li>
-                        </ul>
-                    </div>
-                    <!-- Add more phases here -->
-                </div>
-            </div>
+            <article>
+                <h3>Phase 1: Saiyan Launch</h3>
+                <p>Website launch, community building, and initial token distribution.</p>
+            </article>
+            <article>
+                <h3>Phase 2: Super Saiyan</h3>
+                <p>Exchange listings, partnerships, and first major marketing push.</p>
+            </article>
         </section>
 
         <section id="team">
             <h2>Our Team</h2>
             <article>
-                <h3>John Doe - Founder</h3>
-                <p>Expert in blockchain and memetics.</p>
+                <h3>Goku - Founder</h3>
+                <p>Leading the charge into the meme coin universe.</p>
             </article>
             <article>
-                <h3>Jane Smith - Developer</h3>
-                <p>Solidity wizard and community builder.</p>
+                <h3>Vegeta - Developer</h3>
+                <p>Brings the power of development with the pride of a Saiyan.</p>
             </article>
         </section>
 
         <section id="buy">
-            <h2>Buy Ultra Meme Coin</h2>
+            <h2>Buy Dragon Ball Z Coin</h2>
             <article>
-                <p>Get your UMC tokens now by connecting your wallet:</p>
+                <p>Join the DBZ Coin revolution by connecting your wallet:</p>
                 <form action="#connect-wallet" method="get">
                     <button type="submit" class="cta-button">Connect Wallet</button>
                 </form>
@@ -182,13 +174,17 @@
     <aside>
         <h3>Latest News</h3>
         <article>
-            <h4>UMC Listed on New Exchange!</h4>
-            <p>Check out our latest exchange listing!</p>
+            <h4>DBZC Now on PancakeSwap!</h4>
+            <p>Trade DBZC with ease on one of the leading DEXs.</p>
         </article>
     </aside>
 
     <footer>
-        <p>© 2024 Ultra Meme Coin. All rights reserved.</p>
+        <p>© 2024 Dragon Ball Z Coin. All rights reserved.</p>
     </footer>
+
+    <!-- Bouncing Characters -->
+    <div id="goku" class="bouncing-image"></div>
+    <div id="vegeta" class="bouncing-image"></div>
 </body>
 </html>

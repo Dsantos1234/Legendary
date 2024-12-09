@@ -3,297 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vibe Cat Landing</title>
+    <title>AI Revolution Coin</title>
     <style>
         body {
-            margin: 0;
+            background-image: url('forest.jpg'); /* Replace with actual outdoor image */
+            background-size: cover;
+            background-attachment: fixed;
             font-family: Arial, sans-serif;
-            background-color: #0052FF;
             color: white;
-            min-height: 100vh;
-            overflow: hidden;
         }
         .container {
-            max-width: 1200px;
             margin: 0 auto;
-            padding: 2rem 1rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-between;
-            min-height: 100vh;
-            position: relative;
-            z-index: 10;
+            max-width: 800px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 15px;
         }
-        .bg-grid {
-            position: absolute;
-            inset: 0;
-            z-index: 0;
-            opacity: 0.4;
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 0;
-        }
-        @media (min-width: 768px) {
-            .bg-grid {
-                grid-template-columns: repeat(6, 1fr);
-            }
-        }
-        @media (min-width: 1024px) {
-            .bg-grid {
-                grid-template-columns: repeat(8, 1fr);
-            }
-        }
-        .bg-grid img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .mute-button {
-            position: absolute;
-            top: 1rem;
-            left: 1rem;
-            z-index: 50;
-            font-size: 2rem;
-            cursor: pointer;
-            background: none;
-            border: none;
-            color: white;
-        }
-        .header {
+        h1 {
             text-align: center;
-            margin-bottom: 2rem;
+            color: #FFD700; /* Gold color for a futuristic feel */
         }
-        .title {
-            font-size: 2.25rem;
-            font-weight: bold;
-            animation: bounce 1s infinite;
+        p {
+            line-height: 1.6;
         }
-        .subtitle {
-            font-size: 1.25rem;
-            margin-bottom: 1rem;
-            animation: pulse 2s infinite;
+        .meme-logo {
+            display: block;
+            margin: 0 auto 20px;
+            max-width: 100%;
         }
         .cta-button {
-            background-color: #00FFFF;
-            color: #0052FF;
-            font-weight: bold;
-            padding: 0.75rem 1.5rem;
-            border-radius: 9999px;
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            padding: 10px;
+            background: #FFD700;
+            text-align: center;
             text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            animation: pulse 2s infinite;
-        }
-        .contract-address {
-            text-align: center;
-            margin-top: 2rem;
-            background-color: rgba(0, 102, 255, 0.5);
-            padding: 1rem;
-            border-radius: 0.5rem;
-        }
-        .address-code {
-            background-color: #004080;
-            padding: 0.25rem 0.75rem;
-            border-radius: 0.25rem;
-            color: #00FFFF;
-            font-family: monospace;
-            word-break: break-all;
-        }
-        .features {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 1.5rem;
-            margin: 2rem auto;
-            max-width: 64rem;
-        }
-        .feature {
-            background-color: rgba(0, 102, 255, 0.5);
-            padding: 1.5rem;
-            border-radius: 0.5rem;
-            text-align: center;
-        }
-        .feature-icon {
-            width: 3rem;
-            height: 3rem;
-            margin: 0 auto 1rem;
-        }
-        .social-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-        .social-button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0.75rem 1.5rem;
-            border-radius: 9999px;
+            color: black;
+            border-radius: 5px;
             font-weight: bold;
-            text-decoration: none;
-        }
-        .footer {
-            text-align: center;
-            padding: 2rem 0;
-            color: #00FFFF;
-            margin-top: 4rem;
-        }
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-        .animate-float {
-            animation: float 3s ease-in-out infinite;
-        }
-        @media (min-width: 640px) {
-            .title { font-size: 3rem; }
-            .subtitle { font-size: 1.5rem; }
-            .features { grid-template-columns: repeat(2, 1fr); }
-            .social-buttons { flex-direction: row; }
         }
     </style>
 </head>
 <body>
-    <audio id="backgroundMusic" src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Jonas_Blue_-_I_Wanna_Dance_RELVAIRE_Remix-exo2wEwq8h7ZabSHcPYg4Bvftd3tnA.mp3" loop></audio>
-
-    <button id="muteButton" class="mute-button" aria-label="Unmute background music">🔇</button>
-
-    <div class="bg-grid">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3516-vibe-cat-FbtiI1IolzRkKQ60zRs5a45GOEQeQI.gif" alt="">
-    </div>
-
     <div class="container">
-        <header class="header">
-            <div style="display: flex; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 1rem;">
-                <h1 class="title">Vibe Cat</h1>
-                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/base-NtwdNUzzIpsmgtJwal41eHx8ggIDzN.webp" alt="Base Chain Logo" width="48" height="48">
-            </div>
-            <p class="subtitle">The most exciting vibe on Base Chain! 🐱🚀</p>
-            <a href="https://ape.store" class="cta-button">
-                Get $VIBE Now
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-2"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
-            </a>
-        </header>
-
-        <div class="contract-address">
-            <h2 style="font-size: 1.25rem; font-weight: bold; margin-bottom: 0.5rem;">Contract Address</h2>
-            <div style="display: flex; flex-direction: column; align-items: center;">
-                <code id="contractAddress" class="address-code">CA: 0x1234567890123456789012345678901234567890</code>
-                <button id="copyButton" style="background: none; border: none; color: #00FFFF; cursor: pointer; margin-top: 0.5rem;">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-                </button>
-            </div>
-        </div>
-
-        <div class="features">
-            <div class="feature">
-                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#00FFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feature-icon"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path></svg>
-                <h3 style="font-size: 1.25rem; font-weight: bold; margin-bottom: 0.5rem;">Moon Mission</h3>
-                <p>Strap in for a journey to the moon and beyond with Vibe Cat!</p>
-            </div>
-            <div class="feature">
-                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#00FFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feature-icon"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-                <h3 style="font-size: 1.25rem; font-weight: bold; margin-bottom: 0.5rem;">Vibrant Community</h3>
-                <p>Join a community of cat lovers and crypto enthusiasts!</p>
-            </div>
-            <div class="feature" style="grid-column: 1 / -1;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#00FFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feature-icon"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
-                <h3 style="font-size: 1.25rem; font-weight: bold; margin-bottom: 0.5rem;">Explosive Growth</h3>
-                <p>Watch your investment grow as we take over the meme coin world!</p>
-            </div>
-        </div>
-
-        <div class="social-buttons">
-            <a href="https://x.com/vibeonbase?s=21" target="_blank" class="social-button" style="background-color: black; color: white;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 0.5rem;"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
-                X
-            </a>
-            <a href="https://t.me/vibeonbase" target="_blank" class="social-button" style="background-color: #0088cc; color: white;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 0.5rem;"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-                Telegram
-            </a>
-        </div>
-
-        <footer class="footer">
-            <p>© 2023 Vibe Cat on Base Chain. To the moon! 🚀🌙</p>
-        </footer>
+        <img src="ai_coin_logo.png" alt="AI Revolution Coin Logo" class="meme-logo">
+        <h1>AI Revolution Coin</h1>
+        <p>Welcome to the forefront of the AI Revolution! AI Revolution Coin symbolizes the groundbreaking integration of AI technology into our daily lives, pushing the boundaries of what's possible in society, economy, and beyond. Join the movement where technology meets currency.</p>
+        <p>Our mission is to foster a community where AI innovations are rewarded and shared, driving forward ethical AI development and application.</p>
+        <a href="#buy" class="cta-button">Get Your Coins</a>
     </div>
-
-    <script>
-        const audioElement = document.getElementById('backgroundMusic');
-        const muteButton = document.getElementById('muteButton');
-        const copyButton = document.getElementById('copyButton');
-        const contractAddress = document.getElementById('contractAddress');
-        let isMuted = true;
-
-        audioElement.volume = 0.5;
-
-        muteButton.addEventListener('click', () => {
-            isMuted = !isMuted;
-            audioElement.muted = isMuted;
-            muteButton.textContent = isMuted ? '🔇' : '🎵';
-            muteButton.setAttribute('aria-label', isMuted ? 'Unmute background music' : 'Mute background music');
-            if (!isMuted) {
-                audioElement.play().catch(error => console.error("Audio playback failed:", error));
-            }
-        });
-
-        copyButton.addEventListener('click', () => {
-            const addressText = contractAddress.textContent.replace('CA: ', '');
-            navigator.clipboard.writeText(addressText).then(() => {
-                copyButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
-                setTimeout(() => {
-                    copyButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
-                }, 2000);
-            });
-        });
-    </script>
 </body>
 </html>
-

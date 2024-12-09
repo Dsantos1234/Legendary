@@ -3,188 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dragon Ball Z Meme Coin</title>
+    <title>AMEN Meme Coin</title>
     <style>
         body {
-            background: url('dbz-background.jpg') no-repeat center center fixed;
-            background-size: cover;
-            font-family: 'Arial', sans-serif;
-            color: #FFD700; /* Gold text for DBZ theme */
-            text-shadow: 2px 2px 4px #000; /* Add readability on dark backgrounds */
-        }
-        header, nav, main, aside, footer {
-            padding: 20px;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            color: #333;
         }
         header {
+            background-color: #FFD700; /* Gold for AMEN theme */
+            padding: 10px 0;
             text-align: center;
-            background: rgba(0, 0, 0, 0.8);
-        }
-        .dbz-logo {
-            width: 150px;
-            height: 150px;
-            background: url('dragonball-logo.png') center/contain no-repeat;
-            margin: 0 auto 20px;
-            animation: float 3s ease-in-out infinite;
         }
         nav {
-            background: rgba(0, 0, 0, 0.6);
-        }
-        nav ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        nav ul li {
-            display: inline;
-            margin-right: 10px;
-        }
-        nav ul li a {
-            color: #FFD700;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        nav ul li a:hover {
-            color: #FF4500; /* More vibrant orange on hover */
-        }
-        article {
-            background: rgba(0, 0, 0, 0.7);
-            border: 2px solid #FFD700;
-            margin-bottom: 20px;
-            padding: 15px;
-        }
-        .cta-button {
-            display: inline-block;
-            padding: 10px 20px;
-            background: #FFD700;
-            color: black;
-            text-decoration: none;
-            border-radius: 5px;
-            animation: pulse 2s infinite;
-        }
-        footer {
-            background: rgba(0, 0, 0, 0.8);
+            background-color: #34495e; /* Dark blue for contrast */
+            color: white;
+            padding: 10px 0;
             text-align: center;
         }
-        /* Bouncing images */
-        .bouncing-image {
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+        }
+        .container {
+            padding: 20px;
+        }
+        .coin-image {
             width: 100px;
             height: 100px;
-            position: absolute;
-            animation: bounce 1s infinite ease-in-out;
+            background-color: #FFD700; /* Placeholder for coin image */
+            border-radius: 50%;
+            margin: 20px auto;
         }
-        #goku {
-            background: url('goku.png') no-repeat center/contain;
-            left: 10%;
-        }
-        #vegeta {
-            background: url('vegeta.png') no-repeat center/contain;
-            left: 30%;
-            top: 20%;
-        }
-        /* Animations */
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-        }
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
+        footer {
+            background-color: #34495e;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
         }
     </style>
 </head>
 <body>
     <header>
-        <div class="dbz-logo"></div>
-        <h1>Dragon Ball Z Meme Coin</h1>
+        <h1>AMEN Meme Coin</h1>
+        <div class="coin-image"></div> <!-- Replace with actual coin image -->
     </header>
 
     <nav>
-        <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#roadmap">Roadmap</a></li>
-            <li><a href="#team">Team</a></li>
-            <li><a href="#buy">Buy Now</a></li>
-        </ul>
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#roadmap">Roadmap</a>
+        <a href="#buy">Buy</a>
     </nav>
 
-    <main>
+    <div class="container">
         <section id="home">
-            <article>
-                <h2>Welcome to Dragon Ball Z Coin</h2>
-                <p>Unleash the power of the meme coin universe with the spirit of DBZ!</p>
-                <a href="#buy" class="cta-button">Buy Now</a>
-            </article>
+            <h2>Welcome to AMEN</h2>
+            <p>AMEN is not just a coin; it's a movement. Join us in redefining the meme economy!</p>
         </section>
 
         <section id="about">
-            <h2>What is DBZ Coin?</h2>
-            <article>
-                <h3>Our Mission</h3>
-                <p>Like Goku's journey, we aim to push the boundaries of memetic currency to new heights.</p>
-            </article>
-            <article>
-                <h3>Tokenomics</h3>
-                <p>Total Supply: 4,200,000,000 DBZC<br>
-                - 50% for community<br>
-                - 30% for development<br>
-                - 20% for marketing</p>
-            </article>
+            <h2>About AMEN</h2>
+            <p>AMEN stands for 'Absolutely Meme-ified Economics'. With a total supply of 1 billion tokens, AMEN aims to blend humor with serious blockchain technology, offering a platform for both fun and financial exploration.</p>
         </section>
 
         <section id="roadmap">
             <h2>Roadmap</h2>
-            <article>
-                <h3>Phase 1: Saiyan Launch</h3>
-                <p>Website launch, community building, and initial token distribution.</p>
-            </article>
-            <article>
-                <h3>Phase 2: Super Saiyan</h3>
-                <p>Exchange listings, partnerships, and first major marketing push.</p>
-            </article>
+            <ol>
+                <li>Phase 1: Launch and community building</li>
+                <li>Phase 2: Exchange listings and partnerships</li>
+                <li>Phase 3: AMEN ecosystem development</li>
+                <li>Phase 4: Global meme integration</li>
+            </ol>
         </section>
 
-        <section id="team">
-            <h2>Our Team</h2>
-            <article>
-                <h3>Goku - Founder</h3>
-                <p>Leading the charge into the meme coin universe.</p>
-            </article>
-            <article>
-                <h3>Vegeta - Developer</h3>
-                <p>Brings the power of development with the pride of a Saiyan.</p>
-            </article>
-        </section>
-
-        <section id="buy">
-            <h2>Buy Dragon Ball Z Coin</h2>
-            <article>
-                <p>Join the DBZ Coin revolution by connecting your wallet:</p>
-                <form action="#connect-wallet" method="get">
-                    <button type="submit" class="cta-button">Connect Wallet</button>
-                </form>
-            </article>
-        </section>
-    </main>
-
-    <aside>
-        <h3>Latest News</h3>
-        <article>
-            <h4>DBZC Now on PancakeSwap!</h4>
-            <p>Trade DBZC with ease on one of the leading DEXs.</p>
-        </article>
-    </aside>
-
-    <footer>
-        <p>© 2024 Dragon Ball Z Coin. All rights reserved.</p>
-    </footer>
-
-    <!-- Bouncing Characters -->
-    <div id="goku" class="bouncing-image"></div>
-    <div id="vegeta" class="bouncing-image"></div>
-</body>
-</html>
+        <

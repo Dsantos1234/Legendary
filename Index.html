@@ -3,46 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AMEN Meme Coin</title>
+    <title>MemeCoin</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f0f0f0;
-            color: #333;
+            box-sizing: border-box;
         }
+
         header {
-            background-color: #FFD700; /* Gold for AMEN theme */
-            padding: 10px 0;
-            text-align: center;
+            background-color: #4CAF50;
+            color: white;
+            padding: 1rem;
         }
+
         nav {
-            background-color: #34495e; /* Dark blue for contrast */
-            color: white;
-            padding: 10px 0;
-            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-        nav a {
+
+        .nav-links {
+            list-style-type: none;
+            display: flex;
+        }
+
+        .nav-links li {
+            margin-left: 20px;
+        }
+
+        .nav-links a {
             color: white;
-            margin: 0 15px;
             text-decoration: none;
         }
-        .container {
+
+        .hero {
+            text-align: center;
+            padding: 50px;
+            background-color: #f4f4f4;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        section {
             padding: 20px;
         }
-        .coin-image {
-            width: 100px;
-            height: 100px;
-            background-color: #FFD700; /* Placeholder for coin image */
-            border-radius: 50%;
-            margin: 20px auto;
-        }
+
         footer {
-            background-color: #34495e;
-            color: white;
             text-align: center;
-            padding: 10px 0;
+            padding: 10px;
+            background-color: #ddd;
             position: fixed;
             width: 100%;
             bottom: 0;
@@ -51,36 +74,55 @@
 </head>
 <body>
     <header>
-        <h1>AMEN Meme Coin</h1>
-        <div class="coin-image"></div> <!-- Replace with actual coin image -->
+        <nav>
+            <div class="logo">MemeCoin</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#buy">Buy</a></li>
+                <li><a href="#community">Community</a></li>
+            </ul>
+        </nav>
     </header>
 
-    <nav>
-        <a href="#home">Home</a>
-        <a href="#about">About</a>
-        <a href="#roadmap">Roadmap</a>
-        <a href="#buy">Buy</a>
-    </nav>
+    <section id="home" class="hero">
+        <h1>Welcome to MemeCoin</h1>
+        <p>The coin that's all fun and games!</p>
+        <button onclick="alert('Coming soon!')">Buy Now</button>
+    </section>
 
-    <div class="container">
-        <section id="home">
-            <h2>Welcome to AMEN</h2>
-            <p>AMEN is not just a coin; it's a movement. Join us in redefining the meme economy!</p>
-        </section>
+    <section id="about">
+        <h2>What is MemeCoin?</h2>
+        <p>MemeCoin is not just another cryptocurrency; it's a community, a movement, and most importantly, a meme. Inspired by the internet's love for memes, MemeCoin aims to bring joy, humor, and a touch of satire to the crypto world.</p>
+    </section>
 
-        <section id="about">
-            <h2>About AMEN</h2>
-            <p>AMEN stands for 'Absolutely Meme-ified Economics'. With a total supply of 1 billion tokens, AMEN aims to blend humor with serious blockchain technology, offering a platform for both fun and financial exploration.</p>
-        </section>
+    <section id="buy">
+        <h2>How to Buy MemeCoin</h2>
+        <ul>
+            <li>Step 1: Get a wallet that supports MemeCoin</li>
+            <li>Step 2: Choose an exchange from our list</li>
+            <li>Step 3: Buy MemeCoin with your preferred currency</li>
+        </ul>
+        <button onclick="alert('Coming soon!')">View Exchanges</button>
+    </section>
 
-        <section id="roadmap">
-            <h2>Roadmap</h2>
-            <ol>
-                <li>Phase 1: Launch and community building</li>
-                <li>Phase 2: Exchange listings and partnerships</li>
-                <li>Phase 3: AMEN ecosystem development</li>
-                <li>Phase 4: Global meme integration</li>
-            </ol>
-        </section>
+    <section id="community">
+        <h2>Join the MemeCoin Community</h2>
+        <p>Get involved with our community on:</p>
+        <ul>
+            <li><a href="discord.com">Discord</a></li>
+            <li><a href="twitter.com">X/Twitter</a></li>
+            <li><a href="reddit.com">Reddit</a></li>
+        </ul>
+    </section>
 
-        <
+    <footer>
+        <p>© 2024 MemeCoin. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Placeholder for future functionalities
+        console.log("MemeCoin website initialized!");
+    </script>
+</body>
+</html>

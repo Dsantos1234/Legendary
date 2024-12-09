@@ -3,126 +3,177 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MemeCoin</title>
+    <title>MoonDoge Coin - To The Moon!</title>
     <style>
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
+            background-color: #1a1a2e;
+            color: #e94560;
         }
-
         header {
-            background-color: #4CAF50;
-            color: white;
+            background-color: #16213e;
+            color: #e94560;
             padding: 1rem;
+            text-align: center;
         }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .nav-links {
-            list-style-type: none;
-            display: flex;
-        }
-
-        .nav-links li {
-            margin-left: 20px;
-        }
-
-        .nav-links a {
-            color: white;
+        nav a {
+            color: #0f3460;
             text-decoration: none;
+            margin: 0 1rem;
+            background-color: #e94560;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            transition: all 0.3s ease;
         }
-
+        nav a:hover {
+            background-color: #0f3460;
+            color: #e94560;
+        }
         .hero {
+            background-image: url('/placeholder.svg?height=400&width=800');
+            background-size: cover;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             text-align: center;
-            padding: 50px;
-            background-color: #f4f4f4;
+            color: #e94560;
+            position: relative;
+            overflow: hidden;
         }
-
-        button {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
-            cursor: pointer;
-            border-radius: 5px;
+        .hero h1 {
+            font-size: 3rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            animation: float 3s ease-in-out infinite;
         }
-
+        .hero::before {
+            content: '🚀';
+            position: absolute;
+            font-size: 2rem;
+            animation: spin 5s linear infinite;
+        }
         section {
-            padding: 20px;
+            padding: 2rem;
+            margin: 1rem auto;
+            max-width: 800px;
+            background-color: #16213e;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(233,69,96,0.5);
         }
-
-        footer {
+        .tokenomics {
+            display: flex;
+            justify-content: space-around;
             text-align: center;
-            padding: 10px;
-            background-color: #ddd;
-            position: fixed;
-            width: 100%;
+        }
+        .tokenomics div {
+            flex: 1;
+            transition: all 0.3s ease;
+        }
+        .tokenomics div:hover {
+            transform: scale(1.1);
+        }
+        footer {
+            background-color: #16213e;
+            color: #e94560;
+            text-align: center;
+            padding: 1rem;
+            position: relative;
             bottom: 0;
+            width: 100%;
+        }
+        #carousel {
+            overflow: hidden;
+            white-space: nowrap;
+            margin: 2rem 0;
+        }
+        .carousel-item {
+            display: inline-block;
+            width: 100%;
+            transition: transform 0.5s ease;
         }
     </style>
 </head>
 <body>
     <header>
         <nav>
-            <div class="logo">MemeCoin</div>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#buy">Buy</a></li>
-                <li><a href="#community">Community</a></li>
-            </ul>
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#tokenomics">Tokenomics</a>
+            <a href="#community">Community</a>
         </nav>
     </header>
 
-    <section id="home" class="hero">
-        <h1>Welcome to MemeCoin</h1>
-        <p>The coin that's all fun and games!</p>
-        <button onclick="alert('Coming soon!')">Buy Now</button>
-    </section>
+    <div class="hero" id="home">
+        <h1>MoonDoge Coin<br>To The Moon! 🚀🌕</h1>
+    </div>
 
     <section id="about">
-        <h2>What is MemeCoin?</h2>
-        <p>MemeCoin is not just another cryptocurrency; it's a community, a movement, and most importantly, a meme. Inspired by the internet's love for memes, MemeCoin aims to bring joy, humor, and a touch of satire to the crypto world.</p>
+        <h2>About MoonDoge</h2>
+        <p>MoonDoge is not just another memecoin - it's a movement! Born from the love of dogs and space travel, MoonDoge aims to take its holders on a journey to financial freedom. With strong community support and innovative tokenomics, we're ready for liftoff!</p>
     </section>
 
-    <section id="buy">
-        <h2>How to Buy MemeCoin</h2>
-        <ul>
-            <li>Step 1: Get a wallet that supports MemeCoin</li>
-            <li>Step 2: Choose an exchange from our list</li>
-            <li>Step 3: Buy MemeCoin with your preferred currency</li>
-        </ul>
-        <button onclick="alert('Coming soon!')">View Exchanges</button>
+    <section id="tokenomics">
+        <h2>Tokenomics</h2>
+        <div class="tokenomics">
+            <div>
+                <h3>Total Supply</h3>
+                <p>1,000,000,000,000 MDOGE</p>
+            </div>
+            <div>
+                <h3>Burn</h3>
+                <p>50% at launch</p>
+            </div>
+            <div>
+                <h3>Transaction Fee</h3>
+                <p>5% redistribution to holders</p>
+            </div>
+        </div>
     </section>
 
     <section id="community">
-        <h2>Join the MemeCoin Community</h2>
-        <p>Get involved with our community on:</p>
-        <ul>
-            <li><a href="discord.com">Discord</a></li>
-            <li><a href="twitter.com">X/Twitter</a></li>
-            <li><a href="reddit.com">Reddit</a></li>
-        </ul>
+        <h2>Join Our Community</h2>
+        <div id="carousel">
+            <div class="carousel-item">
+                <p>Join us on Twitter for the latest memes and updates! 🐦</p>
+            </div>
+            <div class="carousel-item">
+                <p>Our Telegram group is the place to be for instant communication! 📱</p>
+            </div>
+            <div class="carousel-item">
+                <p>Discord server coming soon! Stay tuned for exclusive content and events! 🎮</p>
+            </div>
+        </div>
     </section>
 
     <footer>
-        <p>© 2024 MemeCoin. All rights reserved.</p>
+        <p>&copy; 2023 MoonDoge Coin. All rights reserved. To the moon! 🚀</p>
     </footer>
 
     <script>
-        // Placeholder for future functionalities
-        console.log("MemeCoin website initialized!");
+        const carousel = document.getElementById('carousel');
+        const items = carousel.getElementsByClassName('carousel-item');
+        let currentIndex = 0;
+
+        function rotateCarousel() {
+            currentIndex = (currentIndex + 1) % items.length;
+            carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
+        }
+
+        setInterval(rotateCarousel, 3000);
     </script>
 </body>
 </html>
+

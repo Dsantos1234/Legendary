@@ -9,18 +9,18 @@
             font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f0f0f0;
+            background-color: #1a1a1a; /* Dark background */
         }
         header, nav, main, aside, footer {
             padding: 20px;
         }
         header {
-            background: #333;
-            color: white;
+            background: #2C3E50; /* Darker blue for header */
+            color: #ECF0F1; /* Light gray text */
             text-align: center;
         }
         nav {
-            background: #444;
+            background: #34495E; /* Dark blue */
         }
         nav ul {
             list-style-type: none;
@@ -31,34 +31,64 @@
             margin-right: 10px;
         }
         nav ul li a {
-            color: white;
+            color: #ECF0F1; /* Light gray for links */
             text-decoration: none;
         }
         .coin {
             width: 100px;
             height: 100px;
             border-radius: 50%;
-            background: gold;
+            background: #F1C40F; /* Bright gold coin */
             margin: 20px auto;
+            animation: spin 4s linear infinite; /* Suggest spinning animation */
         }
         article {
-            background: white;
-            border: 1px solid #ddd;
+            background: #34495E; /* Dark blue for articles */
+            border: 1px solid #2C3E50; /* Darker blue border */
             margin-bottom: 20px;
             padding: 15px;
+            color: #ECF0F1; /* Light gray text */
         }
         .cta-button {
             display: inline-block;
             padding: 10px 20px;
-            background: #FFD700;
-            color: black;
+            background: #E67E22; /* Warm orange for buttons */
+            color: #1a1a1a; /* Dark text on bright background */
             text-decoration: none;
             border-radius: 5px;
         }
         footer {
-            background: #333;
-            color: white;
+            background: #2C3E50; /* Darker blue for footer */
+            color: #ECF0F1; /* Light gray text */
             text-align: center;
+        }
+        /* Carousel structure */
+        .carousel {
+            width: 100%;
+            overflow: hidden;
+        }
+        .carousel-inner {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            animation: slide 20s linear infinite;
+        }
+        .carousel-item {
+            min-width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+        /* Animations */
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        @keyframes slide {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-100%); }
+            50% { transform: translateX(-200%); }
+            75% { transform: translateX(-300%); }
+            100% { transform: translateX(0); }
         }
     </style>
 </head>
@@ -105,21 +135,25 @@
 
         <section id="roadmap">
             <h2>Roadmap</h2>
-            <article>
-                <h3>Phase 1: Launch</h3>
-                <ul>
-                    <li>Website and social media launch</li>
-                    <li>Presale</li>
-                </ul>
-            </article>
-            <article>
-                <h3>Phase 2: Growth</h3>
-                <ul>
-                    <li>Exchange listings</li>
-                    <li>Community initiatives</li>
-                </ul>
-            </article>
-            <!-- More phases could be added here -->
+            <div class="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item">
+                        <h3>Phase 1: Launch</h3>
+                        <ul>
+                            <li>Website and social media launch</li>
+                            <li>Presale</li>
+                        </ul>
+                    </div>
+                    <div class="carousel-item">
+                        <h3>Phase 2: Growth</h3>
+                        <ul>
+                            <li>Exchange listings</li>
+                            <li>Community initiatives</li>
+                        </ul>
+                    </div>
+                    <!-- Add more phases here -->
+                </div>
+            </div>
         </section>
 
         <section id="team">
@@ -154,7 +188,7 @@
     </aside>
 
     <footer>
-        <p>&copy; 2024 Ultra Meme Coin. All rights reserved.</p>
+        <p>© 2024 Ultra Meme Coin. All rights reserved.</p>
     </footer>
 </body>
 </html>

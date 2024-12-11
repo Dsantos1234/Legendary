@@ -1,414 +1,314 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    
-    body {
-      min-height: 100vh;
-      background: #0a0a0f;
-      font-family: monospace;
-      padding: 2rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      color: #fff;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>X-Media | Decentralizing News Media</title>
+    <style>
+        :root {
+            --primary: #1DA1F2;
+            --dark: #14171A;
+            --light: #FFFFFF;
+            --gray: #657786;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
 
-    .warning-banner {
-      background: linear-gradient(90deg, #FFD700, #FFA500);
-      color: black;
-      padding: 0.5rem;
-      text-align: center;
-      width: 100%;
-      position: fixed;
-      top: 0;
-      left: 0;
-      font-weight: bold;
-      z-index: 1000;
-      animation: pulse 2s infinite;
-    }
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
 
-    @keyframes pulse {
-      0% { opacity: 1; }
-      50% { opacity: 0.8; }
-      100% { opacity: 1; }
-    }
+        /* Animation background */
+        .animated-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
 
-    .header {
-      margin-bottom: 2rem;
-      text-align: center;
-    }
+        .x-symbol {
+            position: absolute;
+            color: rgba(29, 161, 242, 0.1);
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+            user-select: none;
+            pointer-events: none;
+            animation: float 20s linear infinite;
+        }
 
-    .header h1 {
-      font-size: 2.5rem;
-      background: linear-gradient(45deg, #FFD700, #FFA500);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 0.5rem;
-    }
+        @keyframes float {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--moveX), var(--moveY)) rotate(360deg);
+                opacity: 0;
+            }
+        }
 
-    .header p {
-      color: #FFD700;
-      opacity: 0.8;
-    }
+        header {
+            background-color: rgba(20, 23, 26, 0.95);
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            backdrop-filter: blur(5px);
+        }
 
-    .eight-ball-container {
-      position: relative;
-      width: 200px;
-      height: 200px;
-      margin: 2rem auto;
-      perspective: 1000px;
-    }
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-    .eight-ball {
-      width: 100%;
-      height: 100%;
-      position: relative;
-      transform-style: preserve-3d;
-      transition: transform 0.8s ease-in-out;
-    }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
 
-    .eight-ball-front {
-      width: 200px;
-      height: 200px;
-      background: radial-gradient(circle at 30% 30%, #666, #000);
-      border-radius: 50%;
-      position: absolute;
-      box-shadow: 
-        inset -10px -10px 20px rgba(0,0,0,0.5),
-        inset 10px 10px 20px rgba(255,255,255,0.1),
-        0 0 20px rgba(255, 215, 0, 0.3);
-    }
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            margin-left: 2rem;
+            transition: color 0.3s;
+        }
 
-    .eight-ball-front::after {
-      content: "8";
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: #FFD700;
-      font-size: 5rem;
-      font-weight: bold;
-      text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-    }
+        .nav-links a:hover {
+            color: var(--primary);
+        }
 
-    .shake {
-      animation: shake 0.5s ease-in-out infinite;
-    }
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 1rem;
+            background: linear-gradient(135deg, rgba(20, 23, 26, 0.95), rgba(29, 161, 242, 0.1));
+            position: relative;
+        }
 
-    .glow {
-      animation: glow 2s ease-in-out infinite;
-    }
+        .hero-content {
+            max-width: 800px;
+            position: relative;
+            z-index: 2;
+        }
 
-    @keyframes shake {
-      0%, 100% { transform: translateX(0) rotate(0deg); }
-      25% { transform: translateX(-10px) rotate(-5deg); }
-      75% { transform: translateX(10px) rotate(5deg); }
-    }
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
 
-    @keyframes glow {
-      0%, 100% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.3); }
-      50% { box-shadow: 0 0 40px rgba(255, 215, 0, 0.6); }
-    }
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--gray);
+            margin-bottom: 2rem;
+        }
 
-    .terminal-card {
-      width: 100%;
-      max-width: 42rem;
-      background: rgba(17, 24, 39, 0.95);
-      padding: 1.5rem;
-      border-radius: 1rem;
-      border: 2px solid #FFD700;
-      backdrop-filter: blur(10px);
-    }
+        .cta-button {
+            display: inline-block;
+            background-color: var(--primary);
+            color: var(--light);
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s;
+        }
 
-    .terminal-header {
-      display: flex;
-      align-items: center;
-      margin-bottom: 1rem;
-      color: #FFD700;
-      border-bottom: 1px solid rgba(255, 215, 0, 0.2);
-      padding-bottom: 0.5rem;
-    }
+        .cta-button:hover {
+            transform: translateY(-3px);
+        }
 
-    .terminal-header svg {
-      margin-right: 0.5rem;
-    }
+        .news-feed {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 2;
+        }
 
-    .output-area {
-      background: rgba(0, 0, 0, 0.7);
-      padding: 1rem;
-      border-radius: 0.5rem;
-      margin-bottom: 1rem;
-      height: 12rem;
-      overflow-y: auto;
-      color: #FFD700;
-      font-family: 'Courier New', monospace;
-    }
+        .news-card {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            backdrop-filter: blur(5px);
+            transition: transform 0.3s;
+        }
 
-    .prediction {
-      margin-top: 1rem;
-      opacity: 0;
-      transform: translateY(10px);
-      transition: all 0.3s ease-out;
-    }
+        .news-card:hover {
+            transform: translateY(-5px);
+        }
 
-    .prediction.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
+        .news-card h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
 
-    .prediction-label {
-      color: #FFA500;
-      font-style: italic;
-    }
+        .token-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
 
-    .prediction-text {
-      font-size: 1.25rem;
-      font-weight: bold;
-      color: #FFD700;
-      margin-top: 0.5rem;
-      line-height: 1.4;
-    }
+        .stat-card {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            backdrop-filter: blur(5px);
+            transition: transform 0.3s;
+        }
 
-    .input-area {
-      display: flex;
-      gap: 0.5rem;
-    }
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
 
-    input {
-      flex: 1;
-      background: rgba(0, 0, 0, 0.5);
-      color: #FFD700;
-      padding: 0.75rem;
-      border: 1px solid #FFD700;
-      border-radius: 0.5rem;
-      font-family: 'Courier New', monospace;
-      font-size: 1rem;
-    }
+        .stat-card h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
 
-    input:focus {
-      outline: none;
-      border-color: #FFA500;
-      box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
-    }
-
-    button {
-      padding: 0.75rem 1.5rem;
-      background: linear-gradient(45deg, #FFD700, #FFA500);
-      color: black;
-      border: none;
-      border-radius: 0.5rem;
-      cursor: pointer;
-      font-weight: bold;
-      transition: all 0.3s ease;
-      text-transform: uppercase;
-    }
-
-    button:hover:not(:disabled) {
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
-    }
-
-    button:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-
-    .footer {
-      margin-top: 2rem;
-      text-align: center;
-      color: #FFD700;
-      opacity: 0.8;
-      font-style: italic;
-    }
-
-    .footer p + p {
-      margin-top: 0.5rem;
-      font-size: 0.875rem;
-    }
-
-    .typing {
-      overflow: hidden;
-      white-space: nowrap;
-      animation: typing 1s steps(40, end);
-    }
-
-    @keyframes typing {
-      from { width: 0 }
-      to { width: 100% }
-    }
-  </style>
+        footer {
+            background-color: rgba(20, 23, 26, 0.95);
+            padding: 2rem;
+            text-align: center;
+            margin-top: 4rem;
+            position: relative;
+            z-index: 2;
+            backdrop-filter: blur(5px);
+        }
+    </style>
 </head>
 <body>
-  <div class="warning-banner">
-    🚨 For entertainment only! Not financial advice! NGMI anyway! 🚨
-  </div>
+    <div class="animated-background" id="animatedBackground"></div>
 
-  <div class="header">
-    <h1>Degen 8 Ball Terminal</h1>
-    <p>Your Based Financial Advisor (Now with Extra Cope)</p>
-  </div>
+    <header>
+        <nav>
+            <div class="logo">X-Media</div>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#news">News</a>
+                <a href="#token">Token</a>
+                <a href="#about">About</a>
+            </div>
+        </nav>
+    </header>
 
-  <div class="eight-ball-container">
-    <div class="eight-ball">
-      <div class="eight-ball-front"></div>
-    </div>
-  </div>
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>X-Media Token</h1>
+            <p>Revolutionizing news media through decentralized content distribution. Powered by the X platform and blockchain technology.</p>
+            <a href="#token" class="cta-button">Buy X-Media Token</a>
+        </div>
+    </section>
 
-  <div class="terminal-card">
-    <div class="terminal-header">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <polyline points="4 17 10 11 4 5"></polyline>
-        <line x1="12" y1="19" x2="20" y2="19"></line>
-      </svg>
-      <span>degen_8ball.eth</span>
-    </div>
+    <section class="token-stats" id="token">
+        <div class="stat-card">
+            <h3>Market Cap</h3>
+            <p>$10.5M</p>
+        </div>
+        <div class="stat-card">
+            <h3>24h Volume</h3>
+            <p>$2.3M</p>
+        </div>
+        <div class="stat-card">
+            <h3>Holders</h3>
+            <p>15,234</p>
+        </div>
+        <div class="stat-card">
+            <h3>Current Price</h3>
+            <p>$0.00042</p>
+        </div>
+    </section>
 
-    <div class="output-area">
-      <p id="prompt" class="typing">> Ready to lose money? Ask me anything...</p>
-      <div id="prediction" class="prediction">
-        <p class="prediction-label">Magic 8 Ball says (trust me bro):</p>
-        <p class="prediction-text"></p>
-      </div>
-    </div>
+    <section class="news-feed" id="news">
+        <div class="news-card">
+            <h3>Breaking News</h3>
+            <p>Latest updates from around the world, curated from the X platform.</p>
+        </div>
+        <div class="news-card">
+            <h3>Trending Topics</h3>
+            <p>See what's currently trending in the X-Media ecosystem.</p>
+        </div>
+        <div class="news-card">
+            <h3>Community Updates</h3>
+            <p>Latest developments in the X-Media token and community initiatives.</p>
+        </div>
+    </section>
 
-    <div class="input-area">
-      <input type="text" id="question" placeholder="What's your next financial mistake?">
-      <button id="askButton">YOLO IT</button>
-    </div>
-  </div>
+    <footer>
+        <p>© 2024 X-Media Token. All rights reserved.</p>
+        <p>Join our community on X @XMediaToken</p>
+    </footer>
 
-  <div class="footer">
-    <p>Warning: This terminal runs on pure copium</p>
-    <p>Powered by trust-me-bro technology™</p>
-  </div>
+    <script>
+        function createX() {
+            const x = document.createElement('div');
+            x.className = 'x-symbol';
+            x.textContent = '✕';
+            
+            // Random size between 20px and 60px
+            const size = Math.random() * 40 + 20;
+            x.style.fontSize = `${size}px`;
+            
+            // Random starting position
+            const startX = Math.random() * window.innerWidth;
+            const startY = Math.random() * window.innerHeight;
+            x.style.left = `${startX}px`;
+            x.style.top = `${startY}px`;
+            
+            // Random movement direction
+            const moveX = (Math.random() - 0.5) * 500;
+            const moveY = (Math.random() - 0.5) * 500;
+            x.style.setProperty('--moveX', `${moveX}px`);
+            x.style.setProperty('--moveY', `${moveY}px`);
+            
+            document.getElementById('animatedBackground').appendChild(x);
+            
+            // Remove the X after animation completes
+            x.addEventListener('animationend', () => {
+                x.remove();
+            });
+        }
 
-  <script>
-    const memeCoins = [
-      "PEPE", "WOJAK", "BONK", "DOGE", "SHIB", "FLOKI", "SAMO", "COPI",
-      "$CHAD", "COPIUM", "$JAIL", "NGMI", "FOMO", "GUH", "KEK", "WAGMI",
-      "$BASED", "PUMP", "DUMPIT", "REKT", "COPIUM", "FUD", "FOMO", "$APE"
-    ];
+        // Create new X symbols periodically
+        setInterval(createX, 1000);
 
-    const responsePatterns = [
-      {
-        keywords: ['should', 'buy', 'invest', 'worth'],
-        responses: [
-          (coin) => `Sell your kidney and go all in on $${coin} 🚀`,
-          (coin) => `${coin} looking bullish AF (source: voices in my head) 📈`,
-          (coin) => `Just mortgaged my mom's house to ape into $${coin} 🦍`,
-          "Have you tried turning your portfolio off and on again? 💻",
-          "Your portfolio is almost as dead as your love life 💀",
-          (coin) => `Time to ape into $${coin} like your wife's boyfriend would 🦍`,
-          "Even a hamster would make better trades than you 🐹",
-          (coin) => `${coin} to $1 (source: trust me bro) 🗣️`,
-          "Did you try checking the blockchain horoscope? Mercury is in rugpull 🌠"
-        ]
-      },
-      {
-        keywords: ['when', 'moon', 'lambo', 'rich', 'pump'],
-        responses: [
-          "When your dad comes back with the milk 🥛",
-          "Roughly around the heat death of the universe ⚰️",
-          (coin) => `${coin} will flip Bitcoin (source: reddit NPC) 🔄`,
-          "Just two more weeks™ of ramen 🍜",
-          "Your Lambo order was rejected due to insufficient brain cells 🧠",
-          "Error 404: Profits not found 💸",
-          "When pigs fly (bullish on pig tokens) 🐷",
-          "After your wife's boyfriend approves it 📝",
-          "Soon™ (aka never) 🎯"
-        ]
-      },
-      {
-        keywords: ['price', 'dip', 'crash', 'dump', 'bear'],
-        responses: [
-          "It's not a loss if you don't sell (and other lies we tell ourselves) 🤡",
-          "Have you tried deleting the app? 📱",
-          "Chart looking like your EKG after checking your portfolio 📉",
-          (coin) => `Quick, panic sell $${coin} to exit scam yourself 🏃`,
-          "It's just a guh moment, bro 😮‍💨",
-          "More dips than your dating history 📊",
-          "Bullish on rope futures 🪢",
-          "Maybe the real gains were the friends we rekt along the way 🤝",
-          "Instructions unclear, leveraged my parent's retirement fund 👴"
-        ]
-      }
-    ];
-
-    const defaultResponses = [
-      "This is definitely financial advice (please sue me) 🤑",
-      "Sir, this is a Wendy's dumpster... I mean casino 🎰",
-      "Error 404: Brain cells not found 🧠",
-      "Your portfolio is transitory (like your relationships) 💔",
-      "Instructions unclear, bought high sold low 📉",
-      "Loading financial destruction... 💣",
-      "Better call your mom for a loan 📞",
-      "Have you tried turning it off and on again? 🔄"
-    ];
-
-    function getRandomCoin() {
-      return memeCoins[Math.floor(Math.random() * memeCoins.length)];
-    }
-
-    function getResponse(question) {
-      question = question.toLowerCase();
-      
-      const matchingPattern = responsePatterns.find(pattern => 
-        pattern.keywords.some(keyword => question.includes(keyword))
-      );
-      
-      const responses = matchingPattern ? matchingPattern.responses : defaultResponses;
-      let response = responses[Math.floor(Math.random() * responses.length)];
-      
-      // If response is a function, call it with a random coin
-      if (typeof response === 'function') {
-        response = response(getRandomCoin());
-      }
-      
-      return response;
-    }
-
-    const eightBall = document.querySelector('.eight-ball');
-    const questionInput = document.getElementById('question');
-    const askButton = document.getElementById('askButton');
-    const promptEl = document.getElementById('prompt');
-    const predictionEl = document.getElementById('prediction');
-    const predictionText = document.querySelector('.prediction-text');
-
-    function shakeBall() {
-      if (!questionInput.value) return;
-
-      const question = questionInput.value;
-      questionInput.value = '';
-      askButton.disabled = true;
-      
-      eightBall.classList.add('shake');
-      promptEl.textContent = '> Consulting the sacred blockchain...';
-      predictionEl.style.display = 'none';
-      
-      setTimeout(() => {
-        const response = getResponse(question);
-        eightBall.classList.remove('shake');
-        eightBall.classList.add('glow');
-        
-        promptEl.textContent = '> Ask another question, degen...';
-        predictionEl.style.display = 'block';
-        predictionEl.classList.add('show');
-        predictionText.textContent = response;
-        
-        askButton.disabled = false;
-        
-        setTimeout(() => {
-          eightBall.classList.remove('glow');
-        }, 2000);
-      }, 1500);
-    }
-
-    askButton.addEventListener('click', shakeBall);
-    questionInput.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') shakeBall();
-    });
-  </script>
+        // Initial X symbols
+        for(let i = 0; i < 20; i++) {
+            createX();
+        }
+    </script>
 </body>
 </html>

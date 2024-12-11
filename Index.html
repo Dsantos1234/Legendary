@@ -2,6 +2,7 @@
 <html>
 <head>
   <style>
+    /* Previous styles remain the same */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     
     body {
@@ -124,7 +125,6 @@
       font-size: 0.875rem;
     }
 
-    /* 8 Ball Styles */
     .eight-ball {
       width: 150px;
       height: 150px;
@@ -182,7 +182,7 @@
 <body>
   <div class="header">
     <h1>8 Ball Terminal</h1>
-    <p>Your Crypto Fortune Teller</p>
+    <p>Your Meme Fortune Teller</p>
   </div>
 
   <div class="eight-ball"></div>
@@ -197,44 +197,89 @@
     </div>
 
     <div class="output-area">
-      <p id="prompt" class="typing">> Ask the 8 Ball Terminal about your crypto destiny...</p>
+      <p id="prompt" class="typing">> Ask me anything and I'll give you the ✨tea✨...</p>
       <div id="prediction" class="prediction" style="display: none;">
-        <p class="prediction-label">Prediction:</p>
+        <p class="prediction-label">The 8 Ball says:</p>
         <p class="prediction-text"></p>
       </div>
     </div>
 
     <div class="input-area">
-      <input type="text" id="question" placeholder="Type your crypto question...">
+      <input type="text" id="question" placeholder="Type your question...">
       <button id="askButton">Ask</button>
     </div>
   </div>
 
   <div class="footer">
-    <p>Disclaimer: This is not financial advice. DYOR.</p>
-    <p>Running on Web3.0 mainnet</p>
+    <p>No cap fr fr</p>
+    <p>Running on pure rizz</p>
   </div>
 
   <script>
-    const responses = [
-      "TO THE MOON! 🚀",
-      "HODL for dear life",
-      "Buy high, sell higher",
-      "The charts speak of great wealth",
-      "Paper hands detected - outlook not good",
-      "Diamond hands will prevail",
-      "Signs point to massive gains",
-      "Better stack some sats",
-      "The dip shall be bought",
-      "Whale alert incoming",
-      "Mercury is in retrograde - time to DCA",
-      "Your NFTs will flip soon",
-      "The blockchain never lies - success ahead",
-      "Smart contracts predict yes",
-      "Gas fees say try again",
-      "Bullish divergence detected",
-      "The bears are temporary",
-      "Staking rewards incoming"
+    const responsePatterns = [
+      {
+        keywords: ['should', 'will', 'going'],
+        responses: [
+          "fr fr no cap 💯",
+          "nah fam that's mid 😬",
+          "bussin fr fr 🔥",
+          "on god that's the move 💪",
+          "you do you bestie ✨",
+          "lowkey sus ngl 🤨",
+          "slay queen/king 👑",
+          "that's giving main character energy ⭐",
+          "touch grass first 🌱",
+          "real ones know 💯",
+          "no shot bro 💀",
+          "bet bet bet 🎯"
+        ]
+      },
+      {
+        keywords: ['what', 'how', 'why'],
+        responses: [
+          "iykyk bestie 💅",
+          "it's giving... nothing 🫥",
+          "caught in 4K 📸",
+          "skill issue tbh 🎮",
+          "major red flag 🚩",
+          "that's the ick 🤢",
+          "straight bussin no cap 🚫🧢",
+          "respectfully, L + ratio 📉",
+          "common W actually 📈",
+          "based take fr fr 💯",
+          "living rent free fr 🏠",
+          "literally me rn 😮‍💨"
+        ]
+      },
+      {
+        keywords: ['is', 'are', 'am'],
+        responses: [
+          "based and real 💯",
+          "no shot bestie 💀",
+          "it's giving yes ✨",
+          "big npc energy rn 🤖",
+          "that's lowkey valid 👀",
+          "respectfully, nah 🙅‍♂️",
+          "iconic behavior 💅",
+          "kinda mid ngl 😬",
+          "absolutely unhinged (slay) 🔥",
+          "that's tea sis ☕",
+          "not the serve you think it is 💅",
+          "main character moment fr 🎭"
+        ]
+      }
+    ];
+
+    // Default responses if no pattern matches
+    const defaultResponses = [
+      "bestie i'm literally so confused rn 😵‍💫",
+      "didn't pass the vibe check 🚫",
+      "weird flex but ok 💁‍♂️",
+      "ate and left no crumbs 💅",
+      "that's camp bestie 🏕️",
+      "its giving... something 👀",
+      "no thoughts, head empty 🫡",
+      "living, laughing, loving rn 💕"
     ];
 
     const eightBall = document.querySelector('.eight-ball');
@@ -244,6 +289,18 @@
     const predictionEl = document.getElementById('prediction');
     const predictionText = document.querySelector('.prediction-text');
 
+    function getResponse(question) {
+      question = question.toLowerCase();
+      
+      // Find matching pattern
+      const matchingPattern = responsePatterns.find(pattern => 
+        pattern.keywords.some(keyword => question.includes(keyword))
+      );
+      
+      const responses = matchingPattern ? matchingPattern.responses : defaultResponses;
+      return responses[Math.floor(Math.random() * responses.length)];
+    }
+
     function shakeBall() {
       if (!questionInput.value) return;
 
@@ -252,15 +309,15 @@
       askButton.disabled = true;
       
       eightBall.classList.add('shake');
-      promptEl.textContent = '> Consulting the blockchain...';
+      promptEl.textContent = '> Reading the vibes...';
       predictionEl.style.display = 'none';
       
       setTimeout(() => {
-        const response = responses[Math.floor(Math.random() * responses.length)];
+        const response = getResponse(question);
         eightBall.classList.remove('shake');
         eightBall.classList.add('glow');
         
-        promptEl.textContent = '> Ask another question...';
+        promptEl.textContent = '> Ask another question bestie...';
         predictionEl.style.display = 'block';
         predictionText.textContent = response;
         

@@ -108,6 +108,11 @@
             gap: 0.5rem;
         }
 
+        .nav-links {
+            display: flex;
+            align-items: center;
+        }
+
         .nav-links a {
             color: var(--light);
             text-decoration: none;
@@ -117,6 +122,37 @@
 
         .nav-links a:hover {
             color: var(--primary);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            margin-left: 1rem;
+        }
+
+        .social-icon {
+            color: var(--light);
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+        }
+
+        .social-icon:hover {
+            color: var(--primary);
+        }
+
+        .buy-button {
+            background-color: var(--primary);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .buy-button:hover {
+            background-color: #1991db;
+            color: var(--light) !important;
+            transform: translateY(-2px);
         }
 
         .hero {
@@ -154,6 +190,21 @@
             color: #888;
             margin: 2rem 0;
             font-size: 1.1rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--primary);
+            color: var(--light);
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
         }
 
         .bubble-container {
@@ -259,6 +310,23 @@
             transform: scale(1.05);
         }
 
+        .footer-social {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 1rem 0;
+        }
+
+        .footer-link {
+            color: var(--primary);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-link:hover {
+            color: #1991db;
+        }
+
         footer {
             background-color: rgba(20, 23, 26, 0.95);
             padding: 2rem;
@@ -273,13 +341,25 @@
             .hero h1 {
                 font-size: 2.5rem;
             }
-            
+
             .nav-links {
                 display: none;
             }
-            
+
             .bubble {
                 width: 100%;
+            }
+
+            .social-links {
+                flex-direction: row;
+                margin: 0;
+                justify-content: center;
+            }
+
+            .footer-social {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
             }
         }
     </style>
@@ -298,6 +378,19 @@
                 <a href="#features">Features</a>
                 <a href="#news">News</a>
                 <a href="#token">Token</a>
+                <a href="https://fun.virtuals.io" target="_blank" class="buy-button">Buy Now</a>
+                <div class="social-links">
+                    <a href="https://t.me/xmedia3" target="_blank" class="social-icon">
+                        <svg class="telegram-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20.665 3.717l-17.73 6.837c-1.21.486-1.203 1.161-.222 1.462l4.552 1.42l10.532-6.645c.498-.303.953-.14.579.192l-8.533 7.701l-.321 4.823c.47 0 .677-.216.94-.47l2.26-2.184l4.685 3.458c.866.477 1.484.232 1.698-.803l3.077-14.503c.314-1.27-.485-1.84-1.517-1.288z" fill="currentColor"/>
+                        </svg>
+                    </a>
+                    <a href="https://x.com/xmedia___?s=21" target="_blank" class="social-icon">
+                        <svg class="x-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" fill="currentColor"/>
+                        </svg>
+                    </a>
+                </div>
             </div>
         </nav>
     </header>
@@ -307,7 +400,7 @@
             <h1>X-Media Token</h1>
             <p>The first memecoin dedicated to truth, transparency, and the power of free speech.</p>
             <div class="quote">"The bird is freed" - Elon Musk</div>
-            <a href="#token" class="cta-button">Join the Revolution</a>
+            <a href="https://fun.virtuals.io" target="_blank" class="cta-button">Buy X-Media Token</a>
         </div>
     </section>
 
@@ -351,7 +444,12 @@
 
     <footer>
         <p>© 2024 X-Media Token - Empowering Free Speech Through Blockchain</p>
-        <p>Join our community on X @XMediaToken</p>
+        <div class="footer-social">
+            <a href="https://t.me/xmedia3" target="_blank" class="social-icon">Join us on Telegram</a>
+            <a href="https://x.com/xmedia___?s=21" target="_blank" class="social-icon">Follow us on X</a>
+        </div>
+        <p>Buy X-Media on <a href="https://fun.virtuals.io" target="_blank" class="footer-link">fun.virtuals
+       .io</a></p>
     </footer>
 
     <script>
@@ -394,29 +492,23 @@
 
         // News functionality
         async function fetchNews() {
-            try {
-                // Simulated news data - Replace with actual API call
-                return [
-                    {
-                        title: "X-Media Reaches New Milestone",
-                        content: "Community growth exceeds expectations as decentralized media gains traction.",
-                        timestamp: new Date().toLocaleString()
-                    },
-                    {
-                        title: "Platform Update Released",
-                        content: "New features enhance content distribution and community engagement capabilities.",
-                        timestamp: new Date().toLocaleString()
-                    },
-                    {
-                        title: "Market Analysis",
-                        content: "X-Media token shows strong performance amid growing interest in decentralized media.",
-                        timestamp: new Date().toLocaleString()
-                    }
-                ];
-            } catch (error) {
-                console.error('Error fetching news:', error);
-                return [];
-            }
+            return [
+                {
+                    title: "X-Media Reaches New Milestone",
+                    content: "Community growth exceeds expectations as decentralized media gains traction.",
+                    timestamp: new Date().toLocaleString()
+                },
+                {
+                    title: "Platform Update Released",
+                    content: "New features enhance content distribution and community engagement capabilities.",
+                    timestamp: new Date().toLocaleString()
+                },
+                {
+                    title: "Market Analysis",
+                    content: "X-Media token shows strong performance amid growing interest in decentralized media.",
+                    timestamp: new Date().toLocaleString()
+                }
+            ];
         }
 
         function createNewsElement(news) {
@@ -435,7 +527,7 @@
             newsContainer.innerHTML = news.map(createNewsElement).join('');
         }
 
-        // Initialize
+        // Initialize animations and news
         setInterval(createX, 1000);
         setInterval(createRocket, 10000);
         refreshNews();
@@ -447,4 +539,4 @@
         createRocket();
     </script>
 </body>
-</html>
+</html>     

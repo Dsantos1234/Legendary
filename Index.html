@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>X-Media | The Voice of Free Speech</title>
     <style>
-        /* Previous styles remain the same until hero section */
         :root {
             --primary: #1DA1F2;
             --dark: #14171A;
@@ -129,7 +128,6 @@
             padding: 0 1rem;
             background: linear-gradient(135deg, rgba(20, 23, 26, 0.95), rgba(29, 161, 242, 0.1));
             position: relative;
-            overflow: hidden;
         }
 
         .hero-content {
@@ -158,26 +156,132 @@
             font-size: 1.1rem;
         }
 
-        .manifesto {
-            max-width: 800px;
+        .bubble-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            margin-top: 4rem;
+        }
+
+        .bubble {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 2rem;
+            width: 300px;
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .bubble:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(29, 161, 242, 0.2);
+        }
+
+        .bubble h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .bubble-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .news-section {
+            max-width: 1200px;
             margin: 4rem auto;
             padding: 2rem;
+        }
+
+        .news-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .news-item {
             background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 1.5rem;
+            transition: transform 0.3s;
+        }
+
+        .news-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .news-item .timestamp {
+            color: var(--primary);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .news-item h4 {
+            margin-bottom: 1rem;
+            color: var(--light);
+        }
+
+        .news-item p {
+            color: var(--gray);
+        }
+
+        .refresh-button {
+            background: var(--primary);
+            color: var(--light);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .refresh-button:hover {
+            transform: scale(1.05);
+        }
+
+        footer {
+            background-color: rgba(20, 23, 26, 0.95);
+            padding: 2rem;
+            text-align: center;
+            margin-top: 4rem;
+            position: relative;
+            z-index: 2;
             backdrop-filter: blur(5px);
         }
 
-        .manifesto h2 {
-            color: var(--primary);
-            margin-bottom: 1rem;
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .bubble {
+                width: 100%;
+            }
         }
-
-        .manifesto p {
-            margin-bottom: 1rem;
-            line-height: 1.8;
-        }
-
-        /* Previous card and footer styles remain the same */
     </style>
 </head>
 <body>
@@ -191,9 +295,9 @@
             </div>
             <div class="nav-links">
                 <a href="#home">Home</a>
-                <a href="#manifesto">Manifesto</a>
-                <a href="#token">Token</a>
+                <a href="#features">Features</a>
                 <a href="#news">News</a>
+                <a href="#token">Token</a>
             </div>
         </nav>
     </header>
@@ -207,44 +311,41 @@
         </div>
     </section>
 
-    <section class="manifesto" id="manifesto">
-        <h2>Our Vision</h2>
-        <p>X-Media isn't just another memecoin - it's a symbol of the revolution in digital communication. Born from the spirit of X's transformation, we represent the core values of free speech, unfiltered truth, and decentralized information sharing.</p>
-        <p>In a world where traditional media gatekeepers control the narrative, X-Media stands for the power of individual voices and community-driven content. Every holder becomes part of a movement that champions transparency and authentic dialogue.</p>
-        <p>Just as X platform revolutionized social media by embracing free speech and open dialogue, X-Media token embodies these principles in the crypto space. We're not just creating a token; we're fostering a community dedicated to truth and transparency.</p>
-    </section>
+    <div class="bubble-container" id="features">
+        <div class="bubble">
+            <div class="bubble-icon">🎯</div>
+            <h3>Our Mission</h3>
+            <p>Empowering free speech through decentralized media distribution and community-driven content.</p>
+        </div>
+        
+        <div class="bubble">
+            <div class="bubble-icon">💎</div>
+            <h3>Token Stats</h3>
+            <p>Market Cap: $10.5M</p>
+            <p>24h Volume: $2.3M</p>
+            <p>Holders: 15,234</p>
+        </div>
+        
+        <div class="bubble">
+            <div class="bubble-icon">🚀</div>
+            <h3>Community</h3>
+            <p>Join thousands of supporters championing the future of decentralized media.</p>
+        </div>
+        
+        <div class="bubble">
+            <div class="bubble-icon">📊</div>
+            <h3>Analytics</h3>
+            <p>Real-time tracking of engagement, reach, and impact across the X platform.</p>
+        </div>
+    </div>
 
-    <section class="token-stats" id="token">
-        <div class="stat-card">
-            <h3>Market Cap</h3>
-            <p>$10.5M</p>
+    <section class="news-section" id="news">
+        <div class="news-header">
+            <h2>Latest News</h2>
+            <button class="refresh-button" onclick="refreshNews()">🔄 Refresh</button>
         </div>
-        <div class="stat-card">
-            <h3>24h Volume</h3>
-            <p>$2.3M</p>
-        </div>
-        <div class="stat-card">
-            <h3>Holders</h3>
-            <p>15,234</p>
-        </div>
-        <div class="stat-card">
-            <h3>Current Price</h3>
-            <p>$0.00042</p>
-        </div>
-    </section>
-
-    <section class="news-feed" id="news">
-        <div class="news-card">
-            <h3>Breaking News</h3>
-            <p>Real-time updates from the X community, unfiltered and uncensored.</p>
-        </div>
-        <div class="news-card">
-            <h3>Community Voice</h3>
-            <p>Direct from the people, for the people. No intermediaries, no censorship.</p>
-        </div>
-        <div class="news-card">
-            <h3>Token Updates</h3>
-            <p>Latest developments in the X-Media ecosystem and community initiatives.</p>
+        <div class="news-grid" id="newsContainer">
+            <!-- News items will be dynamically inserted here -->
         </div>
     </section>
 
@@ -254,7 +355,7 @@
     </footer>
 
     <script>
-        // Previous X symbol animation code remains the same
+        // Background animations
         function createX() {
             const x = document.createElement('div');
             x.className = 'x-symbol';
@@ -280,7 +381,6 @@
             });
         }
 
-        // Create rockets periodically
         function createRocket() {
             const rocket = document.createElement('div');
             rocket.className = 'rocket';
@@ -292,8 +392,53 @@
             });
         }
 
+        // News functionality
+        async function fetchNews() {
+            try {
+                // Simulated news data - Replace with actual API call
+                return [
+                    {
+                        title: "X-Media Reaches New Milestone",
+                        content: "Community growth exceeds expectations as decentralized media gains traction.",
+                        timestamp: new Date().toLocaleString()
+                    },
+                    {
+                        title: "Platform Update Released",
+                        content: "New features enhance content distribution and community engagement capabilities.",
+                        timestamp: new Date().toLocaleString()
+                    },
+                    {
+                        title: "Market Analysis",
+                        content: "X-Media token shows strong performance amid growing interest in decentralized media.",
+                        timestamp: new Date().toLocaleString()
+                    }
+                ];
+            } catch (error) {
+                console.error('Error fetching news:', error);
+                return [];
+            }
+        }
+
+        function createNewsElement(news) {
+            return `
+                <div class="news-item">
+                    <div class="timestamp">${news.timestamp}</div>
+                    <h4>${news.title}</h4>
+                    <p>${news.content}</p>
+                </div>
+            `;
+        }
+
+        async function refreshNews() {
+            const newsContainer = document.getElementById('newsContainer');
+            const news = await fetchNews();
+            newsContainer.innerHTML = news.map(createNewsElement).join('');
+        }
+
+        // Initialize
         setInterval(createX, 1000);
         setInterval(createRocket, 10000);
+        refreshNews();
 
         // Initial elements
         for(let i = 0; i < 20; i++) {

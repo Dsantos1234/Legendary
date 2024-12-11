@@ -1,179 +1,281 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MoonDoge Coin - To The Moon!</title>
-    <style>
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-            100% { transform: translateY(0px); }
-        }
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      min-height: 100vh;
+      background: black;
+      font-family: monospace;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+    .header {
+      margin-bottom: 2rem;
+      text-align: center;
+    }
 
-        body {
-            font-family: 'Comic Sans MS', cursive, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #1a1a2e;
-            color: #e94560;
-        }
-        header {
-            background-color: #16213e;
-            color: #e94560;
-            padding: 1rem;
-            text-align: center;
-        }
-        nav a {
-            color: #0f3460;
-            text-decoration: none;
-            margin: 0 1rem;
-            background-color: #e94560;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            transition: all 0.3s ease;
-        }
-        nav a:hover {
-            background-color: #0f3460;
-            color: #e94560;
-        }
-        .hero {
-            background-image: url('/placeholder.svg?height=400&width=800');
-            background-size: cover;
-            height: 400px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: #e94560;
-            position: relative;
-            overflow: hidden;
-        }
-        .hero h1 {
-            font-size: 3rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            animation: float 3s ease-in-out infinite;
-        }
-        .hero::before {
-            content: '🚀';
-            position: absolute;
-            font-size: 2rem;
-            animation: spin 5s linear infinite;
-        }
-        section {
-            padding: 2rem;
-            margin: 1rem auto;
-            max-width: 800px;
-            background-color: #16213e;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(233,69,96,0.5);
-        }
-        .tokenomics {
-            display: flex;
-            justify-content: space-around;
-            text-align: center;
-        }
-        .tokenomics div {
-            flex: 1;
-            transition: all 0.3s ease;
-        }
-        .tokenomics div:hover {
-            transform: scale(1.1);
-        }
-        footer {
-            background-color: #16213e;
-            color: #e94560;
-            text-align: center;
-            padding: 1rem;
-            position: relative;
-            bottom: 0;
-            width: 100%;
-        }
-        #carousel {
-            overflow: hidden;
-            white-space: nowrap;
-            margin: 2rem 0;
-        }
-        .carousel-item {
-            display: inline-block;
-            width: 100%;
-            transition: transform 0.5s ease;
-        }
-    </style>
+    .header h1 {
+      font-size: 2.5rem;
+      color: #22c55e;
+      margin-bottom: 0.5rem;
+    }
+
+    .header p {
+      color: #4ade80;
+    }
+
+    .terminal-card {
+      width: 100%;
+      max-width: 42rem;
+      background: #111827;
+      padding: 1.5rem;
+      border-radius: 0.5rem;
+      border: 2px solid #22c55e;
+    }
+
+    .terminal-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+      color: #22c55e;
+    }
+
+    .terminal-header svg {
+      margin-right: 0.5rem;
+    }
+
+    .output-area {
+      background: black;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      margin-bottom: 1rem;
+      height: 12rem;
+      overflow-y: auto;
+      color: #22c55e;
+    }
+
+    .prediction {
+      margin-top: 1rem;
+    }
+
+    .prediction-label {
+      color: #facc15;
+    }
+
+    .prediction-text {
+      font-size: 1.25rem;
+      font-weight: bold;
+      color: #4ade80;
+      margin-top: 0.5rem;
+    }
+
+    .input-area {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    input {
+      flex: 1;
+      background: black;
+      color: #22c55e;
+      padding: 0.5rem;
+      border: 1px solid #22c55e;
+      border-radius: 0.25rem;
+      font-family: monospace;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #4ade80;
+    }
+
+    button {
+      padding: 0.5rem 1rem;
+      background: #22c55e;
+      color: white;
+      border: none;
+      border-radius: 0.25rem;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    button:hover:not(:disabled) {
+      background: #16a34a;
+    }
+
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .footer {
+      margin-top: 2rem;
+      text-align: center;
+      color: #4ade80;
+    }
+
+    .footer p + p {
+      margin-top: 0.5rem;
+      font-size: 0.875rem;
+    }
+
+    /* 8 Ball Styles */
+    .eight-ball {
+      width: 150px;
+      height: 150px;
+      background: radial-gradient(circle at 30% 30%, #666, #000);
+      border-radius: 50%;
+      position: relative;
+      margin: 2rem auto;
+      box-shadow: 0 0 20px rgba(34, 197, 94, 0.5);
+      transition: transform 0.5s;
+    }
+
+    .eight-ball::after {
+      content: "8";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #22c55e;
+      font-size: 4rem;
+      font-weight: bold;
+      text-shadow: 0 0 10px rgba(34, 197, 94, 0.8);
+    }
+
+    .shake {
+      animation: shake 0.5s ease-in-out infinite;
+    }
+
+    .glow {
+      animation: glow 2s ease-in-out infinite;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-10px) rotate(-5deg); }
+      75% { transform: translateX(10px) rotate(5deg); }
+    }
+
+    @keyframes glow {
+      0%, 100% { box-shadow: 0 0 20px rgba(34, 197, 94, 0.5); }
+      50% { box-shadow: 0 0 40px rgba(34, 197, 94, 0.8); }
+    }
+
+    .typing {
+      overflow: hidden;
+      white-space: nowrap;
+      animation: typing 1s steps(40, end);
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <nav>
-            <a href="#home">Home</a>
-            <a href="#about">About</a>
-            <a href="#tokenomics">Tokenomics</a>
-            <a href="#community">Community</a>
-        </nav>
-    </header>
+  <div class="header">
+    <h1>8 Ball Terminal</h1>
+    <p>Your Crypto Fortune Teller</p>
+  </div>
 
-    <div class="hero" id="home">
-        <h1>MoonDoge Coin<br>To The Moon! 🚀🌕</h1>
+  <div class="eight-ball"></div>
+
+  <div class="terminal-card">
+    <div class="terminal-header">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="4 17 10 11 4 5"></polyline>
+        <line x1="12" y1="19" x2="20" y2="19"></line>
+      </svg>
+      <span>8ball_terminal.eth</span>
     </div>
 
-    <section id="about">
-        <h2>About MoonDoge</h2>
-        <p>MoonDoge is not just another memecoin - it's a movement! Born from the love of dogs and space travel, MoonDoge aims to take its holders on a journey to financial freedom. With strong community support and innovative tokenomics, we're ready for liftoff!</p>
-    </section>
+    <div class="output-area">
+      <p id="prompt" class="typing">> Ask the 8 Ball Terminal about your crypto destiny...</p>
+      <div id="prediction" class="prediction" style="display: none;">
+        <p class="prediction-label">Prediction:</p>
+        <p class="prediction-text"></p>
+      </div>
+    </div>
 
-    <section id="tokenomics">
-        <h2>Tokenomics</h2>
-        <div class="tokenomics">
-            <div>
-                <h3>Total Supply</h3>
-                <p>1,000,000,000,000 MDOGE</p>
-            </div>
-            <div>
-                <h3>Burn</h3>
-                <p>50% at launch</p>
-            </div>
-            <div>
-                <h3>Transaction Fee</h3>
-                <p>5% redistribution to holders</p>
-            </div>
-        </div>
-    </section>
+    <div class="input-area">
+      <input type="text" id="question" placeholder="Type your crypto question...">
+      <button id="askButton">Ask</button>
+    </div>
+  </div>
 
-    <section id="community">
-        <h2>Join Our Community</h2>
-        <div id="carousel">
-            <div class="carousel-item">
-                <p>Join us on Twitter for the latest memes and updates! 🐦</p>
-            </div>
-            <div class="carousel-item">
-                <p>Our Telegram group is the place to be for instant communication! 📱</p>
-            </div>
-            <div class="carousel-item">
-                <p>Discord server coming soon! Stay tuned for exclusive content and events! 🎮</p>
-            </div>
-        </div>
-    </section>
+  <div class="footer">
+    <p>Disclaimer: This is not financial advice. DYOR.</p>
+    <p>Running on Web3.0 mainnet</p>
+  </div>
 
-    <footer>
-        <p>&copy; 2023 MoonDoge Coin. All rights reserved. To the moon! 🚀</p>
-    </footer>
+  <script>
+    const responses = [
+      "TO THE MOON! 🚀",
+      "HODL for dear life",
+      "Buy high, sell higher",
+      "The charts speak of great wealth",
+      "Paper hands detected - outlook not good",
+      "Diamond hands will prevail",
+      "Signs point to massive gains",
+      "Better stack some sats",
+      "The dip shall be bought",
+      "Whale alert incoming",
+      "Mercury is in retrograde - time to DCA",
+      "Your NFTs will flip soon",
+      "The blockchain never lies - success ahead",
+      "Smart contracts predict yes",
+      "Gas fees say try again",
+      "Bullish divergence detected",
+      "The bears are temporary",
+      "Staking rewards incoming"
+    ];
 
-    <script>
-        const carousel = document.getElementById('carousel');
-        const items = carousel.getElementsByClassName('carousel-item');
-        let currentIndex = 0;
+    const eightBall = document.querySelector('.eight-ball');
+    const questionInput = document.getElementById('question');
+    const askButton = document.getElementById('askButton');
+    const promptEl = document.getElementById('prompt');
+    const predictionEl = document.getElementById('prediction');
+    const predictionText = document.querySelector('.prediction-text');
 
-        function rotateCarousel() {
-            currentIndex = (currentIndex + 1) % items.length;
-            carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
-        }
+    function shakeBall() {
+      if (!questionInput.value) return;
 
-        setInterval(rotateCarousel, 3000);
-    </script>
+      const question = questionInput.value;
+      questionInput.value = '';
+      askButton.disabled = true;
+      
+      eightBall.classList.add('shake');
+      promptEl.textContent = '> Consulting the blockchain...';
+      predictionEl.style.display = 'none';
+      
+      setTimeout(() => {
+        const response = responses[Math.floor(Math.random() * responses.length)];
+        eightBall.classList.remove('shake');
+        eightBall.classList.add('glow');
+        
+        promptEl.textContent = '> Ask another question...';
+        predictionEl.style.display = 'block';
+        predictionText.textContent = response;
+        
+        askButton.disabled = false;
+        
+        setTimeout(() => {
+          eightBall.classList.remove('glow');
+        }, 2000);
+      }, 1500);
+    }
+
+    askButton.addEventListener('click', shakeBall);
+    questionInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') shakeBall();
+    });
+  </script>
 </body>
 </html>
-

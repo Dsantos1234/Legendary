@@ -2,17 +2,37 @@
 <html>
 <head>
   <style>
-    /* Previous styles remain the same */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     
     body {
       min-height: 100vh;
-      background: black;
+      background: #0a0a0f;
       font-family: monospace;
       padding: 2rem;
       display: flex;
       flex-direction: column;
       align-items: center;
+      color: #fff;
+    }
+
+    .warning-banner {
+      background: linear-gradient(90deg, #FFD700, #FFA500);
+      color: black;
+      padding: 0.5rem;
+      text-align: center;
+      width: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      font-weight: bold;
+      z-index: 1000;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 1; }
+      50% { opacity: 0.8; }
+      100% { opacity: 1; }
     }
 
     .header {
@@ -22,130 +42,55 @@
 
     .header h1 {
       font-size: 2.5rem;
-      color: #22c55e;
+      background: linear-gradient(45deg, #FFD700, #FFA500);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
       margin-bottom: 0.5rem;
     }
 
     .header p {
-      color: #4ade80;
+      color: #FFD700;
+      opacity: 0.8;
     }
 
-    .terminal-card {
-      width: 100%;
-      max-width: 42rem;
-      background: #111827;
-      padding: 1.5rem;
-      border-radius: 0.5rem;
-      border: 2px solid #22c55e;
-    }
-
-    .terminal-header {
-      display: flex;
-      align-items: center;
-      margin-bottom: 1rem;
-      color: #22c55e;
-    }
-
-    .terminal-header svg {
-      margin-right: 0.5rem;
-    }
-
-    .output-area {
-      background: black;
-      padding: 1rem;
-      border-radius: 0.5rem;
-      margin-bottom: 1rem;
-      height: 12rem;
-      overflow-y: auto;
-      color: #22c55e;
-    }
-
-    .prediction {
-      margin-top: 1rem;
-    }
-
-    .prediction-label {
-      color: #facc15;
-    }
-
-    .prediction-text {
-      font-size: 1.25rem;
-      font-weight: bold;
-      color: #4ade80;
-      margin-top: 0.5rem;
-    }
-
-    .input-area {
-      display: flex;
-      gap: 0.5rem;
-    }
-
-    input {
-      flex: 1;
-      background: black;
-      color: #22c55e;
-      padding: 0.5rem;
-      border: 1px solid #22c55e;
-      border-radius: 0.25rem;
-      font-family: monospace;
-    }
-
-    input:focus {
-      outline: none;
-      border-color: #4ade80;
-    }
-
-    button {
-      padding: 0.5rem 1rem;
-      background: #22c55e;
-      color: white;
-      border: none;
-      border-radius: 0.25rem;
-      cursor: pointer;
-      transition: background-color 0.2s;
-    }
-
-    button:hover:not(:disabled) {
-      background: #16a34a;
-    }
-
-    button:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-
-    .footer {
-      margin-top: 2rem;
-      text-align: center;
-      color: #4ade80;
-    }
-
-    .footer p + p {
-      margin-top: 0.5rem;
-      font-size: 0.875rem;
+    .eight-ball-container {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      margin: 2rem auto;
+      perspective: 1000px;
     }
 
     .eight-ball {
-      width: 150px;
-      height: 150px;
-      background: radial-gradient(circle at 30% 30%, #666, #000);
-      border-radius: 50%;
+      width: 100%;
+      height: 100%;
       position: relative;
-      margin: 2rem auto;
-      box-shadow: 0 0 20px rgba(34, 197, 94, 0.5);
-      transition: transform 0.5s;
+      transform-style: preserve-3d;
+      transition: transform 0.8s ease-in-out;
     }
 
-    .eight-ball::after {
+    .eight-ball-front {
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle at 30% 30%, #666, #000);
+      border-radius: 50%;
+      position: absolute;
+      box-shadow: 
+        inset -10px -10px 20px rgba(0,0,0,0.5),
+        inset 10px 10px 20px rgba(255,255,255,0.1),
+        0 0 20px rgba(255, 215, 0, 0.3);
+    }
+
+    .eight-ball-front::after {
       content: "8";
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      color: #22c55e;
-      font-size: 4rem;
+      color: #FFD700;
+      font-size: 5rem;
       font-weight: bold;
-      text-shadow: 0 0 10px rgba(34, 197, 94, 0.8);
+      text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
     }
 
     .shake {
@@ -157,14 +102,130 @@
     }
 
     @keyframes shake {
-      0%, 100% { transform: translateX(0); }
+      0%, 100% { transform: translateX(0) rotate(0deg); }
       25% { transform: translateX(-10px) rotate(-5deg); }
       75% { transform: translateX(10px) rotate(5deg); }
     }
 
     @keyframes glow {
-      0%, 100% { box-shadow: 0 0 20px rgba(34, 197, 94, 0.5); }
-      50% { box-shadow: 0 0 40px rgba(34, 197, 94, 0.8); }
+      0%, 100% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.3); }
+      50% { box-shadow: 0 0 40px rgba(255, 215, 0, 0.6); }
+    }
+
+    .terminal-card {
+      width: 100%;
+      max-width: 42rem;
+      background: rgba(17, 24, 39, 0.95);
+      padding: 1.5rem;
+      border-radius: 1rem;
+      border: 2px solid #FFD700;
+      backdrop-filter: blur(10px);
+    }
+
+    .terminal-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+      color: #FFD700;
+      border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+      padding-bottom: 0.5rem;
+    }
+
+    .terminal-header svg {
+      margin-right: 0.5rem;
+    }
+
+    .output-area {
+      background: rgba(0, 0, 0, 0.7);
+      padding: 1rem;
+      border-radius: 0.5rem;
+      margin-bottom: 1rem;
+      height: 12rem;
+      overflow-y: auto;
+      color: #FFD700;
+      font-family: 'Courier New', monospace;
+    }
+
+    .prediction {
+      margin-top: 1rem;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.3s ease-out;
+    }
+
+    .prediction.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .prediction-label {
+      color: #FFA500;
+      font-style: italic;
+    }
+
+    .prediction-text {
+      font-size: 1.25rem;
+      font-weight: bold;
+      color: #FFD700;
+      margin-top: 0.5rem;
+      line-height: 1.4;
+    }
+
+    .input-area {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    input {
+      flex: 1;
+      background: rgba(0, 0, 0, 0.5);
+      color: #FFD700;
+      padding: 0.75rem;
+      border: 1px solid #FFD700;
+      border-radius: 0.5rem;
+      font-family: 'Courier New', monospace;
+      font-size: 1rem;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #FFA500;
+      box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+    }
+
+    button {
+      padding: 0.75rem 1.5rem;
+      background: linear-gradient(45deg, #FFD700, #FFA500);
+      color: black;
+      border: none;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+    }
+
+    button:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+    }
+
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .footer {
+      margin-top: 2rem;
+      text-align: center;
+      color: #FFD700;
+      opacity: 0.8;
+      font-style: italic;
+    }
+
+    .footer p + p {
+      margin-top: 0.5rem;
+      font-size: 0.875rem;
     }
 
     .typing {
@@ -180,12 +241,20 @@
   </style>
 </head>
 <body>
-  <div class="header">
-    <h1>8 Ball Terminal</h1>
-    <p>Your Meme Fortune Teller</p>
+  <div class="warning-banner">
+    🚨 For entertainment only! Not financial advice! NGMI anyway! 🚨
   </div>
 
-  <div class="eight-ball"></div>
+  <div class="header">
+    <h1>Degen 8 Ball Terminal</h1>
+    <p>Your Based Financial Advisor (Now with Extra Cope)</p>
+  </div>
+
+  <div class="eight-ball-container">
+    <div class="eight-ball">
+      <div class="eight-ball-front"></div>
+    </div>
+  </div>
 
   <div class="terminal-card">
     <div class="terminal-header">
@@ -193,94 +262,112 @@
         <polyline points="4 17 10 11 4 5"></polyline>
         <line x1="12" y1="19" x2="20" y2="19"></line>
       </svg>
-      <span>8ball_terminal.eth</span>
+      <span>degen_8ball.eth</span>
     </div>
 
     <div class="output-area">
-      <p id="prompt" class="typing">> Ask me anything and I'll give you the ✨tea✨...</p>
-      <div id="prediction" class="prediction" style="display: none;">
-        <p class="prediction-label">The 8 Ball says:</p>
+      <p id="prompt" class="typing">> Ready to lose money? Ask me anything...</p>
+      <div id="prediction" class="prediction">
+        <p class="prediction-label">Magic 8 Ball says (trust me bro):</p>
         <p class="prediction-text"></p>
       </div>
     </div>
 
     <div class="input-area">
-      <input type="text" id="question" placeholder="Type your question...">
-      <button id="askButton">Ask</button>
+      <input type="text" id="question" placeholder="What's your next financial mistake?">
+      <button id="askButton">YOLO IT</button>
     </div>
   </div>
 
   <div class="footer">
-    <p>No cap fr fr</p>
-    <p>Running on pure rizz</p>
+    <p>Warning: This terminal runs on pure copium</p>
+    <p>Powered by trust-me-bro technology™</p>
   </div>
 
   <script>
+    const memeCoins = [
+      "PEPE", "WOJAK", "BONK", "DOGE", "SHIB", "FLOKI", "SAMO", "COPI",
+      "$CHAD", "COPIUM", "$JAIL", "NGMI", "FOMO", "GUH", "KEK", "WAGMI",
+      "$BASED", "PUMP", "DUMPIT", "REKT", "COPIUM", "FUD", "FOMO", "$APE"
+    ];
+
     const responsePatterns = [
       {
-        keywords: ['should', 'will', 'going'],
+        keywords: ['should', 'buy', 'invest', 'worth'],
         responses: [
-          "fr fr no cap 💯",
-          "nah fam that's mid 😬",
-          "bussin fr fr 🔥",
-          "on god that's the move 💪",
-          "you do you bestie ✨",
-          "lowkey sus ngl 🤨",
-          "slay queen/king 👑",
-          "that's giving main character energy ⭐",
-          "touch grass first 🌱",
-          "real ones know 💯",
-          "no shot bro 💀",
-          "bet bet bet 🎯"
+          (coin) => `Sell your kidney and go all in on $${coin} 🚀`,
+          (coin) => `${coin} looking bullish AF (source: voices in my head) 📈`,
+          (coin) => `Just mortgaged my mom's house to ape into $${coin} 🦍`,
+          "Have you tried turning your portfolio off and on again? 💻",
+          "Your portfolio is almost as dead as your love life 💀",
+          (coin) => `Time to ape into $${coin} like your wife's boyfriend would 🦍`,
+          "Even a hamster would make better trades than you 🐹",
+          (coin) => `${coin} to $1 (source: trust me bro) 🗣️`,
+          "Did you try checking the blockchain horoscope? Mercury is in rugpull 🌠"
         ]
       },
       {
-        keywords: ['what', 'how', 'why'],
+        keywords: ['when', 'moon', 'lambo', 'rich', 'pump'],
         responses: [
-          "iykyk bestie 💅",
-          "it's giving... nothing 🫥",
-          "caught in 4K 📸",
-          "skill issue tbh 🎮",
-          "major red flag 🚩",
-          "that's the ick 🤢",
-          "straight bussin no cap 🚫🧢",
-          "respectfully, L + ratio 📉",
-          "common W actually 📈",
-          "based take fr fr 💯",
-          "living rent free fr 🏠",
-          "literally me rn 😮‍💨"
+          "When your dad comes back with the milk 🥛",
+          "Roughly around the heat death of the universe ⚰️",
+          (coin) => `${coin} will flip Bitcoin (source: reddit NPC) 🔄`,
+          "Just two more weeks™ of ramen 🍜",
+          "Your Lambo order was rejected due to insufficient brain cells 🧠",
+          "Error 404: Profits not found 💸",
+          "When pigs fly (bullish on pig tokens) 🐷",
+          "After your wife's boyfriend approves it 📝",
+          "Soon™ (aka never) 🎯"
         ]
       },
       {
-        keywords: ['is', 'are', 'am'],
+        keywords: ['price', 'dip', 'crash', 'dump', 'bear'],
         responses: [
-          "based and real 💯",
-          "no shot bestie 💀",
-          "it's giving yes ✨",
-          "big npc energy rn 🤖",
-          "that's lowkey valid 👀",
-          "respectfully, nah 🙅‍♂️",
-          "iconic behavior 💅",
-          "kinda mid ngl 😬",
-          "absolutely unhinged (slay) 🔥",
-          "that's tea sis ☕",
-          "not the serve you think it is 💅",
-          "main character moment fr 🎭"
+          "It's not a loss if you don't sell (and other lies we tell ourselves) 🤡",
+          "Have you tried deleting the app? 📱",
+          "Chart looking like your EKG after checking your portfolio 📉",
+          (coin) => `Quick, panic sell $${coin} to exit scam yourself 🏃`,
+          "It's just a guh moment, bro 😮‍💨",
+          "More dips than your dating history 📊",
+          "Bullish on rope futures 🪢",
+          "Maybe the real gains were the friends we rekt along the way 🤝",
+          "Instructions unclear, leveraged my parent's retirement fund 👴"
         ]
       }
     ];
 
-    // Default responses if no pattern matches
     const defaultResponses = [
-      "bestie i'm literally so confused rn 😵‍💫",
-      "didn't pass the vibe check 🚫",
-      "weird flex but ok 💁‍♂️",
-      "ate and left no crumbs 💅",
-      "that's camp bestie 🏕️",
-      "its giving... something 👀",
-      "no thoughts, head empty 🫡",
-      "living, laughing, loving rn 💕"
+      "This is definitely financial advice (please sue me) 🤑",
+      "Sir, this is a Wendy's dumpster... I mean casino 🎰",
+      "Error 404: Brain cells not found 🧠",
+      "Your portfolio is transitory (like your relationships) 💔",
+      "Instructions unclear, bought high sold low 📉",
+      "Loading financial destruction... 💣",
+      "Better call your mom for a loan 📞",
+      "Have you tried turning it off and on again? 🔄"
     ];
+
+    function getRandomCoin() {
+      return memeCoins[Math.floor(Math.random() * memeCoins.length)];
+    }
+
+    function getResponse(question) {
+      question = question.toLowerCase();
+      
+      const matchingPattern = responsePatterns.find(pattern => 
+        pattern.keywords.some(keyword => question.includes(keyword))
+      );
+      
+      const responses = matchingPattern ? matchingPattern.responses : defaultResponses;
+      let response = responses[Math.floor(Math.random() * responses.length)];
+      
+      // If response is a function, call it with a random coin
+      if (typeof response === 'function') {
+        response = response(getRandomCoin());
+      }
+      
+      return response;
+    }
 
     const eightBall = document.querySelector('.eight-ball');
     const questionInput = document.getElementById('question');
@@ -288,18 +375,6 @@
     const promptEl = document.getElementById('prompt');
     const predictionEl = document.getElementById('prediction');
     const predictionText = document.querySelector('.prediction-text');
-
-    function getResponse(question) {
-      question = question.toLowerCase();
-      
-      // Find matching pattern
-      const matchingPattern = responsePatterns.find(pattern => 
-        pattern.keywords.some(keyword => question.includes(keyword))
-      );
-      
-      const responses = matchingPattern ? matchingPattern.responses : defaultResponses;
-      return responses[Math.floor(Math.random() * responses.length)];
-    }
 
     function shakeBall() {
       if (!questionInput.value) return;
@@ -309,7 +384,7 @@
       askButton.disabled = true;
       
       eightBall.classList.add('shake');
-      promptEl.textContent = '> Reading the vibes...';
+      promptEl.textContent = '> Consulting the sacred blockchain...';
       predictionEl.style.display = 'none';
       
       setTimeout(() => {
@@ -317,8 +392,9 @@
         eightBall.classList.remove('shake');
         eightBall.classList.add('glow');
         
-        promptEl.textContent = '> Ask another question bestie...';
+        promptEl.textContent = '> Ask another question, degen...';
         predictionEl.style.display = 'block';
+        predictionEl.classList.add('show');
         predictionText.textContent = response;
         
         askButton.disabled = false;

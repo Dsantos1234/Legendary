@@ -3,540 +3,272 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>X-Media | The Voice of Free Speech</title>
+    <title>Chillin Me - The Most Based Token in Crypto</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap');
+
         :root {
-            --primary: #1DA1F2;
-            --dark: #14171A;
-            --light: #FFFFFF;
-            --gray: #657786;
+            --yellow-400: #facc15;
+            --blue-500: #3b82f6;
+            --blue-600: #2563eb;
+            --blue-800: #1e40af;
+            --blue-900: #1e3a8a;
+            --purple-700: #7e22ce;
+            --purple-800: #6b21a8;
         }
-        
-        * {
+
+        body, html {
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        }
-
-        body {
-            background-color: var(--dark);
-            color: var(--light);
-            line-height: 1.6;
+            font-family: 'Comic Neue', cursive;
+            color: white;
             overflow-x: hidden;
-        }
-
-        .animated-background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            overflow: hidden;
-        }
-
-        .x-symbol {
-            position: absolute;
-            color: rgba(29, 161, 242, 0.1);
-            font-family: Arial, sans-serif;
-            font-weight: bold;
-            user-select: none;
-            pointer-events: none;
-            animation: float 20s linear infinite;
-        }
-
-        @keyframes float {
-            0% {
-                transform: translate(0, 0) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translate(var(--moveX), var(--moveY)) rotate(360deg);
-                opacity: 0;
-            }
-        }
-
-        .rocket {
-            position: fixed;
-            font-size: 24px;
-            animation: rocketFloat 15s infinite linear;
-            z-index: 1;
-            opacity: 0.7;
-        }
-
-        @keyframes rocketFloat {
-            0% {
-                transform: translate(-100vw, 50vh) rotate(45deg);
-            }
-            100% {
-                transform: translate(200vw, -50vh) rotate(45deg);
-            }
-        }
-
-        header {
-            background-color: rgba(20, 23, 26, 0.95);
-            padding: 1rem;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-            backdrop-filter: blur(5px);
-        }
-
-        nav {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-        }
-
-        .nav-links a {
-            color: var(--light);
-            text-decoration: none;
-            margin-left: 2rem;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: var(--primary);
-        }
-
-        .social-links {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-            margin-left: 1rem;
-        }
-
-        .social-icon {
-            color: var(--light);
-            transition: color 0.3s;
-            display: flex;
-            align-items: center;
-        }
-
-        .social-icon:hover {
-            color: var(--primary);
-        }
-
-        .buy-button {
-            background-color: var(--primary);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-weight: bold;
-        }
-
-        .buy-button:hover {
-            background-color: #1991db;
-            color: var(--light) !important;
-            transform: translateY(-2px);
         }
 
         .hero {
             height: 100vh;
+            background-image: url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/chillinme.jpg-HNKCG5RfT3sQXDfVQHxaaD9TNRRj0d.jpeg');
+            background-size: cover;
+            background-position: center;
+            position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
-            padding: 0 1rem;
-            background: linear-gradient(135deg, rgba(20, 23, 26, 0.95), rgba(29, 161, 242, 0.1));
-            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(30, 58, 138, 0.4);
+            backdrop-filter: blur(4px);
         }
 
         .hero-content {
-            max-width: 900px;
-            position: relative;
-            z-index: 2;
-            padding: 2rem;
-            background: rgba(20, 23, 26, 0.7);
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-        }
-
-        .hero h1 {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
-            background: linear-gradient(45deg, var(--primary), #ffffff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .quote {
-            font-style: italic;
-            color: #888;
-            margin: 2rem 0;
-            font-size: 1.1rem;
-        }
-
-        .cta-button {
-            display: inline-block;
-            background-color: var(--primary);
-            color: var(--light);
-            padding: 1rem 2rem;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: transform 0.3s;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px);
-        }
-
-        .bubble-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 2rem;
-            padding: 2rem;
-            max-width: 1400px;
-            margin: 0 auto;
-            margin-top: 4rem;
-        }
-
-        .bubble {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 30px;
-            padding: 2rem;
-            width: 300px;
-            min-height: 300px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
             text-align: center;
-            transition: transform 0.3s, box-shadow 0.3s;
-            cursor: pointer;
+            position: relative;
+            z-index: 1;
         }
 
-        .bubble:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 20px rgba(29, 161, 242, 0.2);
-        }
-
-        .bubble h3 {
-            color: var(--primary);
+        h1 {
+            font-size: 4rem;
+            color: var(--yellow-400);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
             margin-bottom: 1rem;
+        }
+
+        .hero p {
             font-size: 1.5rem;
+            margin-bottom: 2rem;
+            font-style: italic;
         }
 
-        .bubble-icon {
-            font-size: 2rem;
-            margin-bottom: 1rem;
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            font-size: 1.125rem;
         }
 
-        .news-section {
-            max-width: 1200px;
-            margin: 4rem auto;
-            padding: 2rem;
+        .btn-primary {
+            background-color: var(--yellow-400);
+            color: var(--blue-900);
         }
 
-        .news-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .btn-primary:hover {
+            background-color: #fbbf24;
+        }
+
+        .btn-secondary {
+            background-color: var(--blue-500);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--blue-600);
+        }
+
+        .tokenomics {
+            background-color: rgba(30, 58, 138, 0.5);
+            backdrop-filter: blur(10px);
+            padding: 4rem 1rem;
+        }
+
+        .tokenomics h2, .meme-section h2 {
+            font-size: 3rem;
+            color: var(--yellow-400);
+            text-align: center;
             margin-bottom: 2rem;
         }
 
-        .news-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+        .carousel {
+            max-width: 400px;
+            margin: 0 auto;
+            background: linear-gradient(to bottom right, var(--blue-600), var(--purple-700));
+            border-radius: 0.5rem;
+            padding: 2rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
         }
 
-        .news-item {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 1.5rem;
-            transition: transform 0.3s;
+        .carousel-item {
+            text-align: center;
         }
 
-        .news-item:hover {
-            transform: translateY(-5px);
-        }
-
-        .news-item .timestamp {
-            color: var(--primary);
-            font-size: 0.9rem;
+        .carousel-item h3 {
+            font-size: 1.5rem;
             margin-bottom: 0.5rem;
         }
 
-        .news-item h4 {
-            margin-bottom: 1rem;
-            color: var(--light);
+        .carousel-item .value {
+            font-size: 2rem;
+            font-family: monospace;
+            margin-bottom: 0.5rem;
         }
 
-        .news-item p {
-            color: var(--gray);
+        .carousel-item .description {
+            font-style: italic;
+            color: #93c5fd;
         }
 
-        .refresh-button {
-            background: var(--primary);
-            color: var(--light);
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: transform 0.3s;
+        .meme-section {
+            padding: 4rem 1rem;
+            background-color: var(--blue-900);
         }
 
-        .refresh-button:hover {
-            transform: scale(1.05);
-        }
-
-        .footer-social {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin: 1rem 0;
-        }
-
-        .footer-link {
-            color: var(--primary);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .footer-link:hover {
-            color: #1991db;
-        }
-
-        footer {
-            background-color: rgba(20, 23, 26, 0.95);
+        .meme-content {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: rgba(30, 64, 175, 0.5);
+            backdrop-filter: blur(4px);
             padding: 2rem;
+            border-radius: 0.5rem;
             text-align: center;
-            margin-top: 4rem;
-            position: relative;
-            z-index: 2;
-            backdrop-filter: blur(5px);
         }
 
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
+        .meme-content p:nth-child(1) {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
 
-            .nav-links {
-                display: none;
-            }
+        .meme-content p:nth-child(2) {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
 
-            .bubble {
-                width: 100%;
-            }
+        .meme-content p:nth-child(3) {
+            font-size: 1.25rem;
+            font-style: italic;
+        }
 
-            .social-links {
-                flex-direction: row;
-                margin: 0;
-                justify-content: center;
-            }
+        .bouncing-meme {
+            position: absolute;
+            animation: bounce 3s infinite;
+        }
 
-            .footer-social {
-                flex-direction: column;
-                align-items: center;
-                gap: 1rem;
-            }
+        .bouncing-meme img {
+            width: 120px;
+            height: 120px;
+            border-radius: 0.5rem;
+            border: 4px solid var(--yellow-400);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        @media (max-width: 640px) {
+            h1 { font-size: 3rem; }
+            .hero p { font-size: 1.25rem; }
+            .btn { font-size: 1rem; }
+            .tokenomics h2, .meme-section h2 { font-size: 2.5rem; }
         }
     </style>
 </head>
 <body>
-    <div class="animated-background" id="animatedBackground"></div>
-    <div id="rockets"></div>
-
-    <header>
-        <nav>
-            <div class="logo">
-                🚀 X-Media
+    <main>
+        <section class="hero">
+            <div class="bouncing-meme" style="top: 10%; left: 10%;">
+                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/chillinme.jpg-HNKCG5RfT3sQXDfVQHxaaD9TNRRj0d.jpeg" alt="Chillin Meme">
             </div>
-            <div class="nav-links">
-                <a href="#home">Home</a>
-                <a href="#features">Features</a>
-                <a href="#news">News</a>
-                <a href="#token">Token</a>
-                <a href="https://fun.virtuals.io" target="_blank" class="buy-button">Buy Now</a>
-                <div class="social-links">
-                    <a href="https://t.me/xmedia3" target="_blank" class="social-icon">
-                        <svg class="telegram-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M20.665 3.717l-17.73 6.837c-1.21.486-1.203 1.161-.222 1.462l4.552 1.42l10.532-6.645c.498-.303.953-.14.579.192l-8.533 7.701l-.321 4.823c.47 0 .677-.216.94-.47l2.26-2.184l4.685 3.458c.866.477 1.484.232 1.698-.803l3.077-14.503c.314-1.27-.485-1.84-1.517-1.288z" fill="currentColor"/>
-                        </svg>
-                    </a>
-                    <a href="https://x.com/xmedia___?s=21" target="_blank" class="social-icon">
-                        <svg class="x-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" fill="currentColor"/>
-                        </svg>
-                    </a>
+            <div class="bouncing-meme" style="top: 20%; right: 15%;">
+                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/chillinme.jpg-HNKCG5RfT3sQXDfVQHxaaD9TNRRj0d.jpeg" alt="Chillin Meme">
+            </div>
+            <div class="bouncing-meme" style="bottom: 15%; left: 20%;">
+                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/chillinme.jpg-HNKCG5RfT3sQXDfVQHxaaD9TNRRj0d.jpeg" alt="Chillin Meme">
+            </div>
+            <div class="hero-content">
+                <h1>Chillin Me</h1>
+                <p>"I'm not lazy, I'm on energy-saving mode"</p>
+                <div>
+                    <a href="#" class="btn btn-primary">Ape In</a>
+                    <a href="#" class="btn btn-secondary">See Chart (It only goes up)</a>
                 </div>
             </div>
-        </nav>
-    </header>
+        </section>
 
-    <section class="hero" id="home">
-        <div class="hero-content">
-            <h1>X-Media Token</h1>
-            <p>The first memecoin dedicated to truth, transparency, and the power of free speech.</p>
-            <div class="quote">"The bird is freed" - Elon Musk</div>
-            <a href="https://fun.virtuals.io" target="_blank" class="cta-button">Buy X-Media Token</a>
-        </div>
-    </section>
+        <section class="tokenomics">
+            <h2>Tokenomics for Dummies</h2>
+            <div class="carousel">
+                <div class="carousel-item">
+                    <h3>Total Supply</h3>
+                    <div class="value">1,000,000,000</div>
+                    <p class="description">More zeros than your bank account</p>
+                </div>
+            </div>
+        </section>
 
-    <div class="bubble-container" id="features">
-        <div class="bubble">
-            <div class="bubble-icon">🎯</div>
-            <h3>Our Mission</h3>
-            <p>Empowering free speech through decentralized media distribution and community-driven content.</p>
-        </div>
-        
-        <div class="bubble">
-            <div class="bubble-icon">💎</div>
-            <h3>Token Stats</h3>
-            <p>Market Cap: $10.5M</p>
-            <p>24h Volume: $2.3M</p>
-            <p>Holders: 15,234</p>
-        </div>
-        
-        <div class="bubble">
-            <div class="bubble-icon">🚀</div>
-            <h3>Community</h3>
-            <p>Join thousands of supporters championing the future of decentralized media.</p>
-        </div>
-        
-        <div class="bubble">
-            <div class="bubble-icon">📊</div>
-            <h3>Analytics</h3>
-            <p>Real-time tracking of engagement, reach, and impact across the X platform.</p>
-        </div>
-    </div>
-
-    <section class="news-section" id="news">
-        <div class="news-header">
-            <h2>Latest News</h2>
-            <button class="refresh-button" onclick="refreshNews()">🔄 Refresh</button>
-        </div>
-        <div class="news-grid" id="newsContainer">
-            <!-- News items will be dynamically inserted here -->
-        </div>
-    </section>
-
-    <footer>
-        <p>© 2024 X-Media Token - Empowering Free Speech Through Blockchain</p>
-        <div class="footer-social">
-            <a href="https://t.me/xmedia3" target="_blank" class="social-icon">Join us on Telegram</a>
-            <a href="https://x.com/xmedia___?s=21" target="_blank" class="social-icon">Follow us on X</a>
-        </div>
-        <p>Buy X-Media on <a href="https://fun.virtuals.io" target="_blank" class="footer-link">fun.virtuals
-       .io</a></p>
-    </footer>
+        <section class="meme-section">
+            <h2>Why Chillin Me?</h2>
+            <div class="meme-content">
+                <p>Because in a world of hustle culture...</p>
+                <p>We dare to do absolutely nothing</p>
+                <p>And somehow make money doing it</p>
+            </div>
+        </section>
+    </main>
 
     <script>
-        // Background animations
-        function createX() {
-            const x = document.createElement('div');
-            x.className = 'x-symbol';
-            x.textContent = '✕';
-            
-            const size = Math.random() * 40 + 20;
-            x.style.fontSize = `${size}px`;
-            
-            const startX = Math.random() * window.innerWidth;
-            const startY = Math.random() * window.innerHeight;
-            x.style.left = `${startX}px`;
-            x.style.top = `${startY}px`;
-            
-            const moveX = (Math.random() - 0.5) * 500;
-            const moveY = (Math.random() - 0.5) * 500;
-            x.style.setProperty('--moveX', `${moveX}px`);
-            x.style.setProperty('--moveY', `${moveY}px`);
-            
-            document.getElementById('animatedBackground').appendChild(x);
-            
-            x.addEventListener('animationend', () => {
-                x.remove();
-            });
-        }
+        // Carousel functionality
+        const carouselItems = [
+            { title: "Total Supply", value: "1,000,000,000", description: "More zeros than your bank account" },
+            { title: "Buy Tax", value: "0%", description: "We don't do that here" },
+            { title: "Sell Tax", value: "0%", description: "Paper hands welcome (jk)" },
+            { title: "LP Status", value: "Burned 🔥", description: "Like my mixtape" }
+        ];
 
-        function createRocket() {
-            const rocket = document.createElement('div');
-            rocket.className = 'rocket';
-            rocket.textContent = '🚀';
-            document.getElementById('rockets').appendChild(rocket);
-            
-            rocket.addEventListener('animationend', () => {
-                rocket.remove();
-            });
-        }
+        let currentIndex = 0;
+        const carousel = document.querySelector('.carousel');
 
-        // News functionality
-        async function fetchNews() {
-            return [
-                {
-                    title: "X-Media Reaches New Milestone",
-                    content: "Community growth exceeds expectations as decentralized media gains traction.",
-                    timestamp: new Date().toLocaleString()
-                },
-                {
-                    title: "Platform Update Released",
-                    content: "New features enhance content distribution and community engagement capabilities.",
-                    timestamp: new Date().toLocaleString()
-                },
-                {
-                    title: "Market Analysis",
-                    content: "X-Media token shows strong performance amid growing interest in decentralized media.",
-                    timestamp: new Date().toLocaleString()
-                }
-            ];
-        }
-
-        function createNewsElement(news) {
-            return `
-                <div class="news-item">
-                    <div class="timestamp">${news.timestamp}</div>
-                    <h4>${news.title}</h4>
-                    <p>${news.content}</p>
+        function updateCarousel() {
+            const item = carouselItems[currentIndex];
+            carousel.innerHTML = `
+                <div class="carousel-item">
+                    <h3>${item.title}</h3>
+                    <div class="value">${item.value}</div>
+                    <p class="description">${item.description}</p>
                 </div>
             `;
+            currentIndex = (currentIndex + 1) % carouselItems.length;
         }
 
-        async function refreshNews() {
-            const newsContainer = document.getElementById('newsContainer');
-            const news = await fetchNews();
-            newsContainer.innerHTML = news.map(createNewsElement).join('');
-        }
+        updateCarousel();
+        setInterval(updateCarousel, 3000);
 
-        // Initialize animations and news
-        setInterval(createX, 1000);
-        setInterval(createRocket, 10000);
-        refreshNews();
-
-        // Initial elements
-        for(let i = 0; i < 20; i++) {
-            createX();
-        }
-        createRocket();
+        // Bouncing meme randomization
+        const bouncingMemes = document.querySelectorAll('.bouncing-meme');
+        bouncingMemes.forEach(meme => {
+            meme.style.animationDelay = `${Math.random() * 2}s`;
+        });
     </script>
 </body>
-</html>     
+</html>

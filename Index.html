@@ -227,6 +227,17 @@
         body {
             padding-top: 40px;
         }
+        .video-container {
+            max-width: 100%;
+            margin: 20px auto;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .video-container video {
+            width: 100%;
+            display: block;
+        }
     </style>
 </head>
 <body class="prawn-cursor">
@@ -244,6 +255,13 @@
         </header>
 
         <main>
+            <div class="video-container">
+                <video controls autoplay loop muted>
+                    <source src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Dancing%20Prawn-TnPDpd6PLonsaIaGRcSJ7LXF4OxKpq.MP4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+
             <div class="image-container">
                 <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/king%20prawn%20pfp.jpg-wIkbIcnTLK6NFQrJrDNzJ3YhFEUgvn.jpeg" alt="The King Prawn with his royal flip phone" class="floating-image">
                 <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/prawn%20burger%20king.jpg-h543fbvD9vaGWUlH2EXyvxhcxM8w6X.jpeg" alt="The King Prawn in his crown" class="floating-image">
@@ -254,7 +272,7 @@
                 <ul>
                     <li><span>🌟</span> First of its name, King of the Memecoins and Ruler of #PrawnTok (1 billion views and counting)</li>
                     <li><span>📱</span> Holder of the Sacred Flip Phone of Virality (still figuring out how to duet with himself)</li>
-                    <li><span>💃</span> Master of the "Shrimpshake" dance craze (warning: may cause spontaneous jazz hands)</li>
+                    <li><span>💃</span> Master of the "Shrimpshake" dance craze (as seen in our royal dance video)</li>
                     <li><span>👑</span> Bearer of the Golden Crown (made of repurposed shrimp nets and pure swag)</li>
                     <li><span>🎭</span> Star of "Keeping Up with the Crustaceans" (move over, Kardashians)</li>
                 </ul>
@@ -337,7 +355,7 @@
     <script>
         // Title animation
         const title = document.getElementById('title');
-        title.style.transform = 'scale(0)title.style.transform = 'scale(0)';
+        title.style.transform = 'scale(0)';
         setTimeout(() => {
             title.style.transition = 'transform 0.5s ease';
             title.style.transform = 'scale(1)';
@@ -448,6 +466,26 @@
         ticker.addEventListener('mouseout', () => {
             ticker.style.animationPlayState = 'running';
         });
+
+        // Video autoplay on scroll into view
+        const video = document.querySelector('video');
+        const options = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.5
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    video.play();
+                } else {
+                    video.pause();
+                }
+            });
+        }, options);
+
+        observer.observe(video);
     </script>
 </body>
 </html>

@@ -244,6 +244,19 @@
             height: 100%;
             object-fit: cover;
         }
+        .chart-container {
+            width: 100%;
+            height: 300px;
+            background-color: #111;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+        }
+        #bullishChart {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
     </style>
 </head>
 <body class="prawn-cursor">
@@ -291,9 +304,6 @@
                     <li><span>🏷️</span> Tax: 0% Buy / 0% Sell (we're not here to pinch your profits)</li>
                     <li><span>🔥</span> Liquidity Pool: 100% Burned (like King Prawn's sick dance moves)</li>
                     <li><span>🚀</span> Launched through: <a href="https://ape.store" target="_blank" rel="noopener noreferrer">ape.store</a> (because Prawn Together Strong)</li>
-                    <li><span>👑</span> 40% Royal Treasury (funding our prawn-tastic empire)</li>
-                    <li><span>🚀</span> 10% Development (building the prawn kingdom)</li>
-                    <li><span>🛡️</span> 10% Ecosystem (supporting our prawn community)</li>
                     <li><span>📊</span> 5% Marketing (gotta keep the prawn hype flowing)</li>
                     <li><span>🎁</span> 5% Giveaways (sharing is caring, prawn fam!)</li>
                     <li><span>🦐</span> 5% Prawn (for our royal seafood feasts)</li>
@@ -302,8 +312,10 @@
 
             <div class="section">
                 <h2>Royal Treasury Performance 👑</h2>
-                <div class="chart" id="chart"></div>
-                <p class="tagline">*Chart represents the royal wealth accumulation strategy (and our TikTok follower growth)</p>
+                <div class="chart-container">
+                    <canvas id="bullishChart"></canvas>
+                </div>
+                <p class="tagline">*Chart represents our exponential growth in both memes and market cap (mostly memes)</p>
             </div>
 
             <div class="section">
@@ -372,40 +384,54 @@
             title.style.transform = 'scale(1)';
         }, 100);
 
-        // Chart animation
-        const chart = document.getElementById('chart');
-        const ctx = chart.getContext('2d');
-        const mockData = [400, 300, 600, 200, 800, 500, 1000];
-        const maxValue = Math.max(...mockData);
+        // Bullish animated chart
+        const canvas = document.getElementById('bullishChart');
+        const ctx = canvas.getContext('2d');
+        let animationId;
 
-        function drawChart() {
-            ctx.clearRect(0, 0, chart.width, chart.height);
+        function resizeCanvas() {
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+        }
+
+        function drawBullishChart(time) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+            gradient.addColorStop(0, 'rgba(251, 191, 36, 0.8)');
+            gradient.addColorStop(1, 'rgba(251, 191, 36, 0)');
+
             ctx.strokeStyle = '#fbbf24';
-            ctx.lineWidth = 2;
+            ctx.fillStyle = gradient;
+            ctx.lineWidth = 3;
             ctx.beginPath();
-            mockData.forEach((value, index) => {
-                const x = (index / (mockData.length - 1)) * chart.width;
-                const y = chart.height - (value / maxValue) * chart.height;
-                if (index === 0) {
+            
+            for (let x = 0; x <= canvas.width; x++) {
+                const y = canvas.height - (Math.sin(x / 50 + time / 1000) * 50 + x / 3);
+                if (x === 0) {
                     ctx.moveTo(x, y);
                 } else {
                     ctx.lineTo(x, y);
                 }
-            });
+            }
+            
+            ctx.lineTo(canvas.width, canvas.height);
+            ctx.lineTo(0, canvas.height);
+            ctx.closePath();
             ctx.stroke();
+            ctx.fill();
+
+            animationId = requestAnimationFrame(drawBullishChart);
         }
 
-        // Redraw chart on window resize
-        window.addEventListener('resize', () => {
-            chart.width = chart.offsetWidth;
-            chart.height = chart.offsetHeight;
-            drawChart();
-        });
+        resizeCanvas();
+        drawBullishChart(0);
 
-        // Initial chart draw
-        chart.width = chart.offsetWidth;
-        chart.height = chart.offsetHeight;
-        drawChart();
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+            cancelAnimationFrame(animationId);
+            drawBullishChart(0);
+        });
 
         // Carousel functionality
         const carousel = document.querySelector('.carousel-content');

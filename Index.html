@@ -190,16 +190,51 @@
                 margin-bottom: 20px;
             }
         }
+        .prawn-cursor {
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 100 100"><text y="50%" font-size="90">🦐</text></svg>'), auto;
+        }
+        @keyframes wiggle {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(5deg); }
+            75% { transform: rotate(-5deg); }
+            100% { transform: rotate(0deg); }
+        }
+        .wiggle:hover {
+            animation: wiggle 0.5s infinite;
+        }
+        .royal-ticker {
+            background-color: #fbbf24;
+            color: #000;
+            padding: 10px;
+            font-weight: bold;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+        .ticker-content {
+            display: inline-block;
+            padding-left: 100%;
+            animation: ticker 20s linear infinite;
+        }
+        @keyframes ticker {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(-100%, 0); }
+        }
     </style>
 </head>
-<body>
+<body class="prawn-cursor">
     <div class="background"></div>
     <div class="container">
         <header>
-            <h1 id="title">King Prawn</h1>
+            <h1 id="title" class="wiggle">King Prawn</h1>
             <p class="tagline">"The Bubbliest Crustacean in Crypto! 🦐💰"</p>
             <div class="crown">👑</div>
         </header>
+
+        <div class="royal-ticker">
+            <div class="ticker-content">
+                🦐 BREAKING NEWS: King Prawn's net worth surpasses the entire seafood industry! 🦐 Local fish market in shambles! 🦐 Lobsters considering a career change! 🦐 Shrimp cocktails now served with a side of blockchain! 🦐
+            </div>
+        </div>
 
         <main>
             <div class="image-container">
@@ -208,12 +243,13 @@
             </div>
 
             <div class="section">
-                <h2>The Royal Decree</h2>
+                <h2>The Royal Decree (Now with 50% More Nonsense!)</h2>
                 <ul>
-                    <li><span>👑</span> First of its name, King of the Memecoins and the First Blockchain</li>
-                    <li><span>📱</span> Holder of the Sacred Flip Phone of Prosperity</li>
-                    <li><span>⛓️</span> Protector of the Blockchain Realm</li>
-                    <li><span>💎</span> Bearer of the Golden Chain of HODL</li>
+                    <li><span>👑</span> First of its name, King of the Memecoins and the First Blockchain, Lord of the Seven Seas (and your local fish market)</li>
+                    <li><span>📱</span> Holder of the Sacred Flip Phone of Prosperity (still trying to figure out how to send a royal tweet)</li>
+                    <li><span>⛓️</span> Protector of the Blockchain Realm (and part-time bubble tea enthusiast)</li>
+                    <li><span>💎</span> Bearer of the Golden Chain of HODL (it's actually made of spray-painted macaroni)</li>
+                    <li><span>🍤</span> Master of the "Shrimpreme" Court (where all judgments are served with cocktail sauce)</li>
                 </ul>
             </div>
 
@@ -224,7 +260,7 @@
             </div>
 
             <div class="section">
-                <h2>Royal Proclamations</h2>
+                <h2>Royal Proclamations (Now 200% More Royal!)</h2>
                 <div class="carousel">
                     <div class="carousel-content">
                         <div class="carousel-item">
@@ -247,24 +283,37 @@
                             <span>🚀</span>
                             <p>From Fast Food to Fast Gains!</p>
                         </div>
+                        <div class="carousel-item">
+                            <span>🎣</span>
+                            <p>Fishing for Compliments and Cryptocurrencies!</p>
+                        </div>
+                        <div class="carousel-item">
+                            <span>🍤</span>
+                            <p>Making Waves in the Crypto-Sea-um!</p>
+                        </div>
+                        <div class="carousel-item">
+                            <span>👑</span>
+                            <p>You Can't Spell Cryptocurrency Without 'Cry'!</p>
+                        </div>
                     </div>
                     <button class="carousel-prev">❮</button>
                     <button class="carousel-next">❯</button>
                 </div>
             </div>
 
-            <button class="cta-button">Claim Your Royal Token 👑</button>
-            <p class="tagline">*By royal decree, each token comes with a virtual crown (crown may or may not be redeemable at participating locations)</p>
+            <button class="cta-button wiggle">Claim Your Royal Token 👑</button>
+            <p class="tagline">*By royal decree, each token comes with a virtual crown and a complimentary digital shrimp cocktail (cocktail sauce sold separately)</p>
         </main>
 
         <footer>
-            <p>Join the Royal Court:</p>
+            <p>Join the Royal Court (Dress code: Formal swimwear only):</p>
             <div class="social-links">
-                <a href="#" class="social-link">Royal Shrimpter</a>
-                <a href="#" class="social-link">Crown Book</a>
-                <a href="#" class="social-link">Royal Decree Chat</a>
+                <a href="#" class="social-link wiggle">Royal Shrimpter</a>
+                <a href="#" class="social-link wiggle">Crown Book</a>
+                <a href="#" class="social-link wiggle">Royal Decree Chat</a>
+                <a href="#" class="social-link wiggle">PrawnedIn</a>
             </div>
-            <p class="tagline">Disclaimer: This token is as real as our mascot's claim to the throne. Invest accordingly, peasants! 👑</p>
+            <p class="tagline">Disclaimer: This token is about as stable as a prawn on a unicycle. Invest at your own risk, and maybe consider a nice index fund instead!</p>
         </footer>
     </div>
 
@@ -347,7 +396,32 @@
         ctaButton.addEventListener('mouseup', () => {
             ctaButton.style.transform = 'scale(1.1)';
         });
+
+        // Wiggle animation for elements
+        document.querySelectorAll('.wiggle').forEach(element => {
+            element.addEventListener('mouseover', () => {
+                element.style.animation = 'wiggle 0.5s infinite';
+            });
+            element.addEventListener('mouseout', () => {
+                element.style.animation = 'none';
+            });
+        });
+
+        // Random prawn facts popup
+        const prawnFacts = [
+            "Did you know? King Prawn's blockchain is secured by a state-of-the-art 'Shell Algorithm'!",
+            "Fun Fact: King Prawn's white paper was originally written on a seafood restaurant menu!",
+            "Prawn Trivia: The 'gas fees' in our network are paid in cocktail sauce!",
+            "Royal Secret: King Prawn's crown is actually a repurposed shrimp net!",
+            "Shocking News: Local aquarium considering King Prawn as new cryptocurrency exhibit!"
+        ];
+
+        function showRandomPrawnFact() {
+            const fact = prawnFacts[Math.floor(Math.random() * prawnFacts.length)];
+            alert(fact);
+        }
+
+        setInterval(showRandomPrawnFact, 60000); // Show a random fact every minute
     </script>
 </body>
 </html>
-

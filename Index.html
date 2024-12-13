@@ -233,10 +233,22 @@
             border-radius: 8px;
             overflow: hidden;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            padding-top: 56.25%; /* 16:9 aspect ratio */
         }
         .video-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
-            display: block;
+            height: 100%;
+            object-fit: cover;
+        }
+        @media (max-width: 768px) {
+            .video-container {
+                max-height: 300px;
+                padding-top: 0;
+            }
         }
     </style>
 </head>
@@ -256,7 +268,7 @@
 
         <main>
             <div class="video-container">
-                <video controls autoplay loop muted>
+                <video playsinline autoplay muted loop poster="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/King%20Prawn%20500x500-IZj5qicr4rGdtSoOq7Z1IspSj6R6JD.png">
                     <source src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Dancing%20Prawn-TnPDpd6PLonsaIaGRcSJ7LXF4OxKpq.MP4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
@@ -467,25 +479,36 @@
             ticker.style.animationPlayState = 'running';
         });
 
-        // Video autoplay on scroll into view
+        // Video autoplay
         const video = document.querySelector('video');
-        const options = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.5
-        };
+        let isVideoPlaying = false;
 
-        const observer = new IntersectionObserver((entries, observer) => {
+        function playVideo() {
+            if (!isVideoPlaying) {
+                video.play().then(() => {
+                    isVideoPlaying = true;
+                }).catch(error => {
+                    console.error("Video playback failed:", error);
+                });
+            }
+        }
+
+        // Play video when it comes into view
+        const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    video.play();
+                    playVideo();
                 } else {
                     video.pause();
+                    isVideoPlaying = false;
                 }
             });
-        }, options);
+        }, { threshold: 0.5 });
 
         observer.observe(video);
+
+        // Play video on user interaction for mobile devices
+        document.body.addEventListener('touchstart', playVideo, { once: true });
     </script>
 </body>
 </html>

@@ -203,38 +203,45 @@
             animation: wiggle 0.5s infinite;
         }
         .royal-ticker {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
             background-color: #fbbf24;
             color: #000;
-            padding: 10px;
+            padding: 10px 0;
             font-weight: bold;
             white-space: nowrap;
             overflow: hidden;
+            z-index: 1000;
         }
         .ticker-content {
             display: inline-block;
             padding-left: 100%;
-            animation: ticker 20s linear infinite;
+            animation: ticker 30s linear infinite;
         }
         @keyframes ticker {
             0% { transform: translate(0, 0); }
             100% { transform: translate(-100%, 0); }
         }
+        body {
+            padding-top: 40px;
+        }
     </style>
 </head>
 <body class="prawn-cursor">
     <div class="background"></div>
+    <div class="royal-ticker">
+        <div class="ticker-content">
+            🦐 BREAKING NEWS: King Prawn launches with 1 BILLION supply! 🦐 0% Buy / 0% Sell Tax! 🦐 LP 100% Burned! 🦐 Launched through ape.store! 🦐 King Prawn's net worth surpasses the entire seafood industry! 🦐 Local fish market in shambles! 🦐 Lobsters considering a career change! 🦐 Shrimp cocktails now served with a side of blockchain! 🦐
+        </div>
+    </div>
     <div class="container">
         <header>
             <h1 id="title" class="wiggle">King Prawn</h1>
             <p class="tagline">"The Bubbliest Crustacean in Crypto! 🦐💰"</p>
             <div class="crown">👑</div>
         </header>
-
-        <div class="royal-ticker">
-            <div class="ticker-content">
-                🦐 BREAKING NEWS: King Prawn's net worth surpasses the entire seafood industry! 🦐 Local fish market in shambles! 🦐 Lobsters considering a career change! 🦐 Shrimp cocktails now served with a side of blockchain! 🦐
-            </div>
-        </div>
 
         <main>
             <div class="image-container">
@@ -250,6 +257,16 @@
                     <li><span>⛓️</span> Protector of the Blockchain Realm (and part-time bubble tea enthusiast)</li>
                     <li><span>💎</span> Bearer of the Golden Chain of HODL (it's actually made of spray-painted macaroni)</li>
                     <li><span>🍤</span> Master of the "Shrimpreme" Court (where all judgments are served with cocktail sauce)</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>Royal Tokenomics 👑💰</h2>
+                <ul>
+                    <li><span>💎</span> Total Supply: 1,000,000,000 PRAWN</li>
+                    <li><span>🏷️</span> Tax: 0% Buy / 0% Sell</li>
+                    <li><span>🔥</span> Liquidity Pool: 100% Burned</li>
+                    <li><span>🚀</span> Launched through: <a href="https://ape.store" target="_blank" rel="noopener noreferrer">ape.store</a></li>
                 </ul>
             </div>
 
@@ -422,6 +439,15 @@
         }
 
         setInterval(showRandomPrawnFact, 60000); // Show a random fact every minute
+
+        // Ticker pause on hover
+        const ticker = document.querySelector('.ticker-content');
+        ticker.addEventListener('mouseover', () => {
+            ticker.style.animationPlayState = 'paused';
+        });
+        ticker.addEventListener('mouseout', () => {
+            ticker.style.animationPlayState = 'running';
+        });
     </script>
 </body>
 </html>

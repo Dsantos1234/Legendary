@@ -3,293 +3,351 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chillin Me - The Most Based Token in Crypto</title>
+    <title>King Prawn - The Bubbliest Crustacean in Crypto! 🦐💰</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap');
-
-        :root {
-            --yellow-400: #facc15;
-            --blue-500: #3b82f6;
-            --blue-600: #2563eb;
-            --blue-800: #1e40af;
-            --blue-900: #1e3a8a;
-            --purple-700: #7e22ce;
-            --purple-800: #6b21a8;
-        }
-
         body, html {
             margin: 0;
             padding: 0;
-            font-family: 'Comic Neue', cursive;
+            font-family: Arial, sans-serif;
             color: white;
             overflow-x: hidden;
+            background-color: transparent;
         }
-
-        body {
-            background-image: url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/chillinme.jpg-a3wiSF14oXX4ekPtb3woRxFbu7Im5R.jpeg');
-            background-size: contain;
-            background-position: center;
-            background-color: #1d4ed8;
-            background-repeat: repeat;
-            min-height: 100vh;
-        }
-
-        @media (min-width: 768px) {
-            body {
-                background-size: cover;
-                background-repeat: no-repeat;
-                background-attachment: fixed;
-            }
-        }
-
-        .hero {
-            min-height: 100vh;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            padding: 1rem;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
+        .background {
+            position: fixed;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(30, 58, 138, 0.6);
-            backdrop-filter: blur(6px);
+            width: 100%;
+            height: 100%;
+            background-image: url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/king%20prawn%20pfp.jpg-pSPN0NZ3qGUEgRPUxMLGGozKuP4jXQ.jpeg');
+            background-size: cover;
+            background-position: center;
+            filter: brightness(0.3);
+            z-index: -1;
         }
-
-        .hero-content {
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
             text-align: center;
-            position: relative;
-            z-index: 1;
+            padding: 40px 0;
         }
-
         h1 {
-            font-size: 3rem;
-            color: var(--yellow-400);
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-            margin-bottom: 1rem;
+            font-size: 4rem;
+            margin-bottom: 10px;
         }
-
-        .hero p {
-            font-size: 1.25rem;
-            margin-bottom: 2rem;
+        .tagline {
+            font-size: 1.5rem;
+            color: #f87171;
             font-style: italic;
         }
-
-        .btn {
-            display: inline-block;
-            padding: 0.75rem 1.5rem;
-            border-radius: 9999px;
-            font-weight: bold;
-            text-decoration: none;
-            transition: background-color 0.3s;
-            font-size: 1rem;
-            margin: 0.5rem;
-        }
-
-        .btn-primary {
-            background-color: var(--yellow-400);
-            color: var(--blue-900);
-        }
-
-        .btn-primary:hover {
-            background-color: #fbbf24;
-        }
-
-        .btn-secondary {
-            background-color: var(--blue-500);
-            color: white;
-        }
-
-        .btn-secondary:hover {
-            background-color: var(--blue-600);
-        }
-
-        .tokenomics, .meme-section {
-            background-color: rgba(30, 58, 138, 0.8);
-            backdrop-filter: blur(10px);
-            padding: 3rem 1rem;
-        }
-
-        .tokenomics h2, .meme-section h2 {
-            font-size: 2.5rem;
-            color: var(--yellow-400);
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .carousel {
-            max-width: 100%;
-            margin: 0 auto;
-            background: linear-gradient(to bottom right, var(--blue-600), var(--purple-700));
-            border-radius: 0.5rem;
-            padding: 1.5rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-        }
-
-        .carousel-item {
-            text-align: center;
-        }
-
-        .carousel-item h3 {
-            font-size: 1.25rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .carousel-item .value {
-            font-size: 1.75rem;
-            font-family: monospace;
-            margin-bottom: 0.5rem;
-        }
-
-        .carousel-item .description {
-            font-style: italic;
-            color: #93c5fd;
-            font-size: 1rem;
-        }
-
-        .meme-content {
-            max-width: 100%;
-            margin: 0 auto;
-            background-color: rgba(30, 64, 175, 0.5);
-            backdrop-filter: blur(4px);
-            padding: 1.5rem;
-            border-radius: 0.5rem;
-            text-align: center;
-        }
-
-        .meme-content p:nth-child(1) {
-            font-size: 1.25rem;
-            margin-bottom: 1rem;
-        }
-
-        .meme-content p:nth-child(2) {
-            font-size: 1.75rem;
-            font-weight: bold;
-            margin-bottom: 1rem;
-        }
-
-        .meme-content p:nth-child(3) {
-            font-size: 1.1rem;
-            font-style: italic;
-        }
-
-        .bouncing-meme {
+        .crown {
+            font-size: 4rem;
             position: absolute;
-            animation: bounce 3s infinite;
+            top: 20px;
+            left: 20px;
+            animation: float 20s infinite linear;
         }
-
-        .bouncing-meme img {
-            width: 80px;
-            height: 80px;
-            border-radius: 0.5rem;
-            border: 3px solid var(--yellow-400);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        @keyframes float {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(100px, 50px) rotate(90deg); }
+            50% { transform: translate(0, 100px) rotate(180deg); }
+            75% { transform: translate(-100px, 50px) rotate(270deg); }
+            100% { transform: translate(0, 0) rotate(360deg); }
         }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-15px) rotate(5deg); }
+        .image-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
         }
-
-        @media (min-width: 640px) {
-            h1 { font-size: 4rem; }
-            .hero p { font-size: 1.5rem; }
-            .btn { font-size: 1.125rem; }
-            .tokenomics h2, .meme-section h2 { font-size: 3rem; }
-            .carousel { max-width: 400px; padding: 2rem; }
-            .carousel-item h3 { font-size: 1.5rem; }
-            .carousel-item .value { font-size: 2rem; }
-            .carousel-item .description { font-size: 1.1rem; }
-            .meme-content { max-width: 600px; padding: 2rem; }
-            .meme-content p:nth-child(1) { font-size: 1.5rem; }
-            .meme-content p:nth-child(2) { font-size: 2rem; }
-            .meme-content p:nth-child(3) { font-size: 1.25rem; }
-            .bouncing-meme img { width: 120px; height: 120px; }
+        .floating-image {
+            max-width: 300px;
+            border: 4px solid #fbbf24;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            animation: floatImage 5s infinite ease-in-out;
+        }
+        @keyframes floatImage {
+            0%, 100% { transform: translateY(0) rotate(-5deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+        .section {
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 40px;
+        }
+        h2 {
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            transition: transform 0.3s ease;
+        }
+        li:hover {
+            transform: scale(1.05);
+        }
+        li span:first-child {
+            font-size: 2rem;
+            margin-right: 10px;
+        }
+        .chart {
+            width: 100%;
+            height: 300px;
+            background-color: #111;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .carousel {
+            position: relative;
+            max-width: 300px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+        .carousel-content {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+        .carousel-item {
+            flex: 0 0 100%;
+            padding: 20px;
+            background-color: #dc2626;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .carousel-item span {
+            font-size: 3rem;
+            display: block;
+            margin-bottom: 10px;
+        }
+        .carousel-prev, .carousel-next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+        .carousel-prev { left: 10px; }
+        .carousel-next { right: 10px; }
+        .cta-button {
+            display: block;
+            width: 200px;
+            margin: 0 auto;
+            padding: 15px 30px;
+            background-color: #fbbf24;
+            color: black;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+        .cta-button:hover {
+            transform: scale(1.1);
+            background-color: #f59e0b;
+        }
+        footer {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 40px 0;
+            text-align: center;
+        }
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .social-links a {
+            color: #fbbf24;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+        .social-links a:hover {
+            transform: scale(1.2) rotate(5deg);
+        }
+        @media (max-width: 768px) {
+            .image-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            .floating-image {
+                margin-bottom: 20px;
+            }
         }
     </style>
 </head>
 <body>
-    <main>
-        <section class="hero">
-            <div class="bouncing-meme" style="top: 10%; left: 10%;">
-                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/chillinme.jpg-a3wiSF14oXX4ekPtb3woRxFbu7Im5R.jpeg" alt="Chillin Meme">
+    <div class="background"></div>
+    <div class="container">
+        <header>
+            <h1 id="title">King Prawn</h1>
+            <p class="tagline">"The Bubbliest Crustacean in Crypto! 🦐💰"</p>
+            <div class="crown">👑</div>
+        </header>
+
+        <main>
+            <div class="image-container">
+                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/king%20prawn%20pfp.jpg-wIkbIcnTLK6NFQrJrDNzJ3YhFEUgvn.jpeg" alt="The King Prawn with his royal flip phone" class="floating-image">
+                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/prawn%20burger%20king.jpg-h543fbvD9vaGWUlH2EXyvxhcxM8w6X.jpeg" alt="The King Prawn in his crown" class="floating-image">
             </div>
-            <div class="bouncing-meme" style="top: 20%; right: 15%;">
-                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/chillinme.jpg-a3wiSF14oXX4ekPtb3woRxFbu7Im5R.jpeg" alt="Chillin Meme">
+
+            <div class="section">
+                <h2>The Royal Decree</h2>
+                <ul>
+                    <li><span>👑</span> First of its name, King of the Memecoins and the First Blockchain</li>
+                    <li><span>📱</span> Holder of the Sacred Flip Phone of Prosperity</li>
+                    <li><span>⛓️</span> Protector of the Blockchain Realm</li>
+                    <li><span>💎</span> Bearer of the Golden Chain of HODL</li>
+                </ul>
             </div>
-            <div class="bouncing-meme" style="bottom: 15%; left: 20%;">
-                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/chillinme.jpg-a3wiSF14oXX4ekPtb3woRxFbu7Im5R.jpeg" alt="Chillin Meme">
+
+            <div class="section">
+                <h2>Royal Treasury Performance 👑</h2>
+                <div class="chart" id="chart"></div>
+                <p class="tagline">*Chart represents the royal wealth accumulation strategy</p>
             </div>
-            <div class="hero-content">
-                <h1>Chillin Me</h1>
-                <p>"I'm not lazy, I'm on energy-saving mode"</p>
-                <div>
-                    <a href="#" class="btn btn-primary">Ape In</a>
-                    <a href="#" class="btn btn-secondary">See Chart (It only goes up)</a>
+
+            <div class="section">
+                <h2>Royal Proclamations</h2>
+                <div class="carousel">
+                    <div class="carousel-content">
+                        <div class="carousel-item">
+                            <span>🦐</span>
+                            <p>The King of All Memecoins! 👑</p>
+                        </div>
+                        <div class="carousel-item">
+                            <span>⛓️</span>
+                            <p>Have It Your Way... On The Blockchain!</p>
+                        </div>
+                        <div class="carousel-item">
+                            <span>📱</span>
+                            <p>Flip Phones & Crown Holders Unite!</p>
+                        </div>
+                        <div class="carousel-item">
+                            <span>💎</span>
+                            <p>More Royal Than Your Portfolio!</p>
+                        </div>
+                        <div class="carousel-item">
+                            <span>🚀</span>
+                            <p>From Fast Food to Fast Gains!</p>
+                        </div>
+                    </div>
+                    <button class="carousel-prev">❮</button>
+                    <button class="carousel-next">❯</button>
                 </div>
             </div>
-        </section>
 
-        <section class="tokenomics">
-            <h2>Tokenomics for Dummies</h2>
-            <div class="carousel">
-                <div class="carousel-item">
-                    <h3>Total Supply</h3>
-                    <div class="value">1,000,000,000</div>
-                    <p class="description">More zeros than your bank account</p>
-                </div>
-            </div>
-        </section>
+            <button class="cta-button">Claim Your Royal Token 👑</button>
+            <p class="tagline">*By royal decree, each token comes with a virtual crown (crown may or may not be redeemable at participating locations)</p>
+        </main>
 
-        <section class="meme-section">
-            <h2>Why Chillin Me?</h2>
-            <div class="meme-content">
-                <p>Because in a world of hustle culture...</p>
-                <p>We dare to do absolutely nothing</p>
-                <p>And somehow make money doing it</p>
+        <footer>
+            <p>Join the Royal Court:</p>
+            <div class="social-links">
+                <a href="#" class="social-link">Royal Shrimpter</a>
+                <a href="#" class="social-link">Crown Book</a>
+                <a href="#" class="social-link">Royal Decree Chat</a>
             </div>
-        </section>
-    </main>
+            <p class="tagline">Disclaimer: This token is as real as our mascot's claim to the throne. Invest accordingly, peasants! 👑</p>
+        </footer>
+    </div>
 
     <script>
-        // Carousel functionality
-        const carouselItems = [
-            { title: "Total Supply", value: "1,000,000,000", description: "More zeros than your bank account" },
-            { title: "Buy Tax", value: "0%", description: "We don't do that here" },
-            { title: "Sell Tax", value: "0%", description: "Paper hands welcome (jk)" },
-            { title: "LP Status", value: "Burned 🔥", description: "Like my mixtape" }
-        ];
+        // Title animation
+        const title = document.getElementById('title');
+        title.style.transform = 'scale(0)';
+        setTimeout(() => {
+            title.style.transition = 'transform 0.5s ease';
+            title.style.transform = 'scale(1)';
+        }, 100);
 
-        let currentIndex = 0;
-        const carousel = document.querySelector('.carousel');
+        // Chart animation
+        const chart = document.getElementById('chart');
+        const ctx = chart.getContext('2d');
+        const mockData = [400, 300, 600, 200, 800, 500, 1000];
+        const maxValue = Math.max(...mockData);
 
-        function updateCarousel() {
-            const item = carouselItems[currentIndex];
-            carousel.innerHTML = `
-                <div class="carousel-item">
-                    <h3>${item.title}</h3>
-                    <div class="value">${item.value}</div>
-                    <p class="description">${item.description}</p>
-                </div>
-            `;
-            currentIndex = (currentIndex + 1) % carouselItems.length;
+        function drawChart() {
+            ctx.clearRect(0, 0, chart.width, chart.height);
+            ctx.strokeStyle = '#fbbf24';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            mockData.forEach((value, index) => {
+                const x = (index / (mockData.length - 1)) * chart.width;
+                const y = chart.height - (value / maxValue) * chart.height;
+                if (index === 0) {
+                    ctx.moveTo(x, y);
+                } else {
+                    ctx.lineTo(x, y);
+                }
+            });
+            ctx.stroke();
         }
 
-        updateCarousel();
-        setInterval(updateCarousel, 3000);
+        // Redraw chart on window resize
+        window.addEventListener('resize', () => {
+            chart.width = chart.offsetWidth;
+            chart.height = chart.offsetHeight;
+            drawChart();
+        });
 
-        // Bouncing meme randomization
-        const bouncingMemes = document.querySelectorAll('.bouncing-meme');
-        bouncingMemes.forEach(meme => {
-            meme.style.animationDelay = `${Math.random() * 2}s`;
+        // Initial chart draw
+        chart.width = chart.offsetWidth;
+        chart.height = chart.offsetHeight;
+        drawChart();
+
+        // Carousel functionality
+        const carousel = document.querySelector('.carousel-content');
+        const items = carousel.children;
+        const prevBtn = document.querySelector('.carousel-prev');
+        const nextBtn = document.querySelector('.carousel-next');
+        let currentIndex = 0;
+
+        function showItem(index) {
+            carousel.style.transform = `translateX(-${index * 100}%)`;
+        }
+
+        prevBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + items.length) % items.length;
+            showItem(currentIndex);
+        });
+
+        nextBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % items.length;
+            showItem(currentIndex);
+        });
+
+        // CTA button animation
+        const ctaButton = document.querySelector('.cta-button');
+        ctaButton.addEventListener('mouseover', () => {
+            ctaButton.style.transform = 'scale(1.1)';
+        });
+        ctaButton.addEventListener('mouseout', () => {
+            ctaButton.style.transform = 'scale(1)';
+        });
+        ctaButton.addEventListener('mousedown', () => {
+            ctaButton.style.transform = 'scale(0.95)';
+        });
+        ctaButton.addEventListener('mouseup', () => {
+            ctaButton.style.transform = 'scale(1.1)';
         });
     </script>
 </body>
 </html>
+

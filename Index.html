@@ -270,10 +270,36 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            gap: 20px;
             padding: 20px;
             background-color: rgba(0, 0, 0, 0.7);
             margin-bottom: 20px;
             border-radius: 8px;
+            flex-wrap: wrap;
+        }
+
+        .contract-address {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-family: monospace;
+            color: white;
+        }
+
+        .copy-button {
+            background: none;
+            border: none;
+            color: #fbbf24;
+            cursor: pointer;
+            padding: 4px;
+            transition: transform 0.2s ease;
+        }
+
+        .copy-button:hover {
+            transform: scale(1.1);
         }
     </style>
 </head>
@@ -298,6 +324,13 @@
             <a href="https://dexscreener.com/" target="_blank" rel="noopener noreferrer">
                 <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/dexsc-AMi2xKR7obdwuFbyCH6L4GvVBnxxAl.png" alt="DexScreener" class="dex-logo">
             </a>
+            <a href="https://app.uniswap.org/swap" target="_blank" rel="noopener noreferrer">
+                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/uniswap-uni-logo-hDV4jjr9lW9lr7xekMjmUvVzjA5JVI.png" alt="Uniswap" class="dex-logo">
+            </a>
+            <div class="contract-address">
+                <span>0x37b4be5af0419bc851b4e3c9f52688bba4eb050d</span>
+                <button onclick="navigator.clipboard.writeText('0x37b4be5af0419bc851b4e3c9f52688bba4eb050d')" class="copy-button">📋</button>
+            </div>
         </div>
 
         <main>

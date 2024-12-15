@@ -282,7 +282,6 @@
             border-radius: 8px;
             flex-wrap: wrap;
         }
-
         .contract-address {
             display: flex;
             align-items: center;
@@ -293,7 +292,6 @@
             font-family: monospace;
             color: white;
         }
-
         .copy-button {
             background: none;
             border: none;
@@ -302,11 +300,9 @@
             padding: 4px;
             transition: transform 0.2s ease;
         }
-
         .copy-button:hover {
             transform: scale(1.1);
         }
-
         .top-social-links {
             position: absolute;
             top: 80px;
@@ -322,6 +318,26 @@
         }
         .social-icon:hover {
             transform: scale(1.1);
+        }
+        .audio-player {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        .play-pause-btn {
+            background-color: #fbbf24;
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+        .play-pause-btn:hover {
+            transform: scale(1.1);
+            background-color: #f59e0b;
         }
     </style>
 </head>
@@ -348,7 +364,6 @@
                     <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/telegram%20advanced%20logo-KYzjJrbQEbzLSrSFyVNRkzqIox3Dgo.png" alt="Telegram" class="social-icon wiggle">
                 </a>
             </div>
-
         </header>
 
         <div class="text-center mb-8">
@@ -473,6 +488,14 @@
         </footer>
     </div>
 
+    <div class="audio-player">
+        <audio id="backgroundMusic" loop>
+            <source src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Shrimpin-VU3B2TAFh6QpHlOADMuQ3pgtHQj60F.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+        <button id="playPauseBtn" class="play-pause-btn">🔊 Play Shrimpin'</button>
+    </div>
+
     <script>
         // Title animation
         const title = document.getElementById('title');
@@ -577,7 +600,6 @@
             });
         });
 
-
         // Ticker pause on hover
         const ticker = document.querySelector('.ticker-content');
         ticker.addEventListener('mouseover', () => {
@@ -617,6 +639,33 @@
 
         // Play video on user interaction for mobile devices
         document.body.addEventListener('touchstart', playVideo, { once: true });
+
+        // Audio player functionality
+        const audioPlayer = document.getElementById('backgroundMusic');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        let isPlaying = false;
+
+        playPauseBtn.addEventListener('click', togglePlay);
+
+        function togglePlay() {
+            if (isPlaying) {
+                audioPlayer.pause();
+                playPauseBtn.textContent = '🔊 Play Shrimpin\'';
+            } else {
+                audioPlayer.play();
+                playPauseBtn.textContent = '🔇 Pause Shrimpin\'';
+            }
+            isPlaying = !isPlaying;
+        }
+
+        // Pause audio when page is not visible
+        document.addEventListener("visibilitychange", () => {
+            if (document.hidden) {
+                audioPlayer.pause();
+                isPlaying = false;
+                playPauseBtn.textContent = '🔊 Play Shrimpin\'';
+            }
+        });
     </script>
 </body>
 </html>

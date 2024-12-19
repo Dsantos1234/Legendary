@@ -290,6 +290,29 @@
                 height: 100px;
             }
         }
+
+        .trading-platforms {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .platform-link {
+            transition: transform 0.3s ease;
+        }
+
+        .platform-link:hover {
+            transform: scale(1.1);
+        }
+
+        .platform-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 12px;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 8px;
+        }
     </style>
 </head>
 <body>
@@ -373,6 +396,24 @@
                 <h3>∞</h3>
                 <p>Meme Potential</p>
             </div>
+        </div>
+
+        <div class="container">
+          <section class="section">
+            <h2>Trade $KNUCKLES</h2>
+            <div class="trading-platforms">
+              <a href="https://dexscreener.com" target="_blank" rel="noopener noreferrer" class="platform-link">
+                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/dex-screener-icon-filled-256-s0LNePQ4bJ0Vm5LuKkqFkMY5Ljv7Xa.png" 
+                     alt="DexScreener" 
+                     class="platform-icon" />
+              </a>
+              <a href="https://dextools.io" target="_blank" rel="noopener noreferrer" class="platform-link">
+                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/dextools.jpg-1gOkyae4XFZfdn9gF06e979FjSyZGD.jpeg" 
+                     alt="DexTools" 
+                     class="platform-icon" />
+              </a>
+            </div>
+          </section>
         </div>
     </div>
 

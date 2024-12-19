@@ -38,8 +38,29 @@
 
         @media (max-width: 768px) {
             body {
-                background-size: 250% auto;
-                background-position: top center;
+                background-image: 
+                    url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/holy%20knuckles.jpg-Y7X3l0iGbzY64ttqlqJXUsPYm0symn.jpeg'),
+                    url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/whole%20ugang.jpg-opyjshsx8Szo3sBkHGkKUvI8gLeA9V.jpeg');
+                background-size: 100% auto, 250% auto;
+                background-position: bottom center, top center;
+                background-repeat: no-repeat;
+                background-attachment: scroll, fixed;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+
+            .flex-container {
+                flex-direction: column;
+            }
+
+            h1 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 18px;
             }
         }
 
@@ -208,24 +229,6 @@
 
         .bounce {
             animation: bounce 1s ease-in-out infinite;
-        }
-
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .flex-container {
-                flex-direction: column;
-            }
-
-            h1 {
-                font-size: 36px;
-            }
-
-            .hero p {
-                font-size: 18px;
-            }
         }
     </style>
 </head>

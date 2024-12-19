@@ -35,10 +35,18 @@
             background-attachment: fixed;
         }
 
+        @media (max-width: 768px) {
+            body {
+                background-position: top center;
+            }
+        }
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
+            position: relative;
+            z-index: 1;
         }
 
         nav {
@@ -178,6 +186,8 @@
             width: 200px;
             height: 200px;
             margin: 0 auto;
+            opacity: 0;
+            transition: opacity 1s;
         }
 
         .animated-knuckles img {
@@ -205,6 +215,14 @@
 
             .flex-container {
                 flex-direction: column;
+            }
+
+            h1 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 18px;
             }
         }
     </style>
@@ -304,12 +322,10 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const animatedElements = document.querySelectorAll('.animated-knuckles');
-            animatedElements.forEach(el => {
-                el.style.opacity = '0';
+            animatedElements.forEach((el, index) => {
                 setTimeout(() => {
-                    el.style.transition = 'opacity 1s';
                     el.style.opacity = '1';
-                }, 100);
+                }, index * 300);
             });
         });
     </script>

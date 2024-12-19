@@ -3,670 +3,315 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>King Prawn - The Crustacean Sensation Taking Over Your Feed! 🦐📱</title>
+    <title>Uganda Knuckles - Find Da Wae</title>
     <style>
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
         body, html {
             margin: 0;
             padding: 0;
             font-family: Arial, sans-serif;
+            min-height: 100vh;
             color: white;
-            overflow-x: hidden;
-            background-color: transparent;
         }
-        .background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/King%20Prawn%20500x500-IZj5qicr4rGdtSoOq7Z1IspSj6R6JD.png');
+
+        body {
+            background-image: url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/whole%20ugang.jpg-opyjshsx8Szo3sBkHGkKUvI8gLeA9V.jpeg');
             background-size: cover;
             background-position: center;
-            filter: brightness(0.3);
-            z-index: -1;
+            background-attachment: fixed;
         }
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 0 20px;
         }
-        header {
-            text-align: center;
-            padding: 40px 0;
-        }
-        h1 {
-            font-size: 4rem;
-            margin-bottom: 10px;
-        }
-        .tagline {
-            font-size: 1.5rem;
-            color: #f87171;
-            font-style: italic;
-        }
-        .crown {
-            font-size: 4rem;
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            animation: float 20s infinite linear;
-        }
-        @keyframes float {
-            0% { transform: translate(0, 0) rotate(0deg); }
-            25% { transform: translate(100px, 50px) rotate(90deg); }
-            50% { transform: translate(0, 100px) rotate(180deg); }
-            75% { transform: translate(-100px, 50px) rotate(270deg); }
-            100% { transform: translate(0, 0) rotate(360deg); }
-        }
-        .image-container {
+
+        nav {
             display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            margin-bottom: 40px;
-        }
-        .floating-image {
-            max-width: 300px;
-            border: 4px solid #fbbf24;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            animation: floatImage 5s infinite ease-in-out;
-        }
-        @keyframes floatImage {
-            0%, 100% { transform: translateY(0) rotate(-5deg); }
-            50% { transform: translateY(-20px) rotate(5deg); }
-        }
-        .section {
-            background-color: rgba(0, 0, 0, 0.7);
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 40px;
-        }
-        h2 {
-            font-size: 2rem;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        li {
-            display: flex;
+            justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
-            transition: transform 0.3s ease;
-        }
-        li:hover {
-            transform: scale(1.05);
-        }
-        li span:first-child {
-            font-size: 2rem;
-            margin-right: 10px;
-        }
-        .chart {
-            width: 100%;
-            height: 300px;
-            background-color: #111;
-            border-radius: 8px;
-            overflow: hidden;
-        }
-        .carousel {
-            position: relative;
-            max-width: 300px;
-            margin: 0 auto;
-            overflow: hidden;
-        }
-        .carousel-content {
-            display: flex;
-            transition: transform 0.5s ease;
-        }
-        .carousel-item {
-            flex: 0 0 100%;
-            padding: 20px;
-            background-color: #dc2626;
-            border-radius: 8px;
-            text-align: center;
-        }
-        .carousel-item span {
-            font-size: 3rem;
-            display: block;
-            margin-bottom: 10px;
-        }
-        .carousel-prev, .carousel-next {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
+            padding: 20px 0;
             background-color: rgba(0, 0, 0, 0.5);
-            color: white;
-            border: none;
-            padding: 10px;
-            cursor: pointer;
-        }
-        .carousel-prev { left: 10px; }
-        .carousel-next { right: 10px; }
-        .cta-button {
-            display: block;
-            width: 200px;
-            margin: 0 auto;
-            padding: 15px 30px;
-            background-color: #fbbf24;
-            color: black;
-            text-align: center;
-            font-weight: bold;
-            font-size: 1.2rem;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: transform 0.3s ease, background-color 0.3s ease;
-        }
-        .cta-button:hover {
-            transform: scale(1.1);
-            background-color: #f59e0b;
-        }
-        footer {
-            background-color: rgba(0, 0, 0, 0.7);
-            padding: 40px 0;
-            text-align: center;
-        }
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
             margin-top: 20px;
         }
-        .social-links a {
-            color: #fbbf24;
-            text-decoration: none;
-            transition: transform 0.3s ease;
-        }
-        .social-links a:hover {
-            transform: scale(1.2) rotate(5deg);
-        }
-        @media (max-width: 768px) {
-            .image-container {
-                flex-direction: column;
-                align-items: center;
-            }
-            .floating-image {
-                margin-bottom: 20px;
-            }
-            .top-social-links {
-                position: static;
-                justify-content: center;
-                margin-top: 20px;
-            }
-        }
-        .prawn-cursor {
-            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 100 100"><text y="50%" font-size="90">🦐</text></svg>'), auto;
-        }
-        @keyframes wiggle {
-            0% { transform: rotate(0deg); }
-            25% { transform: rotate(5deg); }
-            75% { transform: rotate(-5deg); }
-            100% { transform: rotate(0deg); }
-        }
-        .wiggle:hover {
-            animation: wiggle 0.5s infinite;
-        }
-        .royal-ticker {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background-color: #fbbf24;
-            color: #000;
-            padding: 10px 0;
+
+        .logo {
+            font-size: 24px;
             font-weight: bold;
-            white-space: nowrap;
-            overflow: hidden;
-            z-index: 1000;
+            color: #ec4899;
         }
-        .ticker-content {
-            display: inline-block;
-            padding-left: 100%;
-            animation: ticker 30s linear infinite;
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
         }
-        @keyframes ticker {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(-100%, 0); }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
         }
-        body {
-            padding-top: 40px;
+
+        .nav-links a:hover {
+            color: #ec4899;
         }
-        .video-container {
-            max-width: 100%;
-            margin: 20px auto;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+        .buy-button {
+            background-color: #ec4899;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 9999px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .buy-button:hover {
+            background-color: #d61f69;
+            transform: scale(1.05);
+        }
+
+        .hero {
+            text-align: center;
+            padding: 100px 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            margin-top: 24px;
+        }
+
+        h1 {
+            font-size: 48px;
+            color: #ec4899;
+            margin-bottom: 24px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero p {
+            font-size: 24px;
+            margin-bottom: 32px;
+        }
+
+        .section {
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            padding: 24px;
+            margin-top: 24px;
+        }
+
+        h2 {
+            font-size: 30px;
+            color: #ec4899;
+            margin-bottom: 16px;
+        }
+
+        .flex-container {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+            margin-top: 48px;
+        }
+
+        .stat-card {
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            padding: 24px;
+            text-align: center;
+        }
+
+        .stat-card h3 {
+            font-size: 36px;
+            color: #ec4899;
+            margin-bottom: 8px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 24px;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            margin-top: 48px;
+        }
+
+        .social-links {
+            margin-bottom: 16px;
+        }
+
+        .social-links a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: #ec4899;
+        }
+
+        .animated-knuckles {
             position: relative;
-            padding-top: 56.25%; /* 16:9 aspect ratio */
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
         }
-        .video-container video {
-            position: absolute;
-            top: 0;
-            left: 0;
+
+        .animated-knuckles img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
         }
-        .chart-container {
-            width: 100%;
-            height: 300px;
-            background-color: #111;
-            border-radius: 8px;
-            overflow: hidden;
-            position: relative;
+
+        .float {
+            animation: float 3s ease-in-out infinite;
         }
-        #bullishChart {
-            position: absolute;
-            bottom: 0;
-            left: 0;
+
+        .pulse {
+            animation: pulse 2s ease-in-out infinite;
         }
-        .dex-logo {
-            width: 60px;
-            height: 60px;
-            transition: transform 0.2s ease;
-            margin: 10px;
+
+        .bounce {
+            animation: bounce 1s ease-in-out infinite;
         }
-        .dex-logo:hover {
-            transform: scale(1.1);
-        }
-        .dex-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 20px;
-            padding: 20px;
-            background-color: rgba(0, 0, 0, 0.7);
-            margin-bottom: 20px;
-            border-radius: 8px;
-            flex-wrap: wrap;
-        }
-        .contract-address {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 8px 16px;
-            border-radius: 8px;
-            font-family: monospace;
-            color: white;
-        }
-        .copy-button {
-            background: none;
-            border: none;
-            color: #fbbf24;
-            cursor: pointer;
-            padding: 4px;
-            transition: transform 0.2s ease;
-        }
-        .copy-button:hover {
-            transform: scale(1.1);
-        }
-        .top-social-links {
-            position: absolute;
-            top: 80px;
-            right: 20px;
-            display: flex;
-            justify-content: flex-end;
-            gap: 20px;
-        }
-        .social-icon {
-            width: 50px;
-            height: 50px;
-            transition: transform 0.2s ease;
-        }
-        .social-icon:hover {
-            transform: scale(1.1);
-        }
-        .audio-player {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 1000;
-        }
-        .play-pause-btn {
-            background-color: #fbbf24;
-            color: black;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: transform 0.3s ease, background-color 0.3s ease;
-        }
-        .play-pause-btn:hover {
-            transform: scale(1.1);
-            background-color: #f59e0b;
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .flex-container {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
-<body class="prawn-cursor">
-    <div class="background"></div>
-    <div class="royal-ticker">
-        <div class="ticker-content">
-            🦐 BREAKING: TikTok sensation King Prawn launches 1 BILLION token supply! 🦐 0% Buy / 0% Sell Tax (we're not shellfish)! 🦐 LP 100% Burned (like our sick dance moves)! 🦐 Launched through ape.store (because regular stores can't handle this much swag)! 🦐 King Prawn's net worth surpasses seafood industry (sorry, other fish)! 🦐 Local fish market in shambles (they're just jelly)! 🦐 Lobsters considering career change to backup dancers! 🦐
-        </div>
-    </div>
+<body>
     <div class="container">
-        <header>
-            <h1 id="title" class="wiggle">King Prawn</h1>
-            <p class="tagline">"The Crustacean Sensation Taking Over Your Feed! 🦐📱"</p>
-            <div class="crown">👑</div>
-            <div class="top-social-links">
-                <a href="https://www.tiktok.com/t/ZTY9wqXX9/" target="_blank" rel="noopener noreferrer">
-                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/tiktok%20logo-oUEgjjdl9IdemLPxqyCquoMop8VbMN.png" alt="TikTok" class="social-icon wiggle">
-                </a>
-                <a href="https://x.com/basedprawn?s=21" target="_blank" rel="noopener noreferrer">
-                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/x%20logo-N3reyO8Fx39PqIvZDyHo6qFa8jTapa.webp" alt="Twitter" class="social-icon wiggle">
-                </a>
-                <a href="https://t.me/basedprawn" target="_blank" rel="noopener noreferrer">
-                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/telegram%20advanced%20logo-KYzjJrbQEbzLSrSFyVNRkzqIox3Dgo.png" alt="Telegram" class="social-icon wiggle">
-                </a>
+        <nav>
+            <div class="logo">$KNUCKLES</div>
+            <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#tokenomics">Tokenomics</a>
+                <a href="#roadmap">Roadmap</a>
+                <a href="https://sonic.pumpevm.com/" target="_blank" rel="noopener noreferrer" class="buy-button">Buy Now</a>
             </div>
-        </header>
+        </nav>
 
-        <div class="text-center mb-8">
-            <button onclick="window.open('https://ape.store/base/0x37b4be5af0419bc851b4e3c9f52688bba4eb050d', '_blank')" class="cta-button wiggle">Buy $PRAWN Now 🦐</button>
-        </div>
-
-        <div class="dex-container">
-            <a href="https://www.dextools.io/app/en/pairs" target="_blank" rel="noopener noreferrer">
-                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/dextools%20clear%20-QTDsYWMJi9jPHkwiWs4vmI4yVYiNsY.png" alt="DexTools" class="dex-logo">
-            </a>
-            <a href="https://dexscreener.com/" target="_blank" rel="noopener noreferrer">
-                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/dex-screener-icon-filled-256-XqY4HE65jRh2n8S1e4FaWSVB7iVGpt.png" alt="DexScreener" class="dex-logo">
-            </a>
-            <a href="https://app.uniswap.org/swap" target="_blank" rel="noopener noreferrer">
-                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/uniswap-uni-logo-hDV4jjr9lW9lr7xekMjmUvVzjA5JVI.png" alt="Uniswap" class="dex-logo">
-            </a>
-            <div class="contract-address">
-                <span>0x37b4be5af0419bc851b4e3c9f52688bba4eb050d</span>
-                <button onclick="navigator.clipboard.writeText('0x37b4be5af0419bc851b4e3c9f52688bba4eb050d')" class="copy-button">📋</button>
+        <section class="hero">
+            <h1>Find Da Wae to Wealth</h1>
+            <p>Join the ultimate memecoin revolution with Uganda Knuckles</p>
+            <div class="animated-knuckles float">
+                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/holy%20knuckles.jpg-APP2f9TibuJtMiyPqVaOVd53yAMxA6.jpeg" alt="Holy Uganda Knuckles">
             </div>
-        </div>
+            <a href="https://sonic.pumpevm.com/" target="_blank" rel="noopener noreferrer" class="buy-button">Buy $KNUCKLES</a>
+        </section>
 
-        <main>
-            <div class="video-container">
-                <video playsinline autoplay muted loop poster="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/King%20Prawn%20500x500-IZj5qicr4rGdtSoOq7Z1IspSj6R6JD.png">
-                    <source src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Dancing%20Prawn-TnPDpd6PLonsaIaGRcSJ7LXF4OxKpq.MP4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-            </div>
-
-            <div class="image-container">
-                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/king%20prawn%20pfp.jpg-wIkbIcnTLK6NFQrJrDNzJ3YhFEUgvn.jpeg" alt="The King Prawn with his royal flip phone" class="floating-image">
-                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/prawn%20burger%20king.jpg-h543fbvD9vaGWUlH2EXyvxhcxM8w6X.jpeg" alt="The King Prawn in his crown" class="floating-image">
-            </div>
-
-            <div class="section">
-                <h2>The Royal Decree (As Seen on TikTok)</h2>
-                <ul>
-                    <li><span>🌟</span> First of its name, King of the Memecoins and Ruler of #PrawnTok (1 billion views and counting)</li>
-                    <li><span>📱</span> Holder of the Sacred Flip Phone of Virality (still figuring out how to duet with himself)</li>
-                    <li><span>💃</span> Master of the "Shrimpshake" dance craze (as seen in our royal dance video)</li>
-                    <li><span>👑</span> Bearer of the Golden Crown (made of repurposed shrimp nets and pure swag)</li>
-                    <li><span>🎭</span> Star of "Keeping Up with the Crustaceans" (move over, Kardashians)</li>
-                </ul>
-            </div>
-
-            <div class="section">
-                <h2>Royal Tokenomics (As Explained in a 15-second TikTok)</h2>
-                <ul>
-                    <li><span>💎</span> Total Supply: 1,000,000,000 PRAWN (that's a lot of shrimp cocktails)</li>
-                    <li><span>🏷️</span> Tax: 0% Buy / 0% Sell (we're not here to pinch your profits)</li>
-                    <li><span>🔥</span> Liquidity Pool: 100% Burned (like King Prawn's sick dance moves)</li>
-                    <li><span>🚀</span> Launched through: <a href="https://ape.store/base/0x37b4be5af0419bc851b4e3c9f52688bba4eb050d" target="_blank" rel="noopener noreferrer">ape.store</a></li>
-                    <li><span>📊</span> 5% Marketing (gotta keep the prawn hype flowing)</li>
-                    <li><span>🎁</span> 5% Giveaways (sharing is caring, prawn fam!)</li>
-                    <li><span>🦐</span> 5% Prawn (for our royal seafood feasts)</li>
-                </ul>
-            </div>
-
-            <div class="section">
-                <h2>Royal Treasury Performance 👑</h2>
-                <div class="chart-container">
-                    <canvas id="bullishChart"></canvas>
+        <section id="about" class="section">
+            <h2>Da Wae of da Knuckles</h2>
+            <div class="flex-container">
+                <div>
+                    <p>Legend has it, in the distant land of Uganda, a tribe of red echidnas emerged from the depths of VRChat, led by their queen and guided by the mystical power of "knowing da wae". These brave warriors, known as Uganda Knuckles, embarked on a quest to spread their wisdom and show the world da true wae.</p>
+                    <p>Born in the dank memes of 2018, Uganda Knuckles quickly became an internet sensation, clicking their tongues and spitting on non-believers. Now, they've found a new calling: to lead the crypto masses to financial enlightenment through the power of $KNUCKLES.</p>
                 </div>
-                <p class="tagline">*Chart represents our exponential growth in both memes and market cap (mostly memes)</p>
-            </div>
-
-            <div class="section">
-                <h2>Royal Proclamations (Trending on #PrawnTok)</h2>
-                <div class="carousel">
-                    <div class="carousel-content">
-                        <div class="carousel-item">
-                            <span>🦐</span>
-                            <p>The King of All Memecoins (and your FYP)! 👑</p>
-                        </div>
-                        <div class="carousel-item">
-                            <span>🕺</span>
-                            <p>Do the Shrimpshake: It's Flippin' Good!</p>
-                        </div>
-                        <div class="carousel-item">
-                            <span>📱</span>
-                            <p>Flip Phones & Fin-fluencers Unite!</p>
-                        </div>
-                        <div class="carousel-item">
-                            <span>💎</span>
-                            <p>HODLing: It's Not Just for Lobsters!</p>
-                        </div>
-                        <div class="carousel-item">
-                            <span>🚀</span>
-                            <p>From Fast Food to Fast Fame!</p>
-                        </div>
-                        <div class="carousel-item">
-                            <span>🎣</span>
-                            <p>Catfishing? Nah, We're Prawn-fishing!</p>
-                        </div>
-                        <div class="carousel-item">
-                            <span>🌊</span><span>🌊</span>
-                            <p>Making Waves in the Crypto-Sea-um!</p>
-                        </div>
-                        <div class="carousel-item">
-                            <span>😂</span>
-                            <p>You Can't Spell Cryptocurrency Without 'Cry', But We Prefer 'LOL'!</p>
-                        </div>
-                    </div>
-                    <button class="carousel-prev">❮</button>
-                    <button class="carousel-next">❯</button>
+                <div class="animated-knuckles pulse">
+                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ustance.jpg-JYoLA6ZqfRVlZjZUlATU97BG4p86c8.jpeg" alt="Power Stance Uganda Knuckles">
                 </div>
             </div>
+        </section>
 
-            <button onclick="window.open('https://ape.store/base/0x37b4be5af0419bc851b4e3c9f52688bba4eb050d', '_blank')" class="cta-button wiggle">Join the Royal Prawn-tourage 👑</button>
-            <p class="tagline">*By royal decree, each token comes with a virtual crown and a chance to duet with King Prawn himself (talent not included, void where prohibited)</p>
-        </main>
+        <section id="tokenomics" class="section">
+            <h2>Tokenomics of Da Wae</h2>
+            <ul>
+                <li>Total Supply: 1 billion $KNUCKLES (because we know big numbers are da wae)</li>
+                <li>Tax: 0% (we spit on taxes, they are not da wae)</li>
+                <li>LP: Burned faster than a Ugandan forest fire (it's gone, bruddas)</li>
+            </ul>
+        </section>
 
-        <footer>
-            <p>Join the Royal Court (Dress code: Formal swimwear and trendy TikTok outfits only):</p>
-            <div class="social-links">
-                <a href="https://www.tiktok.com/t/ZTY9wqXX9/" target="_blank" rel="noopener noreferrer" class="social-link wiggle">TikTok Reef</a>
-                <a href="https://x.com/basedprawn?s=21" target="_blank" rel="noopener noreferrer" class="social-link wiggle">Twitter</a>
-                <a href="https://t.me/basedprawn" target="_blank" rel="noopener noreferrer" class="social-link wiggle">Telegram</a>
+        <section id="roadmap" class="section">
+            <h2>Roadmap to Da Promised Land</h2>
+            <div class="flex-container">
+                <div>
+                    <ol>
+                        <li><strong>Phase 1:</strong> Launch $KNUCKLES and show the world we know da wae (You are here, congratulations on finding us, brudda!)</li>
+                        <li><strong>Phase 2:</strong> Implement tongue-clicking verification for all $KNUCKLES transactions (KYC - Know Your Clicking)</li>
+                        <li><strong>Phase 3:</strong> Develop "Spit-to-Earn" mechanism, rewarding holders for spitting on non-believers (virtually, of course)</li>
+                        <li><strong>Phase 4:</strong> Create the "Queen Finder" - a revolutionary DApp to help lost Knuckles find their queen and da wae</li>
+                        <li><strong>Phase 5:</strong> Establish the first virtual Uganda in the metaverse, complete with Knuckles-shaped monuments and endless echoes of "Do you know da wae?"</li>
+                        <li><strong>Phase 6:</strong> To da moon! (But first, we must ask: do you know da wae to da moon?)</li>
+                    </ol>
+                </div>
+                <div class="animated-knuckles bounce" style="width: 300px; height: 150px;">
+                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ugang.jpg-OiF962qcc87CZhyfACtl06K8Pu2GyF.jpeg" alt="Dancing Uganda Knuckles Gang">
+                </div>
             </div>
-            <p class="tagline">Disclaimer: This token is about as stable as King Prawn's dance moves on a rocking boat. Invest at your own risk, and maybe consider a nice index fund instead (but where's the fun in that?)!</p>
-        </footer>
+        </section>
+
+        <div class="stats">
+            <div class="stat-card">
+                <h3>1B</h3>
+                <p>Total Supply</p>
+            </div>
+            <div class="stat-card">
+                <h3>0%</h3>
+                <p>Tax (We spit on tax)</p>
+            </div>
+            <div class="stat-card">
+                <h3>100%</h3>
+                <p>LP Burned</p>
+            </div>
+            <div class="stat-card">
+                <h3>∞</h3>
+                <p>Meme Potential</p>
+            </div>
+        </div>
     </div>
 
-    <div class="audio-player">
-        <audio id="backgroundMusic" loop>
-            <source src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Shrimpin-VU3B2TAFh6QpHlOADMuQ3pgtHQj60F.mp3" type="audio/mpeg">
-            Your browser does not support the audio element.
-        </audio>
-        <button id="playPauseBtn" class="play-pause-btn">🔊 Play Shrimpin'</button>
-    </div>
+    <footer>
+        <div class="social-links">
+            <a href="#">Twitter</a>
+            <a href="#">Telegram</a>
+            <a href="#">Discord</a>
+            <a href="#">Medium</a>
+        </div>
+        <p>© 2024 Uganda Knuckles. This website is for entertainment purposes only. Remember, investing in memecoins is not da wae to financial advice.</p>
+    </footer>
 
     <script>
-        // Title animation
-        const title = document.getElementById('title');
-        title.style.transform = 'scale(0)';
-        setTimeout(() => {
-            title.style.transition = 'transform 0.5s ease';
-            title.style.transform = 'scale(1)';
-        }, 100);
-
-        // Bullish animated chart
-        const canvas = document.getElementById('bullishChart');
-        const ctx = canvas.getContext('2d');
-        let animationId;
-
-        function resizeCanvas() {
-            canvas.width = canvas.offsetWidth;
-            canvas.height = canvas.offsetHeight;
-        }
-
-        function drawBullishChart(time) {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
-            gradient.addColorStop(0, 'rgba(251, 191, 36, 0.8)');
-            gradient.addColorStop(1, 'rgba(251, 191, 36, 0)');
-
-            ctx.strokeStyle = '#fbbf24';
-            ctx.fillStyle = gradient;
-            ctx.lineWidth = 3;
-            ctx.beginPath();
-            
-            for (let x = 0; x <= canvas.width; x++) {
-                const y = canvas.height - (Math.sin(x / 50 + time / 1000) * 50 + x / 3);
-                if (x === 0) {
-                    ctx.moveTo(x, y);
-                } else {
-                    ctx.lineTo(x, y);
-                }
-            }
-            
-            ctx.lineTo(canvas.width, canvas.height);
-            ctx.lineTo(0, canvas.height);
-            ctx.closePath();
-            ctx.stroke();
-            ctx.fill();
-
-            animationId = requestAnimationFrame(drawBullishChart);
-        }
-
-        resizeCanvas();
-        drawBullishChart(0);
-
-        window.addEventListener('resize', () => {
-            resizeCanvas();
-            cancelAnimationFrame(animationId);
-            drawBullishChart(0);
-        });
-
-        // Carousel functionality
-        const carousel = document.querySelector('.carousel-content');
-        const items = carousel.children;
-        const prevBtn = document.querySelector('.carousel-prev');
-        const nextBtn = document.querySelector('.carousel-next');
-        let currentIndex = 0;
-
-        function showItem(index) {
-            carousel.style.transform = `translateX(-${index * 100}%)`;
-        }
-
-        prevBtn.addEventListener('click', () => {
-            currentIndex = (currentIndex - 1 + items.length) % items.length;
-            showItem(currentIndex);
-        });
-
-        nextBtn.addEventListener('click', () => {
-            currentIndex = (currentIndex + 1) % items.length;
-            showItem(currentIndex);
-        });
-
-        // CTA button animation
-        const ctaButton = document.querySelector('.cta-button');
-        ctaButton.addEventListener('mouseover', () => {
-            ctaButton.style.transform = 'scale(1.1)';
-        });
-        ctaButton.addEventListener('mouseout', () => {
-            ctaButton.style.transform = 'scale(1)';
-        });
-        ctaButton.addEventListener('mousedown', () => {
-            ctaButton.style.transform = 'scale(0.95)';
-        });
-        ctaButton.addEventListener('mouseup', () => {
-            ctaButton.style.transform = 'scale(1.1)';
-        });
-
-        // Wiggle animation for elements
-        document.querySelectorAll('.wiggle').forEach(element => {
-            element.addEventListener('mouseover', () => {
-                element.style.animation = 'wiggle 0.5s infinite';
+        document.addEventListener('DOMContentLoaded', function() {
+            const animatedElements = document.querySelectorAll('.animated-knuckles');
+            animatedElements.forEach(el => {
+                el.style.opacity = '0';
+                setTimeout(() => {
+                    el.style.transition = 'opacity 1s';
+                    el.style.opacity = '1';
+                }, 100);
             });
-            element.addEventListener('mouseout', () => {
-                element.style.animation = 'none';
-            });
-        });
-
-        // Ticker pause on hover
-        const ticker = document.querySelector('.ticker-content');
-        ticker.addEventListener('mouseover', () => {
-            ticker.style.animationPlayState = 'paused';
-        });
-        ticker.addEventListener('mouseout', () => {
-            ticker.style.animationPlayState = 'running';
-        });
-
-        // Video autoplay
-        const video = document.querySelector('video');
-        let isVideoPlaying = false;
-
-        function playVideo() {
-            if (!isVideoPlaying) {
-                video.play().then(() => {
-                    isVideoPlaying = true;
-                }).catch(error => {
-                    console.error("Video playback failed:", error);
-                });
-            }
-        }
-
-        // Play video when it comes into view
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    playVideo();
-                } else {
-                    video.pause();
-                    isVideoPlaying = false;
-                }
-            });
-        }, { threshold: 0.5 });
-
-        observer.observe(video);
-
-        // Play video on user interaction for mobile devices
-        document.body.addEventListener('touchstart', playVideo, { once: true });
-
-        // Audio player functionality
-        const audioPlayer = document.getElementById('backgroundMusic');
-        const playPauseBtn = document.getElementById('playPauseBtn');
-        let isPlaying = false;
-
-        playPauseBtn.addEventListener('click', togglePlay);
-
-        function togglePlay() {
-            if (isPlaying) {
-                audioPlayer.pause();
-                playPauseBtn.textContent = '🔊 Play Shrimpin\'';
-            } else {
-                audioPlayer.play();
-                playPauseBtn.textContent = '🔇 Pause Shrimpin\'';
-            }
-            isPlaying = !isPlaying;
-        }
-
-        // Pause audio when page is not visible
-        document.addEventListener("visibilitychange", () => {
-            if (document.hidden) {
-                audioPlayer.pause();
-                isPlaying = false;
-                playPauseBtn.textContent = '🔊 Play Shrimpin\'';
-            }
         });
     </script>
 </body>
 </html>
-

@@ -289,6 +289,17 @@
                 width: 200px;
                 height: 100px;
             }
+            .top-bar .container {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .social-links.mobile-only {
+                display: flex;
+                justify-content: center;
+                width: 100%;
+            }
         }
 
         .trading-platforms {
@@ -313,9 +324,69 @@
             background-color: rgba(255, 255, 255, 0.1);
             padding: 8px;
         }
+
+        .top-bar {
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            padding: 10px 0;
+        }
+
+        .top-bar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .trading-platforms {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .platform-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            transition: transform 0.3s ease;
+        }
+
+        .platform-link:hover .platform-icon {
+            transform: scale(1.1);
+        }
+
+        .social-links.mobile-only {
+            display: none;
+        }
+
+        .social-links.mobile-only a {
+            color: white;
+            text-decoration: none;
+            margin-left: 10px;
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
+    <div class="top-bar">
+        <div class="container">
+            <div class="trading-platforms">
+                <a href="https://dexscreener.com" target="_blank" rel="noopener noreferrer" class="platform-link">
+                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/dex-screener-icon-filled-256-s0LNePQ4bJ0Vm5LuKkqFkMY5Ljv7Xa.png" 
+                         alt="DexScreener" 
+                         class="platform-icon" />
+                </a>
+                <a href="https://dextools.io" target="_blank" rel="noopener noreferrer" class="platform-link">
+                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/dextools.jpg-1gOkyae4XFZfdn9gF06e979FjSyZGD.jpeg" 
+                         alt="DexTools" 
+                         class="platform-icon" />
+                </a>
+            </div>
+            <div class="social-links mobile-only">
+                <a href="#" target="_blank" rel="noopener noreferrer">Twitter</a>
+                <a href="#" target="_blank" rel="noopener noreferrer">Telegram</a>
+                <a href="#" target="_blank" rel="noopener noreferrer">Discord</a>
+            </div>
+        </div>
+    </div>
     <div class="container">
         <nav>
             <div class="logo">$KNUCKLES</div>
@@ -398,23 +469,7 @@
             </div>
         </div>
 
-        <div class="container">
-          <section class="section">
-            <h2>Trade $KNUCKLES</h2>
-            <div class="trading-platforms">
-              <a href="https://dexscreener.com" target="_blank" rel="noopener noreferrer" class="platform-link">
-                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/dex-screener-icon-filled-256-s0LNePQ4bJ0Vm5LuKkqFkMY5Ljv7Xa.png" 
-                     alt="DexScreener" 
-                     class="platform-icon" />
-              </a>
-              <a href="https://dextools.io" target="_blank" rel="noopener noreferrer" class="platform-link">
-                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/dextools.jpg-1gOkyae4XFZfdn9gF06e979FjSyZGD.jpeg" 
-                     alt="DexTools" 
-                     class="platform-icon" />
-              </a>
-            </div>
-          </section>
-        </div>
+
     </div>
 
     <footer>

@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Uganda Knuckles - Find Da Wae</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap');
+
         @keyframes float {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-20px); }
@@ -23,7 +25,7 @@
         body, html {
             margin: 0;
             padding: 0;
-            font-family: Arial, sans-serif;
+            font-family: 'Comic Neue', cursive;
             min-height: 100vh;
             color: white;
         }
@@ -59,6 +61,9 @@
             font-size: 24px;
             font-weight: bold;
             color: #ec4899;
+            font-family: 'Comic Neue', cursive;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
         .nav-links {
@@ -70,6 +75,10 @@
             color: white;
             text-decoration: none;
             transition: color 0.3s;
+            font-family: 'Comic Neue', cursive;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .nav-links a:hover {
@@ -84,6 +93,9 @@
             font-weight: bold;
             text-decoration: none;
             transition: background-color 0.3s, transform 0.3s;
+            font-family: 'Comic Neue', cursive;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .buy-button:hover {
@@ -105,11 +117,17 @@
             color: #ec4899;
             margin-bottom: 24px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            font-family: 'Comic Neue', cursive;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
         .hero p {
             font-size: 24px;
             margin-bottom: 32px;
+            font-family: 'Comic Neue', cursive;
+            line-height: 1.6;
         }
 
         .section {
@@ -124,6 +142,10 @@
             font-size: 30px;
             color: #ec4899;
             margin-bottom: 16px;
+            font-family: 'Comic Neue', cursive;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
         .flex-container {
@@ -151,6 +173,16 @@
             font-size: 36px;
             color: #ec4899;
             margin-bottom: 8px;
+            font-family: 'Comic Neue', cursive;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .stat-card p {
+            font-size: 18px;
+            line-height: 1.6;
+            font-family: 'Comic Neue', cursive;
         }
 
         footer {
@@ -205,7 +237,35 @@
 
         @media (max-width: 768px) {
             .nav-links {
-                display: none;
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: rgba(0, 0, 0, 0.8);
+                padding: 20px;
+                border-radius: 0 0 10px 10px;
+                transform: scaleY(0);
+                transform-origin: top;
+                transition: transform 0.3s ease-in-out;
+            }
+
+            .nav-links.show {
+                transform: scaleY(1);
+            }
+
+            .nav-links a {
+                padding: 10px 0;
+            }
+
+            .menu-toggle {
+                display: block;
+                background: none;
+                border: none;
+                color: white;
+                font-size: 24px;
+                cursor: pointer;
             }
 
             .flex-container {
@@ -236,29 +296,31 @@
     <div class="container">
         <nav>
             <div class="logo">$KNUCKLES</div>
+            <button class="menu-toggle">☰</button>
             <div class="nav-links">
                 <a href="#about">About</a>
                 <a href="#tokenomics">Tokenomics</a>
                 <a href="#roadmap">Roadmap</a>
+                <a href="#community">Community</a>
                 <a href="https://sonic.pumpevm.com/" target="_blank" rel="noopener noreferrer" class="buy-button">Buy Now</a>
             </div>
         </nav>
 
         <section class="hero">
-            <h1>Find Da Wae to Wealth</h1>
-            <p>Join the ultimate memecoin revolution with Uganda Knuckles</p>
+            <h1>Do U Kno Da Wae to Moon?</h1>
+            <p>Join da Knuckles tribe for a memetastic rocket ride to Ugandan riches!</p>
             <div class="animated-knuckles float">
                 <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/holy%20knuckles.jpg-APP2f9TibuJtMiyPqVaOVd53yAMxA6.jpeg" alt="Holy Uganda Knuckles">
             </div>
-            <a href="https://sonic.pumpevm.com/" target="_blank" rel="noopener noreferrer" class="buy-button">Buy $KNUCKLES</a>
+            <a href="https://sonic.pumpevm.com/" target="_blank" rel="noopener noreferrer" class="buy-button">Grab Yo $KNUCKLES</a>
         </section>
 
         <section id="about" class="section">
             <h2>Da Wae of da Knuckles</h2>
             <div class="flex-container">
                 <div>
-                    <p>Legend has it, in the distant land of Uganda, a tribe of red echidnas emerged from the depths of VRChat, led by their queen and guided by the mystical power of "knowing da wae". These brave warriors, known as Uganda Knuckles, embarked on a quest to spread their wisdom and show the world da true wae.</p>
-                    <p>Born in the dank memes of 2018, Uganda Knuckles quickly became an internet sensation, clicking their tongues and spitting on non-believers. Now, they've found a new calling: to lead the crypto masses to financial enlightenment through the power of $KNUCKLES.</p>
+                    <p>Legend has it, in da distant land of Uganda, a tribe of red echidnas emerged from da depths of VRChat, led by their queen and guided by da mystical power of "knowing da wae". These brave warriors, known as Uganda Knuckles, embarked on a quest to spread their wisdom and show da world da true wae.</p>
+                    <p>Born in da dank memes of 2018, Uganda Knuckles quickly became an internet sensation, clicking their tongues and spitting on non-believers. Now, they've found a new calling: to lead da crypto masses to financial enlightenment through da power of $KNUCKLES.</p>
                 </div>
                 <div class="animated-knuckles pulse">
                     <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ustance.jpg-JYoLA6ZqfRVlZjZUlATU97BG4p86c8.jpeg" alt="Power Stance Uganda Knuckles">
@@ -280,11 +342,11 @@
             <div class="flex-container">
                 <div>
                     <ol>
-                        <li><strong>Phase 1:</strong> Launch $KNUCKLES and show the world we know da wae (You are here, congratulations on finding us, brudda!)</li>
+                        <li><strong>Phase 1:</strong> Launch $KNUCKLES and show da world we know da wae (You are here, congratulations on finding us, brudda!)</li>
                         <li><strong>Phase 2:</strong> Implement tongue-clicking verification for all $KNUCKLES transactions (KYC - Know Your Clicking)</li>
                         <li><strong>Phase 3:</strong> Develop "Spit-to-Earn" mechanism, rewarding holders for spitting on non-believers (virtually, of course)</li>
-                        <li><strong>Phase 4:</strong> Create the "Queen Finder" - a revolutionary DApp to help lost Knuckles find their queen and da wae</li>
-                        <li><strong>Phase 5:</strong> Establish the first virtual Uganda in the metaverse, complete with Knuckles-shaped monuments and endless echoes of "Do you know da wae?"</li>
+                        <li><strong>Phase 4:</strong> Create da "Queen Finder" - a revolutionary DApp to help lost Knuckles find their queen and da wae</li>
+                        <li><strong>Phase 5:</strong> Establish da first virtual Uganda in da metaverse, complete with Knuckles-shaped monuments and endless echoes of "Do you know da wae?"</li>
                         <li><strong>Phase 6:</strong> To da moon! (But first, we must ask: do you know da wae to da moon?)</li>
                     </ol>
                 </div>
@@ -332,7 +394,15 @@
                     el.style.opacity = '1';
                 }, index * 300);
             });
+
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navLinks = document.querySelector('.nav-links');
+
+            menuToggle.addEventListener('click', () => {
+                navLinks.classList.toggle('show');
+            });
         });
     </script>
 </body>
 </html>
+

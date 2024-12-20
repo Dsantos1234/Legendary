@@ -69,6 +69,7 @@
         .nav-links {
             display: flex;
             gap: 24px;
+            align-items: center;
         }
 
         .nav-links a {
@@ -235,6 +236,22 @@
             animation: bounce 1s ease-in-out infinite;
         }
 
+        .platform-link {
+            transition: transform 0.3s ease;
+        }
+
+        .platform-link:hover {
+            transform: scale(1.1);
+        }
+
+        .platform-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 4px;
+        }
+
         @media (max-width: 768px) {
             .nav-links {
                 display: flex;
@@ -289,86 +306,19 @@
                 width: 200px;
                 height: 100px;
             }
-            .top-bar .container {
-                flex-direction: column;
-                align-items: center;
-                gap: 10px;
-            }
-
-            .social-links.mobile-only {
-                display: flex;
-                justify-content: center;
-                width: 100%;
-            }
-        }
-
-        .trading-platforms {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin: 2rem 0;
-        }
-
-        .platform-link {
-            transition: transform 0.3s ease;
-        }
-
-        .platform-link:hover {
-            transform: scale(1.1);
-        }
-
-        .platform-icon {
-            width: 64px;
-            height: 64px;
-            border-radius: 12px;
-            background-color: rgba(255, 255, 255, 0.1);
-            padding: 8px;
-        }
-
-        .top-bar {
-            background-color: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(10px);
-            padding: 10px 0;
-        }
-
-        .top-bar .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .trading-platforms {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .platform-icon {
-            width: 32px;
-            height: 32px;
-            border-radius: 6px;
-            transition: transform 0.3s ease;
-        }
-
-        .platform-link:hover .platform-icon {
-            transform: scale(1.1);
-        }
-
-        .social-links.mobile-only {
-            display: none;
-        }
-
-        .social-links.mobile-only a {
-            color: white;
-            text-decoration: none;
-            margin-left: 10px;
-            font-size: 14px;
         }
     </style>
 </head>
 <body>
-    <div class="top-bar">
-        <div class="container">
-            <div class="trading-platforms">
+    <div class="container">
+        <nav>
+            <div class="logo">$KNUCKLES</div>
+            <button class="menu-toggle">☰</button>
+            <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#tokenomics">Tokenomics</a>
+                <a href="#roadmap">Roadmap</a>
+                <a href="#community">Community</a>
                 <a href="https://dexscreener.com" target="_blank" rel="noopener noreferrer" class="platform-link">
                     <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/dex-screener-icon-filled-256-s0LNePQ4bJ0Vm5LuKkqFkMY5Ljv7Xa.png" 
                          alt="DexScreener" 
@@ -379,23 +329,6 @@
                          alt="DexTools" 
                          class="platform-icon" />
                 </a>
-            </div>
-            <div class="social-links mobile-only">
-                <a href="#" target="_blank" rel="noopener noreferrer">Twitter</a>
-                <a href="#" target="_blank" rel="noopener noreferrer">Telegram</a>
-                <a href="#" target="_blank" rel="noopener noreferrer">Discord</a>
-            </div>
-        </div>
-    </div>
-    <div class="container">
-        <nav>
-            <div class="logo">$KNUCKLES</div>
-            <button class="menu-toggle">☰</button>
-            <div class="nav-links">
-                <a href="#about">About</a>
-                <a href="#tokenomics">Tokenomics</a>
-                <a href="#roadmap">Roadmap</a>
-                <a href="#community">Community</a>
                 <a href="https://sonic.pumpevm.com/" target="_blank" rel="noopener noreferrer" class="buy-button">Buy Now</a>
             </div>
         </nav>
@@ -404,7 +337,7 @@
             <h1>Do U Kno Da Wae to Moon?</h1>
             <p>Join da Knuckles tribe for a memetastic rocket ride to Ugandan riches!</p>
             <div class="animated-knuckles float">
-                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/holy%20knuckles.jpg-APP2f9TibuJtMiyPqVaOVd53yAMxA6.jpeg" alt="Holy Uganda Knuckles">
+                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/clean%20uganda%20gang-UzyRcKMKlrQR5h3Ogyp4bnzT7AfFz0.png" alt="Uganda Knuckles Gang">
             </div>
             <a href="https://sonic.pumpevm.com/" target="_blank" rel="noopener noreferrer" class="buy-button">Grab Yo $KNUCKLES</a>
         </section>
@@ -468,8 +401,6 @@
                 <p>Meme Potential</p>
             </div>
         </div>
-
-
     </div>
 
     <footer>
@@ -501,4 +432,3 @@
     </script>
 </body>
 </html>
-

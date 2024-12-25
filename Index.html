@@ -3,432 +3,543 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Uganda Knuckles - Find Da Wae</title>
+    <title>Merary's Bakery - Artisanal Delights for the Discerning Palate</title>
+    <meta name="description" content="Indulge in Merary's Bakery's exquisite range of artisanal breads, pastries, and cakes. Taste the difference of handcrafted perfection.">
+    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap');
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
+        :root {
+            --primary-color: #8B4513;
+            --secondary-color: #D2691E;
+            --accent-color: #FFD700;
+            --text-color: #333;
+            --background-color: #FFF8DC;
+            --font-main: 'Playfair Display', serif;
+            --font-body: 'Lato', sans-serif;
         }
 
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
-
-        body, html {
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Comic Neue', cursive;
-            min-height: 100vh;
-            color: white;
         }
 
         body {
-            background-image: url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/holy%20knuckles.jpg-xno6tiHPYAjLiKhqoiVqcegGPWKrpe.jpeg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
+            font-family: var(--font-body);
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
-            position: relative;
-            z-index: 1;
         }
 
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 0;
-            background-color: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(10px);
-            border-radius: 10px;
-            margin-top: 20px;
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
         .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: #ec4899;
-            font-family: 'Comic Neue', cursive;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .nav-links {
             display: flex;
-            gap: 24px;
             align-items: center;
         }
 
-        .nav-links a {
+        .logo img {
+            width: 50px;
+            height: auto;
+            margin-right: 10px;
+        }
+
+        .logo h1 {
+            font-family: var(--font-main);
+            font-size: 1.5rem;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav ul li a {
             color: white;
             text-decoration: none;
-            transition: color 0.3s;
-            font-family: 'Comic Neue', cursive;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .nav-links a:hover {
-            color: #ec4899;
-        }
-
-        .buy-button {
-            background-color: #ec4899;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 9999px;
             font-weight: bold;
-            text-decoration: none;
-            transition: background-color 0.3s, transform 0.3s;
-            font-family: 'Comic Neue', cursive;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            transition: color 0.3s ease;
         }
 
-        .buy-button:hover {
-            background-color: #d61f69;
-            transform: scale(1.05);
+        nav ul li a:hover {
+            color: var(--accent-color);
+        }
+
+        main {
+            margin-top: 80px;
         }
 
         .hero {
+            background-image: url('/placeholder.svg?height=600&width=1200');
+            background-size: cover;
+            background-position: center;
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             text-align: center;
-            padding: 100px 0;
-            background-color: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(10px);
+            color: white;
+        }
+
+        .hero-content {
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 2rem;
             border-radius: 10px;
-            margin-top: 24px;
         }
 
-        h1 {
-            font-size: 48px;
-            color: #ec4899;
-            margin-bottom: 24px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-            font-family: 'Comic Neue', cursive;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+        .hero h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-family: var(--font-main);
         }
 
-        .hero p {
-            font-size: 24px;
-            margin-bottom: 32px;
-            font-family: 'Comic Neue', cursive;
-            line-height: 1.6;
+        .cta-button {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+            padding: 10px 20px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
         }
 
-        .section {
-            background-color: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(10px);
+        .cta-button:hover {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .about, .products, .account, .contact {
+            padding: 4rem 0;
+        }
+
+        .about-content, .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .about img, .product-card img {
+            max-width: 100%;
+            height: auto;
             border-radius: 10px;
-            padding: 24px;
-            margin-top: 24px;
         }
 
         h2 {
-            font-size: 30px;
-            color: #ec4899;
-            margin-bottom: 16px;
-            font-family: 'Comic Neue', cursive;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+            font-family: var(--font-main);
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: var(--primary-color);
         }
 
-        .flex-container {
-            display: flex;
-            align-items: center;
-            gap: 24px;
-        }
-
-        .stats {
+        .product-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 24px;
-            margin-top: 48px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
         }
 
-        .stat-card {
-            background-color: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(10px);
+        .product-card {
+            background-color: white;
             border-radius: 10px;
-            padding: 24px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 1rem;
             text-align: center;
-        }
-
-        .stat-card h3 {
-            font-size: 36px;
-            color: #ec4899;
-            margin-bottom: 8px;
-            font-family: 'Comic Neue', cursive;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .stat-card p {
-            font-size: 18px;
-            line-height: 1.6;
-            font-family: 'Comic Neue', cursive;
-        }
-
-        footer {
-            text-align: center;
-            padding: 24px;
-            background-color: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(10px);
-            margin-top: 48px;
-        }
-
-        .social-links {
-            margin-bottom: 16px;
-        }
-
-        .social-links a {
-            color: white;
-            text-decoration: none;
-            margin: 0 10px;
-            transition: color 0.3s;
-        }
-
-        .social-links a:hover {
-            color: #ec4899;
-        }
-
-        .animated-knuckles {
-            position: relative;
-            width: 200px;
-            height: 200px;
-            margin: 0 auto;
-            opacity: 0;
-            transition: opacity 1s;
-        }
-
-        .animated-knuckles img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-
-        .float {
-            animation: float 3s ease-in-out infinite;
-        }
-
-        .pulse {
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        .bounce {
-            animation: bounce 1s ease-in-out infinite;
-        }
-
-        .platform-link {
             transition: transform 0.3s ease;
         }
 
-        .platform-link:hover {
-            transform: scale(1.1);
+        .product-card:hover {
+            transform: translateY(-5px);
         }
 
-        .platform-icon {
-            width: 32px;
-            height: 32px;
-            border-radius: 6px;
-            background-color: rgba(255, 255, 255, 0.1);
-            padding: 4px;
+        .product-card h3 {
+            font-family: var(--font-main);
+            margin: 1rem 0;
+        }
+
+        .price {
+            font-weight: bold;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            display: block;
+            margin: 0.5rem 0;
+        }
+
+        .add-to-cart {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .add-to-cart:hover {
+            background-color: var(--primary-color);
+        }
+
+        .account-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .signup-form, .contact-form {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .submit-button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-button:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .account-benefits ul {
+            list-style: none;
+        }
+
+        .account-benefits li {
+            margin-bottom: 1rem;
+        }
+
+        .account-benefits i {
+            color: var(--accent-color);
+            margin-right: 10px;
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2rem 0;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .footer-section h3 {
+            font-family: var(--font-main);
+            margin-bottom: 1rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section ul li a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .social-icons a {
+            color: white;
+            font-size: 1.5rem;
+            margin-right: 1rem;
+        }
+
+        .newsletter-form input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 1rem;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .newsletter-form button {
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         @media (max-width: 768px) {
-            .nav-links {
-                display: flex;
-                flex-direction: column;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                background-color: rgba(0, 0, 0, 0.8);
-                padding: 20px;
-                border-radius: 0 0 10px 10px;
-                transform: scaleY(0);
-                transform-origin: top;
-                transition: transform 0.3s ease-in-out;
-            }
-
-            .nav-links.show {
-                transform: scaleY(1);
-            }
-
-            .nav-links a {
-                padding: 10px 0;
-            }
-
-            .menu-toggle {
-                display: block;
-                background: none;
-                border: none;
-                color: white;
-                font-size: 24px;
-                cursor: pointer;
-            }
-
-            .flex-container {
+            header {
                 flex-direction: column;
             }
 
-            h1 {
-                font-size: 36px;
+            nav ul {
+                margin-top: 1rem;
             }
 
-            .hero p {
-                font-size: 18px;
+            .hero h2 {
+                font-size: 2rem;
             }
 
-            .animated-knuckles {
-                width: 150px;
-                height: 150px;
+            .about-content, .contact-content, .account-content, .footer-content {
+                grid-template-columns: 1fr;
             }
 
-            .animated-knuckles.bounce {
-                width: 200px;
-                height: 100px;
+            .product-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav ul li {
+                margin: 0.5rem 0;
+            }
+
+            .hero {
+                height: 60vh;
+            }
+
+            .hero-content {
+                padding: 1rem;
+            }
+
+            .hero h2 {
+                font-size: 1.5rem;
+            }
+
+            .about, .products, .account, .contact {
+                padding: 2rem 0;
+            }
+
+            h2 {
+                font-size: 2rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <nav>
-            <div class="logo">$KNUCKLES</div>
-            <button class="menu-toggle">☰</button>
-            <div class="nav-links">
-                <a href="#about">About</a>
-                <a href="#tokenomics">Tokenomics</a>
-                <a href="#roadmap">Roadmap</a>
-                <a href="#community">Community</a>
-                <a href="https://dexscreener.com" target="_blank" rel="noopener noreferrer" class="platform-link">
-                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/dex-screener-icon-filled-256-s0LNePQ4bJ0Vm5LuKkqFkMY5Ljv7Xa.png" 
-                         alt="DexScreener" 
-                         class="platform-icon" />
-                </a>
-                <a href="https://dextools.io" target="_blank" rel="noopener noreferrer" class="platform-link">
-                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/dextools.jpg-1gOkyae4XFZfdn9gF06e979FjSyZGD.jpeg" 
-                         alt="DexTools" 
-                         class="platform-icon" />
-                </a>
-                <a href="https://sonic.pumpevm.com/" target="_blank" rel="noopener noreferrer" class="buy-button">Buy Now</a>
-            </div>
-        </nav>
-
-        <section class="hero">
-            <h1>Do U Kno Da Wae to Moon?</h1>
-            <p>Join da Knuckles tribe for a memetastic rocket ride to Ugandan riches!</p>
-            <div class="animated-knuckles float">
-                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/clean%20uganda%20gang-UzyRcKMKlrQR5h3Ogyp4bnzT7AfFz0.png" alt="Uganda Knuckles Gang">
-            </div>
-            <a href="https://sonic.pumpevm.com/" target="_blank" rel="noopener noreferrer" class="buy-button">Grab Yo $KNUCKLES</a>
-        </section>
-
-        <section id="about" class="section">
-            <h2>Da Wae of da Knuckles</h2>
-            <div class="flex-container">
-                <div>
-                    <p>Legend has it, in da distant land of Uganda, a tribe of red echidnas emerged from da depths of VRChat, led by their queen and guided by da mystical power of "knowing da wae". These brave warriors, known as Uganda Knuckles, embarked on a quest to spread their wisdom and show da world da true wae.</p>
-                    <p>Born in da dank memes of 2018, Uganda Knuckles quickly became an internet sensation, clicking their tongues and spitting on non-believers. Now, they've found a new calling: to lead da crypto masses to financial enlightenment through da power of $KNUCKLES.</p>
-                </div>
-                <div class="animated-knuckles pulse">
-                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ustance.jpg-JYoLA6ZqfRVlZjZUlATU97BG4p86c8.jpeg" alt="Power Stance Uganda Knuckles">
-                </div>
-            </div>
-        </section>
-
-        <section id="tokenomics" class="section">
-            <h2>Tokenomics of Da Wae</h2>
-            <ul>
-                <li>Total Supply: 1 billion $KNUCKLES (because we know big numbers are da wae)</li>
-                <li>Tax: 0% (we spit on taxes, they are not da wae)</li>
-                <li>LP: Burned faster than a Ugandan forest fire (it's gone, bruddas)</li>
-            </ul>
-        </section>
-
-        <section id="roadmap" class="section">
-            <h2>Roadmap to Da Promised Land</h2>
-            <div class="flex-container">
-                <div>
-                    <ol>
-                        <li><strong>Phase 1:</strong> Launch $KNUCKLES and show da world we know da wae (You are here, congratulations on finding us, brudda!)</li>
-                        <li><strong>Phase 2:</strong> Implement tongue-clicking verification for all $KNUCKLES transactions (KYC - Know Your Clicking)</li>
-                        <li><strong>Phase 3:</strong> Develop "Spit-to-Earn" mechanism, rewarding holders for spitting on non-believers (virtually, of course)</li>
-                        <li><strong>Phase 4:</strong> Create da "Queen Finder" - a revolutionary DApp to help lost Knuckles find their queen and da wae</li>
-                        <li><strong>Phase 5:</strong> Establish da first virtual Uganda in da metaverse, complete with Knuckles-shaped monuments and endless echoes of "Do you know da wae?"</li>
-                        <li><strong>Phase 6:</strong> To da moon! (But first, we must ask: do you know da wae to da moon?)</li>
-                    </ol>
-                </div>
-                <div class="animated-knuckles bounce">
-                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ugang.jpg-OiF962qcc87CZhyfACtl06K8Pu2GyF.jpeg" alt="Dancing Uganda Knuckles Gang">
-                </div>
-            </div>
-        </section>
-
-        <div class="stats">
-            <div class="stat-card">
-                <h3>1B</h3>
-                <p>Total Supply</p>
-            </div>
-            <div class="stat-card">
-                <h3>0%</h3>
-                <p>Tax (We spit on tax)</p>
-            </div>
-            <div class="stat-card">
-                <h3>100%</h3>
-                <p>LP Burned</p>
-            </div>
-            <div class="stat-card">
-                <h3>∞</h3>
-                <p>Meme Potential</p>
-            </div>
+    <header>
+        <div class="logo">
+            <img src="/placeholder.svg?height=80&width=80" alt="Merary's Bakery Logo">
+            <h1>Merary's Bakery</h1>
         </div>
-    </div>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#products">Our Creations</a></li>
+                <li><a href="#account">My Account</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h2>Artisanal Delights for the Discerning Palate</h2>
+                <p>Experience the perfect blend of tradition and innovation in every bite</p>
+                <a href="#products" class="cta-button">Explore Our Creations</a>
+            </div>
+        </section>
+
+        <section id="about" class="about">
+            <h2>Our Story</h2>
+            <div class="about-content">
+                <img src="/placeholder.svg?height=300&width=400" alt="Merary in her bakery">
+                <div>
+                    <p>At Merary's Bakery, we believe in the power of perfectly crafted pastries to brighten your day. Founded by Merary herself, our bakery has been a labor of love for over two decades.</p>
+                    <p>Using only the finest ingredients and time-honored techniques, we create edible works of art that tantalize your taste buds and warm your soul.</p>
+                    <p>From our signature sourdough to our decadent chocolate creations, every item is infused with passion and expertise.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="products" class="products">
+            <h2>Our Exquisite Creations</h2>
+            <div class="product-grid">
+                <div class="product-card">
+                    <img src="/placeholder.svg?height=250&width=250" alt="Artisanal Chocolate Cake">
+                    <h3>Artisanal Chocolate Cake</h3>
+                    <p>Indulge in layers of rich, velvety chocolate goodness</p>
+                    <span class="price">$32.99</span>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <img src="/placeholder.svg?height=250&width=250" alt="Flaky Butter Croissant">
+                    <h3>Flaky Butter Croissant</h3>
+                    <p>Experience the perfect balance of crisp and tender layers</p>
+                    <span class="price">$3.99</span>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <img src="/placeholder.svg?height=250&width=250" alt="Rustic Sourdough Loaf">
+                    <h3>Rustic Sourdough Loaf</h3>
+                    <p>Savor the complex flavors of our signature sourdough</p>
+                    <span class="price">$7.99</span>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <img src="/placeholder.svg?height=250&width=250" alt="Wild Blueberry Tart">
+                    <h3>Wild Blueberry Tart</h3>
+                    <p>Delight in the perfect harmony of sweet and tart flavors</p>
+                    <span class="price">$18.99</span>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="account" class="account">
+            <h2>Join Our Culinary Community</h2>
+            <div class="account-content">
+                <form class="signup-form">
+                    <h3>Create an Account</h3>
+                    <div class="form-group">
+                        <label for="fullname">Full Name</label>
+                        <input type="text" id="fullname" name="fullname" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirm-password">Confirm Password</label>
+                        <input type="password" id="confirm-password" name="confirm-password" required>
+                    </div>
+                    <button type="submit" class="submit-button">Create Account</button>
+                </form>
+                <div class="account-benefits">
+                    <h3>Member Benefits</h3>
+                    <ul>
+                        <li><i class="fas fa-gift"></i> Exclusive discounts on your favorite treats</li>
+                        <li><i class="fas fa-birthday-cake"></i> Special birthday surprises</li>
+                        <li><i class="fas fa-bell"></i> Early access to seasonal collections</li>
+                        <li><i class="fas fa-cookie"></i> Loyalty points on every purchase</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact">
+            <h2>Get in Touch</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Visit Our Bakery</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Flour Lane, Sweetville, CA 98765</p>
+                    <p><i class="fas fa-phone"></i> (555) 123-CAKE</p>
+                    <p><i class="fas fa-envelope"></i> hello@merarysbakery.com</p>
+                    <h3>Opening Hours</h3>
+                    <p>Monday - Friday: 7:00 AM - 7:00 PM</p>
+                    <p>Saturday - Sunday: 8:00 AM - 5:00 PM</p>
+                </div>
+                <form class="contact-form">
+                    <h3>Send Us a Message</h3>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contact-email">Email</label>
+                        <input type="email" id="contact-email" name="contact-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-button">Send Message</button>
+                </form>
+            </div>
+        </section>
+    </main>
 
     <footer>
-        <div class="social-links">
-            <a href="#">Twitter</a>
-            <a href="#">Telegram</a>
-            <a href="#">Discord</a>
-            <a href="#">Medium</a>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#products">Our Creations</a></li>
+                    <li><a href="#account">My Account</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <div class="social-icons">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Pinterest"><i class="fab fa-pinterest"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Newsletter</h3>
+                <p>Subscribe for exclusive offers and baking tips!</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Your email address" required>
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
         </div>
-        <p>© 2024 Uganda Knuckles. This website is for entertainment purposes only. Remember, investing in memecoins is not da wae to financial advice.</p>
+        <div class="footer-bottom">
+            <p>&copy; 2023 Merary's Bakery. All rights reserved.</p>
+        </div>
     </footer>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const animatedElements = document.querySelectorAll('.animated-knuckles');
-            animatedElements.forEach((el, index) => {
-                setTimeout(() => {
-                    el.style.opacity = '1';
-                }, index * 300);
-            });
-
-            const menuToggle = document.querySelector('.menu-toggle');
-            const navLinks = document.querySelector('.nav-links');
-
-            menuToggle.addEventListener('click', () => {
-                navLinks.classList.toggle('show');
-            });
-        });
-    </script>
 </body>
 </html>

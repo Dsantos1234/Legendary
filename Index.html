@@ -3,543 +3,208 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Merary's Bakery - Artisanal Delights for the Discerning Palate</title>
-    <meta name="description" content="Indulge in Merary's Bakery's exquisite range of artisanal breads, pastries, and cakes. Taste the difference of handcrafted perfection.">
-    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+    <title>Pepewu - The MOST BASED Memecoin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary-color: #8B4513;
-            --secondary-color: #D2691E;
-            --accent-color: #FFD700;
-            --text-color: #333;
-            --background-color: #FFF8DC;
-            --font-main: 'Playfair Display', serif;
-            --font-body: 'Lato', sans-serif;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
         body {
-            font-family: var(--font-body);
-            line-height: 1.6;
-            color: var(--text-color);
-            background-color: var(--background-color);
+            font-family: 'Bubblegum Sans', cursive;
         }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        header {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 1rem;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-        }
-
-        .logo img {
-            width: 50px;
-            height: auto;
-            margin-right: 10px;
-        }
-
-        .logo h1 {
-            font-family: var(--font-main);
-            font-size: 1.5rem;
-        }
-
-        nav ul {
-            list-style: none;
-            display: flex;
-            justify-content: flex-end;
-        }
-
-        nav ul li {
-            margin-left: 20px;
-        }
-
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-            transition: color 0.3s ease;
-        }
-
-        nav ul li a:hover {
-            color: var(--accent-color);
-        }
-
-        main {
-            margin-top: 80px;
-        }
-
-        .hero {
-            background-image: url('/placeholder.svg?height=600&width=1200');
+        .bg-image {
+            background-image: url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/pepewu%20website-Slk8DdlYqZfBNjjLxncfQTIKrTZR18.png');
             background-size: cover;
             background-position: center;
-            height: 80vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: white;
         }
-
-        .hero-content {
-            background-color: rgba(0, 0, 0, 0.6);
-            padding: 2rem;
-            border-radius: 10px;
-        }
-
-        .hero h2 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            font-family: var(--font-main);
-        }
-
-        .cta-button {
-            display: inline-block;
-            background-color: var(--accent-color);
-            color: var(--primary-color);
-            padding: 10px 20px;
-            text-decoration: none;
-            font-weight: bold;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
-
-        .cta-button:hover {
-            background-color: var(--secondary-color);
-            color: white;
-        }
-
-        .about, .products, .account, .contact {
-            padding: 4rem 0;
-        }
-
-        .about-content, .contact-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            align-items: center;
-        }
-
-        .about img, .product-card img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 10px;
-        }
-
-        h2 {
-            font-family: var(--font-main);
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
-            text-align: center;
-            color: var(--primary-color);
-        }
-
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-
-        .product-card {
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 1rem;
-            text-align: center;
-            transition: transform 0.3s ease;
-        }
-
-        .product-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .product-card h3 {
-            font-family: var(--font-main);
-            margin: 1rem 0;
-        }
-
-        .price {
-            font-weight: bold;
-            color: var(--primary-color);
-            font-size: 1.2rem;
-            display: block;
-            margin: 0.5rem 0;
-        }
-
-        .add-to-cart {
-            background-color: var(--secondary-color);
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .add-to-cart:hover {
-            background-color: var(--primary-color);
-        }
-
-        .account-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-        }
-
-        .signup-form, .contact-form {
-            background-color: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .form-group {
-            margin-bottom: 1rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-        }
-
-        .form-group input, .form-group textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-
-        .submit-button {
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .submit-button:hover {
-            background-color: var(--secondary-color);
-        }
-
-        .account-benefits ul {
-            list-style: none;
-        }
-
-        .account-benefits li {
-            margin-bottom: 1rem;
-        }
-
-        .account-benefits i {
-            color: var(--accent-color);
-            margin-right: 10px;
-        }
-
-        footer {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 2rem 0;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-        }
-
-        .footer-section h3 {
-            font-family: var(--font-main);
-            margin-bottom: 1rem;
-        }
-
-        .footer-section ul {
-            list-style: none;
-        }
-
-        .footer-section ul li {
-            margin-bottom: 0.5rem;
-        }
-
-        .footer-section ul li a {
-            color: white;
-            text-decoration: none;
-        }
-
-        .social-icons a {
-            color: white;
-            font-size: 1.5rem;
-            margin-right: 1rem;
-        }
-
-        .newsletter-form input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 1rem;
-            border: none;
-            border-radius: 5px;
-        }
-
-        .newsletter-form button {
-            background-color: var(--accent-color);
-            color: var(--primary-color);
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .footer-bottom {
-            text-align: center;
-            margin-top: 2rem;
-            padding-top: 1rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        @media (max-width: 768px) {
-            header {
-                flex-direction: column;
-            }
-
-            nav ul {
-                margin-top: 1rem;
-            }
-
-            .hero h2 {
-                font-size: 2rem;
-            }
-
-            .about-content, .contact-content, .account-content, .footer-content {
-                grid-template-columns: 1fr;
-            }
-
-            .product-grid {
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            }
-        }
-
-        @media (max-width: 480px) {
-            nav ul {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            nav ul li {
-                margin: 0.5rem 0;
-            }
-
-            .hero {
-                height: 60vh;
-            }
-
-            .hero-content {
-                padding: 1rem;
-            }
-
-            .hero h2 {
-                font-size: 1.5rem;
-            }
-
-            .about, .products, .account, .contact {
-                padding: 2rem 0;
-            }
-
-            h2 {
-                font-size: 2rem;
-            }
-        }
+        .rotate-1 { transform: rotate(1deg); }
+        .rotate-2 { transform: rotate(2deg); }
+        .rotate-3 { transform: rotate(3deg); }
+        .-rotate-1 { transform: rotate(-1deg); }
+        .-rotate-2 { transform: rotate(-2deg); }
+        .hover\:rotate-1:hover { transform: rotate(1deg); }
+        .hover\:rotate-2:hover { transform: rotate(2deg); }
+        .hover\:-rotate-1:hover { transform: rotate(-1deg); }
+        .hover\:-rotate-2:hover { transform: rotate(-2deg); }
     </style>
 </head>
-<body>
-    <header>
-        <div class="logo">
-            <img src="/placeholder.svg?height=80&width=80" alt="Merary's Bakery Logo">
-            <h1>Merary's Bakery</h1>
-        </div>
-        <nav>
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#products">Our Creations</a></li>
-                <li><a href="#account">My Account</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <main>
-        <section id="home" class="hero">
-            <div class="hero-content">
-                <h2>Artisanal Delights for the Discerning Palate</h2>
-                <p>Experience the perfect blend of tradition and innovation in every bite</p>
-                <a href="#products" class="cta-button">Explore Our Creations</a>
+<body class="min-h-screen bg-image">
+    <div class="fixed inset-0 bg-[#8B0000]/10 backdrop-blur-[1px]"></div>
+    
+    <div class="relative z-10">
+        <!-- Header -->
+        <header class="py-4 px-6 flex justify-between items-center">
+            <div class="text-4xl text-white">
+                Pepewu <span class="text-white/90">ペペウ</span>
             </div>
-        </section>
+            <nav>
+                <button class="bg-white text-[#8B0000] px-4 py-2 rounded-full hover:bg-yellow-400 transition-colors">
+                    🌙 / ☀️
+                </button>
+            </nav>
+        </header>
 
-        <section id="about" class="about">
-            <h2>Our Story</h2>
-            <div class="about-content">
-                <img src="/placeholder.svg?height=300&width=400" alt="Merary in her bakery">
-                <div>
-                    <p>At Merary's Bakery, we believe in the power of perfectly crafted pastries to brighten your day. Founded by Merary herself, our bakery has been a labor of love for over two decades.</p>
-                    <p>Using only the finest ingredients and time-honored techniques, we create edible works of art that tantalize your taste buds and warm your soul.</p>
-                    <p>From our signature sourdough to our decadent chocolate creations, every item is infused with passion and expertise.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="products" class="products">
-            <h2>Our Exquisite Creations</h2>
-            <div class="product-grid">
-                <div class="product-card">
-                    <img src="/placeholder.svg?height=250&width=250" alt="Artisanal Chocolate Cake">
-                    <h3>Artisanal Chocolate Cake</h3>
-                    <p>Indulge in layers of rich, velvety chocolate goodness</p>
-                    <span class="price">$32.99</span>
-                    <button class="add-to-cart">Add to Cart</button>
-                </div>
-                <div class="product-card">
-                    <img src="/placeholder.svg?height=250&width=250" alt="Flaky Butter Croissant">
-                    <h3>Flaky Butter Croissant</h3>
-                    <p>Experience the perfect balance of crisp and tender layers</p>
-                    <span class="price">$3.99</span>
-                    <button class="add-to-cart">Add to Cart</button>
-                </div>
-                <div class="product-card">
-                    <img src="/placeholder.svg?height=250&width=250" alt="Rustic Sourdough Loaf">
-                    <h3>Rustic Sourdough Loaf</h3>
-                    <p>Savor the complex flavors of our signature sourdough</p>
-                    <span class="price">$7.99</span>
-                    <button class="add-to-cart">Add to Cart</button>
-                </div>
-                <div class="product-card">
-                    <img src="/placeholder.svg?height=250&width=250" alt="Wild Blueberry Tart">
-                    <h3>Wild Blueberry Tart</h3>
-                    <p>Delight in the perfect harmony of sweet and tart flavors</p>
-                    <span class="price">$18.99</span>
-                    <button class="add-to-cart">Add to Cart</button>
+        <!-- Hero -->
+        <section class="py-20 text-center relative overflow-hidden">
+            <div class="relative z-10">
+                <h1 class="text-8xl mb-4 text-white drop-shadow-lg -rotate-1">
+                    Pepewu <span class="text-yellow-400 inline-block rotate-3">ペペウ</span>
+                </h1>
+                <p class="text-3xl mb-8 text-white drop-shadow-lg rotate-1">
+                    The MOST BASED memecoin that goes UwU 🐸✨
+                    <br>
+                    <span class="text-yellow-400">trust me bro™</span>
+                </p>
+                <div class="space-y-4">
+                    <button class="bg-yellow-400 text-red-900 hover:bg-yellow-500 font-bold px-8 py-3 rounded-lg text-xl transform hover:rotate-2 transition-transform">
+                        Buy Pepewu Now! 🚀
+                    </button>
+                    <div class="text-white text-sm">
+                        Number of millionaires created: 42069 (source: trust me bro)
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section id="account" class="account">
-            <h2>Join Our Culinary Community</h2>
-            <div class="account-content">
-                <form class="signup-form">
-                    <h3>Create an Account</h3>
-                    <div class="form-group">
-                        <label for="fullname">Full Name</label>
-                        <input type="text" id="fullname" name="fullname" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email Address</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" id="password" name="password" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="confirm-password">Confirm Password</label>
-                        <input type="password" id="confirm-password" name="confirm-password" required>
-                    </div>
-                    <button type="submit" class="submit-button">Create Account</button>
-                </form>
-                <div class="account-benefits">
-                    <h3>Member Benefits</h3>
-                    <ul>
-                        <li><i class="fas fa-gift"></i> Exclusive discounts on your favorite treats</li>
-                        <li><i class="fas fa-birthday-cake"></i> Special birthday surprises</li>
-                        <li><i class="fas fa-bell"></i> Early access to seasonal collections</li>
-                        <li><i class="fas fa-cookie"></i> Loyalty points on every purchase</li>
-                    </ul>
+        <!-- Token Info -->
+        <section class="py-20 px-6">
+            <h2 class="text-4xl text-center mb-12 text-white drop-shadow-lg rotate-1">
+                Tokenomics (they're perfect btw)
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-black/30 backdrop-blur-md border border-yellow-400/20 rounded-lg p-6 transform hover:-rotate-2 transition-transform">
+                    <h3 class="text-2xl text-white mb-2">Supply</h3>
+                    <p class="text-3xl text-white">1,000,000,000</p>
+                    <p class="text-sm text-white/70">1B $PEPEWU (big number = good)</p>
+                </div>
+                <div class="bg-black/30 backdrop-blur-md border border-yellow-400/20 rounded-lg p-6 transform hover:rotate-2 transition-transform">
+                    <h3 class="text-2xl text-white mb-2">Tax</h3>
+                    <p class="text-3xl text-white">0/0</p>
+                    <p class="text-sm text-white/70">No tax (we're not the IRS ser)</p>
+                </div>
+                <div class="bg-black/30 backdrop-blur-md border border-yellow-400/20 rounded-lg p-6 transform hover:-rotate-2 transition-transform">
+                    <h3 class="text-2xl text-white mb-2">LP</h3>
+                    <p class="text-3xl text-white">Burned 🔥</p>
+                    <p class="text-sm text-white/70">Safer than your ex's promises</p>
                 </div>
             </div>
         </section>
 
-        <section id="contact" class="contact">
-            <h2>Get in Touch</h2>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <h3>Visit Our Bakery</h3>
-                    <p><i class="fas fa-map-marker-alt"></i> 123 Flour Lane, Sweetville, CA 98765</p>
-                    <p><i class="fas fa-phone"></i> (555) 123-CAKE</p>
-                    <p><i class="fas fa-envelope"></i> hello@merarysbakery.com</p>
-                    <h3>Opening Hours</h3>
-                    <p>Monday - Friday: 7:00 AM - 7:00 PM</p>
-                    <p>Saturday - Sunday: 8:00 AM - 5:00 PM</p>
-                </div>
-                <form class="contact-form">
-                    <h3>Send Us a Message</h3>
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="contact-email">Email</label>
-                        <input type="email" id="contact-email" name="contact-email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea id="message" name="message" required></textarea>
-                    </div>
-                    <button type="submit" class="submit-button">Send Message</button>
-                </form>
+        <!-- Facts -->
+        <section class="py-20 px-6">
+            <h2 class="text-4xl text-center mb-12 text-white drop-shadow-lg -rotate-1">
+                $PEPEWU FACTS 😱
+            </h2>
+            <div class="max-w-4xl mx-auto" id="facts-container">
+                <!-- Facts will be dynamically inserted here -->
             </div>
         </section>
-    </main>
 
-    <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#about">About Us</a></li>
-                    <li><a href="#products">Our Creations</a></li>
-                    <li><a href="#account">My Account</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Connect With Us</h3>
-                <div class="social-icons">
-                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
-                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                    <a href="#" aria-label="Pinterest"><i class="fab fa-pinterest"></i></a>
+        <!-- Features -->
+        <section class="py-20 px-6">
+            <h2 class="text-4xl text-center mb-12 text-white drop-shadow-lg">Why Pepewu?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="text-center bg-black/30 backdrop-blur-md p-6 rounded-lg">
+                    <div class="mb-4 flex justify-center text-yellow-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path></svg>
+                    </div>
+                    <h3 class="text-2xl mb-2 text-white drop-shadow-lg">To the Moon!</h3>
+                    <p class="text-white/70">Pepewu is ready for liftoff! Join us on our journey to the stars!</p>
+                </div>
+                <div class="text-center bg-black/30 backdrop-blur-md p-6 rounded-lg">
+                    <div class="mb-4 flex justify-center text-yellow-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                    </div>
+                    <h3 class="text-2xl mb-2 text-white drop-shadow-lg">Safu & Based</h3>
+                    <p class="text-white/70">Contract renounced, LP burned. Your funds are safe with Pepewu!</p>
+                </div>
+                <div class="text-center bg-black/30 backdrop-blur-md p-6 rounded-lg">
+                    <div class="mb-4 flex justify-center text-yellow-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+                    </div>
+                    <h3 class="text-2xl mb-2 text-white drop-shadow-lg">Meme Power</h3>
+                    <p class="text-white/70">Harness the power of memes and watch your investment grow!</p>
                 </div>
             </div>
-            <div class="footer-section">
-                <h3>Newsletter</h3>
-                <p>Subscribe for exclusive offers and baking tips!</p>
-                <form class="newsletter-form">
-                    <input type="email" placeholder="Your email address" required>
-                    <button type="submit">Subscribe</button>
-                </form>
+        </section>
+
+        <!-- Footer -->
+        <footer class="py-12 px-6">
+            <div class="max-w-4xl mx-auto">
+                <h3 class="text-3xl text-center mb-8 text-white transform -rotate-1">
+                    Join the Pepewu Army! 🐸
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <a href="#" class="group block p-4 bg-black/30 backdrop-blur-md rounded-lg border border-yellow-400/20 hover:bg-black/40 transition-all transform hover:rotate-1">
+                        <div class="flex items-center justify-center mb-2 text-yellow-400">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg>
+                        </div>
+                        <h4 class="text-xl text-center text-white mb-1">X (Twitter)</h4>
+                        <p class="text-sm text-center text-white/70">Follow for 200 IQ alpha</p>
+                    </a>
+                    <a href="#" class="group block p-4 bg-black/30 backdrop-blur-md rounded-lg border border-yellow-400/20 hover:bg-black/40 transition-all transform hover:rotate-1">
+                        <div class="flex items-center justify-center mb-2 text-yellow-400">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"></path><path d="M22 2 11 13"></path></svg>
+                        </div>
+                        <h4 class="text-xl text-center text-white mb-1">Telegram</h4>
+                        <p class="text-sm text-center text-white/70">Join the most based community</p>
+                    </a>
+                    <a href="#" class="group block p-4 bg-black/30 backdrop-blur-md rounded-lg border border-yellow-400/20 hover:bg-black/40 transition-all transform hover:rotate-1">
+                        <div class="flex items-center justify-center mb-2 text-yellow-400">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M2 12h20"></path><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                        </div>
+                        <h4 class="text-xl text-center text-white mb-1">Website</h4>
+                        <p class="text-sm text-center text-white/70">NFA but you're ngmi without $PEPEWU</p>
+                    </a>
+                </div>
+                <div class="text-center text-white/70 space-y-2">
+                    <p class="transform -rotate-1">© 2024 Pepewu. DYOR (but you won't)</p>
+                    <p class="text-xs transform rotate-1">
+                        Not financial advice (but we're all gonna make it) 🚀
+                    </p>
+                </div>
             </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2023 Merary's Bakery. All rights reserved.</p>
-        </div>
-    </footer>
+        </footer>
+    </div>
+
+    <script>
+        // Facts animation
+        const facts = [
+            "Pepewu was born when a Pepe sneezed while eating sushi! 🍣",
+            "Our dev team consists of 3 frogs and a wise old turtle 🐢",
+            "Every time someone buys Pepewu, a fortune cookie gets its wings 🥠",
+            "The 'wu' in Pepewu stands for 'Wealthy Universe' (trust us bro) 😎",
+            "Legend says holding Pepewu makes your ramen taste better 🍜",
+        ];
+
+        const factsContainer = document.getElementById('facts-container');
+
+        facts.forEach((fact, index) => {
+            const factElement = document.createElement('div');
+            factElement.className = 'mb-4 opacity-0 transform translate-x-full';
+            factElement.innerHTML = `
+                <div class="bg-black/30 backdrop-blur-md border-yellow-400/20 p-4 rounded-lg">
+                    <p class="text-xl text-white transform rotate-1 hover:-rotate-1 transition-transform">
+                        ${fact}
+                    </p>
+                </div>
+            `;
+            factsContainer.appendChild(factElement);
+
+            setTimeout(() => {
+                factElement.classList.remove('opacity-0', 'translate-x-full');
+                factElement.classList.add('transition-all', 'duration-500', 'ease-out');
+            }, index * 200);
+        });
+
+        // Theme toggle
+        const themeToggle = document.querySelector('header button');
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark');
+            if (document.body.classList.contains('dark')) {
+                document.body.style.backgroundColor = '#1a1a1a';
+            } else {
+                document.body.style.backgroundColor = '';
+            }
+        });
+    </script>
 </body>
 </html>

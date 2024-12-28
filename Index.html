@@ -11,10 +11,15 @@
             font-family: 'Bubblegum Sans', cursive;
         }
         .bg-image {
-            background-image: url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/pepewu%20website-Slk8DdlYqZfBNjjLxncfQTIKrTZR18.png');
+            background-image: url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/pepewu%20website-mobile-OPXVXZDHWVXZWVhDxncfQTIKrTZR18.png');
             background-size: cover;
             background-position: center;
-            background-attachment: fixed; /* This makes the background move with scrolling */
+            background-attachment: fixed;
+        }
+        @media (min-width: 768px) {
+            .bg-image {
+                background-image: url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/pepewu%20website-Slk8DdlYqZfBNjjLxncfQTIKrTZR18.png');
+            }
         }
         .rotate-1 { transform: rotate(1deg); }
         .rotate-2 { transform: rotate(2deg); }
@@ -30,7 +35,7 @@
 <body class="min-h-screen bg-image">
     <div class="fixed inset-0 bg-[#8B0000]/10 backdrop-blur-[1px]"></div>
     
-    <div class="relative z-10 max-w-6xl mx-auto px-4"> <!-- Added max-width and centering -->
+    <div class="relative z-10 max-w-6xl mx-auto px-4">
         <!-- Header -->
         <header class="py-4 flex justify-between items-center">
             <div class="text-4xl text-white">
@@ -44,12 +49,12 @@
         </header>
 
         <!-- Hero -->
-        <section class="py-20 text-left relative overflow-hidden"> <!-- Changed to text-left -->
+        <section class="py-20 text-left relative overflow-hidden">
             <div class="relative z-10">
-                <h1 class="text-8xl mb-4 text-white drop-shadow-lg -rotate-1">
+                <h1 class="text-5xl md:text-8xl mb-4 text-white drop-shadow-lg -rotate-1">
                     Pepewu <span class="text-yellow-400 inline-block rotate-3">ペペウ</span>
                 </h1>
-                <p class="text-3xl mb-8 text-white drop-shadow-lg rotate-1">
+                <p class="text-2xl md:text-3xl mb-8 text-white drop-shadow-lg rotate-1">
                     The MOST BASED memecoin that goes UwU 🐸✨
                     <br>
                     <span class="text-yellow-400">trust me bro™</span>
@@ -67,7 +72,7 @@
 
         <!-- Token Info -->
         <section class="py-20">
-            <h2 class="text-4xl text-left mb-12 text-white drop-shadow-lg rotate-1"> <!-- Changed to text-left -->
+            <h2 class="text-3xl md:text-4xl text-left mb-12 text-white drop-shadow-lg rotate-1">
                 Tokenomics (they're perfect btw)
             </h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -91,7 +96,7 @@
 
         <!-- Facts -->
         <section class="py-20">
-            <h2 class="text-4xl text-left mb-12 text-white drop-shadow-lg -rotate-1"> <!-- Changed to text-left -->
+            <h2 class="text-3xl md:text-4xl text-left mb-12 text-white drop-shadow-lg -rotate-1">
                 $PEPEWU FACTS 😱
             </h2>
             <div class="mx-auto" id="facts-container">
@@ -101,7 +106,7 @@
 
         <!-- Features -->
         <section class="py-20">
-            <h2 class="text-4xl text-left mb-12 text-white drop-shadow-lg">Why Pepewu?</h2> <!-- Changed to text-left -->
+            <h2 class="text-3xl md:text-4xl text-left mb-12 text-white drop-shadow-lg">Why Pepewu?</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div class="bg-black/30 backdrop-blur-md p-6 rounded-lg">
                     <div class="mb-4 flex justify-center text-yellow-400">
@@ -130,7 +135,7 @@
         <!-- Footer -->
         <footer class="py-12">
             <div class="mx-auto">
-                <h3 class="text-3xl text-left mb-8 text-white transform -rotate-1"> <!-- Changed to text-left -->
+                <h3 class="text-2xl md:text-3xl text-left mb-8 text-white transform -rotate-1">
                     Join the Pepewu Army! 🐸
                 </h3>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
@@ -156,7 +161,7 @@
                         <p class="text-sm text-center text-white/70">NFA but you're ngmi without $PEPEWU</p>
                     </a>
                 </div>
-                <div class="text-left text-white/70 space-y-2"> <!-- Changed to text-left -->
+                <div class="text-left text-white/70 space-y-2">
                     <p class="transform -rotate-1">© 2024 Pepewu. DYOR (but you won't)</p>
                     <p class="text-xs transform rotate-1">
                         Not financial advice (but we're all gonna make it) 🚀
@@ -209,3 +214,4 @@
     </script>
 </body>
 </html>
+

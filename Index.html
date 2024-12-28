@@ -15,10 +15,16 @@
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
+            background-repeat: no-repeat;
+            /* Add Safari fix for mobile devices */
+            -webkit-background-size: cover;
+            -webkit-background-attachment: fixed;
         }
         @media (min-width: 768px) {
             .bg-image {
                 background-image: url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/pepewu%20website-Slk8DdlYqZfBNjjLxncfQTIKrTZR18.png');
+                background-attachment: fixed;
+                -webkit-background-attachment: fixed;
             }
         }
         .rotate-1 { transform: rotate(1deg); }

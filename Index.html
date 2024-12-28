@@ -45,6 +45,42 @@
         .carousel-item {
             scroll-snap-align: start;
         }
+
+        /* Image Slider Styles */
+        .slider-container {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .slider {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        .slider img {
+            width: 100%;
+            flex-shrink: 0;
+        }
+        .slider-nav {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+        .slider-nav button {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: none;
+            background-color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+        }
+        .slider-nav button.active {
+            background-color: white;
+        }
     </style>
 </head>
 <body class="min-h-screen bg-image">
@@ -90,6 +126,19 @@
                         Number of millionaires created: 42069 (source: trust me bro)
                     </div>
                 </div>
+            </div>
+        </section>
+
+        <!-- Image Slider -->
+        <section class="py-10 relative">
+            <div class="slider-container">
+                <div class="slider">
+                    <img src="/placeholder.svg?height=400&width=800" alt="Pepewu Meme 1">
+                    <img src="/placeholder.svg?height=400&width=800" alt="Pepewu Meme 2">
+                    <img src="/placeholder.svg?height=400&width=800" alt="Pepewu Meme 3">
+                    <img src="/placeholder.svg?height=400&width=800" alt="Pepewu Meme 4">
+                </div>
+                <div class="slider-nav"></div>
             </div>
         </section>
 
@@ -257,6 +306,40 @@
                 factElement.classList.add('transition-all', 'duration-500', 'ease-out');
             }, index * 200);
         });
+
+        // Image Slider
+        const slider = document.querySelector('.slider');
+        const sliderNav = document.querySelector('.slider-nav');
+        const slides = slider.children;
+        let currentSlide = 0;
+
+        // Create navigation dots
+        for (let i = 0; i < slides.length; i++) {
+            const dot = document.createElement('button');
+            dot.addEventListener('click', () => goToSlide(i));
+            sliderNav.appendChild(dot);
+        }
+
+        const dots = sliderNav.children;
+
+        function goToSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            dots[currentSlide].classList.remove('active');
+            currentSlide = (n + slides.length) % slides.length;
+            slides[currentSlide].classList.add('active');
+            dots[currentSlide].classList.add('active');
+            slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+        }
+
+        function nextSlide() {
+            goToSlide(currentSlide + 1);
+        }
+
+        // Auto-advance slides every 5 seconds
+        setInterval(nextSlide, 5000);
+
+        // Initialize first slide
+        goToSlide(0);
     </script>
 </body>
 </html>

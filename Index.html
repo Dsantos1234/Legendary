@@ -39,6 +39,10 @@
         nav a:hover {
             color: #FCD535;
         }
+        .social-links a {
+            font-size: 1.5rem;
+            margin-left: 0.5rem;
+        }
         .hero {
             padding-top: 5rem;
             text-align: center;
@@ -59,7 +63,7 @@
         }
         .hero video {
             width: 100%;
-            max-width: 48rem;
+            max-width: 400px;
             border-radius: 0.5rem;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
@@ -119,6 +123,20 @@
             height: 100%;
             pointer-events: none;
         }
+        .buy-button {
+            display: inline-block;
+            background-color: #FCD535;
+            color: #0052FF;
+            font-size: 1.25rem;
+            font-weight: bold;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        .buy-button:hover {
+            background-color: #FFE066;
+        }
     </style>
 </head>
 <body>
@@ -131,6 +149,11 @@
                     <a href="#tokenomics">Tokenomics</a>
                     <a href="#how-to-buy">How to Buy</a>
                     <a href="#community">Community</a>
+                    <span class="social-links">
+                        <a href="https://www.tiktok.com/@tema" target="_blank" aria-label="TikTok">🎵</a>
+                        <a href="https://www.youtube.com/@tema" target="_blank" aria-label="YouTube">📺</a>
+                        <a href="https://www.instagram.com/tema" target="_blank" aria-label="Instagram">📷</a>
+                    </span>
                 </div>
             </nav>
         </div>
@@ -141,10 +164,16 @@
             <div class="container">
                 <h1>Tema</h1>
                 <p>The trashiest memecoin on Base Chain!</p>
+                <p style="font-size: 1.25rem; margin-bottom: 2rem;">
+                    Tema is the world's most famous raccoon with 2,700,000 followers on TikTok, 1,700,000 on YouTube and 314,000 followers on IG
+                </p>
                 <video autoplay loop muted playsinline>
                     <source src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/W7V5asN7z7WOZJW6tWWr11TcuOw-ErkNHTRmJU9jOeuJdoB5vQXSKYjEVk.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
+                <div style="margin-top: 2rem;">
+                    <a href="#how-to-buy" class="buy-button">Buy $TEMA</a>
+                </div>
                 <canvas id="floating-raccoons"></canvas>
             </div>
         </section>
@@ -158,7 +187,7 @@
                         <p>Join our mischievous band of raccoons as we embark on a journey to become the most hilarious and valuable token in the Base Chain ecosystem. Remember, one raccoon's trash is another raccoon's treasure!</p>
                     </div>
                     <div style="flex: 1 1 300px;">
-                        <video autoplay loop muted playsinline style="width: 100%; border-radius: 0.5rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                        <video autoplay loop muted playsinline style="width: 100%; max-width: 300px; border-radius: 0.5rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
                             <source src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/0CnWjQvHW7WhdF2yJAe2RyNHOY-38JpXht9FFJmznH4MkzFwrfzfb8wV9.mp4" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
@@ -208,9 +237,12 @@
                             <li>Swap ETH for $TEMA</li>
                             <li>HODL and watch your trash turn into treasure!</li>
                         </ol>
+                        <div style="text-align: center; margin-top: 2rem;">
+                            <a href="#" class="buy-button">Buy $TEMA Now</a>
+                        </div>
                     </div>
                     <div style="flex: 1 1 300px;">
-                        <video autoplay loop muted playsinline style="width: 100%; border-radius: 0.5rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                        <video autoplay loop muted playsinline style="width: 100%; max-width: 300px; border-radius: 0.5rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
                             <source src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/8q4Y32h9VQ65p251bjQpyyVJY-Ddewx3vSLZTiyOUMpUbdqnRPZb13i8.mp4" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
@@ -224,12 +256,12 @@
                 <h2>Join the Raccoon Family</h2>
                 <p style="font-size: 1.25rem; text-align: center; margin-bottom: 2rem;">Don't be trash, be a Tema! Join our community and let's take over the Base Chain together!</p>
                 <div class="community-links">
-                    <a href="#" aria-label="Twitter">🐦</a>
-                    <a href="#" aria-label="Telegram">📱</a>
-                    <a href="#" aria-label="Discord">💬</a>
+                    <a href="https://www.tiktok.com/@tema" target="_blank" aria-label="TikTok">🎵</a>
+                    <a href="https://www.youtube.com/@tema" target="_blank" aria-label="YouTube">📺</a>
+                    <a href="https://www.instagram.com/tema" target="_blank" aria-label="Instagram">📷</a>
                 </div>
                 <div style="margin-top: 3rem;">
-                    <video autoplay loop muted playsinline style="width: 100%; max-width: 32rem; margin: 0 auto; border-radius: 0.5rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                    <video autoplay loop muted playsinline style="width: 100%; max-width: 300px; margin: 0 auto; border-radius: 0.5rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
                         <source src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/gG6OZTWwRJ27ZfiD8kZwUj6VQ-8QftMPBWBjABfXwQz3k7SnAdw4O2oN.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>

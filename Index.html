@@ -149,7 +149,10 @@
             object-fit: cover;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
-
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
         @media (max-width: 768px) {
             .hero h1 {
                 font-size: 3rem;
@@ -176,8 +179,34 @@
                 font-size: 0.9rem;
                 padding: 0.75rem;
             }
+            .container {
+                text-align: center;
+            }
+            nav {
+                flex-direction: column;
+                align-items: center;
+            }
+            nav > div {
+                margin-top: 1rem;
+            }
+            .social-links {
+                margin-top: 1rem;
+            }
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            .section {
+                padding: 3rem 0;
+            }
+            [style*="display: flex"] {
+                flex-direction: column;
+                align-items: center;
+            }
+            video, .hero video {
+                width: 100%;
+                max-width: 300px;
+            }
         }
-
         @media (max-width: 480px) {
             .hero h1 {
                 font-size: 2.5rem;
@@ -197,21 +226,13 @@
                 top: 60px;
                 left: 5px;
             }
-            nav {
-                flex-direction: column;
-                align-items: flex-start;
+            .buy-button {
+                font-size: 1rem;
+                padding: 0.5rem 1rem;
             }
-            nav > div {
-                margin-top: 0.5rem;
+            .community-links a {
+                font-size: 1.5rem;
             }
-            .social-links {
-                margin-top: 0.5rem;
-            }
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
         }
     </style>
 </head>

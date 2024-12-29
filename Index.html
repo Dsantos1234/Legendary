@@ -149,10 +149,7 @@
             object-fit: cover;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
+
         @media (max-width: 768px) {
             .hero h1 {
                 font-size: 3rem;
@@ -179,34 +176,8 @@
                 font-size: 0.9rem;
                 padding: 0.75rem;
             }
-            .container {
-                text-align: center;
-            }
-            nav {
-                flex-direction: column;
-                align-items: center;
-            }
-            nav > div {
-                margin-top: 1rem;
-            }
-            .social-links {
-                margin-top: 1rem;
-            }
-            .grid {
-                grid-template-columns: 1fr;
-            }
-            .section {
-                padding: 3rem 0;
-            }
-            [style*="display: flex"] {
-                flex-direction: column;
-                align-items: center;
-            }
-            video, .hero video {
-                width: 100%;
-                max-width: 300px;
-            }
         }
+
         @media (max-width: 480px) {
             .hero h1 {
                 font-size: 2.5rem;
@@ -226,13 +197,36 @@
                 top: 60px;
                 left: 5px;
             }
-            .buy-button {
-                font-size: 1rem;
-                padding: 0.5rem 1rem;
+            nav {
+                flex-direction: column;
+                align-items: flex-start;
             }
-            .community-links a {
-                font-size: 1.5rem;
+            nav > div {
+                margin-top: 0.5rem;
             }
+            .social-links {
+                margin-top: 0.5rem;
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        .step-box {
+            background-color: #0052FF;
+            color: white;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+        .step-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
         }
     </style>
 </head>
@@ -251,8 +245,8 @@
                     <a href="#how-to-buy">How to Buy</a>
                     <a href="#community">Community</a>
                     <span class="social-links">
-                        <a href="https://www.tiktok.com/@tema" target="_blank" aria-label="TikTok">🎵</a>
-                        <a href="https://www.instagram.com/tema" target="_blank" aria-label="Instagram">📷</a>
+                        <a href="https://www.tiktok.com/@raccoon.tema?_t=8scwWGP6MUk&_r=1" target="_blank" aria-label="TikTok">🎵</a>
+                        <a href="https://www.instagram.com/raccoon.tema?igsh=YzhxMjNkejZkNG80" target="_blank" aria-label="Instagram">📷</a>
                     </span>
                 </div>
             </nav>
@@ -272,7 +266,7 @@
                     Your browser does not support the video tag.
                 </video>
                 <div style="margin-top: 2rem;">
-                    <a href="#how-to-buy" class="buy-button">Buy $TEMA</a>
+                    <a href="https://ape.store" class="buy-button">Buy $TEMA</a>
                 </div>
                 <canvas id="floating-raccoons"></canvas>
             </div>
@@ -284,6 +278,7 @@
                 <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;">
                     <div style="flex: 1 1 300px; margin-bottom: 2rem;">
                         <p>Tema is not just another memecoin – it's a trash panda's dream come true on the Base Chain! With our superior scavenging skills and unmatched ability to turn garbage into gold, we're here to raid the crypto world and leave no dumpster unturned.</p>
+                        <p>Tema the Raccoon is a viral internet star known for his appearances in social media, particularly on Instagram where he has a significant following. Originally from Russia, Tema and his family have captured hearts with their daily adventures and antics.</p>
                         <p>Join our mischievous band of raccoons as we embark on a journey to become the most hilarious and valuable token in the Base Chain ecosystem. Remember, one raccoon's trash is another raccoon's treasure!</p>
                     </div>
                     <div style="flex: 1 1 300px;">
@@ -328,16 +323,16 @@
             <div class="container">
                 <h2>How to Buy $TEMA</h2>
                 <div style="display: flex; flex-direction: column; align-items: center;">
-                    <ol style="width: 100%; max-width: 500px; margin-bottom: 2rem;">
-                        <li>Set up a wallet compatible with Base Chain (e.g., MetaMask)</li>
-                        <li>Add Base Chain to your wallet</li>
-                        <li>Buy ETH and bridge it to Base Chain</li>
-                        <li>Go to BaseSwap or your preferred DEX on Base Chain</li>
-                        <li>Swap ETH for $TEMA</li>
-                        <li>HODL and watch your trash turn into treasure!</li>
-                    </ol>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; width: 100%; max-width: 800px; margin-bottom: 2rem;">
+                        <div class="step-box">Set up a wallet compatible with Base Chain (e.g., MetaMask)</div>
+                        <div class="step-box">Add Base Chain to your wallet</div>
+                        <div class="step-box">Buy ETH and bridge it to Base Chain</div>
+                        <div class="step-box">Go to BaseSwap or your preferred DEX on Base Chain</div>
+                        <div class="step-box">Swap ETH for $TEMA</div>
+                        <div class="step-box">HODL and watch your trash turn into treasure!</div>
+                    </div>
                     <div style="text-align: center; margin-bottom: 2rem;">
-                        <a href="#" class="buy-button">Buy $TEMA Now</a>
+                        <a href="https://ape.store" class="buy-button">Buy $TEMA Now</a>
                     </div>
                     <video autoplay loop muted playsinline style="width: 100%; max-width: 300px; border-radius: 0.5rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
                         <source src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/8q4Y32h9VQ65p251bjQpyyVJY-Ddewx3vSLZTiyOUMpUbdqnRPZb13i8.mp4" type="video/mp4">
@@ -352,8 +347,8 @@
                 <h2>Join the Raccoon Family</h2>
                 <p style="font-size: 1.25rem; text-align: center; margin-bottom: 2rem;">Don't be trash, be a Tema! Join our community and let's take over the Base Chain together!</p>
                 <div class="community-links">
-                    <a href="https://www.tiktok.com/@tema" target="_blank" aria-label="TikTok">🎵</a>
-                    <a href="https://www.instagram.com/tema" target="_blank" aria-label="Instagram">📷</a>
+                    <a href="https://www.tiktok.com/@raccoon.tema?_t=8scwWGP6MUk&_r=1" target="_blank" aria-label="TikTok">🎵</a>
+                    <a href="https://www.instagram.com/raccoon.tema?igsh=YzhxMjNkejZkNG80" target="_blank" aria-label="Instagram">📷</a>
                 </div>
                 <div style="margin-top: 3rem;">
                     <video autoplay loop muted playsinline style="width: 100%; max-width: 300px; margin: 0 auto; border-radius: 0.5rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
@@ -420,3 +415,4 @@
     </script>
 </body>
 </html>
+

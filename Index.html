@@ -91,10 +91,19 @@
             margin-bottom: 1rem;
         }
         .how-to-buy ol {
-            padding-left: 1.5rem;
+            padding-left: 0;
+            list-style-type: none;
         }
         .how-to-buy li {
+            background-color: #0052FF;
             margin-bottom: 1rem;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .how-to-buy li:hover {
+            transform: translateY(-5px);
         }
         .community-links {
             display: flex;
@@ -137,145 +146,184 @@
         .buy-button:hover {
             background-color: #FFE066;
         }
+        .floating-tema {
+            position: absolute;
+            top: 100px;
+            left: 20px;
+            width: 200px;
+            height: 200px;
+            z-index: 1000;
+            animation: float 3s ease-in-out infinite;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .floating-tema {
+                width: 150px;
+                height: 150px;
+                top: 80px;
+                left: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .floating-tema {
+                display: none;
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
     </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <nav>
-                <a href="#" style="font-size: 1.5rem; font-weight: bold;">Tema</a>
-                <div>
-                    <a href="#about">About</a>
-                    <a href="#tokenomics">Tokenomics</a>
-                    <a href="#how-to-buy">How to Buy</a>
-                    <a href="#community">Community</a>
-                    <span class="social-links">
-                        <a href="https://www.tiktok.com/@tema" target="_blank" aria-label="TikTok">🎵</a>
-                        <a href="https://www.youtube.com/@tema" target="_blank" aria-label="YouTube">📺</a>
-                        <a href="https://www.instagram.com/tema" target="_blank" aria-label="Instagram">📷</a>
-                    </span>
-                </div>
-            </nav>
-        </div>
-    </header>
+    <div style="position: relative; overflow: hidden;">
+        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Tema.jpg-6APSI3DP4OD1yHMmJLVuBvjWLIjovZ.jpeg" 
+             alt="Tema in pink heart sweater" 
+             class="floating-tema">
 
-    <main>
-        <section class="hero">
+        <header>
             <div class="container">
-                <h1>Tema</h1>
-                <p>The trashiest memecoin on Base Chain!</p>
-                <p style="font-size: 1.25rem; margin-bottom: 2rem;">
-                    Tema is the world's most famous raccoon with 2,700,000 followers on TikTok, 1,700,000 on YouTube and 314,000 followers on IG
-                </p>
-                <video autoplay loop muted playsinline>
-                    <source src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/W7V5asN7z7WOZJW6tWWr11TcuOw-ErkNHTRmJU9jOeuJdoB5vQXSKYjEVk.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <div style="margin-top: 2rem;">
-                    <a href="#how-to-buy" class="buy-button">Buy $TEMA</a>
-                </div>
-                <canvas id="floating-raccoons"></canvas>
+                <nav>
+                    <a href="#" style="font-size: 1.5rem; font-weight: bold;">Tema</a>
+                    <div>
+                        <a href="#about">About</a>
+                        <a href="#tokenomics">Tokenomics</a>
+                        <a href="#how-to-buy">How to Buy</a>
+                        <a href="#community">Community</a>
+                        <span class="social-links">
+                            <a href="https://www.tiktok.com/@raccoon.tema?_t=8scwWGP6MUk&_r=1" target="_blank" aria-label="TikTok">🎵</a>
+                            <a href="https://www.youtube.com/@tema" target="_blank" aria-label="YouTube">📺</a>
+                            <a href="https://www.instagram.com/raccoon.tema?igsh=YzhxMjNkejZkNG80" target="_blank" aria-label="Instagram">📷</a>
+                        </span>
+                    </div>
+                </nav>
             </div>
-        </section>
+        </header>
 
-        <section id="about" class="section">
-            <div class="container">
-                <h2>About Tema</h2>
-                <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;">
-                    <div style="flex: 1 1 300px; margin-bottom: 2rem;">
-                        <p>Tema is not just another memecoin – it's a trash panda's dream come true on the Base Chain! With our superior scavenging skills and unmatched ability to turn garbage into gold, we're here to raid the crypto world and leave no dumpster unturned.</p>
-                        <p>Join our mischievous band of raccoons as we embark on a journey to become the most hilarious and valuable token in the Base Chain ecosystem. Remember, one raccoon's trash is another raccoon's treasure!</p>
-                    </div>
-                    <div style="flex: 1 1 300px;">
-                        <video autoplay loop muted playsinline style="width: 100%; max-width: 300px; border-radius: 0.5rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
-                            <source src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/0CnWjQvHW7WhdF2yJAe2RyNHOY-38JpXht9FFJmznH4MkzFwrfzfb8wV9.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="tokenomics" class="section" style="background-color: #003399;">
-            <div class="container">
-                <h2>Tokenomics</h2>
-                <div class="grid">
-                    <div class="card">
-                        <h3>Token Supply</h3>
-                        <p style="font-size: 1.25rem;">Total Supply: 1,000,000,000 $TEMA</p>
-                        <p>That's right, 1 BILLION tokens! Enough for every raccoon on Earth and then some!</p>
-                    </div>
-                    <div class="card">
-                        <h3>Tax</h3>
-                        <p style="font-size: 1.25rem;">Buy Tax: 0% | Sell Tax: 0%</p>
-                        <p>No taxes! We're raccoons, not the IRS!</p>
-                    </div>
-                    <div class="card">
-                        <h3>Liquidity</h3>
-                        <p style="font-size: 1.25rem;">LP is burned! 🔥</p>
-                        <p>Locked away forever, just like our hearts are locked on the Base Chain!</p>
-                    </div>
-                    <div class="card">
-                        <h3>Contract</h3>
-                        <p>Contract Address: 0x...</p>
-                        <p style="font-size: 0.875rem;">(Replace with actual contract address when available)</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="how-to-buy" class="section how-to-buy">
-            <div class="container">
-                <h2>How to Buy $TEMA</h2>
-                <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;">
-                    <div style="flex: 1 1 300px; margin-bottom: 2rem;">
-                        <ol>
-                            <li>Set up a wallet compatible with Base Chain (e.g., MetaMask)</li>
-                            <li>Add Base Chain to your wallet</li>
-                            <li>Buy ETH and bridge it to Base Chain</li>
-                            <li>Go to BaseSwap or your preferred DEX on Base Chain</li>
-                            <li>Swap ETH for $TEMA</li>
-                            <li>HODL and watch your trash turn into treasure!</li>
-                        </ol>
-                        <div style="text-align: center; margin-top: 2rem;">
-                            <a href="#" class="buy-button">Buy $TEMA Now</a>
-                        </div>
-                    </div>
-                    <div style="flex: 1 1 300px;">
-                        <video autoplay loop muted playsinline style="width: 100%; max-width: 300px; border-radius: 0.5rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
-                            <source src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/8q4Y32h9VQ65p251bjQpyyVJY-Ddewx3vSLZTiyOUMpUbdqnRPZb13i8.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="community" class="section" style="background-color: #003399;">
-            <div class="container">
-                <h2>Join the Raccoon Family</h2>
-                <p style="font-size: 1.25rem; text-align: center; margin-bottom: 2rem;">Don't be trash, be a Tema! Join our community and let's take over the Base Chain together!</p>
-                <div class="community-links">
-                    <a href="https://www.tiktok.com/@tema" target="_blank" aria-label="TikTok">🎵</a>
-                    <a href="https://www.youtube.com/@tema" target="_blank" aria-label="YouTube">📺</a>
-                    <a href="https://www.instagram.com/tema" target="_blank" aria-label="Instagram">📷</a>
-                </div>
-                <div style="margin-top: 3rem;">
-                    <video autoplay loop muted playsinline style="width: 100%; max-width: 300px; margin: 0 auto; border-radius: 0.5rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
-                        <source src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/gG6OZTWwRJ27ZfiD8kZwUj6VQ-8QftMPBWBjABfXwQz3k7SnAdw4O2oN.mp4" type="video/mp4">
+        <main>
+            <section class="hero">
+                <div class="container">
+                    <h1>Tema</h1>
+                    <p>The trashiest memecoin on Base Chain!</p>
+                    <p style="font-size: 1.25rem; margin-bottom: 2rem;">
+                        Tema is the world's most famous raccoon with 2,700,000 followers on TikTok, 1,700,000 on YouTube and 314,000 followers on IG
+                    </p>
+                    <video autoplay loop muted playsinline>
+                        <source src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/W7V5asN7z7WOZJW6tWWr11TcuOw-ErkNHTRmJU9jOeuJdoB5vQXSKYjEVk.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
+                    <div style="margin-top: 2rem;">
+                        <a href="#how-to-buy" class="buy-button">Buy $TEMA</a>
+                    </div>
+                    <canvas id="floating-raccoons"></canvas>
                 </div>
-            </div>
-        </section>
-    </main>
+            </section>
 
-    <footer>
-        <div class="container">
-            <p>© 2023 Tema. All rights reserved. | Not financial advice. DYOR.</p>
-            <p style="margin-top: 0.5rem; font-size: 0.875rem;">Disclaimer: This is a meme coin. Invest at your own risk. And remember, raccoons are not financial advisors!</p>
-        </div>
-    </footer>
+            <section id="about" class="section">
+                <div class="container">
+                    <h2>About Tema</h2>
+                    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;">
+                        <div style="flex: 1 1 300px; margin-bottom: 2rem;">
+                            <p>Tema is not just another memecoin – it's a trash panda's dream come true on the Base Chain! With our superior scavenging skills and unmatched ability to turn garbage into gold, we're here to raid the crypto world and leave no dumpster unturned.</p>
+                            <p>Join our mischievous band of raccoons as we embark on a journey to become the most hilarious and valuable token in the Base Chain ecosystem. Remember, one raccoon's trash is another raccoon's treasure!</p>
+                            <p>Tema the Raccoon is a viral internet star known for his appearances in social media, particularly on Instagram where he has a significant following. Originally from Russia, Tema and his family have captured hearts with their daily adventures and antics.</p>
+                        </div>
+                        <div style="flex: 1 1 300px;">
+                            <video autoplay loop muted playsinline style="width: 100%; max-width: 300px; border-radius: 0.5rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                                <source src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/0CnWjQvHW7WhdF2yJAe2RyNHOY-38JpXht9FFJmznH4MkzFwrfzfb8wV9.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="tokenomics" class="section" style="background-color: #003399;">
+                <div class="container">
+                    <h2>Tokenomics</h2>
+                    <div class="grid">
+                        <div class="card">
+                            <h3>Token Supply</h3>
+                            <p style="font-size: 1.25rem;">Total Supply: 1,000,000,000 $TEMA</p>
+                            <p>That's right, 1 BILLION tokens! Enough for every raccoon on Earth and then some!</p>
+                        </div>
+                        <div class="card">
+                            <h3>Tax</h3>
+                            <p style="font-size: 1.25rem;">Buy Tax: 0% | Sell Tax: 0%</p>
+                            <p>No taxes! We're raccoons, not the IRS!</p>
+                        </div>
+                        <div class="card">
+                            <h3>Liquidity</h3>
+                            <p style="font-size: 1.25rem;">LP is burned! 🔥</p>
+                            <p>Locked away forever, just like our hearts are locked on the Base Chain!</p>
+                        </div>
+                        <div class="card">
+                            <h3>Contract</h3>
+                            <p>Contract Address: 0x...</p>
+                            <p style="font-size: 0.875rem;">(Replace with actual contract address when available)</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="how-to-buy" class="section how-to-buy">
+                <div class="container">
+                    <h2>How to Buy $TEMA</h2>
+                    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;">
+                        <div style="flex: 1 1 300px; margin-bottom: 2rem;">
+                            <ol>
+                                <li>Set up a wallet compatible with Base Chain (e.g., MetaMask)</li>
+                                <li>Add Base Chain to your wallet</li>
+                                <li>Buy ETH and bridge it to Base Chain</li>
+                                <li>Go to BaseSwap or your preferred DEX on Base Chain</li>
+                                <li>Swap ETH for $TEMA</li>
+                                <li>HODL and watch your trash turn into treasure!</li>
+                            </ol>
+                            <div style="text-align: center; margin-top: 2rem;">
+                                <a href="#" class="buy-button">Buy $TEMA Now</a>
+                            </div>
+                        </div>
+                        <div style="flex: 1 1 300px;">
+                            <video autoplay loop muted playsinline style="width: 100%; max-width: 300px; border-radius: 0.5rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                                <source src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/8q4Y32h9VQ65p251bjQpyyVJY-Ddewx3vSLZTiyOUMpUbdqnRPZb13i8.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="community" class="section" style="background-color: #003399;">
+                <div class="container">
+                    <h2>Join the Raccoon Family</h2>
+                    <p style="font-size: 1.25rem; text-align: center; margin-bottom: 2rem;">Don't be trash, be a Tema! Join our community and let's take over the Base Chain together!</p>
+                    <div class="community-links">
+                        <a href="https://www.tiktok.com/@raccoon.tema?_t=8scwWGP6MUk&_r=1" target="_blank" aria-label="TikTok">🎵</a>
+                        <a href="https://www.youtube.com/@tema" target="_blank" aria-label="YouTube">📺</a>
+                        <a href="https://www.instagram.com/raccoon.tema?igsh=YzhxMjNkejZkNG80" target="_blank" aria-label="Instagram">📷</a>
+                    </div>
+                    <div style="margin-top: 3rem;">
+                        <video autoplay loop muted playsinline style="width: 100%; max-width: 300px; margin: 0 auto; border-radius: 0.5rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                            <source src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/gG6OZTWwRJ27ZfiD8kZwUj6VQ-8QftMPBWBjABfXwQz3k7SnAdw4O2oN.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <div class="container">
+                <p>© 2024 Tema. All rights reserved. | Not financial advice. DYOR.</p>
+                <p style="margin-top: 0.5rem; font-size: 0.875rem;">Disclaimer: This is a meme coin. Invest at your own risk. And remember, raccoons are not financial advisors!</p>
+            </div>
+        </footer>
+    </div>
 
     <script>
         // Floating Raccoons Animation
